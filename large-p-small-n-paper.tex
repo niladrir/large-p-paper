@@ -39,26 +39,33 @@ Statistical graphics plays an important role in exploratory data analysis, model
 
 \end{abstract}
 
+{\color{red} The main message of this paper are :
+\begin{itemize}
+\item \texttt{tourr} package in R is new. When we used the guided tour function in the \texttt{tourr} package to do projection pursuit for getting low dimensional projections of a high dimensional noise data (data with no real separation), surprisingly we could often pick the real data from a lineup. So we want to check the optimization procedure of the \texttt{tourr} package.
+\item  We notice that as we increase the number of dimensions($p$) for a fixed sample size($n$), the groups separate out even for a noise data. So we believe that when $p ~ n$, the separation among the groups obtained by doing a LDA may not be real. So we want to test whether the separation among the groups is real or fake.
+\item Finally  since the groups start separating out as we increase $p$ for a fixed $n$ for noise data, we would like to obtain a probable range for the number of dimension at which the groups start separating. 
+\end{itemize} }
+
 \section{Introduction} 
 %testing
 
 %topic
-{\color{green} History of visualization. Why statistical graphics is important.}
+{\color{red} History of visualization. Why statistical graphics is important.}
 
 Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
 %topic
-{\color{green} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
+{\color{red} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
 In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. \cite{buja:2009}, following from Gelman [2004], proposed two protocols that allow the testing of discoveries made from statistical graphics. \\
 %topic
-{\color{green} Explanation of Projection Pursuit.} \\
+{\color{red} Explanation of Projection Pursuit.} \\
 In this paper we used the idea of projection pursuit by Friedman and Tukey [1974]. Projection pursuit is a statistical tool to find the most interesting projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper we mainly use the one and two dimensional projections obtained by projection pursuit on higher dimensions. \\
 %topic
-{\color{green} Explanation of \texttt{tourr} package.} \\
+{\color{red} Explanation of \texttt{tourr} package.} \\
 In this paper we use the \texttt{tourr} package in \texttt{R} \cite{r} by \cite{WC08}. 
 
 The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper we mainly use the guided tour function which instead of picking a new projection completely at random, it picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with 4 indices but we use the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009}. \\     
 %topic
-{\color{green} Outline of the different sections.}\\
+{\color{red} Outline of the different sections.}\\
 In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
 
 %\section{Visual Statistical Inference} \label{sec:visual_test} 
@@ -98,7 +105,7 @@ In this paper we check the projection pursuit optimization on pure noise with no
 
 \subsection{Motivation}
 %topic
-{\color{green} Statement of the problem. What we want to show. }\\
+{\color{red} Statement of the problem. What we want to show. }\\
 Consider two random samples $X_{i1}, X_{i2}, \dots, X_{ip}$ for $i = 1$ and 2 which have means $\mu_1 = (\mu_{11}, \mu_{12}, \dots, \mu_{1p})^T$ and $\mu_2 = (\mu_{21}, \mu_{22}, \dots, \mu_{2p})^T$ respectively. We consider testing the following high-dimensional hypothesis :
 
 $$H_0 : \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a : \mu_1 \neq \mu_2 .$$
@@ -110,7 +117,7 @@ The hypothesis $H_0$ consists of the $p$ marginal hypotheses $H_{0l} : \mu_{1l} 
 
 \subsection{Procedure}
 %topic
-{\color{green} Description of the procedure. }\\
+{\color{red} Description of the procedure. }\\
 For testing the above hypothesis, we simulate two sets of $p$-dimensional data from a standard normal distribution with $n = 15$ observations in each dimension in each set. Consider $Z_{ij} = (Z_{i1}, Z_{i2}, \dots, Z_{ip})$ for $i = 1$ and 2 and $j = 1, \dots, p$ are simulated from a $N(0, 1)$ distribution. These  two sets of data should represent the random samples collected from the two population. To test for the equality of means, we bring in some separation in the last dimension by adding and subtracting a value $\delta$ from the mean of the dimensions.  
 
 We define $X_{1p} = - \delta + Z_{1p} $ and $X_{2p} = \delta + Z_{2p}$. 
@@ -176,7 +183,7 @@ To compare the above method, we again simulate two sets of $p$-dimensional data 
 
 \subsection{Results}
 %topic
-{\color{green} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
+{\color{red} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
 An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets". ({\color{blue} only for one dimensional projections.}) 
 
 \begin{table}[htbp]
@@ -197,13 +204,13 @@ An experiment is designed to study the ability of human observers to detect the 
 \end{center}
 \end{table}
 %topic
-{\color{green} How the null plots were generated. }\\
+{\color{red} How the null plots were generated. }\\
 The 19 null plots in the lineup were obtained by  permuting the population indicator variable (the variable that indicates which population the data set belongs to) so that breaking any dependency between the indicator variable and the other variables. Two different statistics Wilk's $\lambda$ (\cite{JW02})  and the within sum of squares to between sum of squares ratio were calculated for each of the 20 plots in the lineup. \\
-{\color{green} The data recorded for the participants. How many participants were recruited.} \\
+{\color{red} The data recorded for the participants. How many participants were recruited.} \\
 Participants  for the experiment were recruited through Amazon Mechanical Turk. Each participant was shown a sequence of 9 lineups. They were asked to identify the plot which has the most separation between the colored groups, give a reason for their choice and determine the level of confidence for their decision.  Gender, age, educational qualification and location of each participant were also noted. In total, 1137 lineups were evaluated by 103 participants from different locations. \\
 
 %topic
-{\color{green} Description of the results. }\\
+{\color{red} Description of the results. }\\
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
@@ -216,7 +223,7 @@ Participants  for the experiment were recruited through Amazon Mechanical Turk. 
 
 \normalsize
 %topic
-{\color{green} What do people see when they select a plot.} \\
+{\color{red} What do people see when they select a plot.} \\
 Participants were asked to identify the plots which has the most separated colored groups. In data sets with real separation, participants make mistakes in picking up the plot of the ``observed data". The Wilk's $\lambda$ value of the plots reveal that in most situations, the plots chosen by the participants have the smallest Wilk's lambda value and hence the largest separation among the groups. This happens although the population indicator variable is permuted and any dependence between the indicator variable and the other variable is broken. So we obtain a smaller Wilk's $\lambda$ value in a null plot than the observed plot with some real separation. Figure \ref{wilks-count} shows the count of each plot by the corresponding Wilk's $\lambda$ value. 
 
 \begin{figure*}[hbtp]
@@ -261,7 +268,7 @@ Participants were asked to identify the plots which has the most separated color
 
 \subsection{Procedure}
 %topic
-{\color{green} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
+{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
 Consider two dimensions of pure noise, each dimension having 30 observations divided into 2 classes with 15 observations in each class. If we perform the projection pursuit on this and plot the one dimensional projection pursuits with different color for the classes, we notice an overlap of all the colors in the plot. It signifies that there is no real class and hence the colors overlap. But as we increase the number of dimensions for fixed n, we notice the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for $p=2$, $p=20$, $p=50$ and $p=100$. \\
 
 %\end{multicols}
@@ -284,7 +291,7 @@ Consider two dimensions of pure noise, each dimension having 30 observations div
 \end{figure*}
 
 %\begin{multicols}{2}
-{\color{green} Description for two dimensional projections.} \\
+{\color{red} Description for two dimensional projections.} \\
 Again consider 3 dimensions of pure noise, each dimension having 30 observations divided into 3 classes with 10 observations in each class. We again perform the projection pursuit on this and plot the two dimensional projections. Similarly, in this case the 3 colors starts separating out as we increase the number of dimensions.  Figure \ref{dist_1d} also shows the two dimensional projections for $p=3$, $p=20$, $p=50$ and $p=100$.
 
 %\end{multicols}
@@ -307,7 +314,7 @@ Again consider 3 dimensions of pure noise, each dimension having 30 observations
 
 \subsection{Fun Activity}
 
-{\color{green} The description of the procedure to calculate a probable bound for the number of dimension at which the groups start separating. } \\
+{\color{red} The description of the procedure to calculate a probable bound for the number of dimension at which the groups start separating. } \\
 The previous section clearly suggests that the clusters becomes more and more visible as we increase the number of dimensions. So a natural question is ``What is the probable dimension of data when we can clearly see the two separated clusters for the one dimensional projections and the three separated clusters for the two dimensional projections." So out of our curiosity,  we consider 2 dimensions of random noise and each dimension has 30 observations with 2 classes. Hence there is 15 observations in each class. We plot the one dimensional projections and see if we can see the classes separated. We say that the two class are separated if we can draw a straight line between the two colors without touching any of them. We repeat the same procedure by increasing the number of dimensions by 1 every time. In this manner we plot the two dimensional projections for the number of dimensions from 2 to 62. Figure \ref{conf_int} shows the plots of the one dimensional projections for the number of dimensions from 23 to 42 and Figure \ref{conf_int1} shows the plots of the two dimensional projections for $p$ ranging from 23 to 42.
 
 %\end{multicols}
@@ -334,11 +341,11 @@ Now we see the plot where the one dimensional projections shows a separation bet
 
 Similarly we take 3 dimensions of pure noise with 30 observations in each dimension. Each dimension is divided into 3 classes, with 10 observations in each class. We plot the two dimensional projections and see whether the classes are separated. We again define the classes to be separate if we can draw three lines making an angle of $120^{\circ}$ among themselves without touching any color. So the classes will be separated if none of the colors overlap. We again repeat the same procedure by increasing the number of dimensions by 1 every time. We plot the two dimensional projections from 3 to 62 for sample size 30. We again make 100 such plots and note the number of dimension at which the classes start separating. 
 
-{\color{green} Explanation of the findings. } \\
+{\color{red} Explanation of the findings. } \\
 Hence a probable range that we obtain from the 100 plots for the one dimensional projection is between 24 and 34 and the a probable range for the two dimensional projection is between 26 and 36. 
 
 \section{Conclusions}
-{\color{green} Concluding remarks summarizing the different findings.} \\
+{\color{red} Concluding remarks summarizing the different findings.} \\
 The purpose of this paper has been to utilize  visual inference methods to examine the reliability of the projection pursuit results. We found that there were no problems with the projection pursuit: that viewers had more difficulty picking the ``true" data when it was pure noise. We also use the visual inference method to examine when clusters start to form for a large number of dimensions of pure noise for a fixed sample size. The classes are more and more separated as we increase the number of dimensions. Being motivated by the separation of the classes, we looked for a probable range of the number of dimensions at which the classes start separating for both one dimensional and two dimensional projections, in order to compare with the theoretical predictions. These were between 24-34 for one dimensional projections, and 26-36 for two dimensional projections.
 
 \paragraph{Acknowledgement:}
