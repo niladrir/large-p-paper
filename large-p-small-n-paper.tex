@@ -104,42 +104,52 @@ In this paper we check the projection pursuit optimization on pure noise with no
 %\section{Checking PP Optimization} \label{sec:largep}
 
 \subsection{Motivation}
-%topic
+
 {\color{red} Statement of the problem. What we want to show. }\\
-Consider two random samples $X_{i1}, X_{i2}, \dots, X_{ip}$ for $i = 1$ and 2 which have means $\mu_1 = (\mu_{11}, \mu_{12}, \dots, \mu_{1p})^T$ and $\mu_2 = (\mu_{21}, \mu_{22}, \dots, \mu_{2p})^T$ respectively. We consider testing the following high-dimensional hypothesis :
 
-$$H_0 : \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a : \mu_1 \neq \mu_2 .$$
-
-The hypothesis $H_0$ consists of the $p$ marginal hypotheses $H_{0l} : \mu_{1l} = \mu_{2l}$ for $l = 1, \dots, p$ regarding the means on each data dimension.
-
-%The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
-%We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible. 
+The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
+We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible. 
 
 \subsection{Procedure}
-%topic
+
 {\color{red} Description of the procedure. }\\
-For testing the above hypothesis, we simulate two sets of $p$-dimensional data from a standard normal distribution with $n = 15$ observations in each dimension in each set. Consider $Z_{ij} = (Z_{i1}, Z_{i2}, \dots, Z_{ip})$ for $i = 1$ and 2 and $j = 1, \dots, p$ are simulated from a $N(0, 1)$ distribution. These  two sets of data should represent the random samples collected from the two population. To test for the equality of means, we bring in some separation in the last dimension by adding and subtracting a value $\delta$ from the mean of the dimensions.  
 
-We define $X_{1p} = - \delta + Z_{1p} $ and $X_{2p} = \delta + Z_{2p}$. 
-We bring in a class variable which indicates the population the dataset is obtained from. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2.  We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels.  We showed the lineup plots to several subjects and asked them to identify the plot which has the largest separation among the groups.
+The optimization is checked for 1D and 2D projections. For 1D projections data is simulated from a standard normal distribution with $n=30, p=20, 40, 60, 80 \&100$. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2. There is no true class, it is pure noise data -- any separation seen between classes in the projection are purely due to the high dimension. We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. We expect that the original data should not be detectable -- it's just noise, any labeling of the observations to class is random. 
 
-To compare the above method, we again simulate two sets of $p$-dimensional data from a standard normal distribution with $n = 15$ observations in each dimension in each set. So now we have $X_{ij} = Z_{ij}$ for $i = 1$ and 2 and $j = 1, \dots, p$. So the two datasets from the two population do not have any real separation and they are pure noise. We again compute using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. Several individuals were again asked to identify the plot which has the largest separation among the groups.\\[1cm]
-
-
-{\color{blue}Do not know how to write the two dimensional projections in this set up. May be test for equality of mean vectors for 3 populations ??}
-
-%There is no true class, it is pure noise data -- any separation seen between classes in the projection are purely due to the high dimension.
-%We expect that the original data should not be detectable -- it's just noise, any labeling of the observations to class is random. 
-
-%For 2D projections data is simulated from a standard normal distribution with $n=30, p=100$. The first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. There is no true class, it is pure noise data. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilks $\lambda$ (\cite{JW02}) values are used for the lineup. 
+%topic
+%{\color{red} Statement of the problem. What we want to show. }\\
+%Consider two random samples $X_{i1}, X_{i2}, \dots, X_{ip}$ for $i = 1$ and 2 which have means $\mu_1 = (\mu_{11}, \mu_{12}, \dots, \mu_{1p})^T$ and $\mu_2 = (\mu_{21}, \mu_{22}, \dots, \mu_{2p})^T$ respectively. We consider testing the following high-dimensional hypothesis :
 %
-%For comparison, for each of these examples we also simulated data that had real classes, too. We also simulated data with 99 dimensions of pure noise and one dimension of real separation, in all making it 100 dimensions. In the same way, each dimension has 30 observations and they were divided into 2 classes. The separation was designed in a way such that if we plot the one dimension with real separation, the points lie approximately 6 units apart. Once again the first 15 observations are labeled class 1 and the last 15 observations are labeled class 2. In this case there is one dimension of real separation. We once again compute the projection pursuit using the PDA index and plot the one dimensional projections.
+%$$H_0 : \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a : \mu_1 \neq \mu_2 .$$
 %
-%For 2D projections, data is simulated 100 dimensions of pure noise. Again each dimension has 30 observations with 3 classes. But in this case the last two dimensions are changed so that the data has some real separation. The two dimensions with real separation was constructed such that the points lie close to the vertex of an equilateral triangle of side 6 units. Once again the first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. Here we have two dimensions of real separation. We again compute projection pursuit using the PDA index and plot the two dimensional projections in a lineup plot.  To account for the occasional convergence problem of optimization we select the 19 plots with the minimum Wilk's $\lambda$ from the generated 30 plots generated.
+%The hypothesis $H_0$ consists of the $p$ marginal hypotheses $H_{0l} : \mu_{1l} = \mu_{2l}$ for $l = 1, \dots, p$ regarding the means on each data dimension.
 %
-%Figure \ref{fig:test_category_1d} gives the lineup plot for the one dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
+%%The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
+%%We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible. 
 %
-%Figure \ref{fig:test_category} gives the lineup plot for the two dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise} gives the lineup plot for the two dimensional projections for 98 dimensions of pure noise and 2 dimensions of real separation.
+%\subsection{Procedure}
+%topic
+
+%For testing the above hypothesis, we simulate two sets of $p$-dimensional data from a standard normal distribution with $n = 15$ observations in each dimension in each set. Consider $Z_{ij} = (Z_{i1}, Z_{i2}, \dots, Z_{ip})$ for $i = 1$ and 2 and $j = 1, \dots, p$ are simulated from a $N(0, 1)$ distribution. These  two sets of data should represent the random samples collected from the two population. To test for the equality of means, we bring in some separation in the last dimension by adding and subtracting a value $\delta$ from the mean of the dimensions.  
+%
+%We define $X_{1p} = - \delta + Z_{1p} $ and $X_{2p} = \delta + Z_{2p}$. 
+%We bring in a class variable which indicates the population the dataset is obtained from. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2.  We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels.  We showed the lineup plots to several subjects and asked them to identify the plot which has the largest separation among the groups.
+%
+%To compare the above method, we again simulate two sets of $p$-dimensional data from a standard normal distribution with $n = 15$ observations in each dimension in each set. So now we have $X_{ij} = Z_{ij}$ for $i = 1$ and 2 and $j = 1, \dots, p$. So the two datasets from the two population do not have any real separation and they are pure noise. We again compute using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. Several individuals were again asked to identify the plot which has the largest separation among the groups.\\[1cm]
+%
+%
+%{\color{blue}Do not know how to write the two dimensional projections in this set up. May be test for equality of mean vectors for 3 populations ??}
+
+
+For 2D projections data is simulated from a standard normal distribution with $n=30, p=20, 40, 60, 80 \&100$. The first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. There is no true class, it is pure noise data. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilks $\lambda$ (\cite{JW02}) values are used for the lineup. 
+
+For comparison, for each of these examples we also simulated data that had real classes, too. We also simulated data with ($p$ - 1) dimensions of pure noise and one dimension of real separation, in all making it $p$ dimensions. In the same way, each dimension has $n = 30$ observations and they were divided into 2 classes. The separation was designed in a way such that if we plot the one dimension with real separation, the points lie approximately 6 units apart. Once again the first 15 observations are labeled class 1 and the last 15 observations are labeled class 2. In this case there is one dimension of real separation. We once again compute the projection pursuit using the PDA index and plot the one dimensional projections.
+
+For 2D projections, data is simulated $p$ dimensions of pure noise. Again each dimension has $n = 30$ observations with 3 classes. But in this case the last two dimensions are changed so that the data has some real separation. The two dimensions with real separation was constructed such that the points lie close to the vertex of an equilateral triangle of side 6 units. Once again the first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. Here we have two dimensions of real separation. We again compute projection pursuit using the PDA index and plot the two dimensional projections in a lineup plot.  To account for the occasional convergence problem of optimization we select the 19 plots with the minimum Wilk's $\lambda$ from the generated 30 plots generated.
+
+Figure \ref{fig:test_category_1d} gives the lineup plot for the one dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
+
+Figure \ref{fig:test_category} gives the lineup plot for the two dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise} gives the lineup plot for the two dimensional projections for 98 dimensions of pure noise and 2 dimensions of real separation.
 
 %\end{multicols}
 %
@@ -161,27 +171,27 @@ To compare the above method, we again simulate two sets of $p$-dimensional data 
        \label{not_noise_1d}
 \end{figure}
  
-%\begin{figure}[hbtp]
-%%\begin{figurehere}
-%   \centering
-%       \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
-%       \caption{Lineup plot ($m=20$) with 100 dimensions of random noise for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
-%       \label{fig:test_category}
-%%\end{figurehere}
-%\end{figure}
-%
-%
-%\begin{figure*}[hbtp]
-%%\begin{figurehere}
-%   \centering
-%       \scalebox{1.00}{\includegraphics{plot_2d_98_5.pdf}}
-%       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
-%       \label{not_noise}
-%\end{figure*}
+\begin{figure}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
+       \caption{Lineup plot ($m=20$) with 100 dimensions of random noise for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+       \label{fig:test_category}
+%\end{figurehere}
+\end{figure}
+
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{1.00}{\includegraphics{plot_2d_98_5.pdf}}
+       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+       \label{not_noise}
+\end{figure*}
 
 %\begin{multicols}{2}
 
-\subsection{Results}
+\subsection{Experimental Set up}
 %topic
 {\color{red} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
 An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets". ({\color{blue} only for one dimensional projections.}) 
@@ -196,8 +206,8 @@ An experiment is designed to study the ability of human observers to detect the 
   \hline
   15 & 1 & Y & 20, 40, 60, 80, 100 \\
       & & N & 20, 40, 60, 80, 100\\
- %    10 & 2 & Y & 20, 40, 60, 80, 100 \\
-  %    & & N & 20, 40, 60, 80, 100\\   
+   10 & 2 & Y & 20, 40, 60, 80, 100 \\
+     & & N & 20, 40, 60, 80, 100\\   
       \hline
 \end{tabular}
 \label{freq}
@@ -209,14 +219,25 @@ The 19 null plots in the lineup were obtained by  permuting the population indic
 {\color{red} The data recorded for the participants. How many participants were recruited.} \\
 Participants  for the experiment were recruited through Amazon Mechanical Turk. Each participant was shown a sequence of 9 lineups. They were asked to identify the plot which has the most separation between the colored groups, give a reason for their choice and determine the level of confidence for their decision.  Gender, age, educational qualification and location of each participant were also noted. In total, 1137 lineups were evaluated by 103 participants from different locations. \\
 
+\subsection{Results}
+
 %topic
 {\color{red} Description of the results. }\\
+
+Figure \ref{real_noise} shows the proportion of the participants who successfully picked the plot of the ``observed data". We can clearly see when there is only one dimension of real separation , more people are being able to identify the plot of the ``observed data". The participants are not successful in picking up the plots when the data is complete noise and there is no real separation. 
+
+We also notice that as we increase the number of dimensions $p$ keeping only one dimension of real separation, the proportion of success of picking the true plot decreases. This is understandable since as we increase the number of dimensions of noise keeping the number of real separation fixed to one, the distance between the groups in the ``observed plot"  get closer to the distance between the groups in a null plot making it difficult for the participants to pick the ``observed plot". 
+
+Also for the noise data, we notice that some of the participants are able to identify the plot of ``real data"  although the data has no real separation. This motivates us to look at the Wilk's $\lambda$ value for each plot in a lineup and the number of people picking up a particular plot. Figure \ref{wilks-count} shows such a plot. 
+
+
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.80}{\includegraphics{power-1d.pdf}}
+       \scalebox{0.80}{\includegraphics{result-real.pdf}}
+        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
 %       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
-%       \label{not_noise}
+       \label{real_noise}
 \end{figure*}
 
 \Large{\textit{What affects the decision of the people?}} \\[0.2cm]
@@ -224,7 +245,9 @@ Participants  for the experiment were recruited through Amazon Mechanical Turk. 
 \normalsize
 %topic
 {\color{red} What do people see when they select a plot.} \\
-Participants were asked to identify the plots which has the most separated colored groups. In data sets with real separation, participants make mistakes in picking up the plot of the ``observed data". The Wilk's $\lambda$ value of the plots reveal that in most situations, the plots chosen by the participants have the smallest Wilk's lambda value and hence the largest separation among the groups. This happens although the population indicator variable is permuted and any dependence between the indicator variable and the other variable is broken. So we obtain a smaller Wilk's $\lambda$ value in a null plot than the observed plot with some real separation. Figure \ref{wilks-count} shows the count of each plot by the corresponding Wilk's $\lambda$ value. 
+%Participants were asked to identify the plots which has the most separated colored groups. In data sets with real separation, participants make mistakes in picking up the plot of the ``observed data". 
+
+In Figure \ref{wilks-count}, the Wilk's $\lambda$ value of the plots reveal that in most situations, the plots chosen by the participants have the smallest Wilk's lambda value and hence the largest separation among the groups. This happens although the population indicator variable is permuted and any dependence between the indicator variable and the other variable is broken. So we obtain a smaller Wilk's $\lambda$ value in a null plot than the observed plot with some real separation. Figure \ref{wilks-count} shows the count of each plot by the corresponding Wilk's $\lambda$ value. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
