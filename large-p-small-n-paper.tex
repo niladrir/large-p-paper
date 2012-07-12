@@ -55,18 +55,44 @@ Statistical graphics plays an important role in exploratory data analysis, model
 Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
 %topic
 {\color{red} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
-In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. \cite{buja:2009}, following from Gelman [2004], proposed two protocols that allow the testing of discoveries made from statistical graphics. \\
+In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. \cite{buja:2009}, following from Gelman [2004], proposed two protocols that allow the testing of discoveries made from statistical graphics. Visual Inference can be used to test a number of hypothesis for which a classical test is unknown till date.\\
+{\color{red} Explanation of Large p, Small n}\\
+
 %topic
-{\color{red} Explanation of Projection Pursuit.} \\
+{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this paper we used the idea of projection pursuit by Friedman and Tukey [1974]. Projection pursuit is a statistical tool to find the most interesting projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper we mainly use the one and two dimensional projections obtained by projection pursuit on higher dimensions. \\
 %topic
-{\color{red} Explanation of \texttt{tourr} package.} \\
+{\color{red} Explanation of \texttt{tourr} package(Software Used)} \\
 In this paper we use the \texttt{tourr} package in \texttt{R} \cite{r} by \cite{WC08}. 
 
 The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper we mainly use the guided tour function which instead of picking a new projection completely at random, it picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with 4 indices but we use the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009}. \\     
+
+{\color{red} Statement of the problem. What we want to show. }\\
+
+The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
+We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible.
+
+The distance between clusters obtained by doing a LDA or a PDA on a noise data increases as we increase the number of dimensions $p$ for a fixed sample size $n$. So another motivation for this paper is in situations where the number of dimensions ($p$) is approximately equal or close to the number of observations ($n$), we may see separation among the groups when a linear discriminant analysis (LDA) or a penalized discriminant analysis (PDA) is performed. A natural question is whether there is actually a real separation among the groups or we observed the separation due to the fact that $p \approx n$ or $p > n$. 
+
+Let us consider the following example of LDA method used to classify the groups of paper wasps. There are 50 different paper wasps divided into 4 groups: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14 paper wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), randomly selected a subset of 40 significantly different oligonucleotides from a total of 447 oligonucleotides. Figure \ref{oligo} shows the scatterplot of LD1 versus LD2.
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{.45}{\includegraphics{toth_lda.pdf}}
+       \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker.}
+     \label{oligo}
+%\end{figurehere}
+\end{figure*}  
+
+\newpage
+
+Figure \ref{oligo} clearly shows that groups Foundress(F) and Gyne(G) are two separated clusters while the groups Worker(W) and Queen(Q) are not separated and forms a separate cluster. It would be interesting to find whether the separation is real or fake.
+
 %topic
 {\color{red} Outline of the different sections.}\\
 In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
+
 
 %\section{Visual Statistical Inference} \label{sec:visual_test} 
 %
@@ -103,18 +129,59 @@ In this paper we check the projection pursuit optimization on pure noise with no
 \section{Inference for the means of two populations} \label{sec:largep}
 %\section{Checking PP Optimization} \label{sec:largep}
 
-\subsection{Motivation}
+%\subsection{Motivation}
 
-{\color{red} Statement of the problem. What we want to show. }\\
-
-The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
-We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible. 
+ 
 
 \subsection{Procedure}
 
 {\color{red} Description of the procedure. }\\
 
-The optimization is checked for 1D and 2D projections. For 1D projections data is simulated from a standard normal distribution with $n=30, p=20, 40, 60, 80 \&100$. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2. There is no true class, it is pure noise data -- any separation seen between classes in the projection are purely due to the high dimension. We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. We expect that the original data should not be detectable -- it's just noise, any labeling of the observations to class is random. 
+Let $X_{ij}$ be the $j$-th observation in the $i$-th group where $j = 1, \dots, n$. $X_{ij}$s are random noise obtained from a standard normal distribution. The difference between the means of the absolute noise for the two groups $k$ and $l$ is given by $\bar{X}_{k.} - \bar{X}_{l.}$ and $$\bar{X}_{k.} - \bar{X}_{l.} \sim \hbox{Normal}(0, 2/n)$$ Let us define $$Y  = |\bar{X}_{k.} - \bar{X}_{l.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/n}$.
+
+Let us consider $p$ dimensions of random noise, each dimension being divided into $i = 2$ groups with $n = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. We can obtain the sum of the absolute difference between the means for all the $p$ dimensions. So we define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$
+
+To check for the optimization procedure we bring in one dimension of real separation in the data. So we adjust the mean of $X_{mij}$s such that in the $p$-th dimension, we have $$Y_p = |\bar{X}_{p1.} - \bar{X}_{p2.}| = 6$$ So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + 6$$
+
+As we increase the value of $p$ for a fixed $n$, the distribution of $Y$ goes closer and closer to the distribution of $Z$ since every time we increase the number of dimension, a value is added to the mean of the distributions of $Y$ and $Z$. Figure \ref{fig:dimen} shows the phenomenon. 
+
+%\end{multicols}
+%
+\begin{figure}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.60}{\includegraphics{sum-noise-real.pdf}}
+%       \caption{Lineup plot ($m=20$) with 100 dimensions of random noise for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+     \label{fig:dimen}
+%\end{figurehere}
+\end{figure}
+
+In Figure \ref{fig:dimen} we can see as we increase the number of dimensions from 20 to 100, the common region between the distribution of $Y$ and the distribution of $Z$ increases indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
+
+The next step is to find the number of dimension for a specific value of the common region between the two distributions. To allow us some error, we look the value of the number of dimension $p$ for which $$\hbox{P}[Y > Z_{\alpha}] = \delta$$ where $Z_{\alpha}$ is the $\alpha$-th percentile of $Z$.  So for a given value of $\delta$, we can find the value of $p$ for which the above condition holds true for $\alpha = 0.05$.
+
+We did the above described procedure for 5 different values of $\delta  = 0.0000001, 0.01, 0.05, 0.1$ and $0.2$. We repeated the above procedure 100 times to get 100 values of each dimension $p$ corresponding to each $\delta$. Table \ref{tab:dimen} shows the summaries of the number of dimensions for each value of $\delta$.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Numerical Summaries of dimension $p$ for each value of $\delta$.}
+\begin{tabular}{cccp{3cm}}
+  \hline
+  \hline
+  $\delta$ & Median & 5th percentile & 95th percentile \\
+  \hline
+  0.0000001 & 24 & 19 & 28 \\
+      0.01 & 41 & 38 & 44\\
+   0.02 & 61 & 56 & 64 \\
+     0.1 & 77 & 72 & 81\\   
+     0.2 & 106 & 99 & 112\\ 
+      \hline
+\end{tabular}
+\label{tab:dimen}
+\end{center}
+\end{table}
+
+The optimization is checked for 1D and 2D projections. For 1D projections data of size 30 is simulated from a standard normal distribution with $ p=20, 40, 60, 80$ and $100$ which are close to the values obtained in Table \ref{tab:dimen}. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2. There is no true class, it is pure noise data -- any separation seen between classes in the projection are purely due to the high dimension. We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. We expect that the original data should not be detectable -- it's just noise, any labeling of the observations to class is random. 
 
 %topic
 %{\color{red} Statement of the problem. What we want to show. }\\
@@ -141,11 +208,11 @@ The optimization is checked for 1D and 2D projections. For 1D projections data i
 %{\color{blue}Do not know how to write the two dimensional projections in this set up. May be test for equality of mean vectors for 3 populations ??}
 
 
-For 2D projections data is simulated from a standard normal distribution with $n=30, p=20, 40, 60, 80 \&100$. The first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. There is no true class, it is pure noise data. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilks $\lambda$ (\cite{JW02}) values are used for the lineup. 
+For 2D projections data is simulated from a standard normal distribution with $ p=20, 40, 60, 80$ and $100$ with 30 observations in each dimension. The first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. There is no true class, it is pure noise data. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilks $\lambda$ (\cite{JW02}) values are used for the lineup. 
 
-For comparison, for each of these examples we also simulated data that had real classes, too. We also simulated data with ($p$ - 1) dimensions of pure noise and one dimension of real separation, in all making it $p$ dimensions. In the same way, each dimension has $n = 30$ observations and they were divided into 2 classes. The separation was designed in a way such that if we plot the one dimension with real separation, the points lie approximately 6 units apart. Once again the first 15 observations are labeled class 1 and the last 15 observations are labeled class 2. In this case there is one dimension of real separation. We once again compute the projection pursuit using the PDA index and plot the one dimensional projections.
+For comparison, for each of these examples we also simulated data that had real classes, too. We also simulated data with ($p$ - 1) dimensions of pure noise and one dimension of real separation, in all making it $p$ dimensions. In the same way, each dimension has  30 observations and they were divided into 2 classes. The separation was designed in a way such that if we plot the one dimension with real separation, the points lie approximately 6 units apart. Once again the first 15 observations are labeled class 1 and the last 15 observations are labeled class 2. In this case there is one dimension of real separation. We once again compute the projection pursuit using the PDA index and plot the one dimensional projections.
 
-For 2D projections, data is simulated $p$ dimensions of pure noise. Again each dimension has $n = 30$ observations with 3 classes. But in this case the last two dimensions are changed so that the data has some real separation. The two dimensions with real separation was constructed such that the points lie close to the vertex of an equilateral triangle of side 6 units. Once again the first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. Here we have two dimensions of real separation. We again compute projection pursuit using the PDA index and plot the two dimensional projections in a lineup plot.  To account for the occasional convergence problem of optimization we select the 19 plots with the minimum Wilk's $\lambda$ from the generated 30 plots generated.
+For 2D projections, data is simulated $p$ dimensions of pure noise. Again each dimension has  30 observations with 3 classes. But in this case the last two dimensions are changed so that the data has some real separation. The two dimensions with real separation was constructed such that the points lie close to the vertex of an equilateral triangle of side 6 units. Once again the first 10 observations are labeled class 1, the second 10 observations are labeled class 2 and the last third are labeled class 3. Here we have two dimensions of real separation. We again compute projection pursuit using the PDA index and plot the two dimensional projections in a lineup plot.  To account for the occasional convergence problem of optimization we select the 19 plots with the minimum Wilk's $\lambda$ from the generated 30 plots generated.
 
 Figure \ref{fig:test_category_1d} gives the lineup plot for the one dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
 
@@ -284,9 +351,6 @@ In Figure \ref{wilks-count}, the Wilk's $\lambda$ value of the plots reveal that
 %\begin{multicols}{2}
 
 
-
-
-
 \section{Distance Increasing with $p$ for Fixed $n$} \label{sec:distance}
 
 \subsection{Procedure}
@@ -333,6 +397,30 @@ Again consider 3 dimensions of pure noise, each dimension having 30 observations
 %\end{figure*}
 
 %\begin{multicols}{2}
+
+\subsection{Determining whether a separation is real or fake. }
+
+We obtained the wasp data used to generate Figure \ref{oligo} from the authors. To check whether the separation is real, we generate a lineup by using the wasp data as the actual data. We generate the lineup by randomly permuting the group variable and breaking any relationship between the variables  and the group. Figure \ref{toth_lineup} shows the lineup plots of LD1 versus LD2 of a LDA of the 40 randomly selected oligos.
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{1}{\includegraphics{toth_lineup_lda.pdf}}
+       \caption{Lineup Plot showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The actual data plot is placed randomly among 19 null plots. Can you identify the actual data?  }
+       \label{toth_lineup}
+\end{figure*} 
+
+In Figure \ref{toth_lineup} we can see that the clusters are separated even after breaking any dependency between the groups and the variables. Since PDA is a better index than LDA in a large $p$ situation, we used PDA to generate another lineup which is presented in Figure \ref{toth_pda}. In Figure \ref{toth_pda}, the clusters are not even separated and we cannot identify the true plot. We also generated 40 dimensions of random noise with 50 observations in each dimension. A group variable is also added as the one present in the wasp data. We performed a LDA on this random noise data and we can still see clusters.  This shows that the separation seen in Figure \ref{oligo} may not be real but appear only due to the fact that the number of variables are large.
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{1}{\includegraphics{toth_lineup_pda.pdf}}
+       \caption{Lineup Plot showing PD1 versus PD2 from an PDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The actual data plot is placed randomly among 19 null plots. Can you identify the actual data?  }
+       \label{toth_pda}
+\end{figure*}   
+
+
 
 
 \subsection{Fun Activity}
