@@ -128,8 +128,8 @@ In this paper we check the projection pursuit optimization on pure noise with no
 %
 %For two different visual test statistics of the same observed data, the one  is better, in which a specific pattern is more easily distinguishable visually.
 
-\section{Inference for the means of two populations} \label{sec:largep}
-%\section{Checking PP Optimization} \label{sec:largep}
+%\section{Inference for the means of two populations} \label{sec:largep}
+\section{Checking Projection Pursuit Optimization} \label{sec:largep}
 
 %\subsection{Motivation}
 
@@ -137,28 +137,48 @@ In this paper we check the projection pursuit optimization on pure noise with no
 
 \subsection{Procedure}
 
+To check the optimization procedure we looked at the absolute difference of the means of random noise divided into two groups. We start with one dimensional data of random noise and assign two groups. Since we are interested in the projections, we work with the absolute differences of the means. \\
+
 {\color{red} Description of the procedure. }\\
 
-Let $X_{ij}$ be the $j$-th observation in the $i$-th group where $j = 1, \dots, n$. $X_{ij}$s are random noise obtained from a standard normal distribution. The difference between the means of the absolute noise for the two groups $k$ and $l$ is given by $\bar{X}_{k.} - \bar{X}_{l.}$ and $$\bar{X}_{k.} - \bar{X}_{l.} \sim \hbox{Normal}(0, 2/n)$$ Let us define $$Y  = |\bar{X}_{k.} - \bar{X}_{l.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/n}$.
+Let $X_{ij}$ be the $j$-th observation in the $i$-th group where $j = 1, \dots, n$. $X_{ij}$s are random noise obtained from a standard normal distribution. The difference between the means of the absolute noise for the two groups $k$ and $l$ is given by $\bar{X}_{k.} - \bar{X}_{l.}$ and $$\bar{X}_{k.} - \bar{X}_{l.} \sim \hbox{Normal}(0, 2/n)$$ Let us define $$Y  = |\bar{X}_{k.} - \bar{X}_{l.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/n}$. \\
 
-Let us consider $p$ dimensions of random noise, each dimension being divided into $i = 2$ groups with $n = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. We can obtain the sum of the absolute difference between the means for all the $p$ dimensions. So we define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$
+We can find the expectation and the variance of $Y$: 
+$$E(Y) = \sigma \sqrt{2/\pi}$$ \\
+$$Var(Y) = \sigma^2 (1 - \frac{2}{\pi})$$
+
+Let us consider $p$ dimensions of random noise, each dimension being divided into $i = 2$ groups with $n = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. We can obtain the sum of the absolute difference between the means for all the $p$ dimensions. So we define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$ \\
+
+Assuming independence among the dimensions of pure noise,
+
+$$E(Y) = p \sigma \sqrt{2/\pi}$$
+$$Var(Y) = p \sigma^2 (1 - \frac{2}{\pi})$$
 
 To check for the optimization procedure we bring in one dimension of real separation in the data. So we adjust the mean of $X_{mij}$s such that in the $p$-th dimension, we have $$Y_p = |\bar{X}_{p1.} - \bar{X}_{p2.}| = 6$$ So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + 6$$
 
-As we increase the value of $p$ for a fixed $n$, the distribution of $Y$ goes closer and closer to the distribution of $Z$ since every time we increase the number of dimension, a value is added to the mean of the distributions of $Y$ and $Z$. Figure \ref{fig:dimen} shows the phenomenon. 
+Again assuming independence among the dimensions of pure noise and real separation,
+
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
+$$Var(Z) = p \sigma^2 (1 - \frac{2}{\pi})$$
+
+As we increase the value of $p$ for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ as the spread of $Z$ increases as well. The mean of both $Y$ and $Z$ also increases with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and does not depend on the number of dimensions ($p$). 
+$$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$ \\
+ Figure \ref{fig:dimen} shows the phenomenon.  \\
 
 %\end{multicols}
 %
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.60}{\includegraphics{sum-noise-real.pdf}}
-%       \caption{Lineup plot ($m=20$) with 100 dimensions of random noise for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+       \scalebox{0.70}{\includegraphics{sum-noise-real-1.pdf}}
+       \caption{Plot showing the distribution of the sum of absolute difference of means for data with pure noise ($Y$) and real separation ($Z$) for different values of the dimension. The distribution of $Y$ and $Z$ are colored in red and green respectively with the blue line showing the 5th percentile of $Z$. The blue area shows the area of $Y$ which is greater than the 5th percentile of $Z$. We can notice that the blue area increases as we increase the number of dimensions. }
      \label{fig:dimen}
 %\end{figurehere}
 \end{figure}
 
-In Figure \ref{fig:dimen} we can see as we increase the number of dimensions from 20 to 100, the common region between the distribution of $Y$ and the distribution of $Z$ increases indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
+In Figure \ref{fig:dimen} we can see as we increase the number of dimensions ($p$) from 20 to 100, the region of the distribution of $Y$ which is greater than the 5th percentile of $Z$ increases as the variability in $Y$ and $Z$ increases as a factor of the dimension ($p$).
+
+% As a result, the probability of obtaining two clusters for data with pure noise indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
 
 The next step is to find the number of dimension for a specific value of the common region between the two distributions. To allow us some error, we look the value of the number of dimension $p$ for which $$\hbox{P}[Y > Z_{\alpha}] = \delta$$ where $Z_{\alpha}$ is the $\alpha$-th percentile of $Z$.  So for a given value of $\delta$, we can find the value of $p$ for which the above condition holds true for $\alpha = 0.05$.
 
@@ -263,7 +283,9 @@ Figure \ref{fig:test_category} gives the lineup plot for the two dimensional pro
 \subsection{Experimental Set up}
 %topic
 {\color{red} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
-An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets". ({\color{blue} only for one dimensional projections.}) 
+An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets". 
+
+%({\color{blue} only for one dimensional projections.}) 
 
 \begin{table}[htbp]
 \begin{center}
@@ -303,9 +325,9 @@ Also for the noise data, we notice that some of the participants are able to ide
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.80}{\includegraphics{result-real.pdf}}
-        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-%       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+       \scalebox{0.7}{\includegraphics{suc-rate-ci.pdf}}
+%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
+      \caption{Plot showing the proportion of correct response for 1D projection and 2D projection and data with real separation and pure noise. The 95\% bootstrap confidence intervals are also shown. We can see that the proportion of correct response decreases as we increase the number of dimensions ($p$) from 20 to 100 for data with real separation. When the data is pure noise data, the proportion of correct response is very low which is understandable as we do not expect people to identify the plot when the data is pure noise data.  }
        \label{real_noise}
 \end{figure*}
 

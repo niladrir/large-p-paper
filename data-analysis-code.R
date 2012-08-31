@@ -98,6 +98,31 @@ suc.rate <- ddply(turk7, .(sample_size,noise,dimension,projection), summarise, s
 
 suc.rate.sub <- subset(suc.rate, dimension != 10 & sample_size != 50)
 
+###Bootstrap Confidence Interval
+
+boot.strap <- function(data){
+	dat <- ldply(1:10000, function(k){ sample(data, length(data), replace = TRUE)})
+	p <- sum(data == "TRUE")/length(data)
+	prop.correct <- apply(dat, 1, function(x){ sum(x == "TRUE")/length(x)}) 
+	return(c(lb.025 = as.numeric(quantile(prop.correct, 0.025)), p = p, ub.975 = as.numeric(quantile(prop.correct, 0.975))))
+}
+
+boot.strap.ci <- ddply(subset(turk7,sample_size == 30 & dimension != 10), .(noise,dimension,projection), summarise, ci = boot.strap(response))
+
+levels(boot.strap.ci$noise) <- c("Real Separation", "Noise Data")
+
+
+levels(boot.strap.ci$projection) <- c("1D Projection", "2D Projection")
+
+boot.strap.ci$meas <- rep(c("lb", "p", "ub"), 20)
+
+
+qplot(dimension, ci, data = boot.strap.ci, geom = c("point", "line"), group = meas, col = I("red"), linetype = c(2,1,2), facets = noise ~ projection,  xlab = "Dimension", ylab = "Proportion of Correct Response") + scale_x_discrete(limits = c(20 , 40, 60, 80, 100))
+
+#ggsave("suc-rate-ci.pdf", height = 7, width = 7)
+
+####Power Calculation (Not needed for this project)
+
 suc.rate.sub$Power <- suc.rate.sub$suc.rate
 
 for(i in 1:dim(suc.rate.sub)[1]){
