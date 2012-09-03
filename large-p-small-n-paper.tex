@@ -15,6 +15,9 @@
 \newtheorem{con}{Conjecture}[thm]
 %\setlength{\parindent}{0in}   % for no indent
 
+\newcommand{\blue}{\color{blue}}
+\newcommand{\red}{\color{red}}
+
 \topmargin -0.10in   % when making pdf
 \textheight 8.5in  % when making pdf
 
@@ -23,7 +26,7 @@
 
 %% ================ chapter 2 starts here  ==========================
 
-\title{Visual Statistical Inference for Large $p$, Small $n$ Data}\label{ch:largepsmalln}
+\title{Visual Statistical Inference for High Dimension, Small Sample Size Data}\label{ch:largepsmalln}
 \vspace{-0.8cm}
 \author{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder}
 %\large{This paper was presented in Joint Statistical Meetings 2011 and is submitted in JSM Proceedings 2011.} 
@@ -44,13 +47,44 @@ Statistical graphics plays an important role in exploratory data analysis, model
 \item \texttt{tourr} package in R is new. When we used the guided tour function in the \texttt{tourr} package to do projection pursuit for getting low dimensional projections of a high dimensional noise data (data with no real separation), surprisingly we could often pick the real data from a lineup. So we want to check the optimization procedure of the \texttt{tourr} package.
 \item  We notice that as we increase the number of dimensions($p$) for a fixed sample size($n$), the groups separate out even for a noise data. So we believe that when $p ~ n$, the separation among the groups obtained by doing a LDA may not be real. So we want to test whether the separation among the groups is real or fake.
 \item Finally  since the groups start separating out as we increase $p$ for a fixed $n$ for noise data, we would like to obtain a probable range for the number of dimension at which the groups start separating. 
+\bigskip
+\centerline{*** From Di ***}
+
+\item Visual inference can be used to educate the broader community about HDLSS issues. The example from the Toth paper shows this, that what is seen as separation is consistent with noise when we do visual inference. Visual inference can help researchers understand the issues of HDLSS more easily. (Primary message.)
+\item Visual inference can be used to examine algorithms for dimension reduction in HDLSS. Projection pursuit algorithm needs substantive optimization but checking that it is working correctly is difficult. It requires visual examination of the result - so compare real vs no separation using visual inference - can help to determine if the optimization algorithm is doing its job.
 \end{itemize} }
 
 \section{Introduction} 
 %testing
 
 %topic
-{\color{red} History of visualization. Why statistical graphics is important.}
+%{\color{red} History of visualization. Why statistical graphics is important.}
+{\blue TOPIC: What's important about this paper? HDLSS}
+
+Many problems needing solutions today require the analysis of data where more variables are measured than samples are taken. This is commonly referred to as high dimensional, low sample size (HDLSS) data \ref{XXX}.  HDLSS data occur in many application areas like face recognition and gene expression data. Classical statistical methods often fail in this context, because there is insufficient data to be able to estimate properties of matrices, such as the variance-covariance matrix, required by many methods. 
+
+{\blue TOPIC: Explanation of problem with classical methods}
+
+Reducing the dimension would seem to be the natural first step in HDLSS data. Principal component analysis (PCA) is the classical approach. PCA requires estimating the eigenvalues (maximum variance) and eigenvectors (direction of maximum variance) of the population variance-covariance based on the sample. With insufficient data this is a Sisyphean task. Just imagine, estimating a line on the foundation of a single point. There are infinitely many lines possible to return. Similarly for classification tasks, finding a low-dimensional representation of the separation between classes is a common first step. Linear discriminant analysis (LDA) is the classical method for this. LDA finds the low-dimensional space where the classes are most separated, by solving an eigendecomposition problem comparing distances between class means with variance around each mean. When there are few sample points differences between classes can be found in many different low-dimensional spaces. 
+
+{\blue*** No need to use ``\verb#\\#'' after every paragraph}
+
+{\blue TOPIC: Now discuss the contemporary literature on HDLSS adjustments to methods.}
+
+\cite{marron:2007} describes the estimation issues associated with HDLSS.  
+
+{\blue TOPIC: This is clearly not getting the problem understood.}
+
+Clearly, though, the issues of working with HDLSS data are not clear to many researchers. In \cite{Toth} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), first reduced the dimension from 447 to 40 by randomly selected a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{Speedetal}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. With visual inference it can be shown that there is no real difference between the classes - what you see is a mirage. 
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{.45}{\includegraphics{toth_lda.pdf}}
+       \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker.}
+     \label{oligo}
+%\end{figurehere}
+\end{figure*}  
 
 Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
 %topic
@@ -59,7 +93,7 @@ In recent times there have been major advances in statistical graphics. Modern c
 {\color{red} Explanation of Large p, Small n}\\
 A challenging case of data mining is the high dimensional, low sample size (HDLSS) data. In HDLSS  settings, the number of dimensions of the data is larger or often much larger than the number of observations. HDLSS data occur in many applied areas like microarray analysis, face recognition and gene expression data. As pointed out in \cite{marron:2007}, classical multivariate statistical methods often fail to give a meaningful analysis in HDLSS contexts. 
 
-One of the problems with HDLSS dataset is that not all the measured variables are ``important" for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.\\
+One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.\\
 %topic
 {\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this paper we used the idea of projection pursuit by Friedman and Tukey [1974]. Projection pursuit is a statistical tool to find the most interesting projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper we mainly use the one and two dimensional projections obtained by projection pursuit on higher dimensions. \\
@@ -87,7 +121,7 @@ Let us consider the following example of LDA method used to classify the groups 
 %\end{figurehere}
 \end{figure*}  
 
-\newpage
+%\newpage
 
 Figure \ref{oligo} clearly shows that groups Foundress(F) and Gyne(G) are two separated clusters while the groups Worker(W) and Queen(Q) are not separated and forms a separate cluster. It would be interesting to find whether the separation is real or fake.
 
