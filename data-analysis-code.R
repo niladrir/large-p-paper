@@ -67,8 +67,11 @@ turk7$replication <- rep$S
 
 turk7$dimension <- factor(turk7$dimension, levels = c("10" , "20", "40", "60", "80", "100"))
 
+id_perf <- ddply(turk7,.(id),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )
 
+id_10 <- id_perf$id[id_perf$tot.attempt > 8]
 
+turk7 <- subset(turk7, id %in% id_10)
 
 ### turk 7 is the cleaned data which should be used for data analysis. Before going any further each line above should run. turk 7 excludes the response provided by Mahbub, Niladri, Dr. Cook and Dr. Hofmann.
 
@@ -114,14 +117,311 @@ levels(boot.strap.ci$noise) <- c("Real Separation", "Noise Data")
 
 levels(boot.strap.ci$projection) <- c("1D Projection", "2D Projection")
 
+boot.strap.ci$dimension <- as.numeric(as.character(boot.strap.ci$dimension))
+
 boot.strap.ci$meas <- rep(c("lb", "p", "ub"), 20)
 
 
-qplot(dimension, ci, data = boot.strap.ci, geom = c("point", "line"), group = meas, col = I("red"), linetype = c(2,1,2), facets = noise ~ projection,  xlab = "Dimension", ylab = "Proportion of Correct Response") + scale_x_discrete(limits = c(20 , 40, 60, 80, 100))
+### Adjusted Wald Intervals
+
+adj.Wald <- function(data, alpha=0.05, x=2) {
+	n <- length(data)
+	y <- sum(data)
+	n <- n+2*x
+	p <- (y+x)/n
+	li <- qnorm(1-alpha/2)*sqrt(p*(1-p)/n)
+	return(list(lo=p-li, p=p, up=p+li))
+}
+
+adj.Wald.ci <- ddply(subset(turk7,sample_size == 30 & dimension != 10), .(noise,dimension,projection), summarise, p = adj.Wald(response)$p, lower = adj.Wald(response)$lo, upper = adj.Wald(response)$up )
+
+levels(adj.Wald.ci$noise) <- c("Real Separation", "Noise Data")
+
+
+levels(adj.Wald.ci$projection) <- c("1D Projection", "2D Projection")
+
+adj.Wald.ci$dimension <- as.numeric(as.character(adj.Wald.ci$dimension))
+
+#adj.Wald.ci$meas <- rep(c("lb", "p", "ub"), 20)
+
+
+m <- ggplot(adj.Wald.ci, aes(dimension, p, ymin = lower, ymax = upper)) + facet_grid(noise ~ projection)
+
+m + geom_pointrange() + ylim(c(-0.05, 1))
+
+m + geom_errorbar(width = 5) + ylim(c(-0.05, 1))
+
+
+m + geom_crossbar(width = 5, colour = I("red")) + ylim(c(-0.05, 1))
+
 
 #ggsave("suc-rate-ci.pdf", height = 7, width = 7)
 
+###===========================================================================================
+### GLM model layered on the observed success rates
+###=======================================================================================
+
+dat <- subset(turk7, dimension != 10 & sample_size != 50)
+
+dat$res <- 0
+1 -> dat$res[dat$response == "TRUE"]
+
+dat$dimension <- as.numeric(as.character(dat$dimension))
+
+
+fit.power <- glm(response ~ dimension+ noise + projection
+             , family=binomial,data=dat)
+res <- summary(fit.power)
+#str(res)
+res$coef
+
+dimension <- rep(seq(20,100, by=1),each=4)
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))
+newdat <- data.frame(dimension,noise,projection)
+power <- predict(fit.power, newdata = newdat, type="response", se.fit = TRUE)
+
+
+pow.dat <- data.frame(dimensions = dimension
+                    , empirical=power$fit
+                    , noise = noise, projection = projection)
+pow.dat.m <- melt(pow.dat, id=c("dimensions","noise","projection"))
+head(pow.dat.m)
+colnames(pow.dat.m) <- c("dimensions","noise","projection","Test","prob")
+
+levels(pow.dat.m$noise) <- c("Real Separation", "Noise Data")
+
+levels(pow.dat.m$projection) <- c("1D Projection", "2D Projection")
+
+qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+
+###Plot showing the GLM model on the observed success rates
+
+ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
+
+ggsave("suc-rate-glm.pdf", height = 7, width = 7)
+
+###===========================================================================================
+### GLM to see the effect of noise, projection and dimension on the response
+###=======================================================================================
+
+
+dat <- subset(turk7, dimension != 10 & sample_size != 50)
+
+levels(dat$noise) <- c("Real Separation", "Noise Data")
+levels(dat$projection) <- c("1D Projection", "2D Projection")
+
+d <- ddply(dat, .(dimension, noise, projection, response), summarize, l = length(response))
+
+d$response <- as.numeric(d$response)
+
+d$dimension <- as.numeric(as.character(d$dimension))
+
+ggplot() + geom_point(data = d, aes(x = dimension, y = response, size = l), alpha = I(0.7)) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
+
+ggsave("glm-model.pdf", height = 7, width = 7)
+
+
+###=============================================================
+### Subjectwise probability of success by GLM
+### ============================================================
+
+library(lme4)
+
+dat$dimension <- as.numeric(as.character(dat$dimension))
+
+fit.mixed <- lmer(response ~ dimension + factor(noise) + factor(projection)
+              + (1|id)
+              , family="binomial"
+              , data=dat)
+res <- summary(fit.mixed)
+B <- res@coefs[,1]
+
+dimension <- rep(seq(20,100, by=1),each=4)
+noise <- rep(rep(c(0,1),each=2),length(dimension))
+projection <- rep(rep(c(1,2),2),length(dimension))
+
+
+delta <- as.numeric(res@REmat[4])
+
+power=NULL
+gnd <- NULL
+tau <- res@ranef    # estimates for existing subject
+M <- length(tau)
+for (i in 1:M){
+	  X <- cbind(rep(1,length(dimension)),dimension,noise,projection)
+  xb <- X %*% B + tau[i]
+  power <- cbind(power,exp(xb)/(1+exp(xb))) 
+}
+colnames(power) <- 1:M
+
+
+pow.dat1 <- data.frame(dimension, power, noise, projection)
+pow.dat.m1 <- melt(pow.dat1, id=c("dimension", "noise", "projection"))
+
+pow.dat.m1$noise <- as.factor(pow.dat.m1$noise)
+
+pow.dat.m1$projection <- as.factor(pow.dat.m1$projection)
+
+levels(pow.dat.m1$noise) <- c("Real Separation", "Noise Data")
+
+levels(pow.dat.m1$projection) <- c("1D Projection", "2D Projection")
+
+ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1, alpha = I(0.1)) + facet_grid(noise ~ projection) + geom_line(aes(x = dimension, y = prob), data=pow.dat.m, colour = I("blue"), size = I(1)) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(0,1))
+ 
+ggsave("subjectwise-glm.pdf", height = 7, width = 7)
+
+ 
+###==================================================================================
+### Time taken to respond for different levels of dimension for noise and real data
+###==================================================================================
+
+levels(turk7$noise) <- c("real separation", "noise data")
+levels(turk7$projection) <- c("1D projection", "2D projection")
+
+qplot(dimension, log(time_taken), data = subset(turk7, dimension !=10 & sample_size !=50), geom = "boxplot", fill = noise, colour = noise, facets = projection ~. , alpha = I(0.3), size = I(0.8)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_y_continuous("log time taken to respond") + scale_fill_discrete(name = "Data") + scale_color_discrete(name = "Data")
+
+ggsave("time-taken-log.pdf", height = 7, width = 7)
+
+### Mean time vs dimension
+
+turk7.d <- ddply(subset(turk7, dimension !=10 & sample_size !=50), .(noise, dimension, projection), summarize, m = median(time_taken))
+
+qplot(dimension, m, data = turk7.d, geom = c("point"), colour = noise,  size = I(3), facets = projection ~ .) + geom_line(aes(group = noise), size = I(1.2)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_y_continuous(name = "Mean time taken to respond ") 
+
+
+###===================================================================================
+### Reason of Choice
+###===================================================================================
+
+# 1 = Gap is Biggest
+# 2 = Centers are far apart
+# 3 = Groups are least spread
+# 4 = Groups are in corners
+# 5 = Other
+
+qplot(factor(choice_reason), geom = "bar", data = subset(turk7, dimension != 10 & sample_size != 50), facets = projection ~ ., fill = noise)
+
+
+turk7.choice <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason))
+
+turk7.choice$choice_reason <- as.factor(turk7.choice$choice_reason)
+
+levels(turk7.choice$choice_reason) <- c("Biggest Gap(1)", "Centers Apart(2)", "Least Spread(3)", "Groups in Corners(4)", "Others(5)", "12", "13", "14", "15", "23", "24", "25", "35", "45", "123", "124", "134", "1234")
+
+qplot(dimension, factor(choice_reason), data = subset(turk7.choice, l > 2 ), fill = l, geom = "tile", facets = noise ~ projection, alpha = I(0.7)) + scale_y_discrete("Reasons of Choice") + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_fill_gradient(name = "Number of people",low="green", high="red")
+
+ggplot() + geom_bar(data = subset(turk7.choice, l > 2), aes(x = factor(choice_reason), weights = l, fill = noise), position = "dodge") + facet_grid(dimension ~ projection) + coord_flip() + scale_x_discrete("Reasons of Choice") + scale_fill_discrete(name = "Data")
+
+ggsave("choice-reason-bar.pdf", height = 8, width = 6)
+
+turk7.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason), s = sum(response)/length(response))
+
+
+###=====================================================================================
+### Confidence Level
+###=====================================================================================
+
+
+turk7.cl <- ddply(subset(turk7, dimension !=10 & sample_size !=50), .(dimension, noise, projection, conf_level), summarize, s = sum(response)/length(response))
+
+qplot(conf_level, s, data = turk7.cl, size = I(3), alpha = I(0.4), geom = "point", facets = noise ~ projection) + geom_smooth(method = "lm")
+
+qplot(conf_level, s, data = turk7.cl, size = I(3), alpha = I(0.4), geom = "point", colour = factor(dimension), facets = noise ~ projection) + geom_smooth(method = "lm", se = FALSE)
+
+## + geom_line(aes(group = dimension))
+
+turk7.time <- ddply(subset(turk7, dimension !=10 & sample_size !=50), .(dimension, noise, projection, conf_level), summarize, m = mean(time_taken))
+
+#turk7.time$conf_level <- as.factor(turk7.time$conf_level)
+
+#levels(turk7.time$conf_level) <- c("Most(1)", "2", "3", "4", "Least(5)")
+
+qplot( m, factor(conf_level), data = turk7.time, alpha = I(0.4), size = I(3), geom = "point", facets = noise ~ projection) + geom_smooth(method = "lm") 
+
++ ylab("Mean time taken to respond") + scale_x_continuous("Confidence Level", breaks = c(1,2,3,4, 5), labels = c("Most","2","3","4","Least"))
+
+qplot(conf_level, m, data = turk7.time, size = I(3), alpha = I(0.4), geom = "point", colour = factor(dimension), facets = noise ~ projection, xlab = "Confidence Level", ylab = "Mean time taken to respond") + geom_smooth(method = "lm", se = FALSE) + scale_colour_discrete(name = "Dimension")
+
+
+qplot(factor(conf_level), time_taken, data = subset(turk7, dimension !=10 & sample_size !=50 & time_taken < 400), geom = "boxplot", facets = noise ~ projection, colour = I("red")) + coord_flip() 
+
+###================================================================================
+### Subject Wise Probabilty by gender
+###================================================================================
+
+library(lme4)
+fit.mixed <- lmer(response ~ gender+dimension+ noise + projection
+              + (1|id)
+              , family="binomial"
+              , data=dat)
+res <- summary(fit.mixed)
+B <- res@coefs[,1]
+
+dimension <- rep(seq(20,100, by=1),each=4)
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))
+
+#dimension <- seq(20,100, by=1)
+#noise <- factor(rep(0,length(dimension)))
+#projection <- factor(rep(1,length(dimension)))
+
+
+
+#beta <- seq(0.01,16, by=.2)
+#head(res@frame)
+#sample.size <- rep(0,length(beta))
+#sigma.val <- rep(1,length(beta))
+#conf_level <- rep(1,length(beta))
+
+
+delta <- as.numeric(res@REmat[4])
+
+power=NULL
+gnd <- NULL
+tau <- res@ranef    # estimates for existing subject
+M <- length(tau)
+for (i in 1:M){
+  #tau <- rnorm(mean=0,sd=delta, n=1) # estimates for new subject
+  gender.val <- rep(as.numeric(dat$gender[dat$id==i][1])-1,length(dimension))
+  X <- cbind(rep(1,length(dimension)),gender.val,dimension,noise,projection)
+  #dim(X)
+  xb <- X %*% B + tau[i]
+  power <- cbind(power,exp(xb)/(1+exp(xb)))
+  gnd <- c(gnd,gender.val[1])
+}
+colnames(power) <- 1:M
+
+
+pow.dat <- data.frame(dimension, power, noise, projection)
+dim(pow.dat)
+pow.dat.m <- melt(pow.dat, id=c("dimension", "noise", "projection"))
+pow.dat.m$gender <- factor(c(gnd[rep(1:M, each=81*16)]), labels=c("Male","Female"))
+head(pow.dat.m)
+tail(pow.dat.m)
+
+levels(pow.dat.m$noise) <- c("real separation", "noise data")
+levels(pow.dat.m$projection) <- c("1D projection", "2D projection")
+
+p <- qplot(dimension,value,group=variable,geom="line", colour = factor(gender), data=subset(pow.dat.m, !is.na(gender)), alpha = I(0.5)) + facet_grid(noise ~ projection)
+p + xlab("Dimension") + ylab("Probability of making the correct response") + scale_colour_discrete("Gender")
+
+
+ggsave("glm-subjectwise.pdf", height = 7, width = 7)
+
+
+####====================================================================================================
+####====================================================================================================
+####====================================================================================================
+####====================================================================================================
+####====================================================================================================
+####====================================================================================================
+
+
+####===========================================================================================
 ####Power Calculation (Not needed for this project)
+####===========================================================================================
+
 
 suc.rate.sub$Power <- suc.rate.sub$suc.rate
 
@@ -146,52 +446,59 @@ suc.rate.m <- melt(suc.rate.sub, id = c("sample_size", "noise", "dimension","pro
 
 qplot(factor(dimension), value, data = subset(suc.rate.m, projection == 1), geom = "line", col = I("red"), group = factor(variable), linetype = factor(variable), facets = ~ noise) + scale_x_discrete("dimension") + scale_y_continuous("visual power", limits = c(0,1)) + scale_linetype_discrete("test") 
 
-ggsave("power-1d.pdf", height = 4, width = 9)
+#ggsave("power-1d.pdf", height = 4, width = 9)
 
 ###Both one and two dimensional projections
 
 qplot(factor(dimension), value, data = suc.rate.m, geom = "line", col = I("red"), group = factor(variable), linetype = factor(variable), facets =projection ~ noise) + scale_x_discrete("dimension") + scale_y_continuous("visual power", limits = c(0,1)) + scale_linetype_discrete("test") 
 
+####===========================================================================================
+####===========================================================================================
+
+
 ### Plotting the Proportion of Correct Response by each parameter ID
 
-qplot(param_id, suc.rate, data = suc.rate, geom = "bar")
+#qplot(param_id, suc.rate, data = suc.rate, geom = "bar")
 
 
 ###Splitting the parameter ID variable to obtain the different parameter values
 
-m <- as.data.frame(matrix(unlist(strsplit(suc.rate$param_id, "\\_")), ncol = 4, byrow = T))
+#m <- as.data.frame(matrix(unlist(strsplit(suc.rate$param_id, "\\_")), ncol = 4, byrow = T))
 
-names(m) <- c("sample_size", "dimension", "noise", "projection")
+#names(m) <- c("sample_size", "dimension", "noise", "projection")
 
 ### Adding the parameter values to the data frame
 
-suc.rate.param <- data.frame( suc.rate, m )
+#suc.rate.param <- data.frame( suc.rate, m )
 
 ### Ordering the levels of the dimesion
 
-suc.rate.param$dimension <- factor(suc.rate.param$dimension, levels = c("10" , "20", "40", "60", "80", "100")) 
+#suc.rate.param$dimension <- factor(suc.rate.param$dimension, levels = c("10" , "20", "40", "60", "80", "100")) 
 
 
 ### Plotting the Proportion of Correct Response by each dimension for data with real separation
 
-qplot(factor(dimension), suc.rate, data = subset(suc.rate.param, dimension!=10 & noise == 0 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(projection), ylim=c(0,1), xlab = "Dimension", ylab = "Proportion of Correct Response", main = "Data with Real Separation") + scale_fill_discrete(name = "Projections") 
+qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & noise == 0 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(projection), ylim=c(0,1), xlab = "Dimension", ylab = "Proportion of Correct Response", main = "Data with Real Separation") + scale_fill_discrete(name = "Projections") 
 
 ### Plotting the Proportion of Correct Response by each dimension for noise data
 
-qplot(factor(dimension), suc.rate, data = subset(suc.rate.param, dimension!=10 & noise == 1 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(projection), ylim=c(0,1), xlab = "Dimension", ylab = "Proportion of Correct Response", main = "Noise Data") + scale_fill_discrete(name = "Projections")  
+qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & noise == 1 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(projection), ylim=c(0,1), xlab = "Dimension", ylab = "Proportion of Correct Response", main = "Noise Data") + scale_fill_discrete(name = "Projections")  
 
 ### Plotting the Proportion of Correct Response by dimension for 1D projections
 
-qplot(factor(dimension), suc.rate, data = subset(suc.rate.param, dimension!=10 & projection == 1 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(noise), ylim=c(0,1)) 
+qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & projection == 1 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(noise), ylim=c(0,1)) 
 
 ### Plotting the Proportion of Correct Response by dimension for 2D projections
 
-qplot(factor(dimension), suc.rate, data = subset(suc.rate.param, dimension!=10 & projection == 2 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(noise), ylim=c(0,1)) 
+qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & projection == 2 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(noise), ylim=c(0,1)) 
+
 
 
 ### Plotting the Proportion of Correct Response for Paper Wasp dataset
 
-qplot(factor(noise), suc.rate, data = subset(suc.rate.param, sample_size == 50), position = "dodge", geom = "bar",  ylim=c(0,1), xlab = "Noise Data", ylab = "Proportion of Correct Response", main = "Paper Wasp Data") 
+qplot(factor(noise), suc.rate, data = subset(suc.rate, sample_size == 50), position = "dodge", geom = "bar",  ylim=c(0,1), xlab = "Noise Data", ylab = "Proportion of Correct Response", main = "Paper Wasp Data") 
+
+
 
 
 ###==================================================================================
@@ -248,7 +555,9 @@ qplot(factor(dimension), suc.rate, data = subset(success.academic, !is.na(academ
 ###==================================================================================
 
 
-qplot(time_taken, geom="histogram", binwidth = 20, data = subset(turk7, dimension !=10), facets = noise ~ dimension, fill = factor(projection))
+qplot(time_taken, geom="histogram", binwidth = 20, data = subset(turk7, dimension !=10), facets = . ~ noise, fill = factor(response), xlim = c(0, 250), alpha = I(0.5), col = factor(response))
+
+qplot(dimension,time_taken, geom = "boxplot", data = subset(turk7, dimension !=10 & sample_size == 30), fill = noise, alpha = I(0.3), col = noise, ylim = c(0, 400), size = I(0.8) ) + scale_x_discrete(limits = c(20, 40, 60, 80, 100))
 
 ###=====================================================================================
 # Response by each picture

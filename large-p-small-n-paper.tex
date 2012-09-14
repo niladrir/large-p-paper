@@ -48,7 +48,8 @@ Statistical graphics plays an important role in exploratory data analysis, model
 \item  We notice that as we increase the number of dimensions($p$) for a fixed sample size($n$), the groups separate out even for a noise data. So we believe that when $p ~ n$, the separation among the groups obtained by doing a LDA may not be real. So we want to test whether the separation among the groups is real or fake.
 \item Finally  since the groups start separating out as we increase $p$ for a fixed $n$ for noise data, we would like to obtain a probable range for the number of dimension at which the groups start separating. 
 \bigskip
-\centerline{*** From Di ***}
+
+\centerline{\bf *** From Di ***}
 
 \item Visual inference can be used to educate the broader community about HDLSS issues. The example from the Toth paper shows this, that what is seen as separation is consistent with noise when we do visual inference. Visual inference can help researchers understand the issues of HDLSS more easily. (Primary message.)
 \item Visual inference can be used to examine algorithms for dimension reduction in HDLSS. Projection pursuit algorithm needs substantive optimization but checking that it is working correctly is difficult. It requires visual examination of the result - so compare real vs no separation using visual inference - can help to determine if the optimization algorithm is doing its job.
@@ -69,13 +70,16 @@ Reducing the dimension would seem to be the natural first step in HDLSS data. Pr
 
 {\blue*** No need to use ``\verb#\\#'' after every paragraph}
 
-{\blue TOPIC: Now discuss the contemporary literature on HDLSS adjustments to methods.}
+
+{\blue TOPIC: Now discuss the contemporary literature on HDLSS adjustments to methods. This paragraph needs more work}
 
 \cite{marron:2007} describes the estimation issues associated with HDLSS.  
+One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.\\
+%topic
 
 {\blue TOPIC: This is clearly not getting the problem understood.}
 
-Clearly, though, the issues of working with HDLSS data are not clear to many researchers. In \cite{Toth} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), first reduced the dimension from 447 to 40 by randomly selected a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{Speedetal}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. With visual inference it can be shown that there is no real difference between the classes - what you see is a mirage. 
+Clearly, though, the issues of working with HDLSS data are not clear to many researchers. In \cite{toth:2010} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), first reduced the dimension from 447 to 40 by randomly selected a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{Speedetal}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. With visual inference it can be shown that there is no real difference between the classes - what you see is a mirage. Visual inference methods will explain why. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
@@ -86,48 +90,26 @@ Clearly, though, the issues of working with HDLSS data are not clear to many res
 %\end{figurehere}
 \end{figure*}  
 
-Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
+%Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
 %topic
-{\color{red} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
-In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. \cite{buja:2009}, following from Gelman [2004], proposed two protocols that allow the testing of discoveries made from statistical graphics. Visual Inference can be used to test a number of hypothesis for which a classical test is unknown till date.\\
-{\color{red} Explanation of Large p, Small n}\\
-A challenging case of data mining is the high dimensional, low sample size (HDLSS) data. In HDLSS  settings, the number of dimensions of the data is larger or often much larger than the number of observations. HDLSS data occur in many applied areas like microarray analysis, face recognition and gene expression data. As pointed out in \cite{marron:2007}, classical multivariate statistical methods often fail to give a meaningful analysis in HDLSS contexts. 
+%{\color{red} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
+%In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. 
 
-One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.\\
-%topic
-{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
-In this paper we used the idea of projection pursuit by Friedman and Tukey [1974]. Projection pursuit is a statistical tool to find the most interesting projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper we mainly use the one and two dimensional projections obtained by projection pursuit on higher dimensions. \\
-%topic
-{\color{red} Explanation of \texttt{tourr} package(Software Used)} \\
-In this paper we use the \texttt{tourr} package in \texttt{R} \cite{r} by \cite{WC08}. 
 
-The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper we mainly use the guided tour function which instead of picking a new projection completely at random, it picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with 4 indices but we use the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009}. \\     
+%{\color{red} Explanation of Large p, Small n}\\
+%A challenging case of data mining is the high dimensional, low sample size (HDLSS) data. In HDLSS  settings, the number of dimensions of the data is larger or often much larger than the number of observations. HDLSS data occur in many applied areas like microarray analysis, face recognition and gene expression data. As pointed out in \cite{marron:2007}, classical multivariate statistical methods often fail to give a meaningful analysis in HDLSS contexts. 
 
-{\color{red} Statement of the problem. What we want to show. }\\
 
-The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
-We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible.
-
-The distance between clusters obtained by doing a LDA or a PDA on a noise data increases as we increase the number of dimensions $p$ for a fixed sample size $n$. So another motivation for this paper is in situations where the number of dimensions ($p$) is approximately equal or close to the number of observations ($n$), we may see separation among the groups when a linear discriminant analysis (LDA) or a penalized discriminant analysis (PDA) is performed. A natural question is whether there is actually a real separation among the groups or we observed the separation due to the fact that $p \approx n$ or $p > n$. 
-
-Let us consider the following example of LDA method used to classify the groups of paper wasps. There are 50 different paper wasps divided into 4 groups: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14 paper wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), randomly selected a subset of 40 significantly different oligonucleotides from a total of 447 oligonucleotides. Figure \ref{oligo} shows the scatterplot of LD1 versus LD2.
-
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{.45}{\includegraphics{toth_lda.pdf}}
-       \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker.}
-     \label{oligo}
-%\end{figurehere}
-\end{figure*}  
+%Let us consider the following example of LDA method used to classify the groups of paper wasps. There are 50 different paper wasps divided into 4 groups: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14 paper wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), randomly selected a subset of 40 significantly different oligonucleotides from a total of 447 oligonucleotides. Figure \ref{oligo} shows the scatterplot of LD1 versus LD2.
 
 %\newpage
 
-Figure \ref{oligo} clearly shows that groups Foundress(F) and Gyne(G) are two separated clusters while the groups Worker(W) and Queen(Q) are not separated and forms a separate cluster. It would be interesting to find whether the separation is real or fake.
+%Figure \ref{oligo} clearly shows that groups Foundress(F) and Gyne(G) are two separated clusters while the groups Worker(W) and Queen(Q) are not separated and forms a separate cluster. It would be interesting to find whether the separation is real or fake.
 
 %topic
-{\color{red} Outline of the different sections.}\\
-In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
+{\color{red} Outline of the paper.}\\
+This paper describes visual inference as applied to dimension reduction for supervised classification problems. In particular we focus on dimension reduction using projection pursuit, and the affect that having large dimension has on the robustness of separation between classes.  Small simulation experiments are used to examine the problem in a controlled setting. Visual inference also is used to check the operation of the projection pursuit optimization. The next section explains the methods behind visual inference. Section \ref{sec:theory} describes theoretically what will happen with dimension reduction of HDLSS data containing two groups. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and purely noise for simulated HDLSS data, and the performance of the optimization algorithm. The wasps data is revisited at the end of the paper. 
+%In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
 
 
 %\section{Visual Statistical Inference} \label{sec:visual_test} 
@@ -163,13 +145,66 @@ In this paper we check the projection pursuit optimization on pure noise with no
 %For two different visual test statistics of the same observed data, the one  is better, in which a specific pattern is more easily distinguishable visually.
 
 %\section{Inference for the means of two populations} \label{sec:largep}
-\section{Checking Projection Pursuit Optimization} \label{sec:largep}
+\section{Visual inference methods} \label{sec:inference}
+
+\cite{buja:2009}, following from Gelman [2004], proposed two protocols that allow the testing of discoveries made from statistical graphics. Visual Inference can be used to test a number of hypothesis for which a classical test is unknown till date. Unlike classical hypothesis testing, the test statistic in visual inference is not a real number, but a plot that is appropriately chosen to describe the parameter of interest . When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) consistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from all the null plots. \cite{buja:2009} talks about this protocol and also gives several example of different situations where this method can be applied. Later in 2012, \cite{mahbub:2012} does a comparative study of the power of the classical test and the visual test and shows that visual test does a reasonable job in a classical situation. But in situations where the classical test is unknown till date, the visual test still maintains a good power. 
+%, and that visual artifacts will not distinguish the test statistic as different when the alternative hypothesis is not true.
+
+{\blue *** Fill this section in. Doesn't need too much, needs to have basics and refer to Buja and  Mahbub's paper, and your tech reports.}
+
+\section{Theoretical expectation of dimension reduction for HDLSS data} \label{sec:theory}
 
 %\subsection{Motivation}
 
  
 
 \subsection{Procedure}
+
+{\blue*** Explain the Turk experiment}
+
+An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100).  So $p$ dimension of data with sample size $n = 30$ were generated from Normal(0 ,1). We bring in a class variable where the first 15 observations came from class 1 and the last 15 observations came from class 2.  We subtracted 3 from the first 15 observation i.e class 1 and added 3 to the last 15 observation i.e. class 2 to the $p$-th dimension to bring in the real separation.  We repeated the above procedure for all the different values of $p$.  To compare the data with real separation we simulate $p$ dimensional data from a N(0, 1) distribution. This data is complete noise and has no real separation.  For both these types of data (real and noise) a projection pursuit optimization was applied to obtain the one dimensional projections. To obtain the null plots, we permute the class variable breaking any dependence between the class variable and the other variables. Then the plot of the observed data is placed randomly among the null plots to obtain one lineup. 
+
+We repeat the same procedure to obtain the two dimensional projections as well. But here we assign the first 10 observations as class 1, the second 10 observations as class 2 and the last 10 as class 3. For bringing in the real separation we adjust the means of the three classes such that the three means of the three classes represents the three vertices of an equilateral triangle. As before, we applied the projection pursuit to obtain the two dimensional projections.
+  
+Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 60 different ``observed data sets''. 
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Values of parameters considered for the experiment.}
+\begin{tabular}{cccp{3cm}}
+  \hline
+  \hline
+  $n$ & projection & presence of real separation & $p$ \\
+  \hline
+  15 & 1 & Yes & 20, 40, 60, 80, 100 \\
+      & & No & 20, 40, 60, 80, 100\\
+   10 & 2 & Yes & 20, 40, 60, 80, 100 \\
+     & & No & 20, 40, 60, 80, 100\\   
+      \hline
+\end{tabular}
+\label{freq}
+\end{center}
+\end{table}
+
+
+ \cite{turk} is an amazing platform to get feedback on this kind of experiments. People were recruited from \cite{turk} and each participant were shown 10 lineups. People were asked to identify the plot which has the largest separation among the groups. One of the lineups were simulated from a 10- dimensional data with real separation. Each participant received one of these lineups and this was used as a test plot. We recorded the feedback from the participants on each lineup. We also recorded other demographic information like age, gender and educational qualifications.
+
+\subsection{Dimension reduction methods}
+
+{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
+In this paper we used the idea of projection pursuit by Friedman and Tukey [1974]. Projection pursuit is a statistical tool to find the most interesting projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper we mainly use the one and two dimensional projections obtained by projection pursuit on higher dimensions. \\
+%topic
+{\color{red} Explanation of \texttt{tourr} package(Software Used)} \\
+In this paper we use the \texttt{tourr} package in \texttt{R} \cite{r} by \cite{WC08}. 
+
+The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper we mainly use the guided tour function which instead of picking a new projection completely at random, it picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with 4 indices but we use the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009}. \\     
+
+{\color{red} Statement of the problem. What we want to show. }\\
+
+The optimization procedure in the  \texttt{tourr} package is new, different from the algorithms that have existed before in GGobi \cite{STLBC03} and XGobi \cite{SCB91}. 
+We have been using PP with the PDA index, on a large $p$, small $n$ data set from a microarray study, and for comparison have been looking at pure noise data. As strange as it might seem it seemed like we could often pick the projection of the  ``original'' data from a lineup of projections of permuted class data. This should not be possible.
+
+The distance between clusters obtained by doing a LDA or a PDA on a noise data increases as we increase the number of dimensions $p$ for a fixed sample size $n$. So another motivation for this paper is in situations where the number of dimensions ($p$) is approximately equal or close to the number of observations ($n$), we may see separation among the groups when a linear discriminant analysis (LDA) or a penalized discriminant analysis (PDA) is performed. A natural question is whether there is actually a real separation among the groups or we observed the separation due to the fact that $p \approx n$ or $p > n$. 
 
 To check the optimization procedure we looked at the absolute difference of the means of random noise divided into two groups. We start with one dimensional data of random noise and assign two groups. Since we are interested in the projections, we work with the absolute differences of the means. \\
 
@@ -314,30 +349,32 @@ Figure \ref{fig:test_category} gives the lineup plot for the two dimensional pro
 
 %\begin{multicols}{2}
 
-\subsection{Experimental Set up}
+\section{Visual Inference and HDLSS Experiment}\label{sec:experiment}
 %topic
-{\color{red} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
-An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets". 
+\subsection{Procedure}
 
-%({\color{blue} only for one dimensional projections.}) 
-
-\begin{table}[htbp]
-\begin{center}
-\caption{Values of parameters considered for the experiment.}
-\begin{tabular}{cccp{3cm}}
-  \hline
-  \hline
-  $n$ & projection & presence of real separation & $p$ \\
-  \hline
-  15 & 1 & Y & 20, 40, 60, 80, 100 \\
-      & & N & 20, 40, 60, 80, 100\\
-   10 & 2 & Y & 20, 40, 60, 80, 100 \\
-     & & N & 20, 40, 60, 80, 100\\   
-      \hline
-\end{tabular}
-\label{freq}
-\end{center}
-\end{table}
+%{\color{red} Description of the experiment. How the experiment was conducted. What are the parameters, how many different plots.} \\
+%An experiment is designed to study the ability of human observers to detect the effect of one dimension of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$  ( = 20, 40, 60, 80, 100) with sample size $ n  =  15$. For bringing in the real separation, we fixed $\delta $ = 3. So two sets of $p$ dimension of data with sample size $n = 15$ were generated from Normal(0 ,1) for the two populations.  $\delta = 3$ was added and subtracted to the $p$-th dimension to bring in the largest separation.  We also repeated the above procedure for the different $p$ dimensions of pure noise with no real separation ($\delta = 0$). Data sets with different combinations of $n$, $p$ and presence of noise were generated with frequencies shown in Table \ref{freq}. Three replicates of each level were generated.These produced 30 different ``observed data sets''. 
+%
+%%({\color{blue} only for one dimensional projections.}) 
+%
+%\begin{table}[htbp]
+%\begin{center}
+%\caption{Values of parameters considered for the experiment.}
+%\begin{tabular}{cccp{3cm}}
+%  \hline
+%  \hline
+%  $n$ & projection & presence of real separation & $p$ \\
+%  \hline
+%  15 & 1 & Y & 20, 40, 60, 80, 100 \\
+%      & & N & 20, 40, 60, 80, 100\\
+%   10 & 2 & Y & 20, 40, 60, 80, 100 \\
+%     & & N & 20, 40, 60, 80, 100\\   
+%      \hline
+%\end{tabular}
+%\label{freq}
+%\end{center}
+%\end{table}
 %topic
 {\color{red} How the null plots were generated. }\\
 The 19 null plots in the lineup were obtained by  permuting the population indicator variable (the variable that indicates which population the data set belongs to) so that breaking any dependency between the indicator variable and the other variables. Two different statistics Wilk's $\lambda$ (\cite{JW02})  and the within sum of squares to between sum of squares ratio were calculated for each of the 20 plots in the lineup. \\
@@ -349,19 +386,47 @@ Participants  for the experiment were recruited through Amazon Mechanical Turk. 
 %topic
 {\color{red} Description of the results. }\\
 
-Figure \ref{real_noise} shows the proportion of the participants who successfully picked the plot of the ``observed data". We can clearly see when there is only one dimension of real separation , more people are being able to identify the plot of the ``observed data". The participants are not successful in picking up the plots when the data is complete noise and there is no real separation. 
+Figure \ref{real_noise} shows the proportion of the participants who successfully picked the plot of the ``observed data''. We can clearly see when there is only one dimension of real separation , more people are being able to identify the plot of the ``observed data''. The participants are not successful in picking up the plots when the data is complete noise and there is no real separation. 
 
-We also notice that as we increase the number of dimensions $p$ keeping only one dimension of real separation, the proportion of success of picking the true plot decreases. This is understandable since as we increase the number of dimensions of noise keeping the number of real separation fixed to one, the distance between the groups in the ``observed plot"  get closer to the distance between the groups in a null plot making it difficult for the participants to pick the ``observed plot". 
+We also notice that as we increase the number of dimensions $p$ keeping only one dimension of real separation, the proportion of success of picking the true plot decreases. This is understandable since as we increase the number of dimensions of noise keeping the number of real separation fixed to one, the distance between the groups in the ``observed plot''  get closer to the distance between the groups in a null plot making it difficult for the participants to pick the ``observed plot''. 
 
-Also for the noise data, we notice that some of the participants are able to identify the plot of ``real data"  although the data has no real separation. This motivates us to look at the Wilk's $\lambda$ value for each plot in a lineup and the number of people picking up a particular plot. Figure \ref{wilks-count} shows such a plot. 
+Also for the noise data, we notice that some of the participants are able to identify the plot of ``real data''  although the data has no real separation. This motivates us to look at the Wilk's $\lambda$ value for each plot in a lineup and the number of people picking up a particular plot. Figure \ref{wilks-count} shows such a plot. 
 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.7}{\includegraphics{suc-rate-ci.pdf}}
+       \scalebox{0.7}{\includegraphics{suc-rate-glm.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Plot showing the proportion of correct response for 1D projection and 2D projection and data with real separation and pure noise. The 95\% bootstrap confidence intervals are also shown. We can see that the proportion of correct response decreases as we increase the number of dimensions ($p$) from 20 to 100 for data with real separation. When the data is pure noise data, the proportion of correct response is very low which is understandable as we do not expect people to identify the plot when the data is pure noise data.  }
+      \caption{Plot showing the proportion of correct response for 1D projection and 2D projection and data with real separation and pure noise. The 95\% adjusted Wald confidence intervals are also shown using the error bars. A generalized linear model (blue line) is overlaid on the errorbars. We can see that the proportion of correct response decreases as we increase the number of dimensions ($p$) from 20 to 100 for data with real separation. When the data is pure noise data, the proportion of correct response is very low which is understandable as we do not expect people to identify the plot when the data is pure noise data.  }
+       \label{real_noise}
+\end{figure*}
+
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.7}{\includegraphics{subjectwise-glm.pdf}}
+%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
+      \caption{Plot showing the subject wise probabilities for each participant with the blue line showing the average of all the people.}
+       \label{real_noise}
+\end{figure*}
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.7}{\includegraphics{time-taken-log.pdf}}
+%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
+      \caption{Plot showing the logarithm of the time taken to respond for each level. We can observe that the time taken to respond is higher when the data is complete noise than when there is some real separation. Also we notice that as we increase the number of dimensions the difference between the time taken to respond for random noise data and real separation decreases. }
+       \label{real_noise}
+\end{figure*}
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.7}{\includegraphics{choice-reason-bar.pdf}}
+%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
+      \caption{Bar diagram showing the counts of people's choice of reasons colored by the data. Notice that people mostly pick the ``biggest gap" as their choice of reason when they are working with the data with real separation. Also some of the reasons like ``Groups are in corners" does not appear for 1D projections.   }
        \label{real_noise}
 \end{figure*}
 
@@ -456,7 +521,7 @@ Again consider 3 dimensions of pure noise, each dimension having 30 observations
 
 %\begin{multicols}{2}
 
-\subsection{Determining whether a separation is real or fake. }
+\section{Wasps data, revisited. }
 
 We obtained the wasp data used to generate Figure \ref{oligo} from the authors. To check whether the separation is real, we generate a lineup by using the wasp data as the actual data. We generate the lineup by randomly permuting the group variable and breaking any relationship between the variables  and the group. Figure \ref{toth_lineup} shows the lineup plots of LD1 versus LD2 of a LDA of the 40 randomly selected oligos.
 
