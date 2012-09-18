@@ -239,34 +239,35 @@ Finally we have 4 different sets of data for different values of $p$. The differ
 \end{table}
 
 
-To obtain a lineup with $m = 20$ plots for one dimensional projections for both random noise and data with real separation, we plot the one dimensional projections on the horizontal axis and a fixed value (say 1) on the vertical axis to obtain the actual data. 
+To obtain a lineup with $m = 20$ plots for one dimensional projections for random noise, we plot the one dimensional projections on the horizontal axis obtained from the projection pursuit with the PDA index and a fixed value (1.5 in this case) on the vertical axis colored by the class variable. We call this plot the ``observed plot" as it is obtained from the observed dataset. We adjusted the limits of the vertical axis so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup were obtained by  permuting the class variable so that breaking any dependency between the class variable and the other variables. Then we placed the ``observed plot" randomly among the 19 null plots to obtain one lineup. Two different statistics Wilk's $\lambda$ (\cite{JW02})  and the within sum of squares to between sum of squares ratio (BW ratio) were calculated for each of the 20 plots in the lineup. 
 
-The 19 null plots in the lineup were obtained by  permuting the class variable so that breaking any dependency between the class variable and the other variables. Two different statistics Wilk's $\lambda$ (\cite{JW02})  and the within sum of squares to between sum of squares ratio (BW ratio) were calculated for each of the 20 plots in the lineup. 
+The above procedure was repeated for the one dimensional projections for data with one dimension of real separation. Figure \ref{fig:test_category_1d} gives the lineup plot for the one dimensional projections with $p = 20$ dimensions where 19 dimensions are pure noise data and 1 dimension has real separation. This is an example of a lineup that we used in our experiment. 
 %{\color{red} The data recorded for the participants. How many participants were recruited.} \\
 
-Figure \ref{fig:test_category_1d} gives the lineup plot for the one dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
-
-Figure \ref{fig:test_category} gives the lineup plot for the two dimensional projections for 100 dimensions of pure noise and Figure \ref{not_noise} gives the lineup plot for the two dimensional projections for 98 dimensions of pure noise and 2 dimensions of real separation.
+% and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
+% and Figure \ref{not_noise} gives the lineup plot for the two dimensional projections for 98 dimensions of pure noise and 2 dimensions of real separation.
 
 %\end{multicols}
 %
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{1.00}{\includegraphics{plot_1d_100_4.pdf}}
-       \caption{Lineup plot ($m=20$) with 100 dimensions of random noise for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+       \scalebox{1.00}{\includegraphics{plot_real_1d_20_11.pdf}}
+       \caption{Lineup plot ($m=20$) with 19 dimensions of random noise  and 1 dimension of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
      \label{fig:test_category_1d}
 %\end{figurehere}
 \end{figure}
 %
 %
-\begin{figure}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{1.00}{\includegraphics{plot_1d_99_19.pdf}}
-       \caption{Lineup plot ($m=20$) with 99 dimensions of pure noise and 1 dimension of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
-       \label{not_noise_1d}
-\end{figure}
+%\begin{figure}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{1.00}{\includegraphics{plot_1d_99_19.pdf}}
+%       \caption{Lineup plot ($m=20$) with 99 dimensions of pure noise and 1 dimension of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+%       \label{not_noise_1d}
+%\end{figure}
+
+Similar procedure was followed to obtain the lineup plot for two dimensional projections for random noise and data with two dimensions of real separation. But in this case we plot the first two projections on the horizontal and vertical axis respectively colored by the class variable to get a scatterplot. This again gives the ``observed plot". To obtain the null plots, we permute the class variable and perform the projection pursuit on the permuted dataset. The ``observed data" is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup plot for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are pure noise data. As before we calculated the Wilk's $\lambda$ (\cite{JW02})  and the within sum of squares to between sum of squares ratio (BW ratio) for each of the 20 plots in the lineup. 
  
 \begin{figure}[hbtp]
 %\begin{figurehere}
@@ -278,27 +279,25 @@ Figure \ref{fig:test_category} gives the lineup plot for the two dimensional pro
 \end{figure}
 
 
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{1.00}{\includegraphics{plot_2d_98_5.pdf}}
-       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
-       \label{not_noise}
-\end{figure*}
-
-Participants  for the experiment were recruited through Amazon Mechanical Turk ( \cite{turk} ).  \cite{turk} is an amazing platform to get feedback on this kind of experiments. Each participant was shown a sequence of 10 lineups. Participants also had the freedom of answering more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups, give a reason for their choice and determine the level of confidence for their decision.  Gender, age, educational qualification and location of each participant were also noted. In total, 1137 lineups were evaluated by 103 participants from different locations.
+%\begin{figure*}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{1.00}{\includegraphics{plot_2d_98_5.pdf}}
+%       \caption{Lineup plot ($m=20$) with 98 dimensions of pure noise and 2 dimensions of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed plot should have the largest separated colors. Can you identify the observed plot?}
+%       \label{not_noise}
+%\end{figure*}
 
 
 {\color{red} Description of the procedure. }\\
 
 \subsection{Theoretical explanation of the choice of dimensions}
 
-To check the optimization procedure we looked at the absolute difference of the means of random noise divided into two groups. We start with one dimensional data of random noise and assign two groups. Since we are interested in the projections, we work with the absolute differences of the means.
+To decide on the different dimensions, we looked at the distribution of the absolute difference of the means of random noise divided into two classes. In this case we start with one dimension of random noise divided into two class and look at the means of the observation in each class. Since we are interested in the projections, we work with the absolute differences of the means.
 
-Let $X_{ij}$ be the $j$-th observation in the $i$-th group where $j = 1, \dots, n$. $X_{ij}$s are random noise obtained from a standard normal distribution. The difference between the means of the absolute noise for the two groups $k$ and $l$ is given by $\bar{X}_{k.} - \bar{X}_{l.}$ and $$\bar{X}_{k.} - \bar{X}_{l.} \sim \hbox{Normal}(0, 2/n)$$ Let us define $$Y  = |\bar{X}_{k.} - \bar{X}_{l.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/n}$. \\
+Let us denote $X_{ij}$ as the $j$-th observation in the $i$-th class where $j = 1, \dots, n$. Essentially in our case we have only $i = 2$ class. $X_{ij}$s are random noise obtained from a standard normal distribution. The difference between the means of the absolute noise for the two classes $k$ and $l$ is given by $\bar{X}_{k.} - \bar{X}_{l.}$ and $$\bar{X}_{k.} - \bar{X}_{l.} \sim \hbox{Normal}(0, 2/n)$$ Let us define $$Y  = |\bar{X}_{k.} - \bar{X}_{l.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/n}$. \\
 
 We can find the expectation and the variance of $Y$: 
-$$E(Y) = \sigma \sqrt{2/\pi}$$ \\
+$$E(Y) = \sigma \sqrt{2/\pi}$$
 $$Var(Y) = \sigma^2 (1 - \frac{2}{\pi})$$
 
 Let us consider $p$ dimensions of random noise, each dimension being divided into $i = 2$ groups with $n = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. We can obtain the sum of the absolute difference between the means for all the $p$ dimensions. So we define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$ \\
@@ -430,6 +429,8 @@ We did the above described procedure for 5 different values of $\delta  = 0.0000
 
 %topic
 {\color{red} Description of the results. }\\
+
+Participants  for the experiment were recruited through Amazon Mechanical Turk ( \cite{turk} ).  \cite{turk} is an amazing platform to get feedback on this kind of experiments. Each participant was shown a sequence of 10 lineups. Participants also had the freedom of answering more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups, give a reason for their choice and determine the level of confidence for their decision.  Gender, age, educational qualification and location of each participant were also noted. In total, 1137 lineups were evaluated by 103 participants from different locations.
 
 Figure \ref{real_noise} shows the proportion of the participants who successfully picked the plot of the ``observed data''. We can clearly see when there is only one dimension of real separation , more people are being able to identify the plot of the ``observed data''. The participants are not successful in picking up the plots when the data is complete noise and there is no real separation. 
 
