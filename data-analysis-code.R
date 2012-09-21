@@ -8,6 +8,7 @@ setwd("/Users/Niladri/Documents/Research/Large p, small n/turk data analysis")
 
 library(ggplot2)
 library(lubridate)
+library(productplots)
 
 ###Reading the data
 
@@ -347,7 +348,7 @@ qplot(conf_level, m, data = turk7.time, size = I(3), alpha = I(0.4), geom = "poi
 qplot(factor(conf_level), time_taken, data = subset(turk7, dimension !=10 & sample_size !=50 & time_taken < 400), geom = "boxplot", facets = noise ~ projection, colour = I("red")) + coord_flip() 
 
 ###================================================================================
-### Subject Wise Probabilty by gender
+### Subject Wise Probabilty 
 ###================================================================================
 
 library(lme4)
@@ -409,6 +410,62 @@ p + xlab("Dimension") + ylab("Probability of making the correct response") + sca
 
 ggsave("glm-subjectwise.pdf", height = 7, width = 7)
 
+###===================================================================
+### Scatterplot of Frequency vs measures
+###===================================================================
+ 
+
+
+dat <- merge(meas, turk7, by.x = "file.name", by.y = "pic_name")
+
+###Projection = 1
+
+dat1 <- subset(dat, dimension != 10 & sample_size != 50 )
+
+dat1$dimension <- factor(dat1$dimension, levels = c( "20", "40", "60", "80", "100"))
+
+#ls(dat)
+
+#dat$dim_rep <- paste(dat$dimension,"_", dat$replication, sep = "")
+#dat$noise_proj <- paste(dat$noise,"_",dat$projection,sep="")
+
+dat1$dim_proj <- paste(dat1$dimension,"_", dat1$projection, sep = "")
+dat1$noise_rep <- paste(dat1$noise,"_",dat1$replication,sep="")
+
+dat1.count <- ddply(dat1, .(dim_proj,noise_rep,.sample, plot_location) , summarise, s = sum(.sample == response_no)/length(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location)) 
+
+
+qplot(wlamb, s, data = dat1.count, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wlamb, ymin = 0, ymax = s )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
+
+dat1.count$dim_proj <- factor(dat1.count$dim_proj, levels <- c("20_1", "20_2", "40_1", "40_2", "60_1", "60_2", "80_1", "80_2", "100_1", "100_2"))
+dat1.count$noise_rep <- factor(dat1.count$noise_rep)
+levels(dat1.count$dim_proj) <- c( "dim:20 \n proj:1", "dim:20 \n proj:2", "dim:40 \n proj:1", "dim:40 \n proj:2", "dim:60 \n proj:1", "dim:60 \n proj:2", "dim:80 \n proj:1", "dim:80 \n proj:2", "dim:100 \n proj:1", "dim:100 \n proj:2")
+levels(dat1.count$noise_rep) <- c("data:real \n rep:1", "data:real \n rep:2", "data:real \n rep:3", "data:noise \n rep:1", "data:noise \n rep:2","data:noise \n rep:3" )
+qplot(wbratio, s, data = dat1.count, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wbratio, ymin = 0, ymax = s )) + scale_x_continuous("WB Ratio", labels =NULL, breaks = NULL ) + scale_y_continuous("Relative Frequency of picks", limits = c(0,1), breaks = c(0, 0.5, 1)) + opts(legend.position="none", axis.ticks = theme_blank(), axis.text.x = theme_blank()) + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
+
+
+ggsave("wbratio.pdf", height = 7, width = 9)
+
+### Plotting the Proportion of Correct Response for Paper Wasp dataset
+
+wasp.turk7 <- subset(turk7, sample_size == 50)
+wasp.turk7.suc <- ddply(wasp.turk7, .(noise), summarize, tot.attempt = length(response), suc = sum(response)/length(response))
+
+
+qplot(factor(noise), suc , data = wasp.turk7.suc, position = "dodge", geom = "bar",  ylim=c(0,1), xlab = "Noise Data", ylab = "Proportion of Correct Response", main = "Paper Wasp Data") 
+
+adj.Wald.ci <- ddply(wasp.turk7, .(noise), summarise, p = adj.Wald(response)$p, lower = adj.Wald(response)$lo, upper = adj.Wald(response)$up )
+
+ggplot() + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), col = I("red"), width = 0.15) + ylim(c(-0.02,1))
+
+#wasp.turk7$response <- as.factor(wasp.turk7$response)
+
+levels(wasp.turk7.suc$noise) <-  c("Wasp Data", "Permuted Data")
+levels(adj.Wald.ci$noise) <- c("Wasp Data", "Permuted Data")
+
+ggplot() + geom_bar(data = wasp.turk7.suc, aes(noise, suc)) + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), col = I("red"), width = 0.15) + scale_x_discrete("") + scale_y_continuous("Probability of Successful Evaluation", limits = c(-0.02,1))
+
+ggsave("wasp-result.pdf", height = 5, width = 4)
 
 ####====================================================================================================
 ####====================================================================================================
@@ -493,10 +550,6 @@ qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & proje
 qplot(factor(dimension), suc.rate, data = subset(suc.rate, dimension!=10 & projection == 2 & sample_size == 30), position = "dodge", geom = "bar", fill = factor(noise), ylim=c(0,1)) 
 
 
-
-### Plotting the Proportion of Correct Response for Paper Wasp dataset
-
-qplot(factor(noise), suc.rate, data = subset(suc.rate, sample_size == 50), position = "dodge", geom = "bar",  ylim=c(0,1), xlab = "Noise Data", ylab = "Proportion of Correct Response", main = "Paper Wasp Data") 
 
 
 
@@ -584,7 +637,9 @@ qplot(factor(pic_name), suc.rate, geom = "bar", data = subset(turk7.pic_name, no
 
 ###Noise Data
 
-turk7.noise.suc <- subset(turk7.pic_name, noise == 1 & suc.rate != 0)
+turk7.pic <- ddply(turk7, .(dimension, noise, projection, replication, pic_name), summarize, tot.attempt = length(response), suc.rate = sum(response)/length(response))
+
+turk7.noise.suc <- subset(turk7.pic, noise == 1 & suc.rate != 0)
 noise.suc <- subset(turk7, pic_name %in% turk7.noise.suc$pic_name & response == TRUE)
 
 meas.noise <- merge(meas, noise.suc, by.x = "file.name", by.y = "pic_name")
@@ -634,52 +689,6 @@ qplot(factor(pic_id), time_taken, data = subset(turk7, dimension != 10 & respons
 qplot(factor(pic_id), time_taken, data = subset(turk7, dimension != 10), col = factor(noise), size = I(4), alpha = I(0.5)) + coord_flip()
 
 ####========================================================================================================
-
-### Scatterplot of Frequency vs measures 
-
-
-dat <- merge(meas, turk7, by.x = "file.name", by.y = "pic_name")
-
-###Projection = 1
-
-dat1 <- subset(dat, dimension != 10 & sample_size != 50 & projection == 1 )
-
-dat1$dimension <- factor(dat1$dimension, levels = c( "20", "40", "60", "80", "100"))
-
-#ls(dat)
-
-#dat$dim_rep <- paste(dat$dimension,"_", dat$replication, sep = "")
-#dat$noise_proj <- paste(dat$noise,"_",dat$projection,sep="")
-
-dat1$dim_proj <- paste(dat1$dimension,"_", dat1$projection, sep = "")
-dat1$noise_rep <- paste(dat1$noise,"_",dat1$replication,sep="")
-
-dat1.count <- ddply(dat1, .(dim_proj,noise_rep,.sample, plot_location) , summarise, freq = sum(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location)) 
-
-
-qplot(wlamb, freq, data = dat1.count, facets = noise_rep ~ dim_proj, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wlamb, ymin = 0, ymax = freq )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black")
-
-
-qplot(wbratio, freq, data = dat1.count, facets = noise_rep ~ dim_proj, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wbratio, ymin = 0, ymax = freq )) + scale_x_continuous("Wb Ratio", breaks=c(0.1,0.3,0.5,0.7), limits = c(0,0.8)) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black")
-
-
-###Projection = 2
-
-dat2 <- subset(dat, dimension != 10 & sample_size != 50 & projection == 2 )
-
-dat2$dimension <- factor(dat2$dimension, levels = c( "20", "40", "60", "80", "100"))
-
-
-dat2$dim_proj <- paste(dat2$dimension,"_", dat2$projection, sep = "")
-dat2$noise_rep <- paste(dat2$noise,"_",dat2$replication,sep="")
-
-dat2.count <- ddply(dat2, .(dim_proj,noise_rep,.sample, plot_location) , summarise, freq = sum(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location) )
-
-qplot(log(wlamb), freq, data = dat2.count, facets = noise_rep ~ dim_proj, geom = "point", col = plot_loc)  + geom_linerange(aes(x = log(wlamb), ymin = 0, ymax = freq )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black")
-
-
-qplot(log(wbratio), freq, data = dat2.count, facets = noise_rep ~ dim_proj, geom = "point", col = plot_loc) + geom_linerange(aes(x = log(wbratio), ymin = 0, ymax = freq )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black")
-
 
 
 
