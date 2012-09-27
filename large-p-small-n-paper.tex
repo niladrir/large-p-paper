@@ -439,17 +439,16 @@ Amazon Mechanical turk participants are paid for their responses. Since the proc
 \subsection{Effect of dimensions, presence of real separation and projections on responses} 
 
 We are interested in the proportion of participants identifying the correct plot in the presence of real separation versus pure noise, for 1d projections versus 2d projections and for the different dimensions.
-Figure \ref{suc-rate-glm} shows the proportion of the participants who successfully picked the plot of the actual data along with the 95\% adjusted Wald interval showed in form an error bar. We can clearly see when there is some real separation , the rate of success in making the correct response overall is higher than the rate of success when the data is complete noise and there is no real separation. Also there is not much difference in terms of the variability.
-We notice that the rate of success is not very different for 1d and 2d projections. It can be noticed from Figure \ref{suc-rate-glm} that the error bars for 2d projections are little narrower than the error bars for 1d projections. 
-%\subsection{1D vs 2D projections}
+Figure \ref{suc-rate-glm} shows the proportion of the participants who successfully picked the plot of the actual data for each replicate of each dimension. We can clearly see when there is some real separation , the rate of success in making the correct response overall is higher than the rate of success when the data is complete noise and there is no real separation. Also there is a difference in terms of the variability among the replicates in each dimension.
+We notice that the rate of success is not very different for 1d and 2d projections both in case of data with real separation and also for noise data. %\subsection{1D vs 2D projections}
 The rate of success in picking the correct plot is different for different values of the dimension $p$. The rate of success is higher for dimension $p = 20$ than when the dimension is $p = 40$. Strangely enough we notice that the rate of success for $p = 100$ is higher than the rate of success for $p=80$ for both 1d and 2d projections. 
 
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.8}{\includegraphics{suc-rate-glm.pdf}}
+       \scalebox{0.7}{\includegraphics{suc-rate-rep-glm.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Plot showing the proportion of correct response for 1D projection and 2D projection and data with real separation and pure noise. The 95\% adjusted Wald confidence intervals are also shown using the error bars. A generalized linear model (blue line) is overlaid on the error bars. We can see that the proportion of correct response decreases as we increase the number of dimensions ($p$) from 20 to 100 for data with real separation. When the data is pure noise data, the proportion of correct response is very low which is understandable as we do not expect people to identify the plot when the data is pure noise data.  }
+      \caption{Plot showing the proportion of correct response for 1D projection and 2D projection and data with real separation and pure noise. The three points represents the three replicates for each dimension. A binomial generalized linear model is overlaid on the points. We can see that the proportion of correct response decreases as we increase the number of dimensions ($p$) from 20 to 100 for data with real separation. When the data is pure noise data, the proportion of correct response is very low which is understandable as we do not expect people to identify the plot when the data is pure noise.  }
        \label{suc-rate-glm}
 \end{figure}
 
@@ -490,7 +489,9 @@ Intercept  & 1.953 & 0.253  & 0.000 \\
 
 In Table \ref{params} we see that the $p$-values corresponding to dimension and presence of real separation is very highly significant. But the $p$-value corresponding to the projection is not significant which we also suggested in the previous section.
 
+\subsection{Does rotation in the 2d projections affect the responses?}
 
+The 1d projections were plotted in a lineup making the adjustment that the group with the lower values of projection are always considered to be group 1 and the group with larger values of the projection are considered to be group 2, as can be seen in Figure \ref{fig:test_category_1d}. So the orientation of the groups does not affect the response of the subjects. But in case of 2d projections, the groups are rotated in a different way in each plot in the lineup (Figure \ref{fig:test_category}) which may influence the response of the participants. We were particularly interested to test the effect of the responses in the 2d projections. Since the 1d projections are adjusted, we can use the lineups of the 1d projections as a control and basically compare the responses for the 1d and 2d projections. Figure \ref{suc-rate-glm} shows that there is not much of a difference between the 1d and 2d projections both in presence and absence of real separation. This is also verified in Table \ref{params} where the effect of the projections is not significant at 5\% level.  
 
 %\subsection{Response as the dimension increases}
 
@@ -509,7 +510,7 @@ Using \textit{lme4} package in R, we fit a mixed effects logistic regression mod
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.7}{\includegraphics{subjectwise-glm.pdf}}
+       \scalebox{0.75}{\includegraphics{subjectwise-glm.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
       \caption{Plot showing the subject wise probabilities for each participant with the blue line showing the average of all the people.}
        \label{subject-glm}
@@ -524,7 +525,7 @@ The amount of time taken to respond may have a positive relationship with the am
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.8}{\includegraphics{time-taken-log.pdf}}
+       \scalebox{0.7}{\includegraphics{time-taken-log.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
       \caption{Boxplots showing the distribution of the time taken to respond for dimension on log scale colored by the presence of real separation. We can observe that the time taken to respond is higher when the data is complete noise than when there is some real separation. Also we notice that as we increase the number of dimensions the difference between the time taken to respond for random noise data and real separation decreases. }
        \label{time-taken}

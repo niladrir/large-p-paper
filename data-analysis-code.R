@@ -96,6 +96,21 @@ id_perf <- ddply(turk7,.(id),summarise,suc=sum(response), tot.attempt = length(r
 
 diff_perf <- ddply(turk7,.(difficulty),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )
 
+pic_perf <- ddply(subset(turk7, dimension !=10 & sample_size != 50),.(pic_name, dimension, noise, projection, replication),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )
+
+pic_perf$dimension <- as.numeric(as.character(pic_perf$dimension))
+
+pic_perf$dim_rep <- paste(pic_perf$dimension,"_",pic_perf$replication, sep = "")
+
+pic_perf$dim_rep <- as.factor(pic_perf$dim_rep)
+
+levels(pic_perf$dim_rep) <- levels(pic_perf$dim_rep)[c(4,5,6,7,8,9,10,11,12,13,14,15,1,2,3)]
+
+levels(pic_perf$noise) <- c("Real Separation","Noise Data")
+levels(pic_perf$projection) <- c("1D Projection","2D Projection")
+
+qplot(dimension, suc.rate, data = pic_perf, size = I(3)) + facet_grid(noise ~ projection) +  ylab("Proportion of successful evaluation") + xlab("Dimension")
+
 ### Proportion of Correct Response by each parameter ID
 
 suc.rate <- ddply(turk7, .(sample_size,noise,dimension,projection), summarise, suc.rate = sum(response)/length(response), tot.attempt = length(response))
@@ -128,10 +143,11 @@ boot.strap.ci$meas <- rep(c("lb", "p", "ub"), 20)
 adj.Wald <- function(data, alpha=0.05, x=2) {
 	n <- length(data)
 	y <- sum(data)
-	n <- n+2*x
-	p <- (y+x)/n
+	n1 <- n+2*x
+	p <- (y+x)/n1
+	phat <- y/n
 	li <- qnorm(1-alpha/2)*sqrt(p*(1-p)/n)
-	return(list(lo=p-li, p=p, up=p+li))
+	return(list(lo=max(0,phat-li), p=phat, up=min(1,phat+li)))
 }
 
 adj.Wald.ci <- ddply(subset(turk7,sample_size == 30 & dimension != 10), .(noise,dimension,projection), summarise, p = adj.Wald(response)$p, lower = adj.Wald(response)$lo, upper = adj.Wald(response)$up )
@@ -150,7 +166,7 @@ m <- ggplot(adj.Wald.ci, aes(dimension, p, ymin = lower, ymax = upper)) + facet_
 
 m + geom_pointrange() + ylim(c(-0.05, 1))
 
-m + geom_errorbar(width = 5) + ylim(c(-0.05, 1))
+m + geom_errorbar(width = 5) + ylim(c(0, 1))
 
 
 m + geom_crossbar(width = 5, colour = I("red")) + ylim(c(-0.05, 1))
@@ -198,9 +214,12 @@ qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ project
 
 ###Plot showing the GLM model on the observed success rates
 
-ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
+#ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
+
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate), col = I("red"), size = I(3))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
 
 ggsave("suc-rate-glm.pdf", height = 7, width = 7)
+
 
 ###===========================================================================================
 ### GLM to see the effect of noise, projection and dimension on the response
@@ -268,9 +287,13 @@ levels(pow.dat.m1$noise) <- c("Real Separation", "Noise Data")
 
 levels(pow.dat.m1$projection) <- c("1D Projection", "2D Projection")
 
-ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1, alpha = I(0.1)) + facet_grid(noise ~ projection) + geom_line(aes(x = dimension, y = prob), data=pow.dat.m, colour = I("blue"), size = I(1)) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(0,1))
+ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1, alpha = I(0.1)) + facet_grid(noise ~ projection) + geom_line(aes(x = dimension, y = prob), data=pow.dat.m, colour = I("blue"), size = I(1)) + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate), size = I(3), alpha = I(0.7)) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(0,1))
  
-ggsave("subjectwise-glm.pdf", height = 7, width = 7)
+#ggsave("subjectwise-glm.pdf", height = 7, width = 7)
+
+            
+
+
 
  
 ###==================================================================================
@@ -473,6 +496,80 @@ ggsave("wasp-result.pdf", height = 5, width = 4)
 ####====================================================================================================
 ####====================================================================================================
 ####====================================================================================================
+
+###===========================================================================================
+### GLM model with the interaction terms layered on the observed success rates
+###=======================================================================================
+
+dat <- subset(turk7, dimension != 10 & sample_size != 50)
+
+dat$res <- 0
+1 -> dat$res[dat$response == "TRUE"]
+
+dat$dimension <- as.numeric(as.character(dat$dimension))
+
+
+fit.int <- glm(response ~ dimension + noise + projection + dimension*noise
+             , family=binomial,data=dat)
+res <- summary(fit.int)
+#str(res)
+round(res$coef,5)
+
+dimension <- rep(seq(20,100, by=1),each=4)
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))
+newdat <- data.frame(dimension,noise,projection,interaction = factor(dimension*as.numeric(as.character(noise))))
+power.int <- predict(fit.int, newdata = newdat, type="response", se.fit = TRUE)
+
+
+pow.dat.int <- data.frame(dimensions = dimension
+                    , empirical=power.int$fit
+                    , noise = noise, projection = projection)
+pow.dat.int.m <- melt(pow.dat.int, id=c("dimensions","noise","projection"))
+#head(pow.dat.m)
+colnames(pow.dat.int.m) <- c("dimensions","noise","projection","Test","prob")
+
+levels(pow.dat.int.m$noise) <- c("Real Separation", "Noise Data")
+
+levels(pow.dat.int.m$projection) <- c("1D Projection", "2D Projection")
+
+qplot(dimension, prob, geom="line", data=pow.dat.int.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+
+###Plot showing the GLM model on the observed success rates
+
+ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.int.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
+
+ggsave("suc-rate-glm-interaction.pdf", height = 7, width = 7)
+
+###Adding a squared term of the dimension
+
+fit.square <- glm(response ~ poly(dimension,2) + noise + projection + poly(dimension,2)*noise
+             , family=binomial,data=dat)
+res <- summary(fit.square)
+#str(res)
+round(res$coef,5)
+
+dimension <- rep(seq(20,100, by=1),each=4)
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))
+dimension.sq = dimension^2
+newdat <- data.frame(dimension,dimension.sq,noise,projection, interaction = factor(dimension*as.numeric(as.character(noise))), interaction.sq = factor(dimension.sq*as.numeric(as.character(noise))))
+power.square <- predict(fit.square, newdata = newdat, type="response", se.fit = TRUE)
+
+pow.dat.sq <- data.frame(dimensions = dimension
+                    , empirical=power.square$fit
+                    , noise = noise, projection = projection)
+pow.dat.sq.m <- melt(pow.dat.sq, id=c("dimensions","noise","projection"))
+#head(pow.dat.m)
+colnames(pow.dat.sq.m) <- c("dimensions","noise","projection","Test","prob")
+
+levels(pow.dat.sq.m$noise) <- c("Real Separation", "Noise Data")
+
+levels(pow.dat.sq.m$projection) <- c("1D Projection", "2D Projection")
+
+ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.sq.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
+
+ggsave("suc-rate-glm-square.pdf", height = 7, width = 7)
 
 
 ####===========================================================================================
