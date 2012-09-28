@@ -187,7 +187,7 @@ In this paper we use the \texttt{tourr} package in \texttt{R} \cite{r} by \cite{
 %
 %To check the optimization procedure we looked at the absolute difference of the means of random noise divided into two groups. We start with one dimensional data of random noise and assign two groups. Since we are interested in the projections, we work with the absolute differences of the means. \\
 
-\subsection{Experimental Setup}
+\subsection{Experimental Setup} \label{sec:experiment}
 
 {\blue*** Explain the Turk experiment}
 
@@ -290,7 +290,7 @@ Similar procedure was followed to obtain the lineup plot for two dimensional pro
 
 {\color{red} Description of the procedure. }\\
 
-\subsection{Theoretical explanation of the choice of dimensions}
+\subsection{Theoretical explanation of the choice of dimensions} \label{sec:theory}
 
 To decide on the different dimensions, we looked at the distribution of the absolute difference of the means of random noise divided into two classes. In this case we start with one dimension of random noise divided into two class and look at the means of the observation in each class. Since we are interested in the projections, we work with the absolute differences of the means.
 
@@ -436,7 +436,7 @@ Participants  for the experiment were recruited through Amazon Mechanical Turk (
 
 Amazon Mechanical turk participants are paid for their responses. Since the process is not monitored manually, some participants does not make an honest effort to find the actual plot but just picks plots randomly. To counter this problem, each participant responded to a comparatively easy lineup (a lineup with $p = 10$ dimensions with some real separation). The participants who failed to give a correct response to this lineup were removed from the study. If the response in this lineup is correct, we remove the response of this lineup but keep all the other responses. In this way we finally retain the response of 101 participants.  
 
-\subsection{Effect of dimensions, presence of real separation and projections on responses} 
+\subsection{Effect of dimensions, presence of real separation and projections on responses} \label{effects}
 
 We are interested in the proportion of participants identifying the correct plot in the presence of real separation versus pure noise, for 1d projections versus 2d projections and for the different dimensions.
 Figure \ref{suc-rate-glm} shows the proportion of the participants who successfully picked the plot of the actual data for each replicate of each dimension. We can clearly see when there is some real separation , the rate of success in making the correct response overall is higher than the rate of success when the data is complete noise and there is no real separation. Also there is a difference in terms of the variability among the replicates in each dimension.
@@ -588,6 +588,20 @@ In Figure \ref{wbratio}, we see that there is a negative correlation between the
 
 %\begin{multicols}{2}
 
+\subsection{How does the null plots affect the response ?}
+
+In classical inference the test statistic can be compared with an infinite number of possible values from the sampling distribution under the null hypothesis. But in visual inference the participants can compare the test statistic (the observed plot) with only a finite number of null plots which makes the null plots an important factor in decision making. We have mentioned in Section \ref{effects} that the probability of correct evaluation decreases for dimension $p = 80$ and increases for dimension $p = 100$ which is opposite to what we should expect. To investigate this we look at the difference between the minimum WBratio of the null plots and the WBratio for the observed plot for each lineup. Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, we scale it by dividing the difference by the WBratio of the observed plot of the lineup. Figure \ref{null} shows the relationship between the difference and the probability of successful evaluation.  
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.7}{\includegraphics{suc-diff-wbratio.pdf}}
+       \caption{Proportion of successful evaluation is plotted against the relative difference between the minimum WBratio of the null plots and the WBratio of the observed plot for each lineup. The black line gives the 0 difference line. The points left to the zero line indicates a difficult lineup in the sense that a null plot had a lower WBratio value than the observed plot. }
+       \label{null}
+\end{figure*}
+
+Figure \ref{null} shows that for data with real separation dimension has an effect on the difficulty level but for data with noise there is no effect of dimension. For some lineups with noise data the observed plot has a lower WBratio value than the null plots. It can be observed from Figure \ref{null} that the participants could pick the observed plot if it has the lowest WBratio value. The unexpected performance of the participants when the dimension  is $p = 80$ can be explained by the fact that the one or more of the null plots have lower WBratio value than the observed plot.
+
 
 \section{Distance Increasing with $p$ for Fixed $n$} \label{sec:distance}
 
@@ -638,11 +652,11 @@ Again consider 3 dimensions of pure noise, each dimension having 30 observations
 
 \section{Wasps data, revisited. }
 
-\subsection{Statement of the hypothesis}
+%\subsection{Statement of the hypothesis}
 
 We obtained the wasp data used to generate Figure \ref{oligo} from the authors.  As we have seen earlier in Figure \ref{oligo} that at least two of the groups are separated from the others.  The important question is ``Is this separation real or fake ? ". We can start with a null hypothesis $H_0$: The separation seen in the groups in Figure \ref{oligo} is fake versus the alternative $H_a$: The separation seen in the groups is real. 
 
-\subsection{Description of the procedure}
+%\subsection{Description of the procedure}
 
 To test the above hypothesis, we use the wasp data obtained from the authors (of \cite{toth:2010}) to get LD1 and LD2 from a LDA. As the authors did, we plot LD1 versus LD2 in a scatterplot colored by the four groups. This works as my actual plot. We generate the null plots by randomly permuting the group variables so that any dependence between the groups and the other variables are broken. Then we perform a LDA on the permuted data and plot LD1 versus LD2 to obtain the null plots. The actual plot is placed randomly among the null plots to get a lineup. Figure \ref{toth_lineup} shows such a lineup.
 
@@ -659,7 +673,7 @@ To compare our previous lineup, we generate a permuted data from the wasp datase
 
 So we have two different lineups : one where the actual data is the wasp data and the other where the actual data is ``permuted data" obtained by permuting the wasp data. We made three replicates of each. Participants from the Amazon Turk was shown one of the above lineups and were asked to identify the plot which has the most separation among the colored groups. They were also asked to record a reason for their choice and also a confidence level on the scale of 1 to 5.
 
-\subsection{Results}
+%\subsection{Results}
 
 The probability of successful evaluation for the wasp data and permuted data is shown in Figure \ref{wasp-result}. As we can see, none of the participants were able to identify the actual plot in the wasp data. But around 10\% of the participants were able to identify the actual plot when we used the permuted data to generate the lineup.
 

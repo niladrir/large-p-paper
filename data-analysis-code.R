@@ -90,6 +90,8 @@ turk7 <- subset(turk7, id %in% id_10)
 # Data Analysis 
 ###====================================================================================================
 
+setwd("/Users/Niladri/Documents/Research/Large p, small n/large-p-paper")
+
 ### Summary statistics
 
 id_perf <- ddply(turk7,.(id),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )
@@ -216,9 +218,9 @@ qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ project
 
 #ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
 
-ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate), col = I("red"), size = I(3))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
 
-ggsave("suc-rate-glm.pdf", height = 7, width = 7)
+ggsave("suc-rate-rep-glm.pdf", height = 7, width = 7)
 
 
 ###===========================================================================================
@@ -324,7 +326,7 @@ qplot(dimension, m, data = turk7.d, geom = c("point"), colour = noise,  size = I
 # 4 = Groups are in corners
 # 5 = Other
 
-qplot(factor(choice_reason), geom = "bar", data = subset(turk7, dimension != 10 & sample_size != 50), facets = projection ~ ., fill = noise)
+qplot(factor(choice_reason), geom = "bar", data = subset(turk7, dimension != 10 & sample_size != 50), facets = projection ~ noise)
 
 
 turk7.choice <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason))
@@ -339,7 +341,54 @@ ggplot() + geom_bar(data = subset(turk7.choice, l > 2), aes(x = factor(choice_re
 
 ggsave("choice-reason-bar.pdf", height = 8, width = 6)
 
-turk7.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason), s = sum(response)/length(response))
+turk7.size <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(noise, projection, choice_reason), summarize, l = length(choice_reason), s = sum(response)/length(response))
+
+turk7.size$choice_reason <- as.factor(turk7.size$choice_reason)
+
+levels(turk7.size$choice_reason) <- c("Biggest Gap(1)", "Centers Apart(2)", "Least Spread(3)", "Groups in Corners(4)", "Others(5)", "12", "13", "14", "15", "23", "24", "25", "35", "45", "123", "124", "134", "1234")
+
+qplot(factor(choice_reason), weight = l, data = turk7.size,  facets = noise ~ projection) + coord_flip()
+
+qplot(factor(choice_reason), s, size = l, data = turk7.size, facets = noise ~ projection) + coord_flip()
+
+
+turk7.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(choice_reason), summarize, l = length(choice_reason), s = sum(response)/length(response))
+
+qplot(factor(choice_reason), s, data = turk7.res, size = l) + coord_flip()
+
+
+###=========================================================================================
+### Difficulty of the plots
+###=========================================================================================
+
+dat <- merge(meas, turk7, by.x = "file.name", by.y = "pic_name")
+
+dat1 <- subset(dat, dimension != 10 & sample_size != 50 )
+
+
+dat2 <- ddply(dat1, .(file.name, dimension, noise, projection), summarise, wb.loc = mean(wb.ratio[.sample == plot_location]), wb.min = min(wb.ratio[.sample != plot_location]), lam.loc = mean(wlambda[.sample == plot_location]), lam.min = min(wlambda[.sample != plot_location]))
+
+
+qplot(wb.loc, wb.min, data = dat2, color = noise) + geom_abline(slope = 1)
+
+dat2$diff.wb <- 100*(- dat2$wb.loc + dat2$wb.min)/dat2$wb.loc
+
+dat2$diff.lam <- 100*(- dat2$lam.loc + dat2$lam.min)/dat2$lam.loc
+
+turk7.pic.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50 ), .(pic_name), summarise, tot.attempt = length(response), s = sum(response)/length(response))
+
+dat3 <- data.frame(dat2, tot.attempt = turk7.pic.res$tot.attempt, suc.rate = turk7.pic.res$s)
+
+levels(dat3$noise) <- c("real separation", "noise data")
+
+qplot(diff.wb, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise) ) + geom_vline(xintercept = 0) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data")
+
+ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
+
+qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
+
+
+
 
 
 ###=====================================================================================
@@ -369,6 +418,52 @@ qplot(conf_level, m, data = turk7.time, size = I(3), alpha = I(0.4), geom = "poi
 
 
 qplot(factor(conf_level), time_taken, data = subset(turk7, dimension !=10 & sample_size !=50 & time_taken < 400), geom = "boxplot", facets = noise ~ projection, colour = I("red")) + coord_flip() 
+
+
+###Proportional Odds Logistic Regression Model
+
+dat <- merge(meas, turk7, by.x = "file.name", by.y = "pic_name")
+
+dat1 <- subset(dat, dimension != 10 & sample_size != 50 )
+
+
+dat2 <- ddply(dat1, .(file.name, dimension, noise, projection), summarise, wb.loc = mean(wb.ratio[.sample == plot_location]), wb.min = min(wb.ratio[.sample != plot_location]))
+
+
+dat2$diff.wb <- 100*(- dat2$wb.loc + dat2$wb.min)/dat2$wb.loc
+
+dat.conf <- merge(turk7, dat2, by.y = "file.name", by.x = "pic_name")
+
+dat.conf.small <- subset(dat.conf, select = c("id", "time_taken", "conf_level", "diff.wb"))
+
+dat.conf.small$diff.cat <- "Difficult"
+dat.conf.small$diff.cat[dat.conf.small$diff.wb > 0] <- "Easy"
+#dat.conf.small$diff.cat[dat.conf.small$diff.wb > 25 ] <- "Easy"
+
+dat.conf.small$diff.cat <- as.factor(dat.conf.small$diff.cat)
+
+
+head(dat.conf.small)
+
+library(MASS)
+
+fit.polr <- polr(factor(conf_level) ~ time_taken*diff.cat , data = na.omit(dat.conf.small))
+
+summary(fit.polr)
+
+X <- data.frame(expand.grid(
+	time_taken=seq(5,953, by = 40), diff.cat = c("Difficult","Easy")
+))
+X <- data.frame(X,predict(fit.polr, newdata=X, type="p"))
+library(reshape2)
+X.melt <- melt(X, id.vars=c("time_taken","diff.cat"))
+
+
+levels(X.melt$variable) <- c("Most(1)", "2", "3", "4", "Least(5)")
+
+qplot(time_taken, value, geom=c("point", "line"),colour = variable, shape = diff.cat, data=X.melt)+ylim(c(0,1))+ylab("Estimated Probabilities") + xlab("Time Taken to Respond") + scale_colour_discrete("Confidence Level") + scale_shape_discrete("Difficulty Level")
+
+
 
 ###================================================================================
 ### Subject Wise Probabilty 
