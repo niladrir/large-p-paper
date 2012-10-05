@@ -309,6 +309,11 @@ qplot(dimension, log(time_taken), data = subset(turk7, dimension !=10 & sample_s
 
 ggsave("time-taken-log.pdf", height = 7, width = 7)
 
+
+qplot(dimension, log(time_taken), data = subset(turk7, dimension !=10 & sample_size !=50), geom = "point",  colour = noise, facets = projection ~. , alpha = I(0.3), size = I(3), group = noise) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + geom_smooth(aes(colour = noise),method = "loess", se = FALSE, size = I(1)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_y_continuous("log time taken to respond") + scale_fill_discrete(name = "Data") + scale_color_discrete(name = "Data")
+
+ggsave("time-taken-log-dot.pdf", height = 7, width = 7)
+
 ### Mean time vs dimension
 
 turk7.d <- ddply(subset(turk7, dimension !=10 & sample_size !=50), .(noise, dimension, projection), summarize, m = median(time_taken))
@@ -385,7 +390,11 @@ qplot(diff.wb, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5),
 
 ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
 
-qplot(diff.wb + 60, suc.rate, data = dat3, size = I(3.5), log = "x", ylim=c(0,1) ) + geom_vline(xintercept = 60) + geom_smooth(method = "lm", se = FALSE) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
+qplot(diff.wb, suc.rate, data = dat3, size = I(3.5)) + geom_vline(xintercept = 0) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data")
+
+qplot(log(diff.wb + 60), suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = log(60)) + geom_smooth(method = "lm", se = FALSE) + ylab("Probability of successful evaluation") + xlab("Adjusted Difference on the log scale") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
+
+ggsave("suc-diff-wbratio-dot.pdf", height = 5.5, width = 7)
 
 qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
 
