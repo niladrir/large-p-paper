@@ -385,6 +385,8 @@ qplot(diff.wb, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5),
 
 ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
 
+qplot(diff.wb + 60, suc.rate, data = dat3, size = I(3.5), log = "x", ylim=c(0,1) ) + geom_vline(xintercept = 60) + geom_smooth(method = "lm", se = FALSE) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
+
 qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
 
 
