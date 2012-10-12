@@ -188,8 +188,7 @@ dat$res <- 0
 dat$dimension <- as.numeric(as.character(dat$dimension))
 
 
-fit.power <- glm(response ~ dimension+ noise + projection
-             , family=binomial,data=dat)
+fit.power <- glm(response ~ dimension+ noise + projection, family=binomial,data=dat)
 res <- summary(fit.power)
 #str(res)
 res$coef
@@ -221,6 +220,32 @@ qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ project
 ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
 
 ggsave("suc-rate-rep-glm.pdf", height = 7, width = 7)
+
+
+###==================================================================
+###Comparing the main effect and interaction effect models
+###=================================================================
+
+dat <- subset(turk7, dimension != 10 & sample_size != 50)
+
+#dat$res <- 0
+#1 -> dat$res[dat$response == "TRUE"]
+
+dat$dimension <- as.numeric(as.character(dat$dimension))
+
+fit.main <- glm(response ~ dimension + noise + projection, family=binomial,data=dat)
+
+fit.twoway <- glm(response ~ dimension + noise + projection + dimension*noise + dimension*projection + noise*projection, family=binomial,data=dat)
+
+fit.full <- glm(response ~ dimension*noise*projection, family=binomial,data=dat)
+
+fit.null <- glm(response ~ 1, family = binomial, data = dat)
+
+anova(fit.null, fit.main, fit.twoway, fit.full, test = "Chisq")
+
+###need to choose between main effects or twoway interaction model
+
+anova(fit.twoway, test = "Chisq")
 
 
 ###===========================================================================================
@@ -333,6 +358,48 @@ qplot(dimension, m, data = turk7.d, geom = c("point"), colour = noise,  size = I
 
 qplot(factor(choice_reason), geom = "bar", data = subset(turk7, dimension != 10 & sample_size != 50), facets = projection ~ noise)
 
+choice.dat <- ddply(subset(turk7, dimension != 10 & sample_size != 50 & choice_reason == "1"), .(dimension, noise, projection), summarise, cnt = length(choice_reason))
+
+choice.m <- melt(choice.dat)
+
+choice.n <- ddply(choice.m, .(noise, projection), summarise, s = sum(value))
+
+choice.mn <- merge(choice.m, choice.n, by = c("noise", "projection"))
+
+qplot(factor(dimension), value/s, geom = "point", col = noise, data = choice.mn, size = I(3), ylim = c(0, 0.3), facets = projection ~ .) + geom_line(aes(group = noise))
+
+qplot(factor(dimension), cnt, geom = "point", data = choice.dat, col = noise, size = I(3)) + geom_line(aes(group = noise))
+
+dat.small <- subset(turk7, dimension != 10 & sample_size != 50)
+
+dat.small <- subset(dat.small, select = c(dimension, noise, projection, choice_reason, response))
+
+dat.small$choice_reason_1 <- 0
+
+dat.small$choice_reason_1[dat.small$choice_reason == "1" | dat.small$choice_reason == "12" | dat.small$choice_reason == "13" | dat.small$choice_reason == "14" | dat.small$choice_reason == "15" | dat.small$choice_reason == "123" | dat.small$choice_reason == "124" | dat.small$choice_reason == "134" | dat.small$choice_reason == "1234"] <- 1
+
+dat.small$choice_reason_2 <- 0
+
+dat.small$choice_reason_2[dat.small$choice_reason == "2" | dat.small$choice_reason == "12" | dat.small$choice_reason == "23" | dat.small$choice_reason == "24" | dat.small$choice_reason == "25" | dat.small$choice_reason == "123" | dat.small$choice_reason == "124" |  dat.small$choice_reason == "1234"] <- 1
+
+dat.small$choice_reason_3 <- 0
+
+dat.small$choice_reason_3[dat.small$choice_reason == "3" | dat.small$choice_reason == "13" | dat.small$choice_reason == "23" | dat.small$choice_reason == "35" | dat.small$choice_reason == "123" | dat.small$choice_reason == "134" |  dat.small$choice_reason == "1234"] <- 1
+
+dat.small$choice_reason_4 <- 0
+
+dat.small$choice_reason_4[dat.small$choice_reason == "4" | dat.small$choice_reason == "14" | dat.small$choice_reason == "24" | dat.small$choice_reason == "45" | dat.small$choice_reason == "124" | dat.small$choice_reason == "134" |  dat.small$choice_reason == "1234"] <- 1
+
+dat.small$choice_reason_5 <- 0
+
+dat.small$choice_reason_5[dat.small$choice_reason == "5" | dat.small$choice_reason == "15" | dat.small$choice_reason == "25" | dat.small$choice_reason == "35" | dat.small$choice_reason == "45"] <- 1
+
+dat.small.melt <- melt(dat.small, id.var = c("dimension", "noise", "projection", "choice_reason", "response"))
+
+dat.reason <- ddply(dat.small.melt, .(noise, variable, projection), summarise, fre = sum(value)/length(value) )
+
+qplot(variable, weight =  fre, geom = "bar", data = dat.reason, facets = projection ~ noise) + coord_flip()
+
 
 turk7.choice <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason))
 
@@ -388,13 +455,26 @@ levels(dat3$noise) <- c("real separation", "noise data")
 
 qplot(diff.wb, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise) ) + geom_vline(xintercept = 0) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data")
 
-ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
+#ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
 
-qplot(diff.wb, suc.rate, data = dat3, size = I(3.5)) + geom_vline(xintercept = 0) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data")
+qplot(diff.wb, suc.rate, data = dat3, size = I(3.5)) + geom_vline(xintercept = 0) + geom_smooth(aes(method = "glm"), se = FALSE) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
 
-qplot(log(diff.wb + 60), suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = log(60)) + geom_smooth(method = "lm", se = FALSE) + ylab("Probability of successful evaluation") + xlab("Adjusted Difference on the log scale") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
 
-ggsave("suc-diff-wbratio-dot.pdf", height = 5.5, width = 7)
+dat3$log.diff <- log(dat3$diff.wb + 60)
+
+mod.diff <- glm(suc.rate ~ log.diff , family = binomial(), data = dat3)
+
+log.diff <- seq(0.28, 6, by = 0.01)
+newdat <- data.frame(log.diff)
+pr.diff <- predict(mod.diff, newdata = newdat, type="response", se.fit = TRUE)
+
+diff.dat <- data.frame(log.diff = log.diff, val = pr.diff$fit)
+
+qplot(log.diff, val, data = diff.dat, geom = "line")
+
+qplot(log.diff, suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = log(60)) + geom_line(data = diff.dat, aes(x = log.diff, y = val), col = I("blue")) + ylab("Proportion of successful evaluation") + xlab("Adjusted Relative Difference on the log scale")
+
+ggsave("suc-diff-wbratio-glm.pdf", height = 6, width = 7)
 
 qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
 
@@ -575,7 +655,10 @@ qplot(wbratio, s, data = dat1.count, geom = "point", col = plot_loc)  + geom_lin
 
 ggsave("wbratio.pdf", height = 7, width = 9)
 
+
+###===================================================================
 ### Plotting the Proportion of Correct Response for Paper Wasp dataset
+###====================================================================
 
 wasp.turk7 <- subset(turk7, sample_size == 50)
 wasp.turk7.suc <- ddply(wasp.turk7, .(noise), summarize, tot.attempt = length(response), suc = sum(response)/length(response))
@@ -594,7 +677,51 @@ levels(adj.Wald.ci$noise) <- c("Wasp Data", "Permuted Data")
 
 ggplot() + geom_bar(data = wasp.turk7.suc, aes(noise, suc)) + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), col = I("red"), width = 0.15) + scale_x_discrete("") + scale_y_continuous("Probability of Successful Evaluation", limits = c(-0.02,1))
 
-ggsave("wasp-result.pdf", height = 5, width = 4)
+
+
+#ggplot() + geom_point(data = wasp.turk7.suc, aes(x = noise, y = as.numeric(response), size = tot.attempt), alpha = I(0.8)) + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), width = 0.15) + scale_x_discrete("") + scale_y_continuous("Proportion of Successful Evaluation") + scale_size_continuous("Number of attempts")
+
+#ggsave("wasp-result-dot.pdf", height = 5.5, width = 7)
+
+###============================================================
+### Relation between sample size and dimension for two groups
+###============================================================
+
+
+p <- seq(1, 50, by = 1)
+n <- c(30, 50)
+
+prob <- function(n, p){
+	sum <- 0
+	for(i in 1:min(n-1, p)){
+		s0 <- choose(n-1, 0)/(2^(n - 1))
+		s[i] <- choose(n-1, i)/(2^(n - 1))
+		sum <- sum + s[i] + s0
+	}
+	return(sum)
+}
+
+pr <- matrix(0, ncol = 2, nrow = 50)
+for(k in 1:length(n)){
+for(i in p){
+	pr[i,k] <- prob(n[k], i)
+}
+
+}
+
+dat.prob <- data.frame(dimension = p, Probability = round(pr,4))
+
+dat.prob.m <- melt(dat.prob, id = "dimension")
+
+#dat.prob$dimension[dat.prob$Probability == 0.5]
+
+qplot(dimension, value, data = dat.prob.m, geom = "line", group = variable, size = I(0.8)) + geom_vline(xintercept = 14, alpha = I(0.6)) + geom_vline(xintercept = 24, alpha = I(0.6)) + geom_text(mapping = aes(x = 19, y = 0.75), label = "n = 30")  + geom_text(mapping = aes(x = 30, y = 0.75), label = "n = 50") + xlab("Dimension") + ylab("Probability")
+
+ggsave("probability-n-p.pdf", height = 7, width = 7)
+
+
+
+
 
 ####====================================================================================================
 ####====================================================================================================
