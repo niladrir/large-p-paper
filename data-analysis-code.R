@@ -108,7 +108,7 @@ pic_perf$dim_rep <- as.factor(pic_perf$dim_rep)
 
 levels(pic_perf$dim_rep) <- levels(pic_perf$dim_rep)[c(4,5,6,7,8,9,10,11,12,13,14,15,1,2,3)]
 
-levels(pic_perf$noise) <- c("Real Separation","Noise Data")
+levels(pic_perf$noise) <- c("Real Separation","Purely Noise")
 levels(pic_perf$projection) <- c("1D Projection","2D Projection")
 
 qplot(dimension, suc.rate, data = pic_perf, size = I(3)) + facet_grid(noise ~ projection) +  ylab("Proportion of successful evaluation") + xlab("Dimension")
@@ -188,7 +188,7 @@ dat$res <- 0
 dat$dimension <- as.numeric(as.character(dat$dimension))
 
 
-fit.power <- glm(response ~ dimension+ noise + projection, family=binomial,data=dat)
+fit.power <- glm(response ~ dimension+ noise + projection + noise:dimension, family=binomial,data=dat)
 res <- summary(fit.power)
 #str(res)
 res$coef
@@ -207,7 +207,7 @@ pow.dat.m <- melt(pow.dat, id=c("dimensions","noise","projection"))
 head(pow.dat.m)
 colnames(pow.dat.m) <- c("dimensions","noise","projection","Test","prob")
 
-levels(pow.dat.m$noise) <- c("Real Separation", "Noise Data")
+levels(pow.dat.m$noise) <- c("Real Separation", "Purely Noise")
 
 levels(pow.dat.m$projection) <- c("1D Projection", "2D Projection")
 
@@ -217,9 +217,9 @@ qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ project
 
 #ggplot() + geom_point(data = adj.Wald.ci, aes(x = dimension, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = dimension, y = p, ymin = lower, ymax = upper), col = I("red"), width = 5) +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), colour = I("blue"), size = I(1.2), alpha = I(0.6)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(-0.05, 1))
 
-ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion of Correct Response") 
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion Correct") 
 
-ggsave("suc-rate-rep-glm.pdf", height = 7, width = 7)
+ggsave("suc-rate-rep-int-glm.pdf", height = 7, width = 7)
 
 
 ###==================================================================
@@ -277,7 +277,7 @@ library(lme4)
 
 dat$dimension <- as.numeric(as.character(dat$dimension))
 
-fit.mixed <- lmer(response ~ dimension + factor(noise) + factor(projection)
+fit.mixed <- lmer(response ~ dimension + factor(noise) + factor(projection) + factor(noise)*dimension
               + (1|id)
               , family="binomial"
               , data=dat)
@@ -296,7 +296,7 @@ gnd <- NULL
 tau <- res@ranef    # estimates for existing subject
 M <- length(tau)
 for (i in 1:M){
-	  X <- cbind(rep(1,length(dimension)),dimension,noise,projection)
+	  X <- cbind(rep(1,length(dimension)),dimension,noise,projection,noise*dimension)
   xb <- X %*% B + tau[i]
   power <- cbind(power,exp(xb)/(1+exp(xb))) 
 }
@@ -310,13 +310,13 @@ pow.dat.m1$noise <- as.factor(pow.dat.m1$noise)
 
 pow.dat.m1$projection <- as.factor(pow.dat.m1$projection)
 
-levels(pow.dat.m1$noise) <- c("Real Separation", "Noise Data")
+levels(pow.dat.m1$noise) <- c("Real Separation", "Purely Noise")
 
 levels(pow.dat.m1$projection) <- c("1D Projection", "2D Projection")
 
-ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1, alpha = I(0.1)) + facet_grid(noise ~ projection) + geom_line(aes(x = dimension, y = prob), data=pow.dat.m, colour = I("blue"), size = I(1)) + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate), size = I(3), alpha = I(0.7)) + xlab("Dimension") + ylab("Proportion of Correct Response") + ylim(c(0,1))
+ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1, alpha = I(0.1)) + facet_grid(noise ~ projection) + geom_line(aes(x = dimension, y = prob), data=pow.dat.m, colour = I("blue"), size = I(1))  + xlab("Dimension") + ylab("Proportion Correct") + ylim(c(0,1))
  
-#ggsave("subjectwise-glm.pdf", height = 7, width = 7)
+ggsave("subjectwise-glm-int.pdf", height = 7, width = 7)
 
             
 
@@ -327,15 +327,15 @@ ggplot() + geom_line(aes(x = dimension,y = value,group=variable),data=pow.dat.m1
 ### Time taken to respond for different levels of dimension for noise and real data
 ###==================================================================================
 
-levels(turk7$noise) <- c("real separation", "noise data")
-levels(turk7$projection) <- c("1D projection", "2D projection")
+levels(turk7$noise) <- c("Real Separation", "Purely Noise ")
+levels(turk7$projection) <- c("1D Projection", "2D Projection")
 
 qplot(dimension, log(time_taken), data = subset(turk7, dimension !=10 & sample_size !=50), geom = "boxplot", fill = noise, colour = noise, facets = projection ~. , alpha = I(0.3), size = I(0.8)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_y_continuous("log time taken to respond") + scale_fill_discrete(name = "Data") + scale_color_discrete(name = "Data")
 
 ggsave("time-taken-log.pdf", height = 7, width = 7)
 
 
-qplot(dimension, log(time_taken), data = subset(turk7, dimension !=10 & sample_size !=50), geom = "point",  colour = noise, facets = projection ~. , alpha = I(0.3), size = I(3), group = noise) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + geom_smooth(aes(colour = noise),method = "loess", se = FALSE, size = I(1)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100)) + scale_y_continuous("log time taken to respond") + scale_fill_discrete(name = "Data") + scale_color_discrete(name = "Data")
+qplot(dimension, time_taken, data = subset(turk7, dimension !=10 & sample_size !=50), geom = "point",  colour = noise, facets = projection ~. , alpha = I(0.3), size = I(3.5), group = noise, log = "y")  + geom_smooth(aes(colour = noise),method = "loess", se = FALSE, size = I(1)) + scale_x_discrete("Dimension", limits = c(20, 40, 60, 80, 100))  + scale_color_discrete(name = "Data") + ylab("Time on the log scale")
 
 ggsave("time-taken-log-dot.pdf", height = 7, width = 7)
 
@@ -400,6 +400,18 @@ dat.reason <- ddply(dat.small.melt, .(noise, variable, projection), summarise, f
 
 qplot(variable, weight =  fre, geom = "bar", data = dat.reason, facets = projection ~ noise) + coord_flip()
 
+choice.1 <- subset(dat.small, choice_reason_1 == 1)
+
+choice.1.len <- ddply(choice.1, .(noise, projection, dimension), summarise, len = length(choice_reason_1))
+
+choice.1.tot <- ddply(choice.1, .(noise, projection), summarise, tot = length(choice_reason_1))
+
+choice.len.tot <- merge(choice.1.len, choice.1.tot, by = c("noise", "projection"))
+
+qplot(factor(dimension), len/tot, geom = "point", col = noise, data = choice.len.tot, size = I(3), ylim = c(0, 0.3), facets = projection ~ .) + geom_line(aes(group = noise))
+
+###==========================================================
+
 
 turk7.choice <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason))
 
@@ -445,6 +457,8 @@ qplot(wb.loc, wb.min, data = dat2, color = noise) + geom_abline(slope = 1)
 
 dat2$diff.wb <- 100*(- dat2$wb.loc + dat2$wb.min)/dat2$wb.loc
 
+dat2$ratio <- dat2$wb.min/dat2$wb.loc
+
 dat2$diff.lam <- 100*(- dat2$lam.loc + dat2$lam.min)/dat2$lam.loc
 
 turk7.pic.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50 ), .(pic_name), summarise, tot.attempt = length(response), s = sum(response)/length(response))
@@ -475,6 +489,23 @@ qplot(log.diff, val, data = diff.dat, geom = "line")
 qplot(log.diff, suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = log(60)) + geom_line(data = diff.dat, aes(x = log.diff, y = val), col = I("blue")) + ylab("Proportion of successful evaluation") + xlab("Adjusted Relative Difference on the log scale")
 
 ggsave("suc-diff-wbratio-glm.pdf", height = 6, width = 7)
+
+#dat3$ratio <- log(dat3$diff.wb + 60)
+
+mod.ratio<- glm(suc.rate ~ ratio , family = binomial(), data = dat3)
+
+ratio <- seq(0.1, 3.04, by = 0.01)
+newdat <- data.frame(ratio)
+pr.ratio <- predict(mod.ratio, newdata = newdat, type="response", se.fit = TRUE)
+
+ratio.dat <- data.frame(ratio = ratio, val = pr.ratio$fit)
+
+qplot(ratio, val, data = ratio.dat, geom = "line")
+
+qplot(ratio, suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = 1) + geom_line(data = ratio.dat, aes(x = ratio, y = val), col = I("blue")) + ylab("Proportion Correct") + xlab("Ratio")
+
+ggsave("suc-ratio-wbratio-glm.pdf", height = 6, width = 7)
+
 
 qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
 
@@ -688,39 +719,20 @@ ggplot() + geom_bar(data = wasp.turk7.suc, aes(noise, suc)) + geom_point(data = 
 ###============================================================
 
 
-p <- seq(1, 50, by = 1)
+p <- seq(0, 50, by = 1)
 n <- c(30, 50)
 
-prob <- function(n, p){
-	sum <- 0
-	for(i in 1:min(n-1, p)){
-		s0 <- choose(n-1, 0)/(2^(n - 1))
-		s[i] <- choose(n-1, i)/(2^(n - 1))
-		sum <- sum + s[i] + s0
-	}
-	return(sum)
-}
+prob <-  function(n){choose(n - 1, p)/(2^(n - 1))}
 
-pr <- matrix(0, ncol = 2, nrow = 50)
-for(k in 1:length(n)){
-for(i in p){
-	pr[i,k] <- prob(n[k], i)
-}
-
-}
-
-dat.prob <- data.frame(dimension = p, Probability = round(pr,4))
+dat.prob <- data.frame(dimension = p, Pr.30 = round(cumsum(prob(30)),4), Pr.50 = round(cumsum(prob(50)),4))
 
 dat.prob.m <- melt(dat.prob, id = "dimension")
 
-#dat.prob$dimension[dat.prob$Probability == 0.5]
+levels(dat.prob.m$variable) <- c("n = 30", "n = 50")
 
-qplot(dimension, value, data = dat.prob.m, geom = "line", group = variable, size = I(0.8)) + geom_vline(xintercept = 14, alpha = I(0.6)) + geom_vline(xintercept = 24, alpha = I(0.6)) + geom_text(mapping = aes(x = 19, y = 0.75), label = "n = 30")  + geom_text(mapping = aes(x = 30, y = 0.75), label = "n = 50") + xlab("Dimension") + ylab("Probability")
+qplot(dimension, value, data = dat.prob.m, geom = "line", group = variable, size = I(0.8), col = variable) + geom_vline(xintercept = c(14,24), alpha = I(0.6), col = "blue") + xlab("Dimension") + ylab("Probability") + scale_color_discrete(name = "Data")
 
 ggsave("probability-n-p.pdf", height = 7, width = 7)
-
-
-
 
 
 ####====================================================================================================
