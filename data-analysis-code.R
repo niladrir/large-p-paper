@@ -119,7 +119,10 @@ suc.rate <- ddply(turk7, .(sample_size,noise,dimension,projection), summarise, s
 
 suc.rate.sub <- subset(suc.rate, dimension != 10 & sample_size != 50)
 
+###===================================================
 ###Bootstrap Confidence Interval
+###Not included in the paper
+###===================================================
 
 boot.strap <- function(data){
 	dat <- ldply(1:10000, function(k){ sample(data, length(data), replace = TRUE)})
@@ -139,8 +142,10 @@ boot.strap.ci$dimension <- as.numeric(as.character(boot.strap.ci$dimension))
 
 boot.strap.ci$meas <- rep(c("lb", "p", "ub"), 20)
 
-
+###========================================================
 ### Adjusted Wald Intervals
+### Not in the paper
+###========================================================
 
 adj.Wald <- function(data, alpha=0.05, x=2) {
 	n <- length(data)
@@ -179,6 +184,22 @@ m + geom_crossbar(width = 5, colour = I("red")) + ylim(c(-0.05, 1))
 ###===========================================================================================
 ### GLM model layered on the observed success rates
 ###=======================================================================================
+
+pic_perf <- ddply(subset(turk7, dimension !=10 & sample_size != 50),.(pic_name, dimension, noise, projection, replication),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )
+
+pic_perf$dimension <- as.numeric(as.character(pic_perf$dimension))
+
+pic_perf$dim_rep <- paste(pic_perf$dimension,"_",pic_perf$replication, sep = "")
+
+pic_perf$dim_rep <- as.factor(pic_perf$dim_rep)
+
+levels(pic_perf$dim_rep) <- levels(pic_perf$dim_rep)[c(4,5,6,7,8,9,10,11,12,13,14,15,1,2,3)]
+
+levels(pic_perf$noise) <- c("Real Separation","Purely Noise")
+levels(pic_perf$projection) <- c("1D Projection","2D Projection")
+
+qplot(dimension, suc.rate, data = pic_perf, size = I(3)) + facet_grid(noise ~ projection) +  ylab("Proportion of successful evaluation") + xlab("Dimension")
+
 
 dat <- subset(turk7, dimension != 10 & sample_size != 50)
 
@@ -356,7 +377,11 @@ qplot(dimension, m, data = turk7.d, geom = c("point"), colour = noise,  size = I
 # 4 = Groups are in corners
 # 5 = Other
 
+##Barplot showing each choice reason
+
 qplot(factor(choice_reason), geom = "bar", data = subset(turk7, dimension != 10 & sample_size != 50), facets = projection ~ noise)
+
+
 
 choice.dat <- ddply(subset(turk7, dimension != 10 & sample_size != 50 & choice_reason == "1"), .(dimension, noise, projection), summarise, cnt = length(choice_reason))
 
@@ -366,9 +391,13 @@ choice.n <- ddply(choice.m, .(noise, projection), summarise, s = sum(value))
 
 choice.mn <- merge(choice.m, choice.n, by = c("noise", "projection"))
 
+###Line diagram showing only choice_reason = 1 for all the dimensions vs relative frequency
+
 qplot(factor(dimension), value/s, geom = "point", col = noise, data = choice.mn, size = I(3), ylim = c(0, 0.3), facets = projection ~ .) + geom_line(aes(group = noise))
 
-qplot(factor(dimension), cnt, geom = "point", data = choice.dat, col = noise, size = I(3)) + geom_line(aes(group = noise))
+#qplot(factor(dimension), cnt, geom = "point", data = choice.dat, col = noise, size = I(3)) + geom_line(aes(group = noise))
+
+### Reducing the choice_reasons to the main 5 by adjusting the others
 
 dat.small <- subset(turk7, dimension != 10 & sample_size != 50)
 
@@ -398,7 +427,11 @@ dat.small.melt <- melt(dat.small, id.var = c("dimension", "noise", "projection",
 
 dat.reason <- ddply(dat.small.melt, .(noise, variable, projection), summarise, fre = sum(value)/length(value) )
 
+###Barplot drawn based on the adjusted choice reasons
+
 qplot(variable, weight =  fre, geom = "bar", data = dat.reason, facets = projection ~ noise) + coord_flip()
+
+###Relative freq of pick vs dimension for ONLY choice reason = 1
 
 choice.1 <- subset(dat.small, choice_reason_1 == 1)
 
@@ -411,7 +444,8 @@ choice.len.tot <- merge(choice.1.len, choice.1.tot, by = c("noise", "projection"
 qplot(factor(dimension), len/tot, geom = "point", col = noise, data = choice.len.tot, size = I(3), ylim = c(0, 0.3), facets = projection ~ .) + geom_line(aes(group = noise))
 
 ###==========================================================
-
+###Codes for presenting Choice Reasons
+###==========================================================
 
 turk7.choice <- ddply(subset(turk7, dimension != 10 & sample_size != 50), .(dimension, noise, projection, choice_reason), summarize, l = length(choice_reason))
 
@@ -467,12 +501,18 @@ dat3 <- data.frame(dat2, tot.attempt = turk7.pic.res$tot.attempt, suc.rate = tur
 
 levels(dat3$noise) <- c("real separation", "noise data")
 
+### Plotting the proportion correct vs the difference colored by dimension
+### and shape giving noise
+
 qplot(diff.wb, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise) ) + geom_vline(xintercept = 0) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data")
 
 #ggsave("suc-diff-wbratio.pdf", height = 5.5, width = 7)
 
+### Plotting the proportion correct vs the difference  
+
 qplot(diff.wb, suc.rate, data = dat3, size = I(3.5)) + geom_vline(xintercept = 0) + geom_smooth(aes(method = "glm"), se = FALSE) + ylab("Probability of successful evaluation") + xlab("Difference") + scale_colour_discrete("Dimension") + scale_shape_discrete("Data") 
 
+###Fitting a glm model to the adjusted log difference
 
 dat3$log.diff <- log(dat3$diff.wb + 60)
 
@@ -484,13 +524,15 @@ pr.diff <- predict(mod.diff, newdata = newdat, type="response", se.fit = TRUE)
 
 diff.dat <- data.frame(log.diff = log.diff, val = pr.diff$fit)
 
-qplot(log.diff, val, data = diff.dat, geom = "line")
+#qplot(log.diff, val, data = diff.dat, geom = "line")
+
+### Plotting the proportion correct vs the difference with the glm model overlaid
 
 qplot(log.diff, suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = log(60)) + geom_line(data = diff.dat, aes(x = log.diff, y = val), col = I("blue")) + ylab("Proportion of successful evaluation") + xlab("Adjusted Relative Difference on the log scale")
 
 ggsave("suc-diff-wbratio-glm.pdf", height = 6, width = 7)
 
-#dat3$ratio <- log(dat3$diff.wb + 60)
+### Plotting the proportion correct vs the difference
 
 mod.ratio<- glm(suc.rate ~ ratio , family = binomial(), data = dat3)
 
@@ -500,14 +542,15 @@ pr.ratio <- predict(mod.ratio, newdata = newdat, type="response", se.fit = TRUE)
 
 ratio.dat <- data.frame(ratio = ratio, val = pr.ratio$fit)
 
-qplot(ratio, val, data = ratio.dat, geom = "line")
+#qplot(ratio, val, data = ratio.dat, geom = "line")
 
 qplot(ratio, suc.rate, data = dat3, size = I(3.5), ylim=c(0,1) ) + geom_vline(xintercept = 1) + geom_line(data = ratio.dat, aes(x = ratio, y = val), col = I("blue")) + ylab("Proportion Correct") + xlab("Ratio")
 
 ggsave("suc-ratio-wbratio-glm.pdf", height = 6, width = 7)
 
+## Difference of Wilks lambda vs the proportion correct
 
-qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
+#qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5), shape = factor(noise), xlim = c(-150, 2000), facets = . ~ projection) + geom_vline(xintercept = 0)
 
 
 
@@ -515,6 +558,7 @@ qplot(diff.lam, suc.rate, data = dat3, colour = factor(dimension), size = I(3.5)
 
 ###=====================================================================================
 ### Confidence Level
+### Not included in the paper
 ###=====================================================================================
 
 
@@ -542,7 +586,8 @@ qplot(conf_level, m, data = turk7.time, size = I(3), alpha = I(0.4), geom = "poi
 qplot(factor(conf_level), time_taken, data = subset(turk7, dimension !=10 & sample_size !=50 & time_taken < 400), geom = "boxplot", facets = noise ~ projection, colour = I("red")) + coord_flip() 
 
 
-###Proportional Odds Logistic Regression Model
+###Fitting a Proportional Odds Logistic Regression Model to the confidence
+### level with covariates time and difficulty
 
 dat <- merge(meas, turk7, by.x = "file.name", by.y = "pic_name")
 
@@ -689,15 +734,29 @@ ggsave("wbratio.pdf", height = 7, width = 9)
 
 ###===================================================================
 ### Plotting the Proportion of Correct Response for Paper Wasp dataset
+### Not included in the paper
 ###====================================================================
 
 wasp.turk7 <- subset(turk7, sample_size == 50)
-wasp.turk7.suc <- ddply(wasp.turk7, .(noise), summarize, tot.attempt = length(response), suc = sum(response)/length(response))
+wasp.turk7.suc <- ddply(wasp.turk7, .(noise, replication), summarize, tot.attempt = length(response), suc = sum(response)/length(response))
 
 
 qplot(factor(noise), suc , data = wasp.turk7.suc, position = "dodge", geom = "bar",  ylim=c(0,1), xlab = "Noise Data", ylab = "Proportion of Correct Response", main = "Paper Wasp Data") 
 
-adj.Wald.ci <- ddply(wasp.turk7, .(noise), summarise, p = adj.Wald(response)$p, lower = adj.Wald(response)$lo, upper = adj.Wald(response)$up )
+### Adjusted Wald Intervals
+
+
+adj.Wald <- function(data, alpha=0.05, x=2) {
+	n <- length(data)
+	y <- sum(data)
+	n1 <- n+2*x
+	p <- (y+x)/n1
+	phat <- y/n
+	li <- qnorm(1-alpha/2)*sqrt(p*(1-p)/n)
+	return(list(lo=max(0,phat-li), p=phat, up=min(1,phat+li)))
+}
+
+adj.Wald.ci <- ddply(wasp.turk7, .(noise, replication), summarise, p = adj.Wald(response)$p, lower = adj.Wald(response)$lo, upper = adj.Wald(response)$up )
 
 ggplot() + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), col = I("red"), width = 0.15) + ylim(c(-0.02,1))
 
@@ -708,6 +767,24 @@ levels(adj.Wald.ci$noise) <- c("Wasp Data", "Permuted Data")
 
 ggplot() + geom_bar(data = wasp.turk7.suc, aes(noise, suc)) + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), col = I("red"), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), col = I("red"), width = 0.15) + scale_x_discrete("") + scale_y_continuous("Probability of Successful Evaluation", limits = c(-0.02,1))
 
+
+###==============================================================
+### Paper Wasp vs Measures
+###==============================================================
+
+wasp.meas <- dat <- merge(meas, wasp.turk7, by.x = "file.name", by.y = "pic_name")
+
+wasp.meas.summ <- ddply(wasp.meas, .(file.name, dimension, noise, projection), summarise, wb.loc = mean(wb.ratio[.sample == plot_location]), wb.min = min(wb.ratio[.sample != plot_location]), lam.loc = mean(wlambda[.sample == plot_location]), lam.min = min(wlambda[.sample != plot_location]))
+
+wasp.meas.suc <- ddply(wasp.turk7, .(pic_name), summarise, tot = length(response), s = sum(response) )
+
+
+wasp.meas.summ$ratio <- wasp.meas.summ$wb.min/wasp.meas.summ$wb.loc
+
+
+wasp.meas.suc.summ <- data.frame(wasp.meas.summ, tot = wasp.meas.suc$tot, suc = wasp.meas.suc$s/wasp.meas.suc$tot )
+
+qplot(ratio, suc, data = wasp.meas.suc.summ, size = I(3), xlab = "Ratio", ylab = "Proportion Correct", shape = noise, ylim = c(0, 1))
 
 
 #ggplot() + geom_point(data = wasp.turk7.suc, aes(x = noise, y = as.numeric(response), size = tot.attempt), alpha = I(0.8)) + geom_point(data = adj.Wald.ci, aes(x = noise, y = p), size = I(3)) + geom_errorbar(data = adj.Wald.ci, aes(x = noise, y = p, ymin = lower, ymax = upper), width = 0.15) + scale_x_discrete("") + scale_y_continuous("Proportion of Successful Evaluation") + scale_size_continuous("Number of attempts")
@@ -733,6 +810,68 @@ levels(dat.prob.m$variable) <- c("n = 30", "n = 50")
 qplot(dimension, value, data = dat.prob.m, geom = "line", group = variable, size = I(0.8), col = variable) + geom_vline(xintercept = c(14,24), alpha = I(0.6), col = "blue") + xlab("Dimension") + ylab("Probability") + scale_color_discrete(name = "Data")
 
 ggsave("probability-n-p.pdf", height = 7, width = 7)
+
+
+###=================================================================
+### Construction of the plot showing that the region between the
+###distribution of sum of absolute difference for noise data and that for
+###data with real separation increases as dimension increases
+###==================================================================
+
+###=================================================================================
+# Sum of absolute difference of mean for two groups with p dimensions for noise data
+###=================================================================================
+
+sum_p<-function(p){
+val<-ldply(1:10000,function(k){
+x1<-matrix(rnorm(15*p),ncol=p)
+x2<-matrix(rnorm(15*p),ncol=p)
+data.frame(ab.val=sum(abs(apply(x1,2,mean)-apply(x2,2,mean))))	
+})
+return(val$ab.val)
+}
+
+###==================================================================
+##Real Separation
+###==================================================================
+
+sum_p_real<-function(p){
+val<-ldply(1:10000,function(k){
+x1<-matrix(rnorm(15*p),ncol=p)
+x1[,p] <- x1[,p] - 3
+x2<-matrix(rnorm(15*p),ncol=p)
+x2[,p] <- x2[,p] + 3
+data.frame(ab.val=sum(abs(apply(x1,2,mean)-apply(x2,2,mean))))	
+})
+return(val$ab.val)
+}	
+
+dat<-NULL
+dimen<-c(20,40,60,80,100)
+for(i in dimen){
+	d<-data.frame(sum_p(i),sum_p_real(i),dimen=i)
+	cat(i,"\n")
+	dat<-rbind(dat,d)
+}
+
+colnames(dat)<-c("noise","real","dimen")
+d.m<-melt(dat,id="dimen")
+
+levels(d.m$variable) <- c("Purely Noise", "Real Separation")
+
+dim_m<-ddply(subset(d.m, variable == "Real Separation"),.(dimen),summarise,q=quantile(value,0.05))
+
+
+dens <- ddply(d.m, .(dimen, variable), summarize, x = density(value)$x, y = density(value)$y)
+
+dens.q <- merge(subset(dens, variable == "Purely Noise"), dim_m, by = "dimen")
+
+dens.s <- subset(dens.q, x > q)
+
+qplot(value,data=d.m,geom="density",group=variable,fill=variable,col=variable,alpha=I(0.2), facets=dimen~.) + geom_vline(data=dim_m,aes(xintercept=q),facets=dimen~.,alpha=I(0.8),col="blue") + scale_x_continuous("Sum of Absolute Difference of Means",limits=c(0,45)) + scale_fill_discrete("Data") + scale_color_discrete("Data") + geom_ribbon(data = dens.s, aes(x=x, ymin = 0, ymax = y), col = I("blue"), fill=I("blue"), alpha = I(0.5))
+
+ggsave("sum-noise-real-2.pdf", height = 7, width = 7)
+
 
 
 ####====================================================================================================
