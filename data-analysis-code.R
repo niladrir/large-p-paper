@@ -717,19 +717,41 @@ dat1$dimension <- factor(dat1$dimension, levels = c( "20", "40", "60", "80", "10
 dat1$dim_proj <- paste(dat1$dimension,"_", dat1$projection, sep = "")
 dat1$noise_rep <- paste(dat1$noise,"_",dat1$replication,sep="")
 
-dat1.count <- ddply(dat1, .(dim_proj,noise_rep,.sample, plot_location) , summarise, s = sum(.sample == response_no)/length(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location)) 
+dat1.count1 <- ddply(subset(dat1, projection == 1), .(dim_proj,noise_rep,.sample, plot_location) , summarise, s = sum(.sample == response_no)/length(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location)) 
 
 
-qplot(wlamb, s, data = dat1.count, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wlamb, ymin = 0, ymax = s )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
+qplot(wlamb, s, data = dat1.count1, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wlamb, ymin = 0, ymax = s )) + opts(legend.position="none") + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
 
-dat1.count$dim_proj <- factor(dat1.count$dim_proj, levels <- c("20_1", "20_2", "40_1", "40_2", "60_1", "60_2", "80_1", "80_2", "100_1", "100_2"))
-dat1.count$noise_rep <- factor(dat1.count$noise_rep)
-levels(dat1.count$dim_proj) <- c( "dim:20 \n proj:1", "dim:20 \n proj:2", "dim:40 \n proj:1", "dim:40 \n proj:2", "dim:60 \n proj:1", "dim:60 \n proj:2", "dim:80 \n proj:1", "dim:80 \n proj:2", "dim:100 \n proj:1", "dim:100 \n proj:2")
-levels(dat1.count$noise_rep) <- c("data:real \n rep:1", "data:real \n rep:2", "data:real \n rep:3", "data:noise \n rep:1", "data:noise \n rep:2","data:noise \n rep:3" )
-qplot(wbratio, s, data = dat1.count, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wbratio, ymin = 0, ymax = s )) + scale_x_continuous("WB Ratio", labels =NULL, breaks = NULL ) + scale_y_continuous("Relative Frequency of picks", limits = c(0,1), breaks = c(0, 0.5, 1)) + opts(legend.position="none", axis.ticks = theme_blank(), axis.text.x = theme_blank()) + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
+#dat1.count$dim_proj <- factor(dat1.count$dim_proj, levels <- c("20_1", "20_2", "40_1", "40_2", "60_1", "60_2", "80_1", "80_2", "100_1", "100_2"))
+
+dat1.count1$dim_proj <- factor(dat1.count1$dim_proj, levels <- c("20_1", "40_1",  "60_1",  "80_1",  "100_1"))
+dat1.count1$noise_rep <- factor(dat1.count1$noise_rep)
+#levels(dat1.count$dim_proj) <- c( "dim:20 \n proj:1", "dim:20 \n proj:2", "dim:40 \n proj:1", "dim:40 \n proj:2", "dim:60 \n proj:1", "dim:60 \n proj:2", "dim:80 \n proj:1", "dim:80 \n proj:2", "dim:100 \n proj:1", "dim:100 \n proj:2")
+
+levels(dat1.count1$dim_proj) <- c( "dim:20", "dim:40 ",  "dim:60 ",  "dim:80",  "dim:100")
+
+levels(dat1.count1$noise_rep) <- c("data:real \n rep:1", "data:real \n rep:2", "data:real \n rep:3", "data:noise \n rep:1", "data:noise \n rep:2","data:noise \n rep:3" )
+qplot(wbratio, s, data = dat1.count1, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wbratio, ymin = 0, ymax = s )) + scale_x_continuous("WB Ratio", labels =NULL ) + scale_y_continuous("Relative Frequency", limits = c(0,1), breaks = c(0, 0.5, 1)) + opts(legend.position="none", axis.ticks = theme_blank(), axis.text.x = theme_blank()) + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
 
 
-ggsave("wbratio.pdf", height = 7, width = 9)
+ggsave("wbratio-1.pdf", height = 6, width = 5)
+
+dat1.count2 <- ddply(subset(dat1, projection == 2), .(dim_proj,noise_rep,.sample, plot_location) , summarise, s = sum(.sample == response_no)/length(.sample == response_no), wlamb = mean(wlambda), wbratio = mean(wb.ratio) , plot_loc = mean(.sample == plot_location)) 
+
+
+dat1.count2$dim_proj <- factor(dat1.count2$dim_proj, levels <- c("20_2", "40_2",  "60_2",  "80_2",  "100_2"))
+dat1.count2$noise_rep <- factor(dat1.count2$noise_rep)
+#levels(dat1.count$dim_proj) <- c( "dim:20 \n proj:1", "dim:20 \n proj:2", "dim:40 \n proj:1", "dim:40 \n proj:2", "dim:60 \n proj:1", "dim:60 \n proj:2", "dim:80 \n proj:1", "dim:80 \n proj:2", "dim:100 \n proj:1", "dim:100 \n proj:2")
+
+levels(dat1.count2$dim_proj) <- c( "dim:20", "dim:40 ",  "dim:60 ",  "dim:80",  "dim:100")
+
+levels(dat1.count2$noise_rep) <- c("data:real \n rep:1", "data:real \n rep:2", "data:real \n rep:3", "data:noise \n rep:1", "data:noise \n rep:2","data:noise \n rep:3" )
+qplot(wbratio, s, data = dat1.count2, geom = "point", col = plot_loc)  + geom_linerange(aes(x = wbratio, ymin = 0, ymax = s )) + scale_x_continuous("WB Ratio", labels =NULL ) + scale_y_continuous("Relative Frequency", limits = c(0,1), breaks = c(0, 0.5, 1)) + opts(legend.position="none", axis.ticks = theme_blank(), axis.text.x = theme_blank()) + scale_colour_continuous(high = "red", low = "black") + facet_grid(noise_rep ~ dim_proj, scales = "free_x")
+
+
+ggsave("wbratio-2.pdf", height = 6, width = 5)
+
+
 
 
 ###===================================================================
