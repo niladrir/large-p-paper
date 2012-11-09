@@ -358,22 +358,38 @@ Let us denote $X_{ij}$ as the $j$-th observation in the $i$-th group where $j = 
 
 The expectation and the variance of $Y$ can be calculated: 
 $$E(Y) = \sigma \sqrt{2/\pi}$$
-$$Var(Y) = \sigma^2 (1 - \frac{2}{\pi})$$
+$$Var(Y) = \sigma^2 (1 - 2/\pi)$$
 
 Let us consider $p$ dimensions of purely noise data, each dimension being divided into $i = 2$ groups with $n_i = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. The sum of the absolute difference between the means is obtained for all the $p$ dimensions. So, define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$ \\
 
 Assuming independence among the dimensions of purely noise data,
 
 $$E(Y) = p \sigma \sqrt{2/\pi}$$
-$$Var(Y) = p \sigma^2 (1 - \frac{2}{\pi})$$
+$$Var(Y) = p \sigma^2 (1 - 2/\pi)$$
 
-To check for the optimization procedure one dimension of real separation is considered in the data. So the means of $X_{mij}$s are adjusted such that in the $p$-th dimension, we have $$Y_p = |\bar{X}_{p1.} - \bar{X}_{p2.}| = 6$$ So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + 6$$
+To check for the optimization procedure one dimension of real separation is considered in the data. To bring in the real separation, we adjust the mean of $X_{ij}$. We subtract $C$ from the mean of the first 15 observations (group 1) and add $C$ to the mean of the last 15 observations (group 2). So we define
+$$X_{ij}^* \sim \hbox{Normal}(- C, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_1$$
+$$X_{ij}^* \sim \hbox{Normal}(C, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_2$$ 
+Hence we have $$\bar{X}_{1.}^* - \bar{X}_{2.}^* \sim \hbox{Normal}(2C, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. Let us define $$Y^*  = |\bar{X}_{1.}^* - \bar{X}_{2.}^*|$$ where $Y^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$.  \\
+
+The expectation and the variance of $Y^*$ can be calculated :
+
+$$E(Y^*) = \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]$$
+$$Var(Y^*) = 4C^2 + \sigma^2 - (E(Y^*))^2$$
+
+
+Now the means of $X_{mij}$s are adjusted in the $p$-th dimension. So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p$$ where $Y_p$ follows a Folded Normal Distribution.
 
 Again assuming independence among the dimensions of purely noise data and data with real separation,
 
-$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
-$$Var(Z) = p \sigma^2 (1 - \frac{2}{\pi})$$
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]$$
+$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + 4C^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]\right)^2$$
 
+In our case, $C = 3$ and $\sigma^2 = 2/15$. Therefore,
+$$\exp(- 2C^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2C/\sigma) \approx 0$$
+Hence,
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
+$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
 As the value of $p$ increases for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ as the spread of $Z$ increases as well. The means of both $Y$ and $Z$ also increase with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and is independent of the number of dimensions ($p$). 
 %\begin{equation}
 $$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
@@ -889,7 +905,7 @@ The visual inference method was also used to test whether the separation obtaine
 \item The solution to the lineup at Figure \ref{fig:test_category_1d} is Plot 11.
 \item The solution to the lineup at Figure \ref{fig:test_category} is Plot 15.
 \item The solution to the lineup at Figure \ref{toth_lineup} is Plot 3.
-\item The solution to the lineup at Figure \ref{toth_pda} is Plot 13.
+%\item The solution to the lineup at Figure \ref{toth_pda} is Plot 13.
 
 
 \end{itemize}
