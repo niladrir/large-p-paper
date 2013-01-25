@@ -30,7 +30,7 @@
 
 \title{Visual Statistical Inference for High Dimension, Small Sample Size Data}\label{ch:largepsmalln}
 \vspace{-0.8cm}
-\author{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder}
+\author{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder, Amy L. Toth}
 %\large{This paper was presented in Joint Statistical Meetings 2011 and is submitted in JSM Proceedings 2011.} 
 
 %\vspace{1cm}
@@ -764,7 +764,7 @@ The above probability is being calculated for $n = 30$ and $n = 50$ which is rep
 
 %\subsection{Statement of the hypothesis}
 
-As seen earlier in Figure \ref{oligo} it looks like the different types of wasps have different gene expression levels, at least two of the groups are separated from the other two.  The interesting question is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
+As seen earlier in Figure \ref{oligo} it looks as if the expression patterns of the wasp groups are separated, most clearly that two of the groups are separated from the other two.  The interesting question is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
 
 \begin{quote}
 $H_o$: There is NO difference in the expression levels between the types of wasp.\\
@@ -831,7 +831,7 @@ Purely noise & 2 & 18 & 0.0000 &  1.0000 \\
 \end{center}
 \end{table}
 
-In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for this data. In general, reducing the dimension so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discimrinant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis.
+In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \citep{toth:2007} did not suffer from the HDLSS problem; we determined that there were robust separations between the groups based on those data (results not shown).
 
 %Making the number of dimensions ($p$) less than the sample size ($n$) may not solve the problem in case of LDA. Figure \ref{combin} shows that when the sample size ($n$) is 50, the probability of obtaining separated groups for purely noise data divided into 2 groups is 1 for dimension ($p$) greater than 38. When the number of dimensions ($p$) is large compared to the number of observations ($n$), the LDA method is not recommended as the separation may be just due to the high dimensions. This points out the importance of dividing the data into test and training sets.  
 
