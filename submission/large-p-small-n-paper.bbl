@@ -1,0 +1,151 @@
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Amazon(2010)]{turk}
+Amazon.
+\newblock Mechanical {T}urk, 2010.
+\newblock URL \url{http://aws.amazon.com/mturk/}.
+
+\bibitem[Buja et~al.(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
+  Wickham]{buja:2009}
+A.~Buja, D.~Cook, H.~Hofmann, M.~Lawrence, E.~Lee, D.~Swayne, and H.~Wickham.
+\newblock {S}tatistical {I}nference for {E}xploratory {D}ata {A}nalysis and
+  {M}odel {D}iagnostics.
+\newblock \emph{Royal Society Philosophical Transactions A}, 367\penalty0
+  (1906):\penalty0 4361--4383, 2009.
+
+\bibitem[Donoho and Jin(2008)]{donoho:2008}
+D.~Donoho and J.~Jin.
+\newblock {H}igher {C}riticism {T}hresholding: {O}ptimal {F}eature {S}election
+  when {U}seful {F}eatures are {R}are and {W}eak.
+\newblock \emph{Proceedings of the National Academy of Sciences of the United
+  States of America}, 105:\penalty0 14790--14795, 2008.
+
+\bibitem[Donoho and Jin(2009)]{donoho:2009}
+D.~Donoho and J.~Jin.
+\newblock {F}eature {S}election by {H}igher {C}riticism {T}hresholding achieves
+  the {O}ptimal {P}hase {D}iagram.
+\newblock \emph{Philosophical Transactions of the Royal Society A},
+  367:\penalty0 4449--4470, 2009.
+
+\bibitem[Dudoit et~al.(2002)Dudoit, Fridlyand, and Speed]{dudoit:2002}
+S.~Dudoit, J.~Fridlyand, and T.~Speed.
+\newblock {C}omparison of {D}iscrimination {M}ethods for the {Classification}
+  of {T}umors {U}sing {G}ene {E}xpression {D}ata.
+\newblock \emph{Journal of American Statistical Association}, 97:457:\penalty0
+  77 -- 87, 2002.
+
+\bibitem[Friedman and Tukey(1974)]{friedman:1974}
+J.~H. Friedman and J.~W. Tukey.
+\newblock {A} {P}rojection {P}ursuit {A}lgorithm for {E}xploratory {D}ata
+  {A}nalysis.
+\newblock \emph{IEEE Transactions on Computers}, c-23:\penalty0 881 -- 890,
+  1974.
+
+\bibitem[Gelman(2004)]{gelman:2004}
+A.~Gelman.
+\newblock Exploratory {D}ata {A}nalysis for {C}omplex {M}odels.
+\newblock \emph{Journal of Computational and Graphical Statistics}, 13\penalty0
+  (4):\penalty0 755--779, 2004.
+
+\bibitem[Hall et~al.(2005)Hall, Marron, and Neeman]{hall:2005}
+P.~Hall, J.S. Marron, and A.~Neeman.
+\newblock {G}eometric {R}epresentation of {H}igh {D}imension, {L}ow {S}ample
+  {S}ize {D}ata.
+\newblock \emph{Journal of Royal Statistical Society B}, 67:\penalty0 427 --
+  444, 2005.
+
+\bibitem[Hennig(2010)]{hennig:2010}
+C.~Hennig.
+\newblock fpc : {F}lexible {P}rocedures for {C}lustering.
+\newblock \emph{R package version 2}, 2010.
+
+\bibitem[Huber(1985)]{huber:1985}
+P.~J. Huber.
+\newblock {P}rojection {P}ursuit.
+\newblock \emph{The Annals of Statistics}, 13:\penalty0 435 -- 475, 1985.
+
+\bibitem[Johnson and Wichern(2002)]{JW02}
+R.~A. Johnson and D.~W. Wichern.
+\newblock \emph{Applied Multivariate Statistical Analysis (5th ed)}.
+\newblock Prentice-Hall, Englewood Cliffs, NJ, 2002.
+
+\bibitem[Jung et~al.(2012)Jung, Sen, and Marron]{marron:2011}
+S.~Jung, A.~Sen, and J.~S. Marron.
+\newblock {B}oundary {B}ehavior in {H}igh {D}imension, {L}ow {S}ample {S}ize
+  asymptotics of {P}ca.
+\newblock \emph{Journal of Multivariate Analysis}, 109:\penalty0 190--203,
+  2012.
+
+\bibitem[Lee and Cook(2009)]{lee:2009}
+E.-K. Lee and D.~Cook.
+\newblock A {P}rojection {P}ursuit {I}ndex for {L}arge $p$ {S}mall $n$ {D}ata.
+\newblock \emph{Statistics and Computing},
+  page~{\url{http://www.springerlink.com/content/g47n0n342761838m/?p=d2ff5a7b69eb45ef8abf7ef3aba69557&pi=3}},
+  2009.
+
+\bibitem[Majumder et~al.()Majumder, Hofmann, and Cook]{majumder:2011}
+M.~Majumder, H.~Hofmann, and D.~Cook.
+\newblock {V}alidation of {V}isual {S}tatistical {I}nference, {A}pplied to
+  {L}inear {M}odels.
+\newblock \emph{Journal of American Statistical Association}, Under Revision.
+
+\bibitem[Marron et~al.(2007)Marron, Todd, and Ahn]{marron:2007}
+J.~S. Marron, M.~J. Todd, and J.~Ahn.
+\newblock {D}istance {W}eighted {D}iscrimination.
+\newblock \emph{Journal of American Statistical Association}, 480:\penalty0
+  1267--1271, 2007.
+
+\bibitem[{R Development Core Team}(2009)]{r}
+{R Development Core Team}.
+\newblock \emph{{R}: {A} {L}anguage and {E}nvironment for {S}tatistical
+  {C}omputing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2009.
+\newblock URL \url{http://www.R-project.org}.
+\newblock {ISBN} 3-900051-07-0.
+
+\bibitem[Ripley(1996)]{ripley:1996}
+B.~D. Ripley.
+\newblock \emph{{P}attern {R}ecognition and {N}eural {N}etworks}.
+\newblock Cambridge University Press, 1996.
+
+\bibitem[Roy~Chowdhury et~al.(2012)Roy~Chowdhury, Cook, Hofmann, and
+  Majumder]{roychowdhury:2012}
+N.~Roy~Chowdhury, D.~Cook, H.~Hofmann, and M.~Majumder.
+\newblock {W}here's {W}aldo: {L}ooking {C}losely at a {L}ineup.
+\newblock Technical Report~2, Iowa State University, Department of Statistics,
+  2012.
+
+\bibitem[Toth et~al.(2007)Toth, Varala, Newman, Miguez, Hutchison, Willoughby,
+  Simons, Egholm, Hunt, Hudson, and Robinson]{toth:2007}
+A.~Toth, K.~Varala, T.~Newman, F.~Miguez, S.~Hutchison, D.~Willoughby,
+  J.~Simons, M.~Egholm, J.~Hunt, M.~Hudson, and G.~Robinson.
+\newblock {W}asp {G}ene {E}xpression {S}upports an {E}volutionary {L}ink
+  between {M}aternal {B}ehavior and {E}usociality.
+\newblock \emph{Science}, 318:\penalty0 441 -- 444, 2007.
+
+\bibitem[Toth et~al.(2010)Toth, Varala, Henshaw, Rodriguez-Zas, Hudson, and
+  Robinson]{toth:2010}
+A.~Toth, K.~Varala, M.~Henshaw, S.~Rodriguez-Zas, M.~Hudson, and G.~Robinson.
+\newblock {B}rain {T}ranscriptomic {A}nalysis in {P}aper {W}asps {I}dentifies
+  {G}enes {A}ssociated with {B}ehaviour across {S}ocial {I}nsect {L}ineages.
+\newblock \emph{Proceedings of the Royal Society of Biological Sciences - B},
+  277:\penalty0 2139 -- 2148, 2010.
+
+\bibitem[Wickham and Cook(2010)]{WC08}
+H.~Wickham and D.~Cook.
+\newblock {\tt tourr}: {I}mplements {T}our {M}ethods in {P}ure {R} {C}ode.
+\newblock {\tt http://www.R-project.org}, 2010.
+
+\bibitem[Yata and Aoshima(2011)]{yata:2010}
+K.~Yata and M.~Aoshima.
+\newblock {E}ffective {P}{C}{A} for {H}igh {D}imension, {L}ow {S}ample {S}ize
+  {D}ata with {N}oise {R}eduction via {G}eometric {R}epresentations.
+\newblock \emph{Journal of Multivariate Analysis}, 105:\penalty0 193--215,
+  2011.
+
+\end{thebibliography}
