@@ -82,6 +82,7 @@ grestore
 Dianne Cook \and
 Heike Hofmann \and
 Mahbubul Majumder \and
+Eun-Kyung Lee \and
 Amy L. Toth}
 %\large{This paper was presented in Joint Statistical Meetings 2011 and is submitted in JSM Proceedings 2011.} 
 
@@ -91,6 +92,10 @@ Amy L. Toth}
               \email{niladrir@iastate.edu, dicook@iastate.edu, hofmann@iastate.edu, mahbub@iastate.edu}           %  \\
 %             \emph{Present address:} of F. Author  %  if needed
            \and
+           Eun-Kyung Lee \at
+           Department of Statistics, EWHA Womans University, Seoul, Korea\\
+           \email{lee.eunk@gmail.com}
+           \and 
            Amy L. Toth \at
            Departments of Ecology, Evolution, and Organismal Biology and Entomology, Iowa State University, Ames, IA, USA \\
            \email{amytoth@iastate.edu}
@@ -132,7 +137,7 @@ HDLSS data occur in many application areas like face recognition and gene expres
 
 %{\blue TOPIC: Explanation of problem with classical methods}
 
-Reducing the dimension would seem to be the natural first step in HDLSS data. Principal component analysis (PCA) is the classical approach. PCA requires estimating the eigenvalues (maximum variance) and eigenvectors (direction of maximum variance) of the population variance-covariance based on the sample. With insufficient data this is a Sisyphean task. Just imagine, estimating a line on the foundation of a single point. There are infinitely many lines possible to return. Similarly for classification tasks, finding a low-dimensional representation of the separation between groups is a common first step. Linear discriminant analysis (LDA) is the classical method for this. LDA finds the low-dimensional space where the groups are most separated, by solving an eigen decomposition problem comparing distances between group means with variance around each mean. When there are few sample points differences between groups can be found in many different low-dimensional spaces. 
+Reducing the dimension would seem to be the natural first step in HDLSS data. Principal component analysis (PCA) is the classical approach. PCA requires estimating the eigenvalues (maximum variance) and eigenvectors (direction of maximum variance) of the population variance-covariance based on the sample. With insufficient data this is a Sisyphean task. Just imagine, estimating a line on the foundation of a single point. There are infinitely many lines possible to return. Similarly for classification tasks, finding a low-dimensional representation of the separation between groups is a common first step. Linear discriminant analysis (LDA) is the classical method for this. LDA finds the low-dimensional space where the groups are most separated, by solving an eigen decomposition problem comparing distances between group means with variance around each mean. When there are few sample points, differences between groups can be found in many different low-dimensional spaces. 
 
 %{\blue*** No need to use ``\verb#\\#'' after every paragraph}
 
@@ -145,13 +150,13 @@ One of the problems with HDLSS dataset is that not all the measured variables ar
 
 %{\blue TOPIC: This is clearly not getting the problem understood.}
 
-Clearly, though, the issues of working with HDLSS data are not clear to many researchers. In \cite{toth:2010} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), first reduced the dimension from 447 to 40 by randomly selected a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. With visual inference it can be shown that there is no real difference between the groups - what you see is a mirage. Visual inference methods will explain why. 
+Clearly, though, the issues of working with HDLSS data are not clear to many researchers. In \cite{toth:2010} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than dimension ($p$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. With visual inference it can be shown that there is no real difference between the groups - what you see is a mirage. Visual inference methods will explain why. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
        \scalebox{.45}{\includegraphics{toth_lda.pdf}}
-       \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos : F, Foundress; G, gyne; Q, queen and W, worker. It can be noticed that the groups F and G are separated. This figure is regenerated to match Figure 2 in \cite{toth:2010}. }
+       \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos : F, Foundress; G, gyne; Q, queen and W, worker. It can be noticed that the groups F and G are separated. This plot is generated to match Figure 2 in \cite{toth:2010}. }
      \label{oligo}
 %\end{figurehere}
 \end{figure*}  
@@ -175,7 +180,7 @@ Clearly, though, the issues of working with HDLSS data are not clear to many res
 %topic
 %{\color{red} Outline of the paper.}
 
-This paper describes visual inference as applied to dimension reduction for supervised classification problems. In particular we focus on dimension reduction using projection pursuit, and the affect that having large dimension has on the robustness of separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. Visual inference also is used to check the operation of the projection pursuit optimization. The next section explains the methods behind visual inference. Section \ref{sec:theory} describes theoretically what will happen with dimension reduction of HDLSS data containing two groups. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and purely noise for simulated HDLSS data, and the performance of the optimization algorithm. The wasps data is revisited at the end of the paper. 
+This paper describes visual inference as applied to dimension reduction for supervised classification problems. In particular we focus on dimension reduction using projection pursuit, and the effect that having large dimension has on the robustness of separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. Visual inference also is used to check the operation of the projection pursuit optimization. The next section explains the methods behind visual inference. Section \ref{sec:theory} describes theoretically what will happen with dimension reduction of HDLSS data containing two groups. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data, and the performance of the optimization algorithm. The wasps data is revisited at the end of the paper. 
 %In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
 
 
@@ -214,7 +219,7 @@ This paper describes visual inference as applied to dimension reduction for supe
 %\section{Inference for the means of two populations} \label{sec:largep}
 \section{Visual inference methods} \label{sec:inference}
 
-\cite{buja:2009}, following from \cite{gelman:2004}, proposed two protocols that allow the testing of discoveries made from statistical graphics. Among the two protocols explained in \cite{buja:2009} the lineup protocol particularly interests us. The lineup protocol is particularly used for testing significance of findings. Like any statistical test visual test is also associated with a test statistic. But unlike classical hypothesis testing, the test statistic in visual inference is not a real number, but a plot that is appropriately chosen to describe the parameter of interest. The plot of the observed data which is our test statistic is placed randomly among a set of ($m$ - 1) null plots. These type of a plot is known a lineup  of $m$ plots. The null plots are generated by a method consistent with the null hypothesis. Human subjects are asked to identify the plot which has the most distinct feature(s). If the human subjects can identify the plot of the observed data, we reject the null hypothesis. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from all the other null plots. For more details see \cite{buja:2009}. 
+\cite{buja:2009}, following from \cite{gelman:2004}, proposed two protocols that allow the testing of discoveries made from statistical graphics. Among the two protocols explained in \cite{buja:2009}, the lineup protocol particularly interests us. The lineup protocol is particularly used for testing significance of findings. Like any statistical test visual test is also associated with a test statistic. But unlike classical hypothesis testing, the test statistic in visual inference is not a real number, but a plot that is appropriately chosen to describe the parameter of interest. The plot of the observed data which is our test statistic is placed randomly among a set of ($m$ - 1) null plots. This type of a plot is known as a lineup  of $m$ plots. The null plots are generated by a method consistent with the null hypothesis. Human subjects are asked to identify the plot which has the most distinct feature(s). If the human subjects can identify the plot of the observed data, we reject the null hypothesis. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from all the other null plots. For more details see \cite{buja:2009}. 
 
 Let us consider the following example. The data represents the concentration of a metal in mg/kg for two sites A and B.
 %Model : $Y_i$ = $\beta_0$ + $\beta_1 X_i$ + $\epsilon_i$, \qquad $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ \\
@@ -224,7 +229,7 @@ We want to test whether there exists a significant difference between the concen
 H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
 \]
 %\vspace{0.4cm}
-(Technically the problem this data addressed was more interested in testing a one-sided alternative, whether site B has higher concentration than site A, but it is more interesting for this example to consider the two-sided alternative hypothesis.) The test statistic is the plot of the real data. The 19 null plots are generated by assuming that null hypothesis $H_o: \mu_1 =  \mu_2$ is true. So the group variable site is permuted to obtain the null plots keeping the other variables fixed. The observed data plot is placed randomly among these 19 plots in a lineup given in Figure \ref{lineup}. The viewer is asked to identify the plot which is most different. If the viewer can identify the plot of the real data, there will be reasons to believe that the observed data plot has a pattern which is absent in the null plots. So the null hypothesis would be rejected. If the viewer cannot identify the observed data plot, we fail to reject the null hypothesis. 
+(Technically the problem this data addressed was more interested in testing a one-sided alternative, whether site B has higher concentration than site A, but it is more interesting for this example to consider the two-sided alternative hypothesis.) The test statistic is the plot of the observed data. The 19 null plots are generated by assuming that null hypothesis $H_o: \mu_1 =  \mu_2$ is true. So the group variable site is permuted to obtain the null plots keeping the other variables fixed. The observed data plot is placed randomly among these 19 plots in a lineup given in Figure \ref{lineup}. The viewer is asked to identify the plot which is most different. If the viewer can identify the plot of the real data, there will be reasons to believe that the observed data plot has a pattern which is absent in the null plots. So the null hypothesis would be rejected. If the viewer cannot identify the observed data plot, we fail to reject the null hypothesis. 
 %\newpage
 
 \begin{figure}[hbtp]
@@ -242,7 +247,7 @@ H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
 
 If the viewer could identify the plot then there are reasons to believe that there exists a statistically significant difference between the mean concentration levels in site A and site B. So the lineup protocol is the basis of the visual inference while the Rorschach protocol helps viewer understand the extent of randomness. 
 
-\cite{majumder:2011} describes a comparative study between the visual inference method and the classical inference methods, focusing on plots that might be used in linear modeling. In his work the expected power of the visual test is compared with the power of the uniformly most powerful (UMP) test. The power of the visual test is computed by responses from several large samples of lineup evaluators recruited through Amazon Turk \citep{turk}. The results suggest that the expected power of a visual test is almost as good as the power of UMP test, that visual inference compares favorably with classical testing, in the traditional setting where the classical test performs well. They established properties and efficacy of visual testing procedures in order to use them in situations where traditional test cannot be used. In addition \cite{majumder:2011} provide a nice way of making the leap traditional hypothesis testing to visual inference. The table is adapted for the $H_o: \mu_1 =  \mu_2$ vs $H_a: \mu_1 \ne \mu_2$ example described and plotted in Figure \ref{lineup}, which can be seen in Table \ref{tbl:compare}.
+\cite{majumder:2011} describes a comparative study between the visual inference method and the classical inference methods, focusing on plots that might be used in linear modeling. In his work the expected power of the visual test is compared with the power of the uniformly most powerful (UMP) test. The power of the visual test is computed by responses from several large samples of lineup evaluators recruited through Amazon Turk \citep{turk}. The results suggest that the expected power of a visual test is almost as good as the power of UMP test, that visual inference compares favorably with classical testing, in the traditional setting where the classical test performs well. They established properties and efficacy of visual testing procedures in order to use them in situations where traditional test cannot be used. In addition \cite{majumder:2011} provide a nice way of making the leap from traditional hypothesis testing to visual inference. The table is adapted for the $H_o: \mu_1 =  \mu_2$ vs $H_a: \mu_1 \ne \mu_2$ example described and plotted in Figure \ref{lineup}, which can be seen in Table \ref{tbl:compare}.
 
 %\newpage
 
@@ -286,7 +291,7 @@ If the viewer could identify the plot then there are reasons to believe that the
 \subsection{Dimension reduction}
 
 %{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
-In this paper the idea of projection pursuit which was implemented by \cite{friedman:1974} is used. Projection pursuit (PP) is a statistical tool to find the most interesting low dimensional projections from high dimensional to low dimensional space that reveals the most details about the structure of the data. In this paper the one and two dimensional projections obtained by projection pursuit on higher dimensions is mainly used.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. Hence it works really well in HDLSS situations. The other methods fail to pick up small features unless the sample size is large. Also projection pursuit are able to ignore noisy and non-informative variables where it is in advantage over minimal spanning trees, multidimensional scaling and most clustering methods. Though these methods work in a HDLSS situation, they cannot ignore the ``noise'' variables. The  major drawback of PP method is its demand of the computer time. But in times of super computer and high speed computing this does not seem that big an issue.
+In this paper the idea of projection pursuit which was implemented by \cite{friedman:1974} is used. Projection pursuit (PP) is a statistical tool to find the most interesting low dimensional projections from high dimensional data to low dimensional space that reveals the most details about the structure of the data. In this paper the one and two dimensional projections obtained by projection pursuit on higher dimensions is mainly used.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. Hence it works really well in HDLSS situations. The other methods fail to pick up small features unless the sample size is large. Also projection pursuit are able to ignore noisy and non-informative variables where it is in advantage over minimal spanning trees, multidimensional scaling and most clustering methods. Though these methods work in a HDLSS situation, they cannot ignore the ``noise'' variables. The  major drawback of PP method is its demand of the computer time. But in times of super computer and high speed computing this does not seem to be that big an issue.
 
 PP method needs a projection index on the basis of which it finds the low dimensional projections of a high dimensional data. Various indices are used for this like Linear Discriminant Analysis (LDA) index, Quadratic Discriminant Analysis (QDA) index and many others. But in this paper Penalized Discriminant Analysis (PDA) index described in \cite{lee:2009} is used. PDA index is an improvement over the LDA index in a HDLSS situation. 
 
@@ -311,32 +316,32 @@ In this paper, data with $p$ dimensions of noise and no real separation is terme
 
 %{\blue*** Explain the Turk experiment}
 
-An experiment is designed to study the ability of human observers to detect the effect of one or two dimensions of real separation in $p$ dimensions of noise. Data is simulated for different values of $p  ( = 20, 40, 60, 80, 100)$.  So two groups of $p$ dimensions of data with 15 observations in each group were generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $X$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2.  So X can be written as
-$$X^{n \times (p + 1)} = (X_1, X_2, \dots, X_p, \hbox{Group})$$ where each $X_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional purely noise data with 2 groups.
+An experiment is designed to study the ability of human observers to detect the effect of one or two dimensions of real separation in $p$ dimensions of noise. Data is simulated for different values of $p  ( = 20, 40, 60, 80, 100)$.  So two groups of $p$ dimensions of data with 15 observations in each group were generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2.  So $\mathbf{X}$ can be written as
+$$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data with 2 groups.
 
-To bring in the real separation in the data, 3 is subtracted from the elements of the $p$-th variable $X_p$ which belongs to group 1 and 3 is added to the elements of the same variable which belongs to group 2. So, 
+To bring in the real separation in the data, 3 is subtracted from the elements of the $p$-th variable $\mathbf{X}_p$ which belongs to group 1 and 3 is added to the elements of the same variable which belongs to group 2. So, 
 $$
-X_p = \left\{ \begin{array}{rl}
- X_p - 3 &\mbox{ if $X_p \in$ group 1} \\
- X_p + 3 &\mbox{ if $X_p \in$ group 2}
+\mathbf{X}_p = \left\{ \begin{array}{rl}
+ \mathbf{X}_p - 3 &\mbox{ if $ \mathbf{X}_p \in$ group 1} \\
+ \mathbf{X}_p + 3 &\mbox{ if $ \mathbf{X}_p \in$ group 2}
        \end{array} \right.
 $$
-This is done so that the mean of the observations in the two groups in the $p$-th dimension is separated by 6 units. This modified $X$ matrix works as the data with one dimension of real separation. 
+This is done so that the mean of the observations in the two groups in the $p$-th dimension is separated by 6 units. This modified $ \mathbf{X}$ matrix works as the data with one dimension of real separation. 
 
 Hence two sets of data is obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projections.  
 
-The above procedure is repeated to obtain the $d = 2$ dimensional projections as well. But instead of labeling the 15 observations as group 1 and group 2, the first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3. Once again a $30 \times (p + 1)$ matrix, say, $X$, is obtained where the first 10 observations are from group 1, the second 10 observations are from group 2 and the last 10 observations are from group 3.  So, collectively, X can be written as
-$$X^{n \times (p + 1)} = (X_1, X_2, \dots, X_p, \hbox{Group})$$ where each $X_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional noise data with 3 groups.
+The above procedure is repeated to obtain the $d = 2$ dimensional projections as well. But instead of labeling the 15 observations as group 1 and group 2, the first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3. Once again a $30 \times (p + 1)$ matrix, say, $ \mathbf{X}$, is obtained where the first 10 observations are from group 1, the second 10 observations are from group 2 and the last 10 observations are from group 3.  So, collectively,  $\mathbf{X}$ can be written as
+$$ \mathbf{X}^{n \times (p + 1)} = ( \mathbf{X}_1,  \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $ \mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional noise data with 3 groups.
 
-As before to bring in the real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $X_{p-1}$ and $X_p$. The adjustment is done in the following way:
+As before to bring in the real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ \mathbf{X}_{p-1}$ and $ \mathbf{X}_p$. The adjustment is done in the following way:
 $$
-(X_{p-1}, X_p) = \left\{ \begin{array}{rl}
- (X_{p-1} - 3, X_p) &\mbox{ if $(X_{p-1}, X_p) \in$ group 1} \\
- (X_{p-1} + 3, X_p) &\mbox{ if $(X_{p-1}, X_p) \in$ group 2} \\
- (X_{p-1} , X_p + \sqrt{27}) &\mbox{ if $(X_{p-1}, X_p) \in$ group 3}
+( \mathbf{X}_{p-1},  \mathbf{X}_p) = \left\{ \begin{array}{rl}
+ ( \mathbf{X}_{p-1} - 3,  \mathbf{X}_p) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 1} \\
+ ( \mathbf{X}_{p-1} + 3,  \mathbf{X}_p) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 2} \\
+ ( \mathbf{X}_{p-1} ,  \mathbf{X}_p + \sqrt{27}) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 3}
        \end{array} \right.
 $$
-If $X_{p-1}$ versus $X_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. $X$ works here as the data with real separation in the last two dimensions. In this manner the data with 2 dimensions of real separation divided into 3 groups is obtained. 
+If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. $ \mathbf{X}$ works here as the data with real separation in the last two dimensions. In this manner the data with 2 dimensions of real separation divided into 3 groups is obtained. 
 So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. Again on each of the above datasets a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projections. 
 
 Finally 4 different sets of data are obtained for different values of $p$. The different combinations of sample size $n$, dimension $p$, projection $d$ and presence of noise were generated as shown in Table \ref{freq}. Three replicates of each level were generated. These produced 60 different ``observed data sets''. 
@@ -360,7 +365,7 @@ Finally 4 different sets of data are obtained for different values of $p$. The d
 \end{table}
 
 
-To obtain a lineup with $m = 20$ plots for one dimensional projections for purely noise, the one dimensional projections obtained from the projection pursuit with the PDA index is plotted on the horizontal axis and a fixed value (1.5 in this case) is plotted on the vertical axis colored by the group variable. This plot is called the ``observed data plot'' as it is obtained from the observed dataset. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup were obtained by  permuting the group variable so that breaking any dependency between the group variable and the other variables. Then the observed data plot is placed randomly among the 19 null plots to obtain one lineup. Two different statistics Wilk's $\lambda$ (\cite{JW02}) and WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) are calculated for each of the 20 plots in the lineup. 
+To obtain a lineup with $m = 20$ plots for one dimensional projections for purely noise data, the one dimensional projections obtained from the projection pursuit with the PDA index is plotted on the horizontal axis and a fixed value (1.5 in this case) is plotted on the vertical axis colored by the group variable. This plot is called the observed data plot as it is obtained from the observed dataset. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup were obtained by  permuting the group variable in order to break any dependence between the group variable and the other variables. Then the observed data plot is placed randomly among the 19 null plots to obtain one lineup. Two different statistics Wilk's $\lambda$ (\cite{JW02}) and WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) are calculated for each of the 20 plots in the lineup. 
 
 The above procedure was repeated for the one dimensional projections for data with one dimension of real separation. Figure \ref{fig:test_category_1d} gives the lineup  for the one dimensional projections with $p = 20$ dimensions where 19 dimensions are purely noise data and 1 dimension has real separation. This is an example of a lineup that is used in the experiment. 
 %{\color{red} The data recorded for the participants. How many participants were recruited.} \\
@@ -374,7 +379,7 @@ The above procedure was repeated for the one dimensional projections for data wi
 %\begin{figurehere}
    \centering
        \scalebox{1.00}{\includegraphics{plot_real_1d_20_11.pdf}}
-       \caption{lineup  ($m=20$) with 19 dimensions of purely noise  and 1 dimension of real separation. So the lineup is generated from a data with 1 dimension of real separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
+       \caption{Lineup  ($m=20$) with 19 dimensions of purely noise  and 1 dimension of real separation. So the lineup is generated from a data with 1 dimension of real separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
      \label{fig:test_category_1d}
 %\end{figurehere}
 \end{figure}
@@ -388,13 +393,13 @@ The above procedure was repeated for the one dimensional projections for data wi
 %       \label{not_noise_1d}
 %\end{figure}
 
-Similar procedure was followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But in this case the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable to get a scatterplot. This again gives the ``observed data plot''. To obtain the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset. The ``observed data'' is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. As before the Wilk's $\lambda$ (\cite{JW02})  and WBratio are calculated for each of the 20 plots in the lineup. 
+Similar procedure was followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But in this case the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable to get a scatterplot. This again gives the observed data plot. To obtain the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset. The observed data is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. As before the Wilk's $\lambda$ (\cite{JW02})  and WBratio are calculated for each of the 20 plots in the lineup. 
  
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
        \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
-       \caption{lineup  ($m=20$) with 100 dimensions of purely noise. In this case the lineup is generated from a data with 100 dimensions of purely noise. The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
+       \caption{Lineup  ($m=20$) with 100 dimensions of purely noise. In this case the lineup is generated from a data with 100 dimensions of purely noise. The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
        \label{fig:test_category}
 %\end{figurehere}
 \end{figure}
@@ -430,30 +435,30 @@ Assuming independence among the dimensions of purely noise data,
 $$E(Y) = p \sigma \sqrt{2/\pi}$$
 $$Var(Y) = p \sigma^2 (1 - 2/\pi)$$
 
-To check for the optimization procedure one dimension of real separation is considered in the data. To bring in the real separation, we adjust the mean of $X_{ij}$. We subtract $C$ from the mean of the first 15 observations (group 1) and add $C$ to the mean of the last 15 observations (group 2). So we define
-$$X_{ij}^* \sim \hbox{Normal}(- C, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_1$$
-$$X_{ij}^* \sim \hbox{Normal}(C, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_2$$ 
-Hence we have $$\bar{X}_{1.}^* - \bar{X}_{2.}^* \sim \hbox{Normal}(2C, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. Let us define $$Y^*  = |\bar{X}_{1.}^* - \bar{X}_{2.}^*|$$ where $Y^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$.  \\
+To check for the optimization procedure one dimension of real separation is considered in the data. To bring in the real separation, we adjust the mean of $X_{ij}$. We subtract any value $c$ from the mean of the first 15 observations (group 1) and add $c$ to the mean of the last 15 observations (group 2). So we define
+$$X_{ij}^* \sim \hbox{Normal}(- c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_1$$
+$$X_{ij}^* \sim \hbox{Normal}(c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_2$$ 
+Hence we have $$\bar{X}_{1.}^* - \bar{X}_{2.}^* \sim \hbox{Normal}(2c, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. Let us define $$Y^*  = |\bar{X}_{1.}^* - \bar{X}_{2.}^*|$$ where $Y^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$.  \\
 
 The expectation and the variance of $Y^*$ can be calculated :
 
-$$E(Y^*) = \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]$$
-$$Var(Y^*) = 4C^2 + \sigma^2 - (E(Y^*))^2$$
+$$E(Y^*) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(Y^*) = 4c^2 + \sigma^2 - (E(Y^*))^2$$
 
 
 Now the means of $X_{mij}$s are adjusted in the $p$-th dimension. So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p$$ where $Y_p$ follows a Folded Normal Distribution.
 
 Again assuming independence among the dimensions of purely noise data and data with real separation,
 
-$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]$$
-$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + 4C^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2C^2/\sigma^2) + 2C[1 - \Phi(-2C/\sigma)]\right)^2$$
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
 
-In our case, $C = 3$ and $\sigma^2 = 2/15$. Therefore,
-$$\exp(- 2C^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2C/\sigma) \approx 0$$
+In our case, $c = 3$ and $\sigma^2 = 2/15$. Therefore,
+$$\exp(- 2c^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2c/\sigma) \approx 0$$
 Hence,
 $$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
 $$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
-As the value of $p$ increases for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ as the spread of $Z$ increases as well. The means of both $Y$ and $Z$ also increase with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and is independent of the number of dimensions ($p$). 
+As the value of $p$ increases for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ and the spread of $Z$ increases as well. The means of both $Y$ and $Z$ also increase with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and is independent of the number of dimensions ($p$). 
 %\begin{equation}
 $$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
 %\end{equation}
@@ -607,7 +612,7 @@ and $x_{lk}$ is the dimension of the $l$-th lineup for the $k$-th subject. An in
 \hat{p}_{lk} = g^{-1}(\hat{\theta} + \hat{\alpha}_{lk} + \hat{\beta}_{lk} + \hat{\alpha}_{lk} \hat{\gamma} x_{lk}) \label{invert}
 \end{equation}
 
-Model \ref{fixed} is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained.  The line in Figure \ref{suc-rate-glm} shows the estimated proportion of successful evaluation for the different levels of the parameters while the points gives the observed success rate. Notice that as the number of dimensions $p$ in the lineups with purely noise increases, the probability of success in picking the true plot decreases. This is understandable since as the number of dimensions of noise increases keeping the number of real separation fixed to one or two, the distance between the groups in the observed data plot get closer to the distance between the groups in a null plot making it difficult for the subjects to pick the observed data plot. Table \ref{params} shows the estimates of the parameters, the standard errors and the corresponding $p$-values.
+Model \ref{fixed} is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained.  The line in Figure \ref{suc-rate-glm} shows the estimated proportion of successful evaluation for the different levels of the parameters while the points gives the observed success rate. Notice that for data with real separation, as the dimension $p$ increases, the probability of success in picking the true plot decreases. This is understandable since as the number of dimensions of noise increases keeping the number of real separation fixed to one or two, the distance between the groups in the observed data plot get closer to the distance between the groups in a null plot making it difficult for the subjects to pick the observed data plot. Table \ref{params} shows the estimates of the parameters, the standard errors and the corresponding $p$-values.
 
 \begin{table}[ht]
 \begin{center}
@@ -629,7 +634,7 @@ Intercept  & 2.381 & 0.278  & 0.000 \\
 \end{center}
 \end{table}
 
-In Table \ref{params} observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance which is indicated in the previous section as well.
+In Table \ref{params} observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance.
 
 The estimated models for the different treatment levels are provided. 
 
@@ -676,7 +681,7 @@ The 1D projections were plotted in a lineup making the adjustment that the group
 
 \subsection{Time taken to respond}
 
-The amount of time taken to respond has a relationship with the difficulty in identifying the observed data plot in the lineup. So the distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken to respond on the logarithm scale by the subjects for the dimensions for the different projections. The colors suggest whether the data has some real separation or the data is purely noise with a loess smoother fitted through the points. Notice that as the dimensions increases, the subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes extremely hard to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimensions. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
+The amount of time taken to respond may depend on the difficulty in identifying the observed data plot in the lineup. So the distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken to respond on the logarithm scale by the subjects for the dimensions for the different projections. The colors suggest whether the data has some real separation or the data is purely noise with a loess smoother fitted through the points. Notice that as the dimensions increases, the subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes extremely hard to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimensions. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
 
 
 
@@ -707,8 +712,8 @@ The amount of time taken to respond has a relationship with the difficulty in id
 %{\color{red} What do people see when they select a plot.} \\
 %Participants were asked to identify the plots which has the most separated colored groups. In data sets with real separation, participants make mistakes in picking up the plot of the ``observed data". 
 
-For some of the lineups, we noticed that more subjects than expected were able to identify the observed data plot, even though there was no real separation, all of the plots showed purely noise data. Figure \ref{wbratio} examines subjects choices in depth. The  relative frequency of picks of each plot in the lineup is plotted against a measure of distance separation between groups, the WBratio. %{\blue Your definition of wbratio was not correct. Check the package description, and refer to the R package, and probably the original paper describing the metric.}  
- Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency the plot was chosen. Red represents the observed data plot. The top three rows correspond to data containing real separation between the groups, and the bottom three rows all of the data was purely noise. Columns indicate dimension ($p$) and projection dimension ($d$). Replicates are in different rows. The taller the pin the more often that particular plot was chosen. We asked subjects to pick the plot where the groups were most separated, and this is effectively what they picked. The plot in each lineup with the smallest WBratio tended to have the highest frequency. This is more obvious when there was real separation, and also when dimension was small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  For some of the lineups different choices were made, and these are a little surprising. Investigating these lineups further may reveal why this is. 
+For some of the lineups, we noticed that more subjects than expected were able to identify the observed data plot, even though there was no real separation, all of the plots showed purely noise data. Figure \ref{wbratio} examines subjects choices in depth. The relative frequency of picks of each plot in the lineup is plotted against a measure of distance separation between groups, the WBratio. %{\blue Your definition of wbratio was not correct. Check the package description, and refer to the R package, and probably the original paper describing the metric.}  
+ Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency the plot was chosen. Red represents the observed data plot. Two separate plots are made for the two projections. The top three rows correspond to data containing real separation between the groups, and for the bottom three rows all of the data was purely noise. Columns indicate dimension ($p$). Replicates are in different rows. The taller the pin the more often that particular plot was chosen. We asked subjects to pick the plot where the groups were most separated, and this is effectively what they picked. The plot in each lineup with the smallest WBratio tended to have the highest frequency. This is more obvious when there was real separation, and also when dimension was small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  For some of the lineups different choices were made, and these are a little surprising. Investigating these lineups further may reveal why this is. 
 
 %In Figure \ref{wbratio}, it can be seen that there is a negative correlation between the relative frequency of the picks and the WBratio. So as the WBratio increases, which indicates the decrease in the distance between the clusters,  the number of participants picking the plot decreases. Red dot indicates the observed data plot. For data with real separation, when the observed data plot has the smallest WBratio, the participants are successful in picking up the observed data plot. But for data with no real separation participants are able to pick the plot with the lowest WBratio value although it is not the observed data plot. Also it should be mentioned that Figure \ref{wbratio} has been drawn using a ``free scale'' along the horizontal axis. So for higher dimensions and presence of real separation and also for purely noise data, the difference between the WBratio values for different plots in a lineup are really small compared to the lineup for a lower dimension and data with real separation.  
 
@@ -718,7 +723,7 @@ For some of the lineups, we noticed that more subjects than expected were able t
    \centering
        \scalebox{0.63}{\includegraphics{wbratio-1.pdf}}
        \scalebox{0.63}{\includegraphics{wbratio-2.pdf}}
-       \caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the distance between means, WBratio, the smaller the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects were asked to pick the plot in the lineup where the groups were the most separated, so we would expect that more subjects would pick the plots with the smallest WBratio. In general, this happens, the tallest pins are in the left of each cell. The top three rows show the results for the data with real separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Also the figure on the left is for 1D projections and on the right is for 2D projections. We do not see much difference between the two figures.
+       \caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the distance between means, WBratio, the smaller the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects were asked to pick the plot in the lineup where the groups were the most separated, so we would expect that more subjects would pick the plots with the smallest WBratio. In general, this happens, the tallest pins are in the left of each cell. The top three rows show the results for the data with real separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Also the figure on the top is for 1D projections and on the bottom is for 2D projections. We do not see much difference between the two figures.
        % {\blue Remove the ``of picks'' from the vertical axis. I think it would be better to have the columns grouped into 1d at the left, and 2d on the right.}
        }
        \label{wbratio}
@@ -750,9 +755,11 @@ For some of the lineups, we noticed that more subjects than expected were able t
 
 %\begin{multicols}{2}
 
-\subsection{How does the null plots affect the response?}
+\subsection{How do the null plots affect the response?}
 
-In classical inference the test statistic can be compared with an infinite number of possible values from the sampling distribution under the null hypothesis. But in visual inference the subjects can compare the test statistic (the observed data plot) with only a finite number of null plots which makes the null plots an important factor in decision making. It is mentioned in Section \ref{effects} that the probability of correct evaluation decreases for dimension $p = 80$ and increases for dimension $p = 100$ which is opposite to what we should expect. To investigate this the difference between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup is considered. Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term. Figure \ref{null} shows the relationship between the logarithm of the adjusted difference and the probability of successful evaluation.  
+In classical inference the test statistic can be compared with an infinite number of possible values from the sampling distribution under the null hypothesis. But in visual inference the subjects can compare the test statistic (the observed data plot) with only a finite number of null plots which makes the null plots an important factor in decision making. For more details, see \cite{roychowdhury:2012}. It is mentioned in Section \ref{effects} that the probability of correct evaluation decreases for dimension $p = 80$ and increases for dimension $p = 100$ which is opposite to what we should expect. To investigate this the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup is considered. 
+%Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term. 
+Figure \ref{null} shows the relationship between the ratio and the proportion correct.  
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
@@ -762,7 +769,7 @@ In classical inference the test statistic can be compared with an infinite numbe
        \label{null}
 \end{figure*}
 
-Figure \ref{null} shows that for data with real separation dimension has an effect on the difficulty level but for data with noise there is no effect of dimension. For some lineups with noise data the observed data plot has a lower WBratio value than the null plots. It can be observed from Figure \ref{null} that the subjects could pick the observed data plot if it has the lowest WBratio value. The unexpected performance of the subjects when the dimension  is $p = 80$ can be explained by the fact that the one or more of the null plots have lower WBratio value than the observed data plot.
+Figure \ref{null} shows that for data with real separation, dimension has an effect on the difficulty level but for data with noise there is no effect of dimension. For some lineups with purely noise data, the observed data plot has a lower WBratio value than the null plots. It can be observed from Figure \ref{null} that the subjects could pick the observed data plot if it has the lowest WBratio value. The unexpected performance of the subjects when the dimension  is $p = 80$ can be explained by the fact that the one or more of the null plots have lower WBratio value than the observed data plot.
 
 
 \section{Distance Increasing with $p$ for Fixed $n$} \label{sec:distance}
@@ -770,7 +777,7 @@ Figure \ref{null} shows that for data with real separation dimension has an effe
 %\subsection{Procedure}
 %topic
 %{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
-Consider two dimensions of data with purely noise, each dimension having 30 observations divided into 2 groups with 15 observations in each group. If the projection pursuit is performed on the above data and the one dimensional projections are plotted with different color for the groups against a fixed constant. It can be noticed that there is an overlap of all the colors in the plot. This signifies that there is no real group and hence the colors overlap. But as the number of dimensions increases for fixed sample size $n$, it can be noticed the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for $p=2$, $p=20$, $p=50$ and $p=100$. \\
+Consider two dimensions of data with purely noise, each dimension having 30 observations divided into 2 groups with 15 observations in each group. If the projection pursuit is performed on the above data and the one dimensional projections are plotted with different color for the groups against a fixed constant. It can be noticed that there is an overlap of all the colors in the plot. This signifies that there is no real group and hence the colors overlap. But as the number of dimensions increases for fixed sample size $n$, it can be noticed the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for $p=2$, $p=20$, $p=50$ and $p=100$.
 
 %\end{multicols}
 %
@@ -799,7 +806,7 @@ It can be observed that even if the data is purely noise, the groups separate ou
 
 $$\hbox{Prob}(n, p) = \frac{1}{2^{n - 1}} \sum_{i = 0}^{\hbox{min}(n - 1, p)}{n - 1\choose i}$$
 
-The above probability is being calculated for $n = 30$ and $n = 50$ which is represented in Figure \ref{combin}.  It can be noticed that the probability starts from 0 and increases steeply and eventually becomes 1. So for a fixed sample size, the probability of observing linearly separable groups becomes 1 as the number of dimensions increases although the data is purely noise. The number of dimensions after which the LDA method becomes unreliable for $n = 30$ is 25 and for $n = 50$, it is 38.  
+The above probability is being calculated for $n = 30$ and $n = 50$ which is represented in Figure \ref{combin}.  It can be noticed that the probability starts from 0 and increases steeply and eventually becomes 1. So for a fixed sample size, the probability of observing linearly separable groups becomes 1 as the number of dimensions increases although the data is purely noise. The number of dimensions after which the LDA method becomes unreliable for $n = 30$ is 25 and for $n = 50$, it is 38. The probability of observing linearly separable groups is 0.5 when the number of dimensions is 14 for $n = 30$ and 24 for $n = 50$ which is indicated by the blue vertical line in Figure \ref{combin}. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
@@ -849,7 +856,7 @@ To test the above hypothesis, a lineup was made of the wasp data obtained from \
        \label{toth_lineup}
 \end{figure*} 
 
-This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained purely null plots. An Amazon Turk was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This compares with that of purely noise data, with the exception of one of the replicates of the purely noise data lineup, where the simulated real data had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained purely null plots. An Amazon Turk experiment was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lienups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This compares with that of purely noise data, with the exception of one of the replicates of the purely noise data lineup, where the simulated real data had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
 
 %So two different lineups are obtained : one where the observed data is the wasp data and the other where the observed data is ``permuted data'' obtained by permuting the wasp data. Three replicates of each are made. Each subject from the Amazon Turk was shown one of the above lineups randomly and were asked to identify the plot which has the most separation among the colored groups. They were also asked to record a reason for their choice and also a confidence level on the scale of 1 to 5.
 
@@ -875,7 +882,7 @@ This was replicated three times, to provide three different lineups, where the n
 
 \begin{table}[ht]
 \begin{center}
-\caption{Results of the Turk study on the wasps data. Proportion of successful evaluations of each lineup is shown, number of subjects, and $p$-value associated with the result. Notice that the most success came from oneof the pure noise lineups, which occurred because the plot with the most difference between groups happened to be the one that was randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps was 1.0, and for the pure noise is 0.67 suggests that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
+\caption{Results of the Turk study on the wasps data. Proportion of successful evaluations of each lineup is shown, with the number of subjects, and $p$-value associated with the result. Notice that the most success came from one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that was randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps was 1.0, and for the pure noise is 0.67 suggests that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
 \vspace{0.15cm}
 \begin{tabular}{r|r|r|rr}
 \hline
@@ -948,7 +955,7 @@ In the original paper \citep{toth:2010}, the dimensionality was reduced from muc
 
 \section{Conclusions}
 %{\color{red} Concluding remarks summarizing the different findings.} \\
-The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. The visual inference method was also used to check whether the optimization procedure in projection pursuit. It was found that the optimization procedure in the projection pursuit works well. The observers had more difficulty picking the observed data plot when it was purely noise data and the proportion of correct response was higher for data with real separation. 
+The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. The visual inference method was also used to check whether the optimization procedure works in projection pursuit. It was found that the optimization procedure in the projection pursuit works well. The observers had more difficulty picking the observed data plot when it was purely noise data and the proportion of correct response was higher for data with real separation. 
 
 It was also noticed that the projection does not have a significant effect on the responses. The subjects were equally successful in identifying the separation in 1D or 2D projections. It was also noticed that for data with real separation, as the number of dimensions of purely noise increases keeping the dimensions of real separation fixed at 1 or 2, the proportion of successful evaluations decreases. 
 
