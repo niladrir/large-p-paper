@@ -365,7 +365,7 @@ Finally 4 different sets of data are obtained for different values of $p$. The d
 \end{table}
 
 
-To obtain a lineup with $m = 20$ plots for one dimensional projections for purely noise data, the one dimensional projections obtained from the projection pursuit with the PDA index is plotted on the horizontal axis and a fixed value (1.5 in this case) is plotted on the vertical axis colored by the group variable. This plot is called the observed data plot as it is obtained from the observed dataset. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup were obtained by  permuting the group variable in order to break any dependence between the group variable and the other variables. Then the observed data plot is placed randomly among the 19 null plots to obtain one lineup. Two different statistics Wilk's $\lambda$ (\cite{JW02}) and WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) are calculated for each of the 20 plots in the lineup. 
+To obtain a lineup with $m = 20$ plots for one dimensional projections for purely noise data, the one dimensional projections obtained from the projection pursuit with the PDA index is plotted on the horizontal axis and a fixed value (1.5 in this case) is plotted on the vertical axis colored by the group variable. This plot is called the observed data plot as it is obtained from the observed dataset. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup were obtained by  permuting the group variable in order to break any dependence between the group variable and the other variables. Then the observed data plot is placed randomly among the 19 null plots to obtain one lineup. A statistic WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) is calculated for each of the 20 plots in the lineup. 
 
 The above procedure was repeated for the one dimensional projections for data with one dimension of real separation. Figure \ref{fig:test_category_1d} gives the lineup  for the one dimensional projections with $p = 20$ dimensions where 19 dimensions are purely noise data and 1 dimension has real separation. This is an example of a lineup that is used in the experiment. 
 %{\color{red} The data recorded for the participants. How many participants were recruited.} \\
@@ -393,7 +393,7 @@ The above procedure was repeated for the one dimensional projections for data wi
 %       \label{not_noise_1d}
 %\end{figure}
 
-Similar procedure was followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But in this case the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable to get a scatterplot. This again gives the observed data plot. To obtain the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset. The observed data is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. As before, the Wilk's $\lambda$ (\cite{JW02})  and WBratio are calculated for each of the 20 plots in the lineup. 
+Similar procedure was followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But in this case the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable to get a scatterplot. This again gives the observed data plot. To obtain the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$  (\cite{JW02}) values are used for the lineup. The observed data is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. Two different statistics the Wilk's $\lambda$ and WBratio are calculated for each of the 20 plots in the lineup. 
  
 \begin{figure}[hbtp]
 %\begin{figurehere}
@@ -584,8 +584,11 @@ Amazon Mechanical turk subjects are paid for their responses. Since the process 
 
 \subsection{Effect of experimental factors} \label{effects}
 
-It would be interesting to look at the proportion of subjects identifying correctly the observed data plot for data with real separation versus data with purely noise, for 1D projections versus 2D projections and for the different dimensions.
-Figure \ref{suc-rate-glm} shows the proportion of the subjects who successfully picked the plot of the observed data for each replicate of each dimension. Notice that when there is some real separation, the rate of success in making the correct response overall is higher than the rate of success when the data is purely noise and there is no real separation. Also there is a difference in terms of the variability among the replicates in each dimension.
+We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. Figure \ref{suc-rate-glm} examines this.
+%It would be interesting to look at the proportion of subjects identifying correctly the observed data plot for data with real separation versus data with purely noise, for 1D projections versus 2D projections and for the different dimensions.
+%Figure \ref{suc-rate-glm} shows the proportion of the subjects who successfully picked the plot of the observed data for each replicate of each dimension. 
+
+It can be noticed that when there is some real separation, the rate of success in making the correct response overall is higher. Also there is a difference in terms of the variability among the replicates in each dimension.
  The rate of success is not very different for 1D and 2D projections both in case of data with real separation and also for noise data. %\subsection{1D vs 2D projections}
 Also with the different values of the dimension $p$, the rate of success in picking the correct plot is different. The rate is higher for dimension $p = 20$ than when the dimension is $p = 40$. Strangely enough it can be noticed that the rate of success for $p = 100$ is higher than the rate of success for $p=80$ for both 1D and 2D projections. 
 
@@ -600,23 +603,24 @@ Also with the different values of the dimension $p$, the rate of success in pick
 
 %\subsection{Model fitting}
 
-Suppose each of $K$ independent subjects responded to multiple lineups and responses are considered to be a binary random variable $Y_{lk}$ where $$Y_{lk} \sim \hbox{Ber}(p_{lk})$$ where $Y_{lk} = 1$ if the $k$-th subject correctly identifies the observed data plot in the $l$-th lineup, $1 \leq k \leq K$, $1 \leq l \leq L$ and 0 otherwise. The main interest is to predict the proportion of successes by dimension. Treating dimensions as a continuous variable, a fixed effects logistic regression model is used for $P(Y_{lk} = 1) = p_{lk} = E(Y_{lk})$ with the different parameters of the lineup as covariate.
-The model can be fit as:
-\begin{equation}
-g(p_{lk}) = \theta + \alpha_{lk} + \beta_{lk} + \gamma x_{lk} + \alpha_{lk} \gamma x_{lk} \label{fixed}
-\end{equation}
-where $\theta$ is the intercept, $\alpha_{lk}$ is the effect of noise on the $l$-th lineup for the $k$-th subject,
-$\beta_{lk}$ is the effect of projection on the $l$-th lineup for the $k$-th subject 
-and $x_{lk}$ is the dimension of the $l$-th lineup for the $k$-th subject. An interaction between the effect of noise and dimension is also included in the model. $\gamma$ is the corresponding slope parameter and $g(.)$ denotes the logit link function $g(\pi)$ = log($\pi$) - log(1 - $\pi$); $0 \leq \pi \leq 1$. The logit link function is inverted to estimate the lineup specific probability of successful evaluation as 
-\begin{equation}
-\hat{p}_{lk} = g^{-1}(\hat{\theta} + \hat{\alpha}_{lk} + \hat{\beta}_{lk} + \hat{\alpha}_{lk} \hat{\gamma} x_{lk}) \label{invert}
-\end{equation}
+%Suppose each of $K$ independent subjects responded to multiple lineups and responses are considered to be a binary random variable $Y_{lk}$ where $$Y_{lk} \sim \hbox{Ber}(p_{lk})$$ where $Y_{lk} = 1$ if the $k$-th subject correctly identifies the observed data plot in the $l$-th lineup, $1 \leq k \leq K$, $1 \leq l \leq L$ and 0 otherwise. The main interest is to predict the proportion of successes by dimension. Treating dimensions as a continuous variable, a fixed effects logistic regression model is used for $P(Y_{lk} = 1) = p_{lk} = E(Y_{lk})$ with the different parameters of the lineup as covariate.
+%The model can be fit as:
+%\begin{equation}
+%g(p_{lk}) = \theta + \alpha_{lk} + \beta_{lk} + \gamma x_{lk} + \alpha_{lk} \gamma x_{lk} \label{fixed}
+%\end{equation}
+%where $\theta$ is the intercept, $\alpha_{lk}$ is the effect of noise on the $l$-th lineup for the $k$-th subject,
+%$\beta_{lk}$ is the effect of projection on the $l$-th lineup for the $k$-th subject 
+%and $x_{lk}$ is the dimension of the $l$-th lineup for the $k$-th subject. An interaction between the effect of noise and dimension is also included in the model. $\gamma$ is the corresponding slope parameter and $g(.)$ denotes the logit link function $g(\pi)$ = log($\pi$) - log(1 - $\pi$); $0 \leq \pi \leq 1$. The logit link function is inverted to estimate the lineup specific probability of successful evaluation as 
+%\begin{equation}
+%\hat{p}_{lk} = g^{-1}(\hat{\theta} + \hat{\alpha}_{lk} + \hat{\beta}_{lk} + \hat{\alpha}_{lk} \hat{\gamma} x_{lk}) \label{invert}
+%\end{equation}
 
-Model \ref{fixed} is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained.  The line in Figure \ref{suc-rate-glm} shows the estimated proportion of successful evaluation for the different levels of the parameters while the points gives the observed success rate. Notice that for data with real separation, as the dimension $p$ increases, the probability of success in picking the true plot decreases. This is understandable since as the number of dimensions of noise increases keeping the number of real separation fixed to one or two, the distance between the groups in the observed data plot get closer to the distance between the groups in a null plot making it difficult for the subjects to pick the observed data plot. Table \ref{params} shows the estimates of the parameters, the standard errors and the corresponding $p$-values.
+%Model \ref{fixed}
+A fixed effects logistic regression model is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained.  The line in Figure \ref{suc-rate-glm} shows the estimated proportion of successful evaluation for the different levels of the parameters while the points gives the observed success rate. It can be noticed that for data with real separation, as the dimension $p$ increases, the proportion of success decreases. This is understandable since as the number of dimensions of noise increases keeping the number of real separation fixed to one or two, the distance between the groups in the observed data plot get closer to the distance between the groups in a null plot making it difficult for the subjects to pick the observed data plot. Table \ref{params} shows the estimates of the parameters, the standard errors and the corresponding $p$-values.
 
 \begin{table}[ht]
 \begin{center}
-\caption{Table showing the estimate, the standard error and the $p$-value of the parameters used in Model \ref{fixed}. Notice that the covariates dimension and noise are highly significant while projection is not significant at 5\% level of significance. Also the interaction term between dimension and noise is also significant.}
+\caption{Table showing the estimate, the standard error and the $p$-value of the parameters used in logistic regression model. Notice that the covariates dimension and noise are highly significant while projection is not significant at 5\% level of significance. Also the interaction term between dimension and noise is also significant.}
 \vspace{0.15cm}
 \begin{tabular}{r|rrr}
 \hline
@@ -634,44 +638,43 @@ Intercept  & 2.381 & 0.278  & 0.000 \\
 \end{center}
 \end{table}
 
-In Table \ref{params} observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance.
+In Table \ref{params} observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance. The fitted models for the different treatment levels suggest that the slope of the covariate dimension is different for purely noise data and data with real separation for a fixed level of projection. On the other hand, there is no difference between 1D projections and 2D projections in the fitted models, when the level of the presence of noise is fixed. 
 
-The estimated models for the different treatment levels are provided. 
-
-$$
-g(\hat{p}_{lk}) = \left\{ \begin{array}{rl}
- 2.381 - 0.032 x_{lk} &\mbox{for data with real separation and 1D projections} \\
- -4.716 + 0.024 x_{lk} &\mbox{for data with purely noise and 1D projections} \\
-  2.254 - 0.032 x_{lk} & \mbox{for data with real separation and 2D projections} \\
-  -4.843 + 0.024 x_{lk} &\mbox{for data with purely noise and 2D projections} \\
-       \end{array} \right.
-$$
-
-The fitted models for the different treatment levels suggest that the slope of the covariate dimension is different for purely noise data and data with real separation for a fixed level of projection. On the other hand, there is no difference between 1D projections and 2D projections in the fitted models, when the level of the presence of noise is fixed.  
+%The estimated models for the different treatment levels are provided. 
+%
+%$$
+%g(\hat{p}_{lk}) = \left\{ \begin{array}{rl}
+% 2.381 - 0.032 x_{lk} &\mbox{for data with real separation and 1D projections} \\
+% -4.716 + 0.024 x_{lk} &\mbox{for data with purely noise and 1D projections} \\
+%  2.254 - 0.032 x_{lk} & \mbox{for data with real separation and 2D projections} \\
+%  -4.843 + 0.024 x_{lk} &\mbox{for data with purely noise and 2D projections} \\
+%       \end{array} \right.
+%$$
+ 
 
 %\subsection{Response as the dimension increases}
 
 
-\subsection{Subject-wise responses}
-
-To look at the subject specific probability of successful evaluation Model \ref{fixed} is modified to bring in  a random effect for the individuals. Using the setup of Model \ref{fixed}, we have
-\begin{equation}
-g(p_{lk}) = \theta + \alpha_{lk} + \beta_{lk} + \gamma x_{lk} + \alpha_{lk} \gamma x_{lk} + u_k \label{mixed} 
-\end{equation}
-where $u_k$ is a random effect specific to individual $k$, $k = 1 \leq k \leq K$ and $u_k \sim N(0, \sigma_u^2)$ independently. As before the link function is inverted to obtain the probability of successful evaluations.
-
-Using \textit{lme4} package in R, a mixed effects logistic regression model is fitted as specified in Model \ref{mixed}. The thin black lines in Figure \ref{subject-glm} shows the estimated probability of successful evaluation of each individual with the blue line showing the fixed effect. It can be noticed that some of the subjects has a very high probability of success for both one and two dimensional projections. Also as the number of dimensions increases, the probability of successful evaluation decreases. Most of the individuals perform similarly when the data has no real separation. Also there is a higher variability in the individual responses for data with real separation but not much when the data is purely noise.
-
-\begin{figure*}[ht]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.6}{\includegraphics{subjectwise-glm-int.pdf}}
-%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Plot showing subject wise proportions for each subject estimated using Model \ref{mixed}. The thick blue line shows the overall average proportion for all the subjects. It can be noticed that some of subjects have higher proportion of correct response than the others. }
-       \label{subject-glm}
-\end{figure*}
-
-%\newpage
+%\subsection{Subject-wise responses}
+%
+%To look at the subject specific probability of successful evaluation Model \ref{fixed} is modified to bring in  a random effect for the individuals. Using the setup of Model \ref{fixed}, we have
+%\begin{equation}
+%g(p_{lk}) = \theta + \alpha_{lk} + \beta_{lk} + \gamma x_{lk} + \alpha_{lk} \gamma x_{lk} + u_k \label{mixed} 
+%\end{equation}
+%where $u_k$ is a random effect specific to individual $k$, $k = 1 \leq k \leq K$ and $u_k \sim N(0, \sigma_u^2)$ independently. As before the link function is inverted to obtain the probability of successful evaluations.
+%
+%Using \textit{lme4} package in R, a mixed effects logistic regression model is fitted as specified in Model \ref{mixed}. The thin black lines in Figure \ref{subject-glm} shows the estimated probability of successful evaluation of each individual with the blue line showing the fixed effect. It can be noticed that some of the subjects has a very high probability of success for both one and two dimensional projections. Also as the number of dimensions increases, the probability of successful evaluation decreases. Most of the individuals perform similarly when the data has no real separation. Also there is a higher variability in the individual responses for data with real separation but not much when the data is purely noise.
+%
+%\begin{figure*}[ht]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{0.6}{\includegraphics{subjectwise-glm-int.pdf}}
+%%        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
+%      \caption{Plot showing subject wise proportions for each subject estimated using Model \ref{mixed}. The thick blue line shows the overall average proportion for all the subjects. It can be noticed that some of subjects have higher proportion of correct response than the others. }
+%       \label{subject-glm}
+%\end{figure*}
+%
+%%\newpage
 
 \subsection{Does rotation in the 2D projections affect the responses?}
 
@@ -705,7 +708,7 @@ The amount of time taken to respond may depend on the difficulty in identifying 
 
 %\Large{\textit{What affects the decision of the people?}} \\[0.2cm]
 
-\subsection{What affects the decision of the people?}
+\subsection{What affects decisions?}
 
 \normalsize
 %topic
@@ -755,7 +758,7 @@ For some of the lineups, we noticed that more subjects than expected were able t
 
 %\begin{multicols}{2}
 
-\subsection{How do the null plots affect the response?}
+\subsection{How do the null plots affect choices?}
 
 In classical inference the test statistic can be compared with an infinite number of possible values from the sampling distribution under the null hypothesis. But in visual inference the subjects can compare the test statistic (the observed data plot) with only a finite number of null plots which makes the null plots an important factor in decision making. For more details, see \cite{roychowdhury:2012}. It is mentioned in Section \ref{effects} that the probability of correct evaluation decreases for dimension $p = 80$ and increases for dimension $p = 100$ which is opposite to what we should expect. To investigate this the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup is considered. 
 %Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term. 
@@ -851,7 +854,7 @@ To test the above hypothesis, a lineup was made of the wasp data obtained from \
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{1}{\includegraphics{toth_lineup_lda_3.pdf}}
+       \scalebox{0.90}{\includegraphics{toth_lineup_lda_3.pdf}}
        \caption{Lineup showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The observed data plot is placed randomly among the 19 null plots. Which plot shows the most separation between the 4 groups? The solution is provided in the Appendix.}
        \label{toth_lineup}
 \end{figure*} 
@@ -955,21 +958,11 @@ In the original paper \citep{toth:2010}, the dimensionality was reduced from muc
 
 \section{Conclusions}
 %{\color{red} Concluding remarks summarizing the different findings.} \\
-The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. The visual inference method was also used to check whether the optimization procedure works in projection pursuit. It was found that the optimization procedure in the projection pursuit works well. The observers had more difficulty picking the observed data plot when it was purely noise data and the proportion of correct response was higher for data with real separation. 
+The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. The visual inference method was also used to check whether the optimization procedure works in projection pursuit. It was found that the optimization procedure in the projection pursuit works well. The proportion of correct response was higher for data with real separation. It was also noticed that the projection does not have a significant effect on the responses. The subjects were equally successful in identifying the separation in 1D or 2D projections. It was also noticed that for data with real separation, as the number of dimensions of purely noise increases keeping the dimensions of real separation fixed at 1 or 2, the proportion of successful evaluations decreases. 
+%Subject specific proportions of each subject was also computed. The performance of the subjects has a large variation. Though some of the subjects do very badly, but there were some subjects who performed exceedingly well. There were no restrictions  placed on the ability of the Turk workers. It was also noticed that some subjects chose the plot which has the largest separation in the groups though it may be in the null plots and not the observed data plot.
+Rotation of the groups in the 2D projections were a concern. We believed that the rotation may affect the decision of the subjects. But it was noticed that the performance of the subjects was not significantly different for the 1D and 2D projections which indicates that the rotation in the lineups with 2D projection does not affect the response of the subjects. The amount of time taken to respond was higher for data with purely noise. But as the number of dimensions increases in the data with real separation, the amount of time taken is similar to the time taken for data with purely noise. The difficulty of a lineup also has a significant positive effect on the proportion of successful response. The difficulty of a lineup depends on the null plots obtained corresponding to the observed plot. In this paper the difficulty was calculated on the basis of the measure WBratio which was calculated for each plot in each lineup. For more details on this, see \cite{roychowdhury:2012}. It was also shown that as the number of dimension increases, the separation between the groups increases even for data with purely noise. For a fixed sample size, the optimal number of dimension which can be used for a data with purely noise with 2 groups to perform a LDA was provided. It would be interesting to calculate an interval for the number of dimension at which the group starts separating for a data with purely noise using a visual method. Future work may explore this.
 
-It was also noticed that the projection does not have a significant effect on the responses. The subjects were equally successful in identifying the separation in 1D or 2D projections. It was also noticed that for data with real separation, as the number of dimensions of purely noise increases keeping the dimensions of real separation fixed at 1 or 2, the proportion of successful evaluations decreases. 
-
-Subject specific proportions of each subject was also computed. The performance of the subjects has a large variation. Though some of the subjects do very badly, but there were some subjects who performed exceedingly well. There were no restrictions  placed on the ability of the Turk workers. It was also noticed that some subjects chose the plot which has the largest separation in the groups though it may be in the null plots and not the observed data plot.
-
-Rotation of the groups in the 2D projections were a concern. We believed that the rotation may affect the decision of the subjects. But it was noticed that the performance of the subjects was not significantly different for the 1D and 2D projections which indicates that the rotation in the lineups with 2D projection does not affect the response of the subjects. 
-
-The amount of time taken to respond was higher for data with purely noise than data with real separation. But as the number of dimensions increases in the data with real separation, the amount of time taken is closer to the time taken for data with purely noise.
-
-The difficulty of a lineup also has a significant positive effect on the proportion of successful response. The difficulty of a lineup depends on the null plots obtained corresponding to the observed plot. In this paper the difficulty was calculated on the basis of the measure WBratio which was calculated for each plot in each lineup. For more details on this, see \cite{roychowdhury:2012}.
- 
-It was also shown that as the number of dimension increases, the separation between the groups increases even for data with purely noise. For a fixed sample size, the optimal number of dimension which can be used for a data with purely noise with 2 groups to perform a LDA was also given. It would be interesting to calculate an interval for the number of dimension at which the group starts separating for a data with purely noise using a visual method. Future work may explore this.
-
-The visual inference method was also used to test whether the separation obtained among the groups is real or fake. It was noticed that only by making the number of dimensions less than the sample size may not always solve the problem of obtaining fake separation. It is recommended to divide into test and training sets and perform the LDA on the training set and then model it on the test set. It was also shown that the PDA performs better than the LDA in a large $p$ situation.
+The visual inference method was also used to test whether the separation obtained among the groups is real or fake. Here the example of the paper wasp was used. It was noticed that only by making the number of dimensions less than the sample size may not always solve the problem of obtaining fake separation. Visual inference may help in communicating these large $p$, small $n$ issues. The visual method may also be applied to other large $p$, small $n$ situations like bioinformatics and genetics.
 
 \section{Appendix}
 
@@ -985,11 +978,12 @@ The visual inference method was also used to test whether the separation obtaine
 
 
 
-\paragraph{Acknowledgement:}
+\section{Acknowledgement:}
 %
 This work was funded by National Science Foundation grant DMS 1007697.
 
-\bibliographystyle{plainnat}
+%\bibliographystyle{plainnat}
+\bibliographystyle{spbasic}
 %%\bibliographystyle{ieeetr}
 \bibliography{references}
 
