@@ -52,7 +52,7 @@ grestore
 \usepackage{multicol}
 \usepackage{hyperref}
 
-\usepackage{amsmath, amssymb, fullpage, amsthm, array, algorithm2e,graphicx,mathtools, xparse}
+\usepackage{amsmath, amssymb, fullpage, array, algorithm2e,graphicx,mathtools, xparse}
 
 \usepackage{color}
 \usepackage{subfigure}
@@ -396,13 +396,13 @@ The above procedure was repeated for the one dimensional projections for data wi
 Similar procedure was followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But in this case the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable to get a scatterplot. This again gives the observed data plot. To obtain the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset. To account for the occasional convergence problem with the optimization 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$  (\cite{JW02}) values are used for the lineup. The observed data is placed randomly among the 19 null plots to obtain a lineup of $m = 20$ plots. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. Two different statistics the Wilk's $\lambda$ and WBratio are calculated for each of the 20 plots in the lineup. 
  
 \begin{figure}[hbtp]
-%\begin{figurehere}
-   \centering
+%   \centering
        \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
        \caption{Lineup  ($m=20$) with 100 dimensions of purely noise. In this case the lineup is generated from a data with 100 dimensions of purely noise. The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
        \label{fig:test_category}
-%\end{figurehere}
 \end{figure}
+
+%\ppp
 
 Subjects  for the experiment were recruited through Amazon Mechanical Turk  \citep{turk}.  \cite{turk} is a platform to get feedback on this kind of experiments. Each subject was shown a sequence of 10 lineups. Subjects also had the freedom of answering more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects from different locations.
 
