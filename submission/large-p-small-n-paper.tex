@@ -145,12 +145,14 @@ Reducing the dimension would seem to be the natural first step in HDLSS data. Pr
 %{\blue TOPIC: Now discuss the contemporary literature on HDLSS adjustments to methods. This paragraph needs more work}
 
 \cite{marron:2007} describes the estimation issues associated with HDLSS.  
-One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.\\
+One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. It is important in many applications to reduce the number of dimension of the original data prior to any modeling of the data. There are many established methods of dimension reduction like principal component analysis (PCA), factor analysis, projection pursuit, principal curves, self-organizing maps and many others. Many of the above use linear dimension reduction techniques for normal variables. Others use higher-order dimension reduction methods for datasets which are not realizations of Gaussian distributions.  Many advancements in the PCA to handle HDLSS data has been done by \cite{marron:2011} and \cite{yata:2010}. On the other hand, \cite{donoho:2009} and \cite{donoho:2008} studies the optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision.
 %topic
 
 %{\blue TOPIC: This is clearly not getting the problem understood.}
 
-{\color{red} Clearly, though, the issues of working with HDLSS data are not clear to many researchers.} In \cite{toth:2010} LDA is used to examine gene expression data of wasps. Figure \ref{oligo} shows the result. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than dimension ($p$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. There is no conventional inferential methods which can enable to conclude whether this apparently clear separation is statistically significant or not.  Fortunately, with visual statistical inference method which was first conceptually introduced by \cite{buja:2009} and later formalized and validated by \cite{majumder:2011}, it can be shown that there is no real difference between the groups - what you see is a mirage. Visual statistical inference methods will explain why. 
+The issues of working with HDLSS data are not clear to many researchers. For example, in \cite{toth:2010} LDA is used to examine gene expression data of wasps containing 447 variables and 50 cases. Figure \ref{oligo} reproduces the result in the paper. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the dimension ($p$) should be smaller than the number of observations ($n$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. There is no conventional inferential methods which enables us to conclude whether this apparently clear separation is statistically significant or not. Typically data is broken into training and test sets, or cross-validation is conducted to assess the significance of difference. 
+
+We suspect that new methods for inference on graphics might be helpful for building understanding very generally. Visual statistical inference method was first conceptually introduced by \cite{buja:2009} and later formalized and validated by \cite{majumder:2011}. Using visual inference, it can be shown that there is no real difference between the wasp groups - what you see is a mirage. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
@@ -180,7 +182,7 @@ One of the problems with HDLSS dataset is that not all the measured variables ar
 %topic
 %{\color{red} Outline of the paper.}
 
-This paper describes visual statistical inference as applied to dimension reduction for supervised classification problems. In particular we focus on dimension reduction using projection pursuit, and the effect that having large dimension has on the robustness of separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. Visual inference also is used to check the operation of the projection pursuit optimization. The next section explains the methods behind visual inference. Section \ref{sec:theory} describes theoretically what will happen with dimension reduction of HDLSS data containing two groups. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data, and the performance of the optimization algorithm. The wasps data is revisited at the end of the paper. 
+This paper describes visual statistical inference as applied to dimension reduction for supervised classification problems. In particular we focus on dimension reduction using projection pursuit, and the effect that having large dimension has on the robustness of separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference method. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data and also provides the theoretical explanation behind the choice of dimensions for the experiment. Section \ref{sec:results} analyze the collected data and provide results. The wasps data is revisited at the end of the paper. 
 %In this paper we check the projection pursuit optimization on pure noise with no real separation by using statistical graphics in Section \ref{sec:largep}. We also check the PP optimization on dimensions with some real separation and present results. In Section  \ref{sec:distance} we are also concerned about how the distance between the means increase with $p$ for a fixed n. We also present a probable range for the number of dimensions at which the clusters starts to separate out for both one dimensional and two dimensional projections.
 
 
@@ -219,7 +221,7 @@ This paper describes visual statistical inference as applied to dimension reduct
 %\section{Inference for the means of two populations} \label{sec:largep}
 \section{Visual inference methods} \label{sec:inference}
 
-\cite{buja:2009} proposed two protocols, namely Rorschach and lineup,  that allow the testing of discoveries made from statistical graphics. While the Rorschach protocol helps understand the extent of randomness, the lineup protocol is particularly used for testing significance of findings. This method is called visual statistical inference. It is later validated by \cite{majumder:2011} and with a head to head comparison it is demonstrated that visual statistical inference produces results comparable to that of conventional inference. Unlike classical hypothesis testing, the test statistic in visual inference is not a real number, but a plot that is appropriately chosen which displays a very distinctive pattern in case the the null hypothesis is not true. The same plot can be obtained with simulated data generated by a method consistent with the null hypothesis and it is called the null plot. The plot of the observed data which is the test statistic is placed randomly among a set of, say ($m$ - 1), null plots. This type of a plot is called a lineup and typically the size $m$ is chosen as 20 so that the type-I error is fixed to be $1/m$=0.05. Human subjects are asked to identify the plot which has the most distinct feature(s). If the human subjects can identify the plot of the observed data, null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from all the other null plots. 
+\cite{buja:2009} proposed two protocols, namely Rorschach and lineup,  that allow the testing of discoveries made from statistical graphics. While the Rorschach protocol helps understand the extent of randomness, the lineup protocol is particularly used for testing significance of findings. This method is called visual statistical inference. It is later validated by \cite{majumder:2011} and with a head to head comparison it is demonstrated that visual statistical inference produces results comparable to that of conventional inference. Unlike classical hypothesis testing, the test statistic in visual inference is not a real number, but a plot that is appropriately chosen which displays a very distinctive pattern in case the the null hypothesis is not true. The same plot can be obtained with simulated data generated by a method consistent with the null hypothesis and it is called the null plot. The plot of the observed data which is the test statistic is placed randomly among a set of, say ($m$ - 1), null plots. This type of a plot is called a lineup and typically the size $m$ is chosen as 20 so that the type-I error is fixed to be $1/m=0.05$. Human subjects are asked to identify the plot which has the most distinct feature(s). If the human subjects can identify the plot of the observed data, null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from all the other null plots. 
 
 As for example, suppose we have this data that represents the concentration of a metal in mg/kg for two sites A and B.
 %Model : $Y_i$ = $\beta_0$ + $\beta_1 X_i$ + $\epsilon_i$, \qquad $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ \\
@@ -287,10 +289,10 @@ H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
 
 %\subsection{Motivation}
 
-\section{Explanation of the methods}
+%\section{Explanation of the methods}
 
  
-\subsection{Dimension reduction}
+\section{Explanation of dimension reduction methods}  \label{sec:dimred}
 
 %{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this paper the idea of projection pursuit which was implemented by \cite{friedman:1974} is used. Projection pursuit (PP) is a statistical tool to find the most interesting low dimensional projections from high dimensional data to low dimensional space that reveals the most details about the structure of the data. In this paper the one and two dimensional projections obtained by projection pursuit on higher dimensions is mainly used.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. Hence it works really well in HDLSS situations. The other methods fail to pick up small features unless the sample size is large. Also projection pursuit are able to ignore noisy and non-informative variables where it is in advantage over minimal spanning trees, multidimensional scaling and most clustering methods. Though these methods work in a HDLSS situation, they cannot ignore the ``noise'' variables. The  major drawback of PP method is its demand of the computer time. But in times of super computer and high speed computing this does not seem to be that big an issue.
@@ -299,7 +301,7 @@ PP method needs a projection index on the basis of which it finds the low dimens
 
 %topic
 %{\color{red} Explanation of \texttt{tourr} package(Software Used)} \\
-In this paper the \texttt{tourr} package in \texttt{R} (\cite{r}) by \cite{WC08} is used to generate the low dimensional projections. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper the guided tour function is mainly considered. Instead of picking a new projection completely at random, the guided tour function picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with different indices like cmass, holes, and LDA index but the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009} is used which is specifically designed to handle HDLSS problems. \\     
+In this paper the \texttt{tourr} package in \texttt{R} (\cite{r}) by \cite{WC08} is used to generate the low dimensional projections. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. In this paper the guided tour function is mainly considered. Instead of picking a new projection completely at random, the guided tour function picks projections that are closer to the current projection, so that we eventually converge to a single maximally interesting projection. The \texttt{tourr} package comes with different indices like cmass, holes, and LDA index but the PDA (Penalized Discriminant Analysis)  index described in \cite{lee:2009} is used which is specifically designed to handle HDLSS problems.     
 
 %{\color{red} Statement of the problem. What we want to show. }\\
 
@@ -314,11 +316,14 @@ In this paper the \texttt{tourr} package in \texttt{R} (\cite{r}) by \cite{WC08}
 
 In this paper, data with $p$ dimensions of noise and no real separation is termed as ``$p$ dimensional purely noise data'' while data which has $k$ dimensions of real separation and $p - k$ dimensions of purely noise is termed as ``$p$ dimensional data with real separation''. In this paper $k$ is either 1 or 2. 
 
-\subsection{Experimental Setup} \label{sec:experiment}
+
+\section{Experiment} \label{sec:experiment}
+
+\subsection{Setup}
 
 %{\blue*** Explain the Turk experiment}
 
-An experiment is designed to study the ability of human observers to detect the effect of one or two dimensions of real separation in $p$ dimensions of noise. Data is simulated for different values of $p  ( = 20, 40, 60, 80, 100)$.  So two groups of $p$ dimensions of data with 15 observations in each group were generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2.  So $\mathbf{X}$ can be written as
+An experiment is designed to study the ability of human observers to detect the effect of one or two dimensions of real separation in $p$ dimensions of noise. Data is simulated for different values of $p$.  So two groups of $p$ dimensions of data with 15 observations in each group were generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2.  So $\mathbf{X}$ can be written as
 $$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data with 2 groups.
 
 To bring in the real separation in the data, 3 is subtracted from the elements of the $p$-th variable $\mathbf{X}_p$ which belongs to group 1 and 3 is added to the elements of the same variable which belongs to group 2. So, 
@@ -350,7 +355,7 @@ Finally 4 different sets of data are obtained for different values of $p$. The d
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Values of parameters considered for the experiment.}
+\caption{Values of parameters considered for the experiment. The choice of the dimensions are explained in Section \ref{sec:theory}.}
 \begin{tabular}{cccp{3cm}}
   \hline
   \hline
@@ -420,7 +425,7 @@ Subjects  for the experiment were recruited through Amazon Mechanical Turk  \cit
 
 %{\color{red} Description of the procedure. }\\
 
-\subsection{Theory} \label{sec:theory}
+\subsection{Theory supporting the choice of dimensions} \label{sec:theory}
 
 To decide on the different dimensions, the distribution of the absolute difference of the means of the two groups of a purely noise data is looked at. In this case one dimension of purely noise is considered which is divided into two groups. The means of the observations in each group is calculated. Since we are interested in the projections, the absolute differences of the means is considered.
 
@@ -483,7 +488,7 @@ $$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sig
 
 The next step is to find the number of dimension for a specific value of the common region between the two distributions. To allow some error, the value of the number of dimension $p$ is considered for which $$\hbox{P}[Y > Z_{\alpha}] = \delta$$ where $Z_{\alpha}$ is the $\alpha$-th percentile of $Z$.  So for a given value of $\delta$,  the value of $p$ is calculated for which the above condition holds true for $\alpha = 0.05$.
 
-The above described procedure is done for 5 different values of $\delta  = 0.0000001, 0.01, 0.05, 0.1$ and $0.2$. The above procedure is repeated 100 times to get 100 values of each dimension $p$ corresponding to each $\delta$. Table \ref{tab:dimen} shows the summaries of the number of dimensions for each value of $\delta$.
+The above described procedure is done for 5 different values of $\delta  = 0.0000001, 0.01, 0.05, 0.1$ and $0.2$ and for each value of $\delta$, it is repeated 100 times. Table \ref{tab:dimen} shows the summaries of the number of dimensions for each value of $\delta$.
 
 \begin{table}[htbp]
 \begin{center}
@@ -573,7 +578,9 @@ The above described procedure is done for 5 different values of $\delta  = 0.000
 %{\color{red} The data recorded for the participants. How many participants were recruited.} \\
 %Participants  for the experiment were recruited through Amazon Mechanical Turk. Each participant was shown a sequence of 9 lineups. They were asked to identify the plot which has the most separation between the colored groups, give a reason for their choice and determine the level of confidence for their decision.  Gender, age, educational qualification and location of each participant were also noted. In total, 1137 lineups were evaluated by 103 participants from different locations. \\
 
-\section{Results}
+
+
+\section{Results} \label{sec:results}
 
 %topic
 %{\color{red} Description of the results. }\\
@@ -777,67 +784,6 @@ Figure \ref{null} shows the relationship between the ratio and the proportion co
 Figure \ref{null} shows that for data with real separation, dimension has an effect on the difficulty level but for data with noise there is no effect of dimension. For some lineups with purely noise data, the observed data plot has a lower WBratio value than the null plots. It can be observed from Figure \ref{null} that the subjects could pick the observed data plot if it has the lowest WBratio value. The unexpected performance of the subjects when the dimension  is $p = 80$ can be explained by the fact that the one or more of the null plots have lower WBratio value than the observed data plot.
 
 
-\section{Distance Increasing with $p$ for Fixed $n$} \label{sec:distance}
-
-%\subsection{Procedure}
-%topic
-%{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
-Consider two dimensions of data with purely noise, each dimension having 30 observations divided into 2 groups with 15 observations in each group. The projection pursuit is performed on the above data and the one dimensional projections are plotted with different color for the groups against a fixed constant. It can be noticed that there is an overlap of all the colors in the plot. This signifies that there is no real group and hence the colors overlap. But as the number of dimensions increases for fixed sample size $n$, it can be noticed that the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for $p=2$, $p=20$, $p=50$ and $p=100$.
-
-%\end{multicols}
-%
-%%\newpage
-%%
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-	\scalebox{0.25}{\includegraphics{plot_1d_2.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_1d_20.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_1d_50.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_1d_100.pdf}}
- \scalebox{0.25}{\includegraphics{plot_2d_3.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_2d_20.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_2d_50.pdf}}
-	\scalebox{0.25}{\includegraphics{plot_2d_100.pdf}}
-       \caption{Plots showing one and two dimensional projections for 4 different number of dimensions $p=3$, $p=20$, $p=50$ and $p=100$. Note that the groups look more and more separated as the number of dimensions increases when actually there is no real separation and the data is purely noise.  }
-       \label{dist_1d}
-\end{figure*}
-
-%\begin{multicols}{2}
-%{\color{red} Description for two dimensional projections.} \\
-Similarly, consider 3 dimensions of data with purely noise, each dimension having 30 observations divided into 3 groups with 10 observations in each group. The projection pursuit is performed as discussed above on the data and the two dimensional projections are plotted in a scatterplot. Similarly, in this case the 3 colors starts separating out as the number of dimensions increases.  Figure \ref{dist_1d} also shows the two dimensional projections for $p=3$, $p=20$, $p=50$ and $p=100$.
-
-It can be observed that even if the data is purely noise, the groups separate out as the number of dimensions increases for a fixed sample size. It would be interesting to find the optimal number of dimensions for which the LDA index will be unreliable given a fixed sample size $n$. \cite{ripley:1996} proposes a combinatorial method to compute the probability that $n$ observations with $p$ dimensions divided into 2 groups are linearly separable. It quantifies that the probability that $n$ randomly chosen observations from a continuous distribution in $p$-dimensional space are linearly separable when randomly divided into two groups:
-
-$$\hbox{Prob}(n, p) = \frac{1}{2^{n - 1}} \sum_{i = 0}^{\hbox{min}(n - 1, p)}{n - 1\choose i}$$
-
-The above probability is being calculated for $n = 30$ and $n = 50$ which is represented in Figure \ref{combin}.  It can be noticed that the probability starts from 0 and increases steeply and eventually becomes 1. So for a fixed sample size, the probability of observing linearly separable groups becomes 1 as the number of dimensions increases although the data is purely noise. The number of dimensions after which the LDA method becomes unreliable for $n = 30$ is 25 and for $n = 50$, it is 38. The probability of observing linearly separable groups is 0.5 when the number of dimensions is 14 for $n = 30$ and 24 for $n = 50$ which is indicated by the blue vertical line in Figure \ref{combin}. 
-
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.45}{\includegraphics{probability-n-p.pdf}}
-       \caption{Probability that $n =30$ and $n = 50$ randomly chosen observations with $p$ dimensions randomly divided into two groups are linearly separable. For $n = 30$, when $p = 14$, the probability of obtaining linearly separable groups is 0.5 and for $n = 50$, the probability is 0.5 when $p = 24$ which are represented by the blue vertical lines. }
-       \label{combin}
-\end{figure*}
-
-%\end{multicols}
-
-
-
-%\begin{figure*}[hbtp]
-%%\begin{figurehere}
-%   \centering
-%	\scalebox{0.25}{\includegraphics{plot-true3.pdf}}
-%	\scalebox{0.25}{\includegraphics{plot-true20.pdf}}
-%	\scalebox{0.25}{\includegraphics{plot-true50.pdf}}
-%	\scalebox{0.25}{\includegraphics{plot-true100.pdf}}
-%       \caption{Plots showing two dimensional projections for 4 different number of dimensions $p=3$, $p=20$, $p=50$ and $p=100$. Note that, like the one dimensional projections, the classes look more and more separated as we increase the number of dimensions when actually there is no real separation.  }
-%       \label{dist_2d}
-%\end{figure*}
-
-%\begin{multicols}{2}
-
 \section{Wasps data, revisited. }
 
 %\subsection{Statement of the hypothesis}
@@ -861,7 +807,7 @@ To test the above hypothesis, a lineup was made of the wasp data obtained from \
        \label{toth_lineup}
 \end{figure*} 
 
-This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained purely null plots. An Amazon Turk experiment was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lienups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This compares with that of purely noise data, with the exception of one of the replicates of the purely noise data lineup, where the simulated real data had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained purely null plots. An Amazon Turk experiment was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This compares with that of purely noise data, with the exception of one of the replicates of the purely noise data lineup, where the simulated real data had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
 
 %So two different lineups are obtained : one where the observed data is the wasp data and the other where the observed data is ``permuted data'' obtained by permuting the wasp data. Three replicates of each are made. Each subject from the Amazon Turk was shown one of the above lineups randomly and were asked to identify the plot which has the most separation among the colored groups. They were also asked to record a reason for their choice and also a confidence level on the scale of 1 to 5.
 
@@ -956,7 +902,70 @@ In the original paper \citep{toth:2010}, the dimensionality was reduced from muc
 %Similarly we take 3 dimensions of pure noise with 30 observations in each dimension. Each dimension is divided into 3 classes, with 10 observations in each class. We plot the two dimensional projections and see whether the classes are separated. We again define the classes to be separate if we can draw three lines making an angle of $120^{\circ}$ among themselves without touching any color. So the classes will be separated if none of the colors overlap. We again repeat the same procedure by increasing the number of dimensions by 1 every time. We plot the two dimensional projections from 3 to 62 for sample size 30. We again make 100 such plots and note the number of dimension at which the classes start separating. 
 %
 %{\color{red} Explanation of the findings. } \\
-%Hence a probable range that we obtain from the 100 plots for the one dimensional projection is between 24 and 34 and the a probable range for the two dimensional projection is between 26 and 36. 
+%Hence a probable range that we obtain from the 100 plots for the one dimensional projection is between 24 and 34 and the a probable range for the two dimensional projection is between 26 and 36.
+
+\subsection{Probability of observing random groups using LDA} \label{sec:distance}
+
+%\subsection{Procedure}
+%topic
+%{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
+
+It has been observed that even if the data is purely noise, the groups separate out as the number of dimensions increases for a fixed sample size. Figure \ref{dist_1d} illustrates that in greater details. The same experiment was done here with purely noise data with 30 observations divided into 2 groups with 15 observations in each. The number of dimensions are increased gradually and the projection pursuit is performed on the above data and the one dimensional projections are plotted as before. It can be noticed that as the number of dimensions increases for fixed sample size $n$, it can be noticed that the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for four different values of dimension ($p = 2, 20, 50, 100$).
+
+%\end{multicols}
+%
+%%\newpage
+%%
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+	\scalebox{0.25}{\includegraphics{plot_1d_2.pdf}}
+	\scalebox{0.25}{\includegraphics{plot_1d_20.pdf}}
+	\scalebox{0.25}{\includegraphics{plot_1d_50.pdf}}
+	\scalebox{0.25}{\includegraphics{plot_1d_100.pdf}}
+% \scalebox{0.25}{\includegraphics{plot_2d_3.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot_2d_20.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot_2d_50.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot_2d_100.pdf}}
+       \caption{Plots showing one dimensional projections for 4 different number of dimensions $p=3$, $p=20$, $p=50$ and $p=100$. Note that the groups look more and more separated as the number of dimensions increases when actually there is no real separation and the data is purely noise.  }
+       \label{dist_1d}
+\end{figure*}
+
+%\begin{multicols}{2}
+%{\color{red} Description for two dimensional projections.} \\
+%Similarly, consider 3 dimensions of data with purely noise, each dimension having 30 observations divided into 3 groups with 10 observations in each group. The projection pursuit is performed as discussed above on the data and the two dimensional projections are plotted in a scatterplot. Similarly, in this case the 3 colors starts separating out as the number of dimensions increases.  Figure \ref{dist_1d} also shows the two dimensional projections for $p=3$, $p=20$, $p=50$ and $p=100$.
+
+It would be interesting to find the optimal number of dimensions for which the LDA index will be unreliable given a fixed sample size $n$. \cite{ripley:1996} proposes a combinatorial method to compute the probability that $n$ observations with $p$ dimensions divided into 2 groups are linearly separable. It quantifies that the probability that $n$ randomly chosen observations from a continuous distribution in $p$-dimensional space are linearly separable when randomly divided into two groups:
+
+$$\hbox{Prob}(n, p) = \frac{1}{2^{n - 1}} \sum_{i = 0}^{\hbox{min}(n - 1, p)}{n - 1\choose i}$$
+
+The above probability is being calculated for $n = 30$ and $n = 50$ which is represented in Figure \ref{combin}.  It can be noticed that the probability starts from 0 and increases steeply and eventually becomes 1. So for a fixed sample size, the probability of observing linearly separable groups becomes 1 as the number of dimensions increases although the data is purely noise. The number of dimensions after which the LDA method becomes unreliable for $n = 30$ is 25 and for $n = 50$, it is 38. The probability of observing linearly separable groups is 0.5 when the number of dimensions is 14 for $n = 30$ and 24 for $n = 50$ which is indicated by the blue vertical line in Figure \ref{combin}. 
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.45}{\includegraphics{probability-n-p.pdf}}
+       \caption{Probability that $n =30$ and $n = 50$ randomly chosen observations with $p$ dimensions randomly divided into two groups are linearly separable. For $n = 30$, when $p = 14$, the probability of obtaining linearly separable groups is 0.5 and for $n = 50$, the probability is 0.5 when $p = 24$ which are represented by the blue vertical lines. }
+       \label{combin}
+\end{figure*}
+
+%\end{multicols}
+
+
+
+%\begin{figure*}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%	\scalebox{0.25}{\includegraphics{plot-true3.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot-true20.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot-true50.pdf}}
+%	\scalebox{0.25}{\includegraphics{plot-true100.pdf}}
+%       \caption{Plots showing two dimensional projections for 4 different number of dimensions $p=3$, $p=20$, $p=50$ and $p=100$. Note that, like the one dimensional projections, the classes look more and more separated as we increase the number of dimensions when actually there is no real separation.  }
+%       \label{dist_2d}
+%\end{figure*}
+
+%\begin{multicols}{2}
+ 
 
 \section{Conclusions}
 %{\color{red} Concluding remarks summarizing the different findings.} \\
