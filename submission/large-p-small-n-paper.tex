@@ -150,7 +150,7 @@ One of the problems with HDLSS dataset is that not all the measured variables ar
 
 %{\blue TOPIC: This is clearly not getting the problem understood.}
 
-The issues of working with HDLSS data are still not clear to many data analysts. For example, in \cite{toth:2010} LDA is used to examine gene expression data of wasps containing 447 variables and 50 cases. Figure \ref{oligo} reproduces the result in this paper. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W), 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the dimension ($p$) should be smaller than the number of observations ($n$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. There is no conventional inferential methods which enables us to conclude whether this apparently clear separation is statistically significant or not. Typically data is broken into training and test sets, or cross-validation is conducted to assess the significance of difference, using test set error. 
+The issues of working with HDLSS data are still not clear to many data analysts. For example, in \cite{toth:2010} LDA is used to examine gene expression data of wasps containing 447 variables and 50 cases. Figure \ref{oligo} reproduces the result in this paper. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W), 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the dimension ($p$) should be smaller than the number of observations ($n$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. LDA produced a $d = 2$ projection of best separation. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. There is no conventional inferential methods which enables us to conclude whether this apparently clear separation is statistically significant or not. Typically data is broken into training and test sets, or cross-validation is conducted to assess the significance of difference, using test set error. 
 
 We suspect that new methods for inference on graphics might be helpful for building understanding very generally. Visual statistical inference was first conceptually introduced by \cite{buja:2009} and later formalized and validated by \cite{majumder:2011}. Using visual inference, it can be shown that there is no real difference between the wasp groups - what you see is a mirage. 
 
@@ -297,14 +297,13 @@ We choose the visual test statistic to be a dot plot of the observed data for tw
 %{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this work projection pursuit (e.g. \cite{friedman:1974}) is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection from high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. In this paper the one and two dimensional projections are obtained by projection pursuit.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
 
-In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index (\cite{JW02}) in projection pursuit:
+In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index (\cite{lee:2009}) in projection pursuit:
 
 Let $\mathbf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\mathbf{X}}_{i.} = \frac{1}{n_i} \sum_{j = 1}^{n_i} \mathbf{X}_{ij}$ be the $i$th class mean and $\bar{\mathbf{X}}_{..} = \frac{1}{n} \sum_{i = 1}^g \sum_{j = 1}^{n_i} \mathbf{X}_{ij}$ be the total mean. Let
 
 $$\hbox{\bf{B}} = \sum_{i=1}^g n_i (\bar{\mathbf{X}}_{i.} - \bar{\mathbf{X}}_{..})(\bar{\mathbf{X}}_{i.} - \bar{\mathbf{X}}_{..})^T : \hbox{between-class sum of squares}$$
 
 $$\hbox{\textbf{W}} = \sum_{i=1}^g \sum_{j=1}^{n_i} (\mathbf{X_{ij}} - \bar{\mathbf{X}}_{i.})(\mathbf{X_{ij}} - \bar{\mathbf{X}}_{i.})^T : \hbox{within-class sum of squares}$$
-
 Then, the LDA PP index is 
 
 $$
@@ -313,7 +312,6 @@ I_{LDA}(\hbox{A}) = \left\{ \begin{array}{cc}
  0 &\mbox{ for $|\bf{A}^T(\bf{W} + \bf{B})\bf{A}| = 0$}
        \end{array} \right.
 $$
-
 where \textbf{A} is an orthogonal projection onto a $k$-dimensional space.
 
 For HDLSS data, the penalized discriminant analysis (PDA) index (\cite{lee:2009}) is more robust:
@@ -323,13 +321,10 @@ Let $\mathbf{X}_{ij}^*$ be the standardized vector of $\mathbf{X_{ij}}$. Then
 $$\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\mathbf{X}^*}_{i.} - \bar{\mathbf{X^*}}_{..})(\bar{\mathbf{X^*}}_{i.} - \bar{\mathbf{X^*}}_{..})^T : \hbox{between-class sums of squares of the standardized data}$$
 
 $$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\mathbf{X^*}_{ij}} - \bar{\mathbf{X}^*}_{i.})({\mathbf{X^*}_{ij}} - \bar{\mathbf{X^*}}_{i.})^T : \hbox{within-class sums of squares of the standardized data }$$
-
 where $\bar{\mathbf{X^*}}_{i.}$ is the $i$th class mean of the standardized data and $\bar{\mathbf{X^*}}_{..}$ is the total mean of the standardized data. Then the PDA index is defined as
 
 $$I_{PDA}(\hbox{\bf{A}},  \lambda) = 1 - \frac{|\hbox{\bf{A}}^T\{(1 - \lambda))\hbox{\bf{W}}^s + n\lambda I_p\}\hbox{\bf{A}}|}{|\hbox{\bf{A}}^T\{(1 - \lambda))(\hbox{\bf{W}}^s + \hbox{\bf{B}}^s) + n\lambda I_p\}\hbox{\bf{A}}|}$$
-
-
-where \textbf{A} is an orthonormal projection onto a $k$-dimensional space and $\lambda \in [0, 1)$ is a predetermined parameter.
+where \textbf{A} is an orthonormal projection onto a $k$-dimensional space and $\lambda \in [0, 1)$ is a predetermined parameter. Penalized LDA (\cite{witten:2011}) is another approach.
 
 These indices are available for projection pursuit using the \texttt{tourr} package in \texttt{R} (\cite{r}) (\cite{WC08}). The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation.     
 
@@ -356,11 +351,11 @@ These indices are available for projection pursuit using the \texttt{tourr} pack
 
 %{\blue*** Explain the Turk experiment}
 
-The goal of the experiment is to determine how well random noise is distinguishable from real separation. The real separation is introduced in the data in one or two variables. Data is simulated for different values of dimension $p$ ( = 20, 40, 60, 80, 100) keeping the sample size $n$ fixed (at 30) and for the presence or absence of real separation (separation = Yes or No) . Also both one and two dimensional projections are obtained. The choice of range of dimension $p$ is explained in Section \ref{sec:theory}. Data is simulated from a standard normal distribution. Data sets are generated with parameter values given in Table \ref{freq}. Three replicates at each level were generated. These produced 60 different ``observed data sets", and thus, 60 different lineups. 
+The goal of the experiment was to determine how well real separation is distinguishable from random noise. To achieve this goal, the experiment was set up with factors, real separation or purely noise, dimension and projection dimension. Real separation was achieved by setting 1 or 2 variables with real separation among a number of purely noise variables. The choice of range of dimension $p$ is explained in Section \ref{sec:theory}. Sample size was fixed to keep the experiment manageable. Also mean shift was kept fixed. The levels of the factors used in the experiment are given in Table \ref{freq}. Three replicates at each level were generated. These produced 60 different ``observed data sets", and thus, 60 different lineups. 
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Values of parameters considered for the experiment. The choice of the dimensions is explained in Section \ref{sec:theory}.}
+\caption{Levels of the factors used for the experiment. The choice of the dimensions is explained in Section \ref{sec:theory}.}
 \begin{tabular}{cccp{3cm}}
   \hline
   \hline
@@ -378,24 +373,23 @@ The goal of the experiment is to determine how well random noise is distinguisha
 
 \subsection{Simulation process}
 
-This section talks about the process of simulating the lineups in greater details. Two groups of $p$ dimensions of data with 15 observations in each group are generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2. The data for both the groups is purely noise, having no dependence on the groups. So $\mathbf{X}$ can be written as
+Two groups of $p$ dimensions of data with 15 observations in each group are generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2. The data for both the groups is purely noise, having no dependence on the groups. So $\mathbf{X}$ can be written as
 $$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data with 2 groups.
 
-To bring in the real separation in the data, each element of the $p$-th variable $\mathbf{X}_p$ which belongs to group 1 is subtracted by 3 and 3 is added to each element of $\mathbf{X}_p$ which belongs to group 2. So, 
+To introduce real separation in the data, values for $p$-th variable $\mathbf{X}_p$ were shifted apart by 6 units between the two groups. So, 
 $$
 \mathbf{X}_p = \left\{ \begin{array}{rl}
  \mathbf{X}_p - 3 &\mbox{ if $ \mathbf{X}_p \in$ group 1} \\
  \mathbf{X}_p + 3 &\mbox{ if $ \mathbf{X}_p \in$ group 2}
        \end{array} \right.
 $$
-This is done so that the mean of the observations in the two groups in the $p$-th dimension is separated by 6 units. This modified $ \mathbf{X}$ matrix works as the data with one dimension of real separation. 
 
-Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projections.  
+Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projection of best separation.  
 
-The above procedure is repeated to obtain the $d = 2$ dimensional projections. But instead of labeling the 15 observations as group 1 and group 2, the first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3. As before a $30 \times (p + 1)$ matrix, say, $ \mathbf{X}$, is obtained where the first 10 observations are from group 1, the second 10 observations are from group 2 and the last 10 observations are from group 3.  So, collectively,  $\mathbf{X}$ can be written as
+The above procedure is effectively the same for $d = 2$ dimensional projections with few key differences. The first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3.  So, collectively,  $\mathbf{X}$ can be written as
 $$ \mathbf{X}^{n \times (p + 1)} = ( \mathbf{X}_1,  \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $ \mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional noise data with 3 groups.
 
-As before to bring in the real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ \mathbf{X}_{p-1}$ and $ \mathbf{X}_p$. The adjustment is done in the following way:
+To introduce real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ \mathbf{X}_{p-1}$ and $ \mathbf{X}_p$. The adjustment is done in the following way:
 $$
 ( \mathbf{X}_{p-1},  \mathbf{X}_p) = \left\{ \begin{array}{rl}
  ( \mathbf{X}_{p-1} - 3,  \mathbf{X}_p) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 1} \\
@@ -403,7 +397,9 @@ $$
  ( \mathbf{X}_{p-1} ,  \mathbf{X}_p + \sqrt{27}) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 3}
        \end{array} \right.
 $$
-If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ \mathbf{X}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projections. 
+If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ \mathbf{X}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projection of best separation. 
+
+\subsection{Producing Lineups}
 
 The one dimensional projections obtained from the projection pursuit with the PDA index are plotted on the horizontal axis against fixed value (1.5 in this case) on the vertical axis colored by the group variable to obtain the observed data plot. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup are obtained by  permuting the group variable in order to break any dependence between the group variable and the other variables and the one dimensional projections are obtained and plotted in the same way. The observed data plot is placed randomly among the 19 null plots to obtain the lineup. For each plot in the lineup, the mean of the projections for each group is calculated and the group with the lower mean is considered as group 1 and the other as group 2. This method helps in maintaining the same orientation of the groups in each plot of the lineup. The same symbol is used to represent both the groups so that the different symbols do not confound the analysis. A statistic WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) is calculated for each of the 20 plots in the lineup. 
 
