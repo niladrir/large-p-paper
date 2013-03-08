@@ -51,6 +51,7 @@ grestore
 \usepackage{natbib}
 \usepackage{multicol}
 \usepackage{hyperref}
+%\usepackage{subcaption}
 
 \usepackage{amsmath, amssymb, fullpage, array, algorithm2e,graphicx,mathtools, xparse}
 
@@ -294,20 +295,22 @@ We choose the visual test statistic to be a dot plot of the observed data for tw
  
 \section{Explanation of dimension reduction methods}  \label{sec:dimred}
 
+%$$\bar{\bf{X}}_{ij}^*$$
+
 %{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this work projection pursuit (e.g. \cite{friedman:1974}) is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection from high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. In this paper the one and two dimensional projections are obtained by projection pursuit.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
 
 In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index (\cite{lee:2009}) in projection pursuit:
 
-Let $\mathbf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\mathbf{X}}_{i.} = \frac{1}{n_i} \sum_{j = 1}^{n_i} \mathbf{X}_{ij}$ be the $i$th class mean and $\bar{\mathbf{X}}_{..} = \frac{1}{n} \sum_{i = 1}^g \sum_{j = 1}^{n_i} \mathbf{X}_{ij}$ be the total mean. Let
+Let $\bf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\bf{X}}_{i.} = \frac{1}{n_i} \sum_{j = 1}^{n_i} \bf{X}_{ij}$ be the $i$th class mean and $\bar{\bf{X}}_{..} = \frac{1}{n} \sum_{i = 1}^g \sum_{j = 1}^{n_i} \bf{X}_{ij}$ be the total mean. Let
 
-$$\hbox{\bf{B}} = \sum_{i=1}^g n_i (\bar{\mathbf{X}}_{i.} - \bar{\mathbf{X}}_{..})(\bar{\mathbf{X}}_{i.} - \bar{\mathbf{X}}_{..})^T : \hbox{between-class sum of squares}$$
+$$\hbox{\bf{B}} = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.} - \bar{\bf{X}}_{..})(\bar{\bf{X}}_{i.} - \bar{\bf{X}}_{..})^T : \hbox{between-class sum of squares}$$
 
-$$\hbox{\textbf{W}} = \sum_{i=1}^g \sum_{j=1}^{n_i} (\mathbf{X_{ij}} - \bar{\mathbf{X}}_{i.})(\mathbf{X_{ij}} - \bar{\mathbf{X}}_{i.})^T : \hbox{within-class sum of squares}$$
+$$\hbox{\textbf{W}} = \sum_{i=1}^g \sum_{j=1}^{n_i} (\bf{X_{ij}} - \bar{\bf{X}}_{i.})(\bf{X_{ij}} - \bar{\bf{X}}_{i.})^T : \hbox{within-class sum of squares}$$
 Then, the LDA PP index is 
 
 $$
-I_{LDA}(\hbox{A}) = \left\{ \begin{array}{cc}
+I_{LDA}(\hbox{\bf{A}}) = \left\{ \begin{array}{cc}
  1 - \frac{\left|\hbox{\textbf{A}}^T \hbox{\bf{W}} \hbox{\bf{B}}\right|}{\left|\hbox{\bf{A}}^T \left(\hbox{\textbf{ W }} + \hbox{\textbf{ B }}\right)\hbox{\textbf{A}}\right|} &\mbox{ for $|\bf{A}^T(\bf{W} + \bf{B})\bf{A}| \neq 0$} \\
  0 &\mbox{ for $|\bf{A}^T(\bf{W} + \bf{B})\bf{A}| = 0$}
        \end{array} \right.
@@ -316,12 +319,12 @@ where \textbf{A} is an orthogonal projection onto a $k$-dimensional space.
 
 For HDLSS data, the penalized discriminant analysis (PDA) index (\cite{lee:2009}) is more robust:
 
-Let $\mathbf{X}_{ij}^*$ be the standardized vector of $\mathbf{X_{ij}}$. Then 
+Let ${\bf{X}}_{ij}^*$ be the standardized vector of $\bf{X_{ij}}$. Then 
 
-$$\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\mathbf{X}^*}_{i.} - \bar{\mathbf{X^*}}_{..})(\bar{\mathbf{X^*}}_{i.} - \bar{\mathbf{X^*}}_{..})^T : \hbox{between-class sums of squares of the standardized data}$$
+$$\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)(\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)^T : \hbox{between-class sums of squares of the standardized data}$$
 
-$$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\mathbf{X^*}_{ij}} - \bar{\mathbf{X}^*}_{i.})({\mathbf{X^*}_{ij}} - \bar{\mathbf{X^*}}_{i.})^T : \hbox{within-class sums of squares of the standardized data }$$
-where $\bar{\mathbf{X^*}}_{i.}$ is the $i$th class mean of the standardized data and $\bar{\mathbf{X^*}}_{..}$ is the total mean of the standardized data. Then the PDA index is defined as
+$$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\bf{X}_{ij}^*} - \bar{\bf{X}}_{i.}^*)({\bf{X}_{ij}^*} - \bar{\bf{X}}_{i.}^*)^T : \hbox{within-class sums of squares of the standardized data }$$
+where $\bar{\bf{X}}_{i.}^*$ is the $i$th class mean of the standardized data and $\bar{\bf{X}}_{..}^*$ is the total mean of the standardized data. Then the PDA index is defined as
 
 $$I_{PDA}(\hbox{\bf{A}},  \lambda) = 1 - \frac{|\hbox{\bf{A}}^T\{(1 - \lambda))\hbox{\bf{W}}^s + n\lambda I_p\}\hbox{\bf{A}}|}{|\hbox{\bf{A}}^T\{(1 - \lambda))(\hbox{\bf{W}}^s + \hbox{\bf{B}}^s) + n\lambda I_p\}\hbox{\bf{A}}|}$$
 where \textbf{A} is an orthonormal projection onto a $k$-dimensional space and $\lambda \in [0, 1)$ is a predetermined parameter. Penalized LDA (\cite{witten:2011}) is another approach.
@@ -347,34 +350,45 @@ These indices are available for projection pursuit using the \texttt{tourr} pack
 
 \section{Experiment} \label{sec:experiment}
 
-\subsection{Setup}
+\subsection{Experimental design}
 
 %{\blue*** Explain the Turk experiment}
 
-The goal of the experiment was to determine how well real separation is distinguishable from random noise. To achieve this goal, the experiment was set up with factors, real separation or purely noise, dimension and projection dimension. Real separation was achieved by setting 1 or 2 variables with real separation among a number of purely noise variables. The choice of range of dimension $p$ is explained in Section \ref{sec:theory}. Sample size was fixed to keep the experiment manageable. Also mean shift was kept fixed. The levels of the factors used in the experiment are given in Table \ref{freq}. Three replicates at each level were generated. These produced 60 different ``observed data sets", and thus, 60 different lineups. 
+The goal of the experiment was to determine how well real separation is distinguishable from random noise. To achieve this goal, the experiment was set up with factors, real separation or purely noise, dimension and projection dimension. Real separation was achieved by setting 1 or 2 variables with real separation among a number of purely noise variables.  Sample size was fixed to keep the experiment manageable. Also mean shift was kept fixed. The levels of the factors used in the experiment are given in Table \ref{freq}. Three replicates at each level were generated. These produced 60 different ``observed data sets", and thus, 60 different lineups. 
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Levels of the factors used for the experiment. The choice of the dimensions is explained in Section \ref{sec:theory}.}
-\begin{tabular}{cccp{3cm}}
+\caption{Levels of the factors used for the experiment.}
+\begin{tabular}{cccp{2.2cm}|c}
   \hline
   \hline
-  $n$ & projection($d$) & separation & dimension ($p$) \\
+  $n$ & projection($d$) & separation & dimension ($p$) & replicates\\
   \hline
-  30 & 1 & Yes & 20, 40, 60, 80, 100 \\
-      & & No & 20, 40, 60, 80, 100\\
-   30 & 2 & Yes & 20, 40, 60, 80, 100 \\
-     & & No & 20, 40, 60, 80, 100\\   
+  30 & 1 & Yes & 20, 40, 60, 80, 100 & 3 \\
+      & & No & 20, 40, 60, 80, 100 & 3\\
+   30 & 2 & Yes & 20, 40, 60, 80, 100 & 3 \\
+     & & No & 20, 40, 60, 80, 100 & 3\\   
       \hline
 \end{tabular}
 \label{freq}
 \end{center}
 \end{table} 
 
+Figure \ref{fig:dimen} shows the distribution of absolute difference of means for data with separation and without separation for different dimensions. The distributions of data with and without separation are shown in blue and red respectively. The area of the distribution of purely noise which is above the 5th percentile of the distribution of data with separation is shown in dark blue and the dark blue region increases with dimension ($p$). This indicates that as dimension increases, the distributions of data with or without separation gets closer. Hence the probability of obtaining separation among groups for purely noise data increases with higher dimensions. Fixing the area of the dark blue region and calculating the dimensions to obtain the required region provides the choice of levels of dimension. More details are provided in Section \ref{sec:theory}. 
+
+\begin{figure}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{0.70}{\includegraphics{sum-noise-real-2.pdf}}
+       \caption{Plot showing the distribution of the sum of absolute difference of means for data with and without separation for different dimensions. The distributions of data with real separation ($Z$) and purely noise data ($Y$) are shown in blue and red respectively with the dark blue line showing the 5th percentile of $Z$. The dark blue area shows the area of $Y$ which is greater than the 5th percentile of $Z$. The dark blue region increases as dimension ($p$) increases indicating that the probability of obtaining the sum of absolute difference for data with purely noise similar to that for data with real separation increases with $p$. }
+     \label{fig:dimen}
+%\end{figurehere}
+\end{figure}
+
 \subsection{Simulation process}
 
 Two groups of $p$ dimensions of data with 15 observations in each group are generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2. The data for both the groups is purely noise, having no dependence on the groups. So $\mathbf{X}$ can be written as
-$$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data with 2 groups.
+$$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data or data with no separation with 2 groups.
 
 To introduce real separation in the data, values for $p$-th variable $\mathbf{X}_p$ were shifted apart by 6 units between the two groups. So, 
 $$
@@ -384,10 +398,10 @@ $$
        \end{array} \right.
 $$
 
-Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projection of best separation.  
+Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension, i.e. data with separation. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projection of best separation, yielding $\mathbf{Y = XA}$.  
 
 The above procedure is effectively the same for $d = 2$ dimensional projections with few key differences. The first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3.  So, collectively,  $\mathbf{X}$ can be written as
-$$ \mathbf{X}^{n \times (p + 1)} = ( \mathbf{X}_1,  \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $ \mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional noise data with 3 groups.
+$$ \mathbf{X}^{n \times (p + 1)} = ( \mathbf{X}_1,  \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $ \mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $X$ excluding the Group variable gives the $p$-dimensional noise data or data with no separation with 3 groups.
 
 To introduce real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ \mathbf{X}_{p-1}$ and $ \mathbf{X}_p$. The adjustment is done in the following way:
 $$
@@ -397,13 +411,45 @@ $$
  ( \mathbf{X}_{p-1} ,  \mathbf{X}_p + \sqrt{27}) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 3}
        \end{array} \right.
 $$
-If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ \mathbf{X}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projection of best separation. 
+If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ \mathbf{X}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projection of best separation, yielding $\mathbf{Y = XA}$. 
 
-\subsection{Producing Lineups}
+\subsection{Producing lineups}
 
-The one dimensional projections obtained from the projection pursuit with the PDA index are plotted on the horizontal axis against fixed value (1.5 in this case) on the vertical axis colored by the group variable to obtain the observed data plot. The limits of the vertical axis are adjusted so that the points form circular clusters instead of bands of points. The 19 null plots in the lineup are obtained by  permuting the group variable in order to break any dependence between the group variable and the other variables and the one dimensional projections are obtained and plotted in the same way. The observed data plot is placed randomly among the 19 null plots to obtain the lineup. For each plot in the lineup, the mean of the projections for each group is calculated and the group with the lower mean is considered as group 1 and the other as group 2. This method helps in maintaining the same orientation of the groups in each plot of the lineup. The same symbol is used to represent both the groups so that the different symbols do not confound the analysis. A statistic WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) is calculated for each of the 20 plots in the lineup. 
+Two different visual test statistics, $T_1(\bf{Y})$ and $T_2(\bf{Y})$ (as defined in \cite{majumder:2011}) are used in this paper, for representing 1D and 2D data. $T_1(\bf{Y})$ is a horizontal jittered dot plot, with color representing groups. $T_2(\bf{Y})$ is a scatterplot of the two-dimensional projections, with color representing groups. The same symbol is used to represent the groups in both the test statistics so that the different symbols do not confound our analysis. Figure \ref{fig3} shows the two different visual test statistics.
 
-The above procedure is repeated for the one dimensional projections for data with one dimension of real separation. Figure \ref{fig:test_category_1d} gives the lineup  for the one dimensional projections with $p = 20$ dimensions where 19 dimensions are purely noise data and 1 dimension has real separation. This is an example of a lineup that is used in the experiment. 
+\begin{figure}[htbp]
+\centering
+\mbox{\subfigure[$T_1(\bf{Y})$]{\includegraphics[width=2.5in]{test_statistic_1.pdf}}\quad
+\subfigure[$T_2(\bf{Y})$]{\includegraphics[width=2.5in]{test_statistic_2.pdf} }}
+\caption{The visual test statistics $T_1(\bf{Y})$ and $T_2(\bf{Y})$ used in this paper.  $T_1(\bf{Y})$ is a horizontal jittered dot plot while $T_2(\bf{Y})$ is a scatterplot of the first and second dimensional projections, with color representing groups in both cases. } 
+\label{fig3}
+\end{figure}
+
+%\begin{figure}[htbp]
+%\centering
+%\begin{subfigure}[b]{0.5\textwidth}
+%\centering
+%\includegraphics[0.45]{test_statistic_1.pdf}
+%\caption{}
+%\label{teststat1}
+%\end{subfigure}
+%
+%\begin{subfigure}[b]{0.5\textwidth}
+%\centering
+%\includegraphics[0.45]{test_statistic_2.pdf}
+%\caption{}
+%\label{teststat2}
+%\end{subfigure}
+%
+%\label{teststat}\caption{This is the figure}
+%
+%
+%\end{figure}
+
+To obtain the 19 null plots in a lineup of size $m = 20$, the group variable is permuted in order to break any dependence between the group variable and the other variables and the projections are obtained and plotted in the same way, as the test statistic. The test statistic, which is the observed data plot, is placed randomly among the 19 null plots. To maintain the same orientation of the two groups in the 1D projection lineup,  the mean of the projections for each group is calculated for each plot in the lineup and the group with the lower mean is considered as group 1 and the other as group 2. Figure \ref{fig:test_category_1d} shows an example lineup  from treatment with $p = 20$, separation = Yes and $d = 1$. Similarly, Figure \ref{fig:test_category} shows an example lineup for $p =100$, separation = No and $d = 2$.
+
+A statistic WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) is calculated for each plot in the lineup of both 1D and 2D projections. An additional statistic Wilk's $\lambda$ (\cite{JW02}) is calculated for 2D projections. Projection pursuit is an optimization routine and there are occasional problems of convergence with two-dimensional projections. To account for this problem, 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$ values are used for the lineup. 
+
 %{\color{red} The data recorded for the participants. How many participants were recruited.} \\
 
 % and Figure \ref{not_noise_1d} gives the lineup plot for the one dimensional projections for 99 dimensions of pure noise and 1 dimension of real separation.
@@ -415,32 +461,24 @@ The above procedure is repeated for the one dimensional projections for data wit
 %\begin{figurehere}
    \centering
        \scalebox{1.00}{\includegraphics{plot_real_1d_20_11.pdf}}
-       \caption{Lineup  ($m=20$) with 19 dimensions of purely noise  and 1 dimension of real separation. So the lineup is generated from a data with 1 dimension of real separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
+       \caption{Lineup  ($m=20$) from treatment with $p = 20$, separation = Yes and $d = 1$. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
      \label{fig:test_category_1d}
-%\end{figurehere}
 \end{figure}
-%
-%
-%\begin{figure}[hbtp]
-%%\begin{figurehere}
-%   \centering
-%       \scalebox{1.00}{\includegraphics{plot_1d_99_19.pdf}}
-%       \caption{lineup  ($m=20$) with 99 dimensions of pure noise and 1 dimension of real separation for testing $H_0$: There is no difference among the plots. When the alternative hypothesis is true the observed data plot should have the largest separated colors. Can you identify the observed data plot?}
-%       \label{not_noise_1d}
-%\end{figure}
 
-Similar procedure is followed to obtain the lineup  for two dimensional projections for purely noise and data with two dimensions of real separation. But, in this case, the first two projections are plotted on the horizontal and vertical axis respectively colored by the group variable and using the same symbol for the groups to get a scatterplot to obtain the observed data plot. For the null plots, the group variable is permuted and the projection pursuit is performed on the permuted dataset and plotted in the same way. To account for the occasional convergence problem with the optimization, 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$  (\cite{JW02}) values are used for the lineup. The observed data is placed randomly among the 19 null plots to obtain the lineup. Figure \ref{fig:test_category} gives the lineup  for the two dimensional projections for $p =100$ dimensions where all the 100 dimensions are purely noise data. WBratio are calculated for each of the 20 plots in the lineup. 
+
  
 \begin{figure}[hbtp]
 %   \centering
        \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
-       \caption{Lineup  ($m=20$) with 100 dimensions of purely noise. In this case the lineup is generated from a data with 100 dimensions of purely noise. The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
+       \caption{Lineup  ($m=20$) from treatment with $p = 100$, separation = No and $d = 2$.The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
        \label{fig:test_category}
 \end{figure}
 
 %\ppp
 
-Subjects  for the experiment are recruited through Amazon Mechanical Turk  \citep{turk}.  \cite{turk} is a platform to get feedback on this kind of experiments. Each subject is shown a sequence of 10 lineups. Subjects also had the freedom of answering more than 10 lineups. They are asked to identify the plot which has the most separation between the colored groups. Their response is recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject are also noted. In total, 1137 lineups are evaluated by 103 subjects from different locations.
+\subsection{Data collection}
+
+Subjects  for the experiment were recruited through Amazon Mechanical Turk  \citep{turk}. Each subject was shown a sequence of 10 lineups. Subjects also had the freedom of answering more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects, from different locations across the globe.
 
 
 %\begin{figure*}[hbtp]
@@ -454,89 +492,6 @@ Subjects  for the experiment are recruited through Amazon Mechanical Turk  \cite
 
 %{\color{red} Description of the procedure. }\\
 
-\subsection{Choice of dimensions} \label{sec:theory}
-
-To decide on the different dimensions, the distribution of the absolute difference of the means of the two groups of a purely noise data is looked at. In this case one dimension of purely noise is considered which is divided into two groups. The means of the observations in each group is calculated. Since we are interested in the projections, the absolute differences of the means is considered.
-
-Let us denote $X_{ij}$ as the $j$-th observation in the $i$-th group where $j = 1, \dots, n_i$. Essentially in our case there are only $i = 2$ groups. $X_{ij}$s are purely noise obtained from a standard normal distribution. The difference between the means of the purely noise data for the two groups, group 1 and group 2 is given by $\bar{X}_{1.} - \bar{X}_{2.}$ and $$\bar{X}_{1.} - \bar{X}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. So we have $$\bar{X}_{1.} - \bar{X}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let us define $$Y  = |\bar{X}_{1.} - \bar{X}_{2.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$. \\
-
-The expectation and the variance of $Y$ can be calculated: 
-$$E(Y) = \sigma \sqrt{2/\pi}$$
-$$Var(Y) = \sigma^2 (1 - 2/\pi)$$
-
-Let us consider $p$ dimensions of purely noise data, each dimension being divided into $i = 2$ groups with $n_i = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. The sum of the absolute difference between the means is obtained for all the $p$ dimensions. So, define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$ \\
-
-Assuming independence among the dimensions of purely noise data,
-
-$$E(Y) = p \sigma \sqrt{2/\pi}$$
-$$Var(Y) = p \sigma^2 (1 - 2/\pi)$$
-
-To check for the optimization procedure one dimension of real separation is considered in the data. To bring in the real separation, we adjust the mean of $X_{ij}$. We subtract any value $c$ from the mean of the first 15 observations (group 1) and add $c$ to the mean of the last 15 observations (group 2). So we define
-$$X_{ij}^* \sim \hbox{Normal}(- c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_1$$
-$$X_{ij}^* \sim \hbox{Normal}(c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_2$$ 
-Hence we have $$\bar{X}_{1.}^* - \bar{X}_{2.}^* \sim \hbox{Normal}(2c, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. Let us define $$Y^*  = |\bar{X}_{1.}^* - \bar{X}_{2.}^*|$$ where $Y^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$.  \\
-
-The expectation and the variance of $Y^*$ can be calculated :
-
-$$E(Y^*) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(Y^*) = 4c^2 + \sigma^2 - (E(Y^*))^2$$
-
-
-Now the means of $X_{mij}$s are adjusted in the $p$-th dimension. So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p$$ where $Y_p$ follows a Folded Normal Distribution.
-
-Again assuming independence among the dimensions of purely noise data and data with real separation,
-
-$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
-
-In our case, $c = 3$ and $\sigma^2 = 2/15$. Therefore,
-$$\exp(- 2c^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2c/\sigma) \approx 0$$
-Hence,
-$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
-$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
-As the value of $p$ increases for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ and the spread of $Z$ increases as well. The means of both $Y$ and $Z$ also increase with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and is independent of the number of dimensions ($p$). 
-%\begin{equation}
-$$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
-%\end{equation}
-
-
-%\end{multicols}
-%
-\begin{figure}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.70}{\includegraphics{sum-noise-real-2.pdf}}
-       \caption{Plot showing the distribution of the sum of absolute difference of means for data with purely noise ($Y$) and real separation ($Z$) for different values of the dimension. The distribution of $Y$ and $Z$ are colored in red and blue respectively with the dark blue line showing the 5th percentile of $Z$. The dark blue area shows the area of $Y$ which is greater than the 5th percentile of $Z$. It can be noticed that the area of the dark blue region  increases as the number of dimensions increases. This indicates that the probability of obtaining the sum of absolute difference for data with purely noise similar to the difference for data with real separation increases with $p$. }
-     \label{fig:dimen}
-%\end{figurehere}
-\end{figure}
-
- Figure \ref{fig:dimen} shows the phenomenon described above. In Figure \ref{fig:dimen} notice that as the number of dimensions ($p$) increases from 20 to 100, the dark blue region of the distribution of $Y$ which is greater than the 5th percentile of $Z$ increases as the variability in $Y$ and $Z$ increases as a factor of the dimension ($p$).
-
-% As a result, the probability of obtaining two clusters for data with pure noise indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
-
-The next step is to find the number of dimension for a specific value of the common region between the two distributions. To allow some error, the value of the number of dimension $p$ is considered for which $$\hbox{P}[Y > Z_{\alpha}] = \delta$$ where $Z_{\alpha}$ is the $\alpha$-th percentile of $Z$.  So for a given value of $\delta$,  the value of $p$ is calculated for which the above condition holds true for $\alpha = 0.05$.
-
-The above described procedure is done for 5 different values of $\delta  = 0.0000001, 0.01, 0.05, 0.1$ and $0.2$ and for each value of $\delta$, it is repeated 100 times. Table \ref{tab:dimen} shows the summaries of the number of dimensions for each value of $\delta$.
-
-\begin{table}[htbp]
-\begin{center}
-\caption{Numerical summaries of dimension $p$ for each value of $\delta$. Notice that with the increase in the dark blue region $\delta$, the median number of dimensions required to obtain the region also increases. This also means for a large value of $p$ the difference between the groups for data with purely noise is close to the difference between the groups for data with real separation. }
-\begin{tabular}{rrrr}
-  \hline
-  \hline
-  $\delta$ & Median & 5th percentile & 95th percentile \\
-  \hline
-  0.0000001 & 24 & 19 & 28 \\
-      0.01 & 41 & 38 & 44\\
-   0.02 & 61 & 56 & 64 \\
-     0.1 & 77 & 72 & 81\\   
-     0.2 & 106 & 99 & 112\\ 
-      \hline
-\end{tabular}
-\label{tab:dimen}
-\end{center}
-\end{table}
 
 %The optimization is checked for 1D and 2D projections. For 1D projections data of size 30 is simulated from a standard normal distribution with $ p=20, 40, 60, 80$ and $100$ which are close to the values obtained in Table \ref{tab:dimen}. The first 15 observations are labeled class 1 and the second 15 observations are labeled class 2. There is no true class, it is pure noise data -- any separation seen between classes in the projection are purely due to the high dimension. We compute projection pursuit using the PDA index and plot the one dimensional projections in a lineup plot with $m=20$ where alternatives plots are created by randomly permuting the class labels. We expect that the original data should not be detectable -- it's just noise, any labeling of the observations to class is random. 
 
@@ -618,24 +573,22 @@ The above described procedure is done for 5 different values of $\delta  = 0.000
 
 \subsection{Data cleaning}
 
-Amazon Mechanical turk subjects are paid for their responses. Since the process is not monitored manually, some subjects do not make an honest effort to find the observed data plot. To counter this problem, each subject was given a very easy lineup (a lineup with $p = 10$ dimensions with some real separation). The subjects who failed to give a correct response to this lineup were removed from the study. If the response in this lineup is correct, we remove the response of this lineup but keep all the other responses.
+Amazon Mechanical Turk subjects were paid for their responses. Since the process was not manually monitored, some subjects did not make an honest effort to find the observed data plot. To counter this problem, each subject was given a very easy lineup (a lineup with $p = 10$ dimensions with some real separation). The subjects who failed to give a correct response to this lineup were removed from the study. If their response in this lineup was correct, we remove the subject's response for this lineup but keep all their responses for all the other 9 lineups viewed.
 
 \subsection{Effect of experimental factors} \label{effects}
 
-We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. Figure \ref{suc-rate-glm} examines this.
-%It would be interesting to look at the proportion of subjects identifying correctly the observed data plot for data with real separation versus data with purely noise, for 1D projections versus 2D projections and for the different dimensions.
-%Figure \ref{suc-rate-glm} shows the proportion of the subjects who successfully picked the plot of the observed data for each replicate of each dimension. 
+We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. Figure \ref{suc-rate-glm} examines this. The proportion correct is plotted against the different levels of dimension faceted by the levels of separation and projection. The 3 different dots for each level shows the 3 replicates for each level combination of the factors. The line represents the fitted fixed effects logistic regression model. The success rate is higher for low dimensions, and decreases as dimension increases, for real separation for both 1D and 2D projections. For noise data, the success rate is flat across dimensions. There also appears to be increasing variance as dimension increases.
 
-It can be noticed that when there is some real separation, the rate of success in making the correct response overall is higher. Also there is a difference in terms of the variability among the replicates in each dimension.
- The rate of success is not very different for 1D and 2D projections both in case of data with real separation and also for noise data. %\subsection{1D vs 2D projections}
-Also with the different values of the dimension $p$, the rate of success in picking the correct plot is different. The rate is higher for dimension $p = 20$ than when the dimension is $p = 40$. Strangely enough it can be noticed that the rate of success for $p = 100$ is higher than the rate of success for $p=80$ for both 1D and 2D projections. 
+%It can be noticed that when there is some real separation, the rate of success in making the correct response overall is higher. Also there is a difference in terms of the variability among the replicates in each dimension.
+% The rate of success is not very different for 1D and 2D projections both in case of data with real separation and also for noise data. %\subsection{1D vs 2D projections}
+%Also with the different values of the dimension $p$, the rate of success in picking the correct plot is different. The rate is higher for dimension $p = 20$ than when the dimension is $p = 40$. Strangely enough it can be noticed that the rate of success for $p = 100$ is higher than the rate of success for $p=80$ for both 1D and 2D projections. 
 
 \begin{figure}[ht]
 %\begin{figurehere}
    \centering
        \scalebox{0.6}{\includegraphics{suc-rate-rep-int-glm.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Proportion of correct responses for 1D projection and 2D projection and data with real separation and purely noise are shown. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the proportion of correct response decreases as the number of dimensions ($p$) increases from 20 to 100 for data with real separation. When the data is purely noise data, the proportion of correct response is very low which is understandable as the subjects are not expected to identify the plot.  }
+      \caption{Proportion of correct response against dimension faceted by projection and separation. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the success rate decreases as dimension increases for data with real separation. When the data is purely noise data, the success rate is flat across dimensions. The success rate does not change with projection.  }
        \label{suc-rate-glm}
 \end{figure}
 
@@ -654,11 +607,11 @@ Also with the different values of the dimension $p$, the rate of success in pick
 %\end{equation}
 
 %Model \ref{fixed}
-A fixed effects logistic regression model is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained.  The line in Figure \ref{suc-rate-glm} shows the estimated proportion of successful evaluation for the different levels of the parameters while the points gives the observed success rate. It can be noticed that for data with real separation, as the dimension $p$ increases, the proportion of success decreases. This is understandable since as the number of dimensions of noise increases keeping the number of real separation fixed to one or two, the distance between the groups in the observed data plot get closer to the distance between the groups in a null plot making it difficult for the subjects to pick the observed data plot. Table \ref{params} shows the estimates of the parameters, the standard errors and the corresponding $p$-values.
+A fixed effects logistic regression model is fitted to the data and the estimated proportions of successful evaluation for each lineup is obtained. Table \ref{params} shows the estimates of the model parameters, the standard errors and the corresponding $p$-values. We observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance. The slope of the covariate dimension is different when there is separation or not. When the observed data plot has real separation, the ability to detect it decreases with dimension, but the opposite occurs when the observed data plot has no real separation.
 
 \begin{table}[ht]
 \begin{center}
-\caption{Table showing the estimate, the standard error and the $p$-value of the parameters used in logistic regression model. Notice that the covariates dimension and noise are highly significant while projection is not significant at 5\% level of significance. Also the interaction term between dimension and noise is also significant.}
+\caption{Table showing the estimate, the standard error and the $p$-value of the parameters used in logistic regression model. The covariates dimension and separation are highly significant while projection is not significant at 5\% level of significance. The interaction term between dimension and separation is also significant.}
 \vspace{0.15cm}
 \begin{tabular}{r|rrr}
 \hline
@@ -666,17 +619,16 @@ A fixed effects logistic regression model is fitted to the data and the estimate
  Parameters & Estimate & Std. Error  & $p$-value \\ 
   \hline
 Intercept  & 2.381 & 0.278  & 0.000 \\ 
-  dimension & $-$0.032 & 0.004  & 0.000 \\ 
-  purely noise & $-$7.097 & 0.911  & 0.000 \\ 
-  2D projections & $-$0.127 & 0.181  & 0.483 \\ 
-  purely noise:2D projections & 0.056 & 0.011 & 0.000\\
+  dimension($p$) & $-$0.032 & 0.004  & 0.000 \\ 
+  separation = No & $-$7.097 & 0.911  & 0.000 \\ 
+  projection = 2D & $-$0.127 & 0.181  & 0.483 \\ 
+  separation:dimension & 0.056 & 0.011 & 0.000\\
    \hline
 \end{tabular}
 \label{params}
 \end{center}
 \end{table}
 
-In Table \ref{params} observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that projection is not significant at 5\% level of significance. The fitted models for the different treatment levels suggest that the slope of the covariate dimension is different for purely noise data and data with real separation for a fixed level of projection. On the other hand, there is no difference between 1D projections and 2D projections in the fitted models, when the level of the presence of noise is fixed. 
 
 %The estimated models for the different treatment levels are provided. 
 %
@@ -716,13 +668,13 @@ In Table \ref{params} observe that the $p$-values corresponding to dimension and
 
 \subsection{Does rotation in the 2D projections affect the responses?}
 
-The 1D projections were plotted in a lineup making the adjustment that the group with the lower values of projection are always considered to be group 1 and the group with larger values of the projection are considered to be group 2, as can be seen in Figure \ref{fig:test_category_1d}. So the orientation of the groups does not affect the response of the subjects. But in case of 2D projections, the groups are rotated in a different way in each plot in the lineup (Figure \ref{fig:test_category}) which may influence the response of the subjects. It would be interesting to test if the rotation in the 2D projections actually effect the response. Since the 1D projections are adjusted, the lineups of the 1D projections are used as a control and the responses for the 1D and 2D projections are compared. Figure \ref{suc-rate-glm} shows that there is not much of a difference between the 1D and 2D projections both in presence and absence of real separation. This is also verified in Table \ref{params} where the effect of the projections is not significant at 5\% level.  
+The 1D projections were plotted in a lineup making the adjustment that the group with the lower values of projection are always considered to be group 1. So the orientation of the groups does not affect the response of the subjects. But in case of 2D projections, the groups are rotated in a different way in each plot in the lineup (Figure \ref{fig:test_category}) which may influence the response of the subjects. We can check if the rotation in the 2D projections does effect the performance. Since the 1D projections are adjusted, the lineups of the 1D projections are used as a control and the responses for the 1D and 2D projections are compared. Figure \ref{suc-rate-glm} shows that there is not much of a difference between the 1D and 2D projections both in presence and absence of real separation. This is also verified in Table \ref{params} where the effect of the projections is not significant at 5\% level.  
 
 %\newpage
 
 \subsection{Time taken to respond}
 
-The amount of time taken to respond may depend on the difficulty in identifying the observed data plot in the lineup. So the distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken to respond on the logarithm scale by the subjects for the dimensions for the different projections. The colors suggest whether the data has some real separation or the data is purely noise with a loess smoother fitted through the points. Notice that as the dimensions increases, the subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes extremely hard to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimensions. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
+We would expect that the amount of time taken to respond will increase the difficulty of identifying the observed data plot in a lineup. The distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken to respond (on log scale) by dimension and projection. The colors indicated separation. A loess smoother is added. Notice that, as the dimension increases, subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
 
 
 
@@ -731,7 +683,7 @@ The amount of time taken to respond may depend on the difficulty in identifying 
    \centering
        \scalebox{0.6}{\includegraphics{time-taken-log-dot.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Plot showing the time taken to respond on log scale by each dimension colored by the type of the data. A loess curve is fit through the points. It can be observed that the time taken to respond is higher when the data is purely noise than when there is some real separation. Also it can be noticed that as the number of dimensions increases, the difference between the time taken to respond for purely noise data and real separation decreases. }
+      \caption{Time taken to respond on log scale against dimension colored by separation and faceted by projection. A loess curve is fitted through the points for each separation and projection. Time taken to respond is higher when the data has no separation. Also as dimension increases, the difference between the time to respond for data with and without separation decreases. Subjects take more time for 2D projections.  }
        \label{time-taken}
 \end{figure*}
 
@@ -753,22 +705,30 @@ The amount of time taken to respond may depend on the difficulty in identifying 
 %{\color{red} What do people see when they select a plot.} \\
 %Participants were asked to identify the plots which has the most separated colored groups. In data sets with real separation, participants make mistakes in picking up the plot of the ``observed data". 
 
-For some of the lineups, we noticed that more subjects than expected were able to identify the observed data plot, even though there was no real separation, all of the plots showed purely noise data. Figure \ref{wbratio} examines subjects choices in depth. The relative frequency of picks of each plot in the lineup is plotted against a measure of distance separation between groups, the WBratio. %{\blue Your definition of wbratio was not correct. Check the package description, and refer to the R package, and probably the original paper describing the metric.}  
- Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency the plot was chosen. Red represents the observed data plot. Two separate plots are made for the two projections. The top three rows correspond to data containing real separation between the groups, and for the bottom three rows all of the data was purely noise. Columns indicate dimension ($p$). Replicates are in different rows. The taller the pin the more often that particular plot was chosen. We asked subjects to pick the plot where the groups were most separated, and this is effectively what they picked. The plot in each lineup with the smallest WBratio tended to have the highest frequency. This is more obvious when there was real separation, and also when dimension was small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  For some of the lineups different choices were made, and these are a little surprising. Investigating these lineups further may reveal why this is. 
+Figure \ref{wbratio} examines subjects choices in depth. The relative frequency of picks of each plot in the lineup is plotted against a measure of distance separation between groups, the WBratio. %{\blue Your definition of wbratio was not correct. Check the package description, and refer to the R package, and probably the original paper describing the metric.}  
+ Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency the plot was chosen. Red represents the observed data plot. Two separate figures are made for the two projections. The top three rows correspond to data containing real separation between the groups, and for the bottom three rows all of the data was purely noise. Columns indicate dimension ($p$). Replicates are in different rows. The taller the pin the more often that particular plot was chosen. We asked subjects to pick the plot where the groups were most separated, and this is effectively what they picked. The plot in each lineup with the smallest WBratio tended to have the highest frequency. This is more obvious when there was real separation, and also when dimension was small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  For some of the lineups different choices were made, and these are a little surprising. Investigating these lineups further may reveal why this is. 
 
 %In Figure \ref{wbratio}, it can be seen that there is a negative correlation between the relative frequency of the picks and the WBratio. So as the WBratio increases, which indicates the decrease in the distance between the clusters,  the number of participants picking the plot decreases. Red dot indicates the observed data plot. For data with real separation, when the observed data plot has the smallest WBratio, the participants are successful in picking up the observed data plot. But for data with no real separation participants are able to pick the plot with the lowest WBratio value although it is not the observed data plot. Also it should be mentioned that Figure \ref{wbratio} has been drawn using a ``free scale'' along the horizontal axis. So for higher dimensions and presence of real separation and also for purely noise data, the difference between the WBratio values for different plots in a lineup are really small compared to the lineup for a lower dimension and data with real separation.  
 
+\begin{figure}[htbp]
+\centering
+\mbox{\subfigure[For Projection:1D]{\includegraphics[width=3in]{wbratio-1.pdf}}\quad
+\subfigure[For Projection:2D]{\includegraphics[width=3in]{wbratio-2.pdf} }}
+\caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the distance between means, WBratio, the smaller the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects were asked to pick the plot in the lineup where the groups were the most separated, so we would expect that more subjects would pick the plots with the smallest WBratio. In general, this happens, the tallest pins are in the left of each cell. The top three rows show the results for the data with separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Figure (a) shows 1D projections and Figure (b) shows for 2D projections. There is not much difference between the two figures. } 
+\label{wbratio}
+\end{figure}
 
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.63}{\includegraphics{wbratio-1.pdf}}
-       \scalebox{0.63}{\includegraphics{wbratio-2.pdf}}
-       \caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the distance between means, WBratio, the smaller the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects were asked to pick the plot in the lineup where the groups were the most separated, so we would expect that more subjects would pick the plots with the smallest WBratio. In general, this happens, the tallest pins are in the left of each cell. The top three rows show the results for the data with real separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Also the figure on the top is for 1D projections and on the bottom is for 2D projections. We do not see much difference between the two figures.
-       % {\blue Remove the ``of picks'' from the vertical axis. I think it would be better to have the columns grouped into 1d at the left, and 2d on the right.}
-       }
-       \label{wbratio}
-\end{figure*}
+
+%\begin{figure*}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{0.63}{\includegraphics{wbratio-1.pdf}}
+%       \scalebox{0.63}{\includegraphics{wbratio-2.pdf}}
+%       \caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the distance between means, WBratio, the smaller the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects were asked to pick the plot in the lineup where the groups were the most separated, so we would expect that more subjects would pick the plots with the smallest WBratio. In general, this happens, the tallest pins are in the left of each cell. The top three rows show the results for the data with real separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Also the figure on the top is for 1D projections and on the bottom is for 2D projections. We do not see much difference between the two figures.
+%       % {\blue Remove the ``of picks'' from the vertical axis. I think it would be better to have the columns grouped into 1d at the left, and 2d on the right.}
+%       }
+%       \label{wbratio}
+%\end{figure*}
 
 %We made 5 lineups of each of the above plots for each dimension and showed to different individuals. They were asked to pick up the ``true" one among the 20 plots. By the ``true" one, we meant the one with the most separated colors. 20\% of the individuals could identify the true plot when the data is 100 dimensions of pure noise for one dimensional projections. But when there is one dimension of separation in 100 dimensions of pure noise, 90\% of the individuals could successfully identify the true plot. For the two dimensional projections, only 30\% of the individuals could identify the true plot when the data has 100 dimensions of pure noise but 60\% of the individuals can pick the correct plot when there is two dimensions of real separation. It is evident that people are mostly correct in selecting the true plot when one dimension among 100 dimensions have real separation. People are also correct to pick the plots when two dimensions among 100 have real separation.
 
@@ -798,19 +758,18 @@ For some of the lineups, we noticed that more subjects than expected were able t
 
 \subsection{How do the null plots affect choices?}
 
-In classical inference the test statistic can be compared with an infinite number of possible values from the sampling distribution under the null hypothesis. But in visual inference the subjects can compare the test statistic (the observed data plot) with only a finite number of null plots which makes the null plots an important factor in decision making. For more details, see \cite{roychowdhury:2012}. It is mentioned in Section \ref{effects} that the probability of correct evaluation decreases for dimension $p = 80$ and increases for dimension $p = 100$ which is opposite to what we should expect. To investigate this the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup is considered. 
-%Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term. 
-Figure \ref{null} shows the relationship between the ratio and the proportion correct.  
+Previous section shows that subjects pick the most separated plot. In visual inference the subjects compare the test statistic (the observed data plot) with a finite number of null plots which makes the null plots an important factor in decision making (for more details, see \cite{roychowdhury:2012}). If a null plot has a stronger signal, subject picks that as the observed data plot. The signal in the plots is calculated by the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup. Figure \ref{null} shows that the proportion correct against the ratio. The vertical line acts as the reference line where the ratio is 1. The points to the right of the line should indicate easier lineups. As the ratio increases, the success rate increases. Subjects do well in picking up any signal in the lineups.
+%Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term.   
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
        \scalebox{0.6}{\includegraphics{suc-ratio-wbratio-glm.pdf}}
-       \caption{Proportion of successful evaluation is plotted against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents the ratio when the WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the zero line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. The blue line shows a logistic regression model which indicates that there is a positive effect of the ratio on the proportion correct.}
+       \caption{Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. The blue line shows a logistic regression model which indicates that there is a positive effect of the ratio on the proportion correct.}
        \label{null}
 \end{figure*}
 
-Figure \ref{null} shows that for data with real separation, dimension has an effect on the difficulty level but for data with noise there is no effect of dimension. For some lineups with purely noise data, the observed data plot has a lower WBratio value than the null plots. It can be observed from Figure \ref{null} that the subjects could pick the observed data plot if it has the lowest WBratio value. The unexpected performance of the subjects when the dimension  is $p = 80$ can be explained by the fact that the one or more of the null plots have lower WBratio value than the observed data plot.
+
 
 
 \section{Wasps data, revisited. }
@@ -862,7 +821,7 @@ This was replicated three times, to provide three different lineups, where the n
 
 \begin{table}[ht]
 \begin{center}
-\caption{Results of the Turk study on the wasps data. Proportion of successful evaluations of each lineup is shown, with the number of subjects, and $p$-value associated with the result. Notice that the most success came from one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that was randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps was 1.0, and for the pure noise is 0.67 suggests that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
+\caption{Results of the Turk study on the wasps data. Proportion of correctness of each lineup is shown, with the number of subjects, and $p$-value associated with the result. The success rate is highest for one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that was randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps was 1.0, and for the pure noise is 0.67 suggests that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
 \vspace{0.15cm}
 \begin{tabular}{r|r|r|rr}
 \hline
@@ -956,7 +915,7 @@ It has been observed that even if the data is purely noise, the groups separate 
 %	\scalebox{0.25}{\includegraphics{plot_2d_20.pdf}}
 %	\scalebox{0.25}{\includegraphics{plot_2d_50.pdf}}
 %	\scalebox{0.25}{\includegraphics{plot_2d_100.pdf}}
-       \caption{Plots showing one dimensional projections for 4 different number of dimensions $p=3$, $p=20$, $p=50$ and $p=100$. Note that the groups look more and more separated as the number of dimensions increases when actually there is no real separation and the data is purely noise.  }
+       \caption{Plots showing one dimensional projections for 4 different values of dimension $p=3$, $p=20$, $p=50$ and $p=100$. The groups look more and more separated as dimension increases although the data is purely noise.  }
        \label{dist_1d}
 \end{figure*}
 
@@ -1006,6 +965,7 @@ The visual inference method was also used to test whether the separation obtaine
 
 \section{Appendix}
 
+\subsection{Solution}
 \begin{itemize}
 \item The solution to the lineup at Figure \ref{lineup} is Plot 16. 
 \item The solution to the lineup at Figure \ref{fig:test_category_1d} is Plot 11.
@@ -1015,6 +975,79 @@ The visual inference method was also used to test whether the separation obtaine
 
 
 \end{itemize}
+
+\subsection{Choice of dimensions} \label{sec:theory}
+
+To decide on the levels of dimension to use, the distribution of the absolute difference of the means of the two groups of a purely noise data is looked at. In this case one dimension of purely noise is considered which is divided into two groups. The means of the observations in each group is calculated. Since we are interested in the projections, the absolute differences of the means is considered.
+
+Let us denote $X_{ij}$ as the $j$-th observation in the $i$-th group where $j = 1, \dots, n_i$. Essentially in our case there are only $i = 2$ groups. $X_{ij}$s are purely noise obtained from a standard normal distribution. The difference between the means of the purely noise data for the two groups, group 1 and group 2 is given by $\bar{X}_{1.} - \bar{X}_{2.}$ and $$\bar{X}_{1.} - \bar{X}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. So we have $$\bar{X}_{1.} - \bar{X}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let us define $$Y  = |\bar{X}_{1.} - \bar{X}_{2.}|$$ where $Y \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$. \\
+
+The expectation and the variance of $Y$ can be calculated: 
+$$E(Y) = \sigma \sqrt{2/\pi}$$
+$$Var(Y) = \sigma^2 (1 - 2/\pi)$$
+
+Let us consider $p$ dimensions of purely noise data, each dimension being divided into $i = 2$ groups with $n_i = 15$ observations. Let us define $$Y_m = |\bar{X}_{m1.} - \bar{X}_{m2.}|$$ where $X_{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. The sum of the absolute difference between the means is obtained for all the $p$ dimensions. So, define $$Y = \sum_{m=1}^p Y_m = \sum_{m=1}^p |\bar{X}_{m1.} - \bar{X}_{m2.}| $$ \\
+
+Assuming independence among the dimensions of purely noise data,
+
+$$E(Y) = p \sigma \sqrt{2/\pi}$$
+$$Var(Y) = p \sigma^2 (1 - 2/\pi)$$
+
+To check for the optimization procedure one dimension of real separation is considered in the data. To bring in the real separation, we adjust the mean of $X_{ij}$. We subtract any value $c$ from the mean of the first 15 observations (group 1) and add $c$ to the mean of the last 15 observations (group 2). So we define
+$$X_{ij}^* \sim \hbox{Normal}(- c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_1$$
+$$X_{ij}^* \sim \hbox{Normal}(c, 1) \qquad \hbox{for} \qquad j = 1, \dots, n_2$$ 
+Hence we have $$\bar{X}_{1.}^* - \bar{X}_{2.}^* \sim \hbox{Normal}(2c, 1/n_1 + 1/n_2)$$ where $n_1 = n_2 = 15$. Let us define $$Y^*  = |\bar{X}_{1.}^* - \bar{X}_{2.}^*|$$ where $Y^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{1/n_1 + 1/n_2} = \sqrt{2/15}$.  \\
+
+The expectation and the variance of $Y^*$ can be calculated :
+
+$$E(Y^*) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(Y^*) = 4c^2 + \sigma^2 - (E(Y^*))^2$$
+
+
+Now the means of $X_{mij}$s are adjusted in the $p$-th dimension. So we define $Z$ as the sum of the absolute differences of the mean with one dimension of real separation as $$Z = \sum_{m=1}^{p-1} |\bar{X}_{m1.} - \bar{X}_{m2.}| + Y_p$$ where $Y_p$ follows a Folded Normal Distribution.
+
+Again assuming independence among the dimensions of purely noise data and data with real separation,
+
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
+
+In our case, $c = 3$ and $\sigma^2 = 2/15$. Therefore,
+$$\exp(- 2c^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2c/\sigma) \approx 0$$
+Hence,
+$$E(Z) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
+$$Var(Z) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
+As the value of $p$ increases for a fixed $n$, the spread of $Y$ increases with a factor of the dimension $p$ and the spread of $Z$ increases as well. The means of both $Y$ and $Z$ also increase with a factor of $p$ but the expected value of the difference between $Y$ and $Z$ stays constant and is independent of the number of dimensions ($p$). 
+%\begin{equation}
+$$E (Z - Y) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
+%\end{equation}
+
+
+ Figure \ref{fig:dimen} shows the phenomenon described above. In Figure \ref{fig:dimen} notice that as the number of dimensions ($p$) increases from 20 to 100, the dark blue region of the distribution of $Y$ which is greater than the 5th percentile of $Z$ increases as the variability in $Y$ and $Z$ increases as a factor of the dimension ($p$).
+
+% As a result, the probability of obtaining two clusters for data with pure noise indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
+
+The next step is to find the number of dimension for a specific value of the common region between the two distributions. To allow some error, the value of the number of dimension $p$ is considered for which $$\hbox{P}[Y > Z_{\alpha}] = \delta$$ where $Z_{\alpha}$ is the $\alpha$-th percentile of $Z$.  So for a given value of $\delta$,  the value of $p$ is calculated for which the above condition holds true for $\alpha = 0.05$.
+
+The above described procedure is done for 5 different values of $\delta  = 0.0000001, 0.01, 0.05, 0.1$ and $0.2$ and for each value of $\delta$, it is repeated 100 times. Table \ref{tab:dimen} shows the summaries of the number of dimensions for each value of $\delta$.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Numerical summaries of dimension $p$ for each value of $\delta$. Notice that with the increase in the dark blue region $\delta$, the median number of dimensions required to obtain the region also increases. This also means for a large value of $p$ the difference between the groups for data with purely noise is close to the difference between the groups for data with real separation. }
+\begin{tabular}{rrrr}
+  \hline
+  \hline
+  $\delta$ & Median & 5th percentile & 95th percentile \\
+  \hline
+  0.0000001 & 24 & 19 & 28 \\
+      0.01 & 41 & 38 & 44\\
+   0.02 & 61 & 56 & 64 \\
+     0.1 & 77 & 72 & 81\\   
+     0.2 & 106 & 99 & 112\\ 
+      \hline
+\end{tabular}
+\label{tab:dimen}
+\end{center}
+\end{table}
 
 
 
