@@ -295,7 +295,7 @@ We choose the visual test statistic to be a dot plot of the observed data for tw
  
 \section{Explanation of dimension reduction methods}  \label{sec:dimred}
 
-%$$\bar{\bf{X}}_{ij}^*$$
+$$\bar{\bf{X}}_{i.}^*$$
 
 %{\color{red} Explanation of Projection Pursuit(Dimension Reduction)} \\
 In this work projection pursuit (e.g. \cite{friedman:1974}) is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection from high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. In this paper the one and two dimensional projections are obtained by projection pursuit.  As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
@@ -319,12 +319,14 @@ where \textbf{A} is an orthogonal projection onto a $k$-dimensional space.
 
 For HDLSS data, the penalized discriminant analysis (PDA) index (\cite{lee:2009}) is more robust:
 
-Let ${\bf{X}}_{ij}^*$ be the standardized vector of $\bf{X_{ij}}$. Then 
+Let ${\bf{X}}_{ij}^*$ be the standardized vector of ${\bf{X}}_{ij}$. Then 
 
-$$\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)(\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)^T : \hbox{between-class sums of squares of the standardized data}$$
+$$
+\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)(\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)^T : \hbox{between-class sums of squares of the standardized data}
+$$
 
-$$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\bf{X}_{ij}^*} - \bar{\bf{X}}_{i.}^*)({\bf{X}_{ij}^*} - \bar{\bf{X}}_{i.}^*)^T : \hbox{within-class sums of squares of the standardized data }$$
-where $\bar{\bf{X}}_{i.}^*$ is the $i$th class mean of the standardized data and $\bar{\bf{X}}_{..}^*$ is the total mean of the standardized data. Then the PDA index is defined as
+$$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\bf{X}}_{ij}^* - \bar{{\bf{X}}}_{i.}^*)({{\bf{X}}_{ij}^*} - \bar{\bf{X}}_{i.}^*)^T : \hbox{within-class sums of squares of the standardized data }$$
+where $\bar{{\bf{X}}}_{i.}^*$ is the $i$th class mean of the standardized data and $\bar{\bf{X}}_{..}^*$ is the total mean of the standardized data. Then the PDA index is defined as
 
 $$I_{PDA}(\hbox{\bf{A}},  \lambda) = 1 - \frac{|\hbox{\bf{A}}^T\{(1 - \lambda))\hbox{\bf{W}}^s + n\lambda I_p\}\hbox{\bf{A}}|}{|\hbox{\bf{A}}^T\{(1 - \lambda))(\hbox{\bf{W}}^s + \hbox{\bf{B}}^s) + n\lambda I_p\}\hbox{\bf{A}}|}$$
 where \textbf{A} is an orthonormal projection onto a $k$-dimensional space and $\lambda \in [0, 1)$ is a predetermined parameter. Penalized LDA (\cite{witten:2011}) is another approach.
