@@ -760,16 +760,24 @@ Figure \ref{wbratio} examines subjects choices in depth. The relative frequency 
 
 \subsection{How do the null plots affect choices?}
 
-Previous section shows that subjects pick the most separated plot. In visual inference the subjects compare the test statistic (the observed data plot) with a finite number of null plots which makes the null plots an important factor in decision making (for more details, see \cite{roychowdhury:2012}). If a null plot has a stronger signal, subject picks that as the observed data plot. The signal in the plots is calculated by the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup. Figure \ref{null} shows that the proportion correct against the ratio. The vertical line acts as the reference line where the ratio is 1. The points to the right of the line should indicate easier lineups. As the ratio increases, the success rate increases. Subjects do well in picking up any signal in the lineups.
+We have learned that subjects tend to pick the plot in the lineup that exhibits the most separation. Figure \ref{null} examines the influence of the ($m$ - 1) null plots on this pick. Because visual inference only allows for a finite (small) number of comparisons against the sampling distribution, the inference of the null plots in the lineup is important. More details are available in \cite{roychowdhury:2012}). If a null plot has a stronger signal, subject picks that as the observed data plot. The influence of the null plots is calculated by the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup. Figure \ref{null} shows that the proportion correct against this ratio. The vertical line acts as a reference line where the ratio is 1. The points to the right of the line should indicate easier lineups and those to the left indicate more difficult lineups. As the ease increases, the success rate increases. When there is a null plot with similar WBratio, subjects have a harder time choosing.
 %Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term.   
 
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.6}{\includegraphics{suc-ratio-wbratio-glm.pdf}}
-       \caption{Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. The blue line shows a logistic regression model which indicates that there is a positive effect of the ratio on the proportion correct.}
-       \label{null}
-\end{figure*}
+%\begin{figure*}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{0.6}{\includegraphics{suc-ratio-wbratio-glm.pdf}}
+%       \caption{Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. The blue line shows a logistic regression model which indicates that there is a positive effect of the ratio on the proportion correct.}
+%       \label{null}
+%\end{figure*}
+
+\begin{figure}[htbp]
+\centering
+\mbox{\subfigure[Proportion correct vs Ratio]{\includegraphics[width=3in]{suc-ratio-smoother.pdf}}\quad
+\subfigure[Mean time vs Ratio ]{\includegraphics[width=3in]{mtime-ratio-loess.pdf} }}
+\caption{(a) Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. The blue line shows a median smoother which indicates that there is a positive effect of the ratio on the proportion correct. (b) Mean time taken to respond against the ratio. As the ratio increases, the mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. } 
+\label{null}
+\end{figure}
 
 
 
@@ -778,16 +786,13 @@ Previous section shows that subjects pick the most separated plot. In visual inf
 
 %\subsection{Statement of the hypothesis}
 
-As seen earlier in Figure \ref{oligo} it looks as if the expression patterns of the wasp groups are separated, most clearly that two of the groups are separated from the other two.  The interesting question is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
+We return now to the motivating example. Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
 
 \begin{quote}
 $H_o$: There is NO difference in the expression levels between the types of wasp.\\
 $H_a$: At least one of the types of wasps has different expression levels.
 \end{quote}
-
-%\subsection{Description of the procedure}
-
-To test the above hypothesis, a lineup was made of the wasp data obtained from \cite{toth:2010} where the null plots were made by permuting the wasp type label, and re-doing the LDA. If there is real difference between the expression levels for the types of wasps then the observed data plot should be detectable in the lineup. Figure \ref{toth_lineup} shows a lineup. 
+A lineup was made of the wasp data obtained from \cite{toth:2010} to test $H_o$ where the null plots were made by permuting the wasp type label, and re-doing the LDA. If there is real difference between the expression levels for the types of wasps then the observed data plot should be detectable in the lineup. Figure \ref{toth_lineup} shows a lineup. 
 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
@@ -797,7 +802,7 @@ To test the above hypothesis, a lineup was made of the wasp data obtained from \
        \label{toth_lineup}
 \end{figure*} 
 
-This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained purely null plots. An Amazon Turk experiment was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This compares with that of purely noise data, with the exception of one of the replicates of the purely noise data lineup, where the simulated real data had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+This was replicated three times, to provide three different lineups, where the null plots changed but the observed data plot was the real wasps data. In addition, three more lineups were made that contained only null plots, with one plot chosen randomly to act as a observed data plot. An Amazon Turk experiment was conducted to evaluate the lineups.  A total of 116 subjects evaluated the lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data was 0! This was worse than that of purely noise data, with the exception of one of the replicates of the purely noise data lineup. In this lineup the observed data plot (which was actually random) had more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value was calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
 
 %So two different lineups are obtained : one where the observed data is the wasp data and the other where the observed data is ``permuted data'' obtained by permuting the wasp data. Three replicates of each are made. Each subject from the Amazon Turk was shown one of the above lineups randomly and were asked to identify the plot which has the most separation among the colored groups. They were also asked to record a reason for their choice and also a confidence level on the scale of 1 to 5.
 
@@ -845,7 +850,7 @@ Purely noise & 2 & 18 & 0.0000 &  1.0000 \\
 \end{center}
 \end{table}
 
-In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \citep{toth:2007} did not suffer from the HDLSS problem; we determined that there were robust separations between the groups based on those data (results not shown).
+In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \cite{toth:2007} did not suffer from the HDLSS problem. We determined that there were robust separations between the groups based on those data (results not shown).
 
 %Making the number of dimensions ($p$) less than the sample size ($n$) may not solve the problem in case of LDA. Figure \ref{combin} shows that when the sample size ($n$) is 50, the probability of obtaining separated groups for purely noise data divided into 2 groups is 1 for dimension ($p$) greater than 38. When the number of dimensions ($p$) is large compared to the number of observations ($n$), the LDA method is not recommended as the separation may be just due to the high dimensions. This points out the importance of dividing the data into test and training sets.  
 
@@ -899,8 +904,9 @@ In the original paper \citep{toth:2010}, the dimensionality was reduced from muc
 %\subsection{Procedure}
 %topic
 %{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
+\section{Conclusions}
 
-It has been observed that even if the data is purely noise, the groups separate out as the number of dimensions increases for a fixed sample size. Figure \ref{dist_1d} illustrates that in greater details. The same experiment was done here with purely noise data with 30 observations divided into 2 groups with 15 observations in each. The number of dimensions are increased gradually and the projection pursuit is performed on the above data and the one dimensional projections are plotted as before. It can be noticed that as the number of dimensions increases for fixed sample size $n$, it can be noticed that the colors starts separating out and the clusters are formed. Figure \ref{dist_1d} shows the one dimensional projections for four different values of dimension ($p = 2, 20, 50, 100$).
+The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. HDLSS data requires dimension reduction and LDA is the classical method for this. However for high dimension and small sample size, LDA provides separation even for data with no separation. Figure \ref{dist_1d} illustrates this. Figure \ref{dist_1d} shows the one dimensional projections (LD1) for four different values of dimension ($p = 2, 20, 50, 100$) for a sample size of 30. For a fixed sample size with 2 groups for data without any separation, the groups separate as the number of dimension increases. The separation is not real but this only happens due to the large dimensions. It would be interesting to calculate an interval for the dimension at which the group starts separating for a data with no separation using a visual method. Future work may explore this.
 
 %\end{multicols}
 %
@@ -925,19 +931,17 @@ It has been observed that even if the data is purely noise, the groups separate 
 %{\color{red} Description for two dimensional projections.} \\
 %Similarly, consider 3 dimensions of data with purely noise, each dimension having 30 observations divided into 3 groups with 10 observations in each group. The projection pursuit is performed as discussed above on the data and the two dimensional projections are plotted in a scatterplot. Similarly, in this case the 3 colors starts separating out as the number of dimensions increases.  Figure \ref{dist_1d} also shows the two dimensional projections for $p=3$, $p=20$, $p=50$ and $p=100$.
 
-It would be interesting to find the optimal number of dimensions for which the LDA index will be unreliable given a fixed sample size $n$. \cite{ripley:1996} proposes a combinatorial method to compute the probability that $n$ observations with $p$ dimensions divided into 2 groups are linearly separable. It quantifies that the probability that $n$ randomly chosen observations from a continuous distribution in $p$-dimensional space are linearly separable when randomly divided into two groups:
+Interestingly, the optimal number of dimensions for which the LDA index will be unreliable given a fixed sample size $n$ can be calculated. \cite{ripley:1996} proposes a combinatorial method to compute the probability that $n$ observations with $p$ dimensions divided into 2 groups are linearly separable. 
+%$$\hbox{Prob}(n, p) = \frac{1}{2^{n - 1}} \sum_{i = 0}^{\hbox{min}(n - 1, p)}{n - 1\choose i}$$
+Using the formula provided in \cite{ripley:1996},  the probability of obtaining fake separation for 2 groups is 1 when the number of dimension($p$) is 25 for $n = 30$ and when $p = 38$ for $n = 50$. When the number of dimensions are 14 for $n = 30$ and 24 for $n = 50$ respectively, we have a 50\% chance of obtaining fake groups. In this paper visual inference makes this clearer.
 
-$$\hbox{Prob}(n, p) = \frac{1}{2^{n - 1}} \sum_{i = 0}^{\hbox{min}(n - 1, p)}{n - 1\choose i}$$
-
-The above probability is being calculated for $n = 30$ and $n = 50$ which is represented in Figure \ref{combin}.  It can be noticed that the probability starts from 0 and increases steeply and eventually becomes 1. So for a fixed sample size, the probability of observing linearly separable groups becomes 1 as the number of dimensions increases although the data is purely noise. The number of dimensions after which the LDA method becomes unreliable for $n = 30$ is 25 and for $n = 50$, it is 38. The probability of observing linearly separable groups is 0.5 when the number of dimensions is 14 for $n = 30$ and 24 for $n = 50$ which is indicated by the blue vertical line in Figure \ref{combin}. 
-
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{0.45}{\includegraphics{probability-n-p.pdf}}
-       \caption{Probability that $n =30$ and $n = 50$ randomly chosen observations with $p$ dimensions randomly divided into two groups are linearly separable. For $n = 30$, when $p = 14$, the probability of obtaining linearly separable groups is 0.5 and for $n = 50$, the probability is 0.5 when $p = 24$ which are represented by the blue vertical lines. }
-       \label{combin}
-\end{figure*}
+%\begin{figure*}[hbtp]
+%%\begin{figurehere}
+%   \centering
+%       \scalebox{0.45}{\includegraphics{probability-n-p.pdf}}
+%       \caption{Probability that $n =30$ and $n = 50$ randomly chosen observations with $p$ dimensions randomly divided into two groups are linearly separable. For $n = 30$, when $p = 14$, the probability of obtaining linearly separable groups is 0.5 and for $n = 50$, the probability is 0.5 when $p = 24$ which are represented by the blue vertical lines. }
+%       \label{combin}
+%\end{figure*}
 
 %\end{multicols}
 
@@ -957,13 +961,16 @@ The above probability is being calculated for $n = 30$ and $n = 50$ which is rep
 %\begin{multicols}{2}
  
 
-\section{Conclusions}
-%{\color{red} Concluding remarks summarizing the different findings.} \\
-The purpose of this paper has been to apply the visual inference methods for dimension reduction using projection pursuit. The visual inference method was also used to check whether the optimization procedure works in projection pursuit. It was found that the optimization procedure in the projection pursuit works well. The proportion of correct response was higher for data with real separation. It was also noticed that the projection does not have a significant effect on the responses. The subjects were equally successful in identifying the separation in 1D or 2D projections. It was also noticed that for data with real separation, as the number of dimensions of purely noise increases keeping the dimensions of real separation fixed at 1 or 2, the proportion of successful evaluations decreases. 
-%Subject specific proportions of each subject was also computed. The performance of the subjects has a large variation. Though some of the subjects do very badly, but there were some subjects who performed exceedingly well. There were no restrictions  placed on the ability of the Turk workers. It was also noticed that some subjects chose the plot which has the largest separation in the groups though it may be in the null plots and not the observed data plot.
-Rotation of the groups in the 2D projections were a concern. We believed that the rotation may affect the decision of the subjects. But it was noticed that the performance of the subjects was not significantly different for the 1D and 2D projections which indicates that the rotation in the lineups with 2D projection does not affect the response of the subjects. The amount of time taken to respond was higher for data with purely noise. But as the number of dimensions increases in the data with real separation, the amount of time taken is similar to the time taken for data with purely noise. The difficulty of a lineup also has a significant positive effect on the proportion of successful response. The difficulty of a lineup depends on the null plots obtained corresponding to the observed plot. In this paper the difficulty was calculated on the basis of the measure WBratio which was calculated for each plot in each lineup. For more details on this, see \cite{roychowdhury:2012}. It was also shown that as the number of dimension increases, the separation between the groups increases even for data with purely noise. For a fixed sample size, the optimal number of dimension which can be used for a data with purely noise with 2 groups to perform a LDA was provided. It would be interesting to calculate an interval for the number of dimension at which the group starts separating for a data with purely noise using a visual method. Future work may explore this.
 
-The visual inference method was also used to test whether the separation obtained among the groups is real or fake. Here the example of the paper wasp was used. It was noticed that only by making the number of dimensions less than the sample size may not always solve the problem of obtaining fake separation. Visual inference may help in communicating these large $p$, small $n$ issues. The visual method may also be applied to other large $p$, small $n$ situations like bioinformatics and genetics.
+%{\color{red} Concluding remarks summarizing the different findings.} \\
+A human subjects experiment was conducted and the subjects were recruited from \cite{turk}. The goal of the experiment was to determine how well real separation is distinguishable from random noise. The responses of the subjects were recorded and the results were analyzed. The proportion of correct response was higher for data with separation. For data with real separation, as the dimension increases, the proportion of correct response decreases while for data with no separation, the proportion tends to stay flat across dimensions. The projection does not have a significant effect on the responses. The subjects were equally successful in identifying the separation in 1D or 2D projections.
+%Subject specific proportions of each subject was also computed. The performance of the subjects has a large variation. Though some of the subjects do very badly, but there were some subjects who performed exceedingly well. There were no restrictions  placed on the ability of the Turk workers. It was also noticed that some subjects chose the plot which has the largest separation in the groups though it may be in the null plots and not the observed data plot.
+Rotation of the groups in the 2D projections were a concern. It was believed that the rotation may affect the decision of the subjects. But it was learned that the performance of the subjects was not significantly different for the 1D and 2D projections which indicates that the rotation in the lineups with 2D projection does not affect the response of the subjects. The amount of time taken to respond was higher for data without separation. But as dimension increases for data with separation, the amount of time taken is similar to the time taken for data which is purely noise. 
+The subjects tend to pick plots in a lineup which has the largest separation. The difficulty of a lineup also has a significant positive effect on the proportion of successful response. The difficulty depends on the null plots obtained corresponding to the observed plot. In this paper the difficulty was calculated on the basis of the measure WBratio which was calculated for each plot in each lineup. For more details on this, see \cite{roychowdhury:2012}.
+
+The visual inference method was also used to test whether the separation obtained among the groups is real or fake. Here the example of the paper wasp was used. It was noticed that only by making the number of dimensions less than the sample size may not always solve the problem of obtaining fake separation. Visual inference may help in communicating these large $p$, small $n$ issues. 
+
+%The visual method may also be applied to other large $p$, small $n$ situations like bioinformatics and genetics.
 
 \section{Appendix}
 
