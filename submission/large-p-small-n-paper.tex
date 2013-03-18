@@ -66,6 +66,15 @@ grestore
 
 \newcommand{\blue}{\color{blue}}
 \newcommand{\red}{\color{red}}
+\newcommand{\blX}{\mbox{\boldmath {\bf X}}}
+\newcommand{\blS}{\mbox{\boldmath {\bf S}}}
+\newcommand{\blB}{\mbox{\boldmath {\bf B}}}
+\newcommand{\blW}{\mbox{\boldmath {\bf W}}}
+\newcommand{\blU}{\mbox{\boldmath {\bf U}}}
+\newcommand{\blY}{\mbox{\boldmath {\bf Y}}}
+\newcommand{\blA}{\mbox{\boldmath {\bf A}}}
+\newcommand{\blI}{\mbox{\boldmath {\bf I}}}
+
 
 \topmargin -0.10in   % when making pdf
 \textheight 8.5in  % when making pdf
@@ -307,34 +316,54 @@ In this work projection pursuit (e.g. \cite{friedman:1974}) is used for dimensio
 
 In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index (\cite{lee:2009}) in projection pursuit:
 
-Let $\bf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\bf{X}}_{i.} = \frac{1}{n_i} \sum_{j = 1}^{n_i} \bf{X}_{ij}$ be the $i$th class mean and $\bar{\bf{X}}_{..} = \frac{1}{n} \sum_{i = 1}^g \sum_{j = 1}^{n_i} \bf{X}_{ij}$ be the total mean. Let
-
-$$\hbox{\bf{B}} = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.} - \bar{\bf{X}}_{..})(\bar{\bf{X}}_{i.} - \bar{\bf{X}}_{..})^T : \hbox{between-class sum of squares}$$
-
-$$\hbox{\textbf{W}} = \sum_{i=1}^g \sum_{j=1}^{n_i} (\bf{X_{ij}} - \bar{\bf{X}}_{i.})(\bf{X_{ij}} - \bar{\bf{X}}_{i.})^T : \hbox{within-class sum of squares}$$
-Then, the LDA PP index is 
-
-$$
-I_{LDA}(\hbox{\bf{A}}) = \left\{ \begin{array}{cc}
- 1 - \frac{\left|\hbox{\textbf{A}}^T \hbox{\bf{W}} \hbox{\bf{B}}\right|}{\left|\hbox{\bf{A}}^T \left(\hbox{\textbf{ W }} + \hbox{\textbf{ B }}\right)\hbox{\textbf{A}}\right|} &\mbox{ for $|\bf{A}^T(\bf{W} + \bf{B})\bf{A}| \neq 0$} \\
- 0 &\mbox{ for $|\bf{A}^T(\bf{W} + \bf{B})\bf{A}| = 0$}
-       \end{array} \right.
-$$
-where \textbf{A} is an orthogonal projection onto a $k$-dimensional space.
+Let $\bf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\blX}_{i.} = \frac{1}{n_i} \sum_{j=1}^{n_i} \blX_{ij}$
+be the $i$th class mean and $\bar{\blX}_{..} =
+\frac{1}{n}\sum_{i=1}^g \sum_{j=1}^{n_i} \blX_{ij}$ be the total
+mean. Let
+\begin{eqnarray}
+ \blB&=&\sum_{i=1}^g n_i (\bar{\blX}_{i.} - \bar{\blX}_{..})(\bar{\blX}_{i.}
+  - \bar{\blX}_{..})^T
+:  \mbox{between-class sums of squares}, \nonumber\\
+\blW&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX_{ij} -
+\bar{\blX}_{i.})(\blX_{ij} - \bar{\blX}_{i.})^T :
+\mbox{within-class sums of squares}.\nonumber
+\end{eqnarray}
+Then, the LDA PP index is
+\begin{equation}
+I_{LDA} ({\blA}) = \left \{ \begin{array}{cc}
+                       1-\frac{\big|{\blA}^T\blW{\blA}\big|}{\big|{\blA}^T\big
+                                  (\blW + \blB\big){\blA}\big|} &
+                       \mbox{ for $\big|{\blA}^T\big(\blW + \blB\big) {\blA}\big| \ne 0$}\\
+                       0 & \mbox{for  $\big|{\blA}^T\big(\blW + \blB\big) {\blA}\big| = 0$}
+                       \end{array}
+               \right.
+\end{equation}
+where $\blA$ is an orthogonal projection onto a $k$-dimensional space.
 
 For HDLSS data, the penalized discriminant analysis (PDA) index (\cite{lee:2009}) is more robust:
 
-Let ${\bf{X}}_{ij}^*$ be the standardized vector of ${\bf{X}}_{ij}$. Then 
 
-$$
-\hbox{\bf{B}}^s = \sum_{i=1}^g n_i (\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)(\bar{\bf{X}}_{i.}^* - \bar{\bf{X}}_{..}^*)^T : \hbox{between-class sums of squares of the standardized data}
-$$
 
-$$\hbox{\bf{W}}^s = \sum_{i=1}^g \sum_{j=1}^{n_i} ({\bf{X}}_{ij}^* - \bar{{\bf{X}}}_{i.}^*)({{\bf{X}}_{ij}^*} - \bar{\bf{X}}_{i.}^*)^T : \hbox{within-class sums of squares of the standardized data }$$
-where $\bar{{\bf{X}}}_{i.}^*$ is the $i$th class mean of the standardized data and $\bar{\bf{X}}_{..}^*$ is the total mean of the standardized data. Then the PDA index is defined as
 
-$$I_{PDA}(\hbox{\bf{A}},  \lambda) = 1 - \frac{|\hbox{\bf{A}}^T\{(1 - \lambda))\hbox{\bf{W}}^s + n\lambda I_p\}\hbox{\bf{A}}|}{|\hbox{\bf{A}}^T\{(1 - \lambda))(\hbox{\bf{W}}^s + \hbox{\bf{B}}^s) + n\lambda I_p\}\hbox{\bf{A}}|}$$
-where \textbf{A} is an orthonormal projection onto a $k$-dimensional space and $\lambda \in [0, 1)$ is a predetermined parameter. Penalized LDA (\cite{witten:2011}) is another approach.
+Let ${\blX}_{ij}^*$ be the standardized vector of ${\blX}_{ij}$. Then 
+
+\begin{eqnarray}
+ \blB^s&=&\sum_{i=1}^g n_i (\bar{\blX}^*_{i.} - \bar{\blX}^*_{..})(\bar{\blX}^*_{i.}
+  - \bar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
+\blW^s&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX^*_{ij} -
+\bar{\blX}^*_{i.})(\blX^*_{ij} - \bar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
+\end{eqnarray}
+where $\bar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\bar{\blX}^*_{..}$ is the
+total mean of the standardized data, which is 0. Then the PDA index is defined as
+
+\begin{eqnarray}
+I_{PDA}(\blA,\lambda) =
+1-\frac{\Big|\blA^T\big\{(1-\lambda)\blW^s+n\lambda\blI_p\big\}
+\blA\Big|}
+              {\Big|\blA^T\big\{(1-\lambda)(\blB^s +\blW^s)+n\lambda\blI_p\big\} \blA\Big|}\label{PDA3}
+\end{eqnarray}
+where $\blA$ is an orthonormal projection onto a $k$-dimensional space
+and $\lambda \in [0,1)$ is a predetermined parameter. Penalized LDA (\cite{witten:2011}) is another approach.
 
 These indices are available for projection pursuit using the \texttt{tourr} package in \texttt{R} (\cite{r}) (\cite{WC08}). The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation.     
 
@@ -394,41 +423,41 @@ Figure \ref{fig:dimen} shows the distribution of absolute difference of means fo
 
 \subsection{Simulation process}
 
-Two groups of $p$ dimensions of data with 15 observations in each group are generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, $\mathbf{X}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2. The data for both the groups is purely noise, having no dependence on the groups. So $\mathbf{X}$ can be written as
-$$\mathbf{X}^{n \times (p + 1)} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $\mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\mathbf{X}$ excluding the Group variable gives the $p$-dimensional purely noise data or data with no separation with 2 groups.
+Two groups of $p$ dimensions of data with 15 observations in each group are generated from $N(0, 1)$.  The data from the first group is labeled as group 1 and the data from the second group as group 2. So a $30 \times (p + 1)$ matrix, say, ${\blX}$, is obtained where the first 15 observations are from group 1 and the last 15 observations are from group 2. The data for both the groups is purely noise, having no dependence on the groups. So ${\blX}$ can be written as
+$${\blX}^{n \times (p + 1)} = ({\blX}_1, {\blX}_2, \dots, {\blX}_p, \hbox{Group})$$ where each ${\blX}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix ${\blX}$ excluding the Group variable gives the $p$-dimensional purely noise data or data with no separation with 2 groups.
 
-To introduce real separation in the data, values for $p$-th variable $\mathbf{X}_p$ are shifted apart by 6 units between the two groups. So, 
+To introduce real separation in the data, values for $p$-th variable ${\blX}_p$ are shifted apart by 6 units between the two groups. So, 
 $$
-\mathbf{X}_p = \left\{ \begin{array}{rl}
- \mathbf{X}_p - 3 &\mbox{ if $ \mathbf{X}_p \in$ group 1} \\
- \mathbf{X}_p + 3 &\mbox{ if $ \mathbf{X}_p \in$ group 2}
+{\blX}_p = \left\{ \begin{array}{rl}
+ {\blX}_p - 3 &\mbox{ if $ {\blX}_p \in$ group 1} \\
+ {\blX}_p + 3 &\mbox{ if $ {\blX}_p \in$ group 2}
        \end{array} \right.
 $$
 
-Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension, i.e. data with separation. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projection of best separation, yielding $\mathbf{Y = XA}$.  
+Hence two sets of data are obtained, each with $p$ dimensions with $n = 30$ observations in each dimension divided into two groups. One of the datasets is purely noise and the other has some real separation in the form of the $p$-th dimension, i.e. data with separation. On each of these datasets of $p$ dimension, a projection pursuit optimization with a PDA index is performed to obtain the $d = 1$ dimensional projection of best separation, yielding $\blY = \blX \blA$.  
 
-The above procedure is effectively the same for $d = 2$ dimensional projections with few key differences. The first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3.  So, collectively,  $\mathbf{X}$ can be written as
-$$ \mathbf{X}^{n \times (p + 1)} = ( \mathbf{X}_1,  \mathbf{X}_2, \dots, \mathbf{X}_p, \hbox{Group})$$ where each $ \mathbf{X}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix $\bf{X}$ excluding the Group variable gives the $p$-dimensional noise data or data with no separation with 3 groups.
+The above procedure is effectively the same for $d = 2$ dimensional projections with few key differences. The first 10 observations is assigned as group 1, the second 10 observations as group 2 and the last 10 as group 3.  So, collectively,  ${\blX}$ can be written as
+$$ {\blX}^{n \times (p + 1)} = ( {\blX}_1,  {\blX}_2, \dots, {\blX}_p, \hbox{Group})$$ where each $ {\blX}_i$ is a vector of dimension 30 for $i = 1, \dots, p$. This matrix ${\blX}$ excluding the Group variable gives the $p$-dimensional noise data or data with no separation with 3 groups.
 
-To introduce real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ \mathbf{X}_{p-1}$ and $ \mathbf{X}_p$. The adjustment is done in the following way:
+To introduce real separation, the means of the 3 groups are adjusted in the last two dimensions i.e. $ {\blX}_{p-1}$ and ${\blX}_p$. The adjustment is done in the following way:
 $$
-( \mathbf{X}_{p-1},  \mathbf{X}_p) = \left\{ \begin{array}{rl}
- ( \mathbf{X}_{p-1} - 3,  \mathbf{X}_p) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 1} \\
- ( \mathbf{X}_{p-1} + 3,  \mathbf{X}_p) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 2} \\
- ( \mathbf{X}_{p-1} ,  \mathbf{X}_p + \sqrt{27}) &\mbox{ if $( \mathbf{X}_{p-1},  \mathbf{X}_p) \in$ group 3}
+( {\blX}_{p-1},  {\blX}_p) = \left\{ \begin{array}{rl}
+ ( {\blX}_{p-1} - 3,  {\blX}_p) &\mbox{ if $( {\blX}_{p-1},  {\blX}_p) \in$ group 1} \\
+ ( {\blX}_{p-1} + 3,  {\blX}_p) &\mbox{ if $({\blX}_{p-1},  {\blX}_p) \in$ group 2} \\
+ ( {\blX}_{p-1} ,  {\blX}_p + \sqrt{27}) &\mbox{ if $( {\blX}_{p-1},  {\blX}_p) \in$ group 3}
        \end{array} \right.
 $$
-If $ \mathbf{X}_{p-1}$ versus $ \mathbf{X}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ \mathbf{X}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projection of best separation, yielding $\mathbf{Y = XA}$. 
+If $ {\blX}_{p-1}$ versus ${\blX}_p$ are plotted in a scatterplot, the points cluster along the vertices of an equilateral triangle of side 6. Excluding the group variable, $ {\blX}$ works as the data with real separation in the last two dimensions. Hence the data with 2 dimensions of real separation divided into 3 groups is obtained.  So for obtaining the two dimensional projections two sets of data are obtained - one with purely noise and the other with two dimensions of real separation. On each of the above datasets, a projection pursuit with a PDA index is performed to obtain the $d = 2$ dimensional projection of best separation, yielding ${\blY} = {\blX}{\blA}$. 
 
 \subsection{Producing lineups}
 
-Two different visual test statistics, $T_1(\bf{Y})$ and $T_2(\bf{Y})$ (as defined in \cite{majumder:2011}) are used in this paper, for representing 1D and 2D data. $T_1(\bf{Y})$ is a horizontal jittered dot plot, with color representing groups. $T_2(\bf{Y})$ is a scatterplot of the two-dimensional projections, with color representing groups. The same symbol is used to represent the groups in both the test statistics so that the different symbols do not confound our analysis. Figure \ref{fig3} shows the two different visual test statistics.
+Two different visual test statistics, $T_1({\blY})$ and $T_2({\blY})$ (as defined in \cite{majumder:2011}) are used in this paper, for representing 1D and 2D data. $T_1({\blY})$ is a horizontal jittered dot plot, with color representing groups. $T_2({\blY})$ is a scatterplot of the two-dimensional projections, with color representing groups. The same symbol is used to represent the groups in both the test statistics so that the different symbols do not confound our analysis. Figure \ref{fig3} shows the two different visual test statistics.
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[$T_1(\bf{Y})$]{\includegraphics[width=2.5in]{test_statistic_1.pdf}}\quad
-\subfigure[$T_2(\bf{Y})$]{\includegraphics[width=2.5in]{test_statistic_2.pdf} }}
-\caption{The visual test statistics $T_1(\bf{Y})$ and $T_2(\bf{Y})$ used.  $T_1(\bf{Y})$ is a horizontal jittered dot plot while $T_2(\bf{Y})$ is a scatterplot of the first and second dimensional projections, with color representing groups in both cases. } 
+\mbox{\subfigure[$T_1({\blY})$]{\includegraphics[width=2.5in]{test_statistic_1.pdf}}\quad
+\subfigure[$T_2({\blY})$]{\includegraphics[width=2.5in]{test_statistic_2.pdf} }}
+\caption{The visual test statistics $T_1({\blY})$ and $T_2({\blY})$ used.  $T_1({\blY})$ is a horizontal jittered dot plot while $T_2({\blY})$ is a scatterplot of the first and second dimensional projections, with color representing groups in both cases. } 
 \label{fig3}
 \end{figure}
 
@@ -859,11 +888,12 @@ The probability of separation by chance in pure noise data given a fixed sample 
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[P(sep$|n,p=2$) = 0.00]{\includegraphics[width=1.52in]{noise-2.pdf}}\quad
-\subfigure[P(sep$|n,p=12$) = 0.23]{\includegraphics[width=1.52in]{noise-12.pdf} }\quad
-\subfigure[P(sep$|n,p=20$) = 0.99]{\includegraphics[width=1.52in]{noise-20.pdf} }\quad
-\subfigure[P(sep$|n,p=28$) = 1.00]{\includegraphics[width=1.52in]{noise-28.pdf} }}
-\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=12$, $p=20$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data is no real separation.  } 
+\mbox{\subfigure[P(sep$|n,2$) = 0.00]{\includegraphics[width=1.1in]{noise-2.pdf}}\quad
+\subfigure[P(sep$|n,8$) = 0.01]{\includegraphics[width=1.1in]{noise-8.pdf} }\quad
+\subfigure[P(sep$|n,15$) = 0.64]{\includegraphics[width=1.1in]{noise-15.pdf} }\quad
+\subfigure[P(sep$|n,22$) = 0.99]{\includegraphics[width=1.1in]{noise-22.pdf} }\quad
+\subfigure[P(sep$|n,28$) = 1.00]{\includegraphics[width=1.1in]{noise-28.pdf} }}
+\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=8$, $p = 15$, $p=22$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data has no real separation.  } 
 \label{dist_1d}
 \end{figure}
 
@@ -1009,7 +1039,7 @@ There are several natural next steps for this research. One is to examine the po
 
 The experiment is setup with factors separation, dimension and projection dimension. To decide on the levels of dimension to use, we considered the distribution of the absolute difference of the group means for data with no separation with two groups. The same levels are used for data with 3 groups and data with separation. The absolute difference of the group means is considered for data with 1 dimension since we are interested in the projections.
 
-Let us denote ${\bf{X}}_{ij}$ as the $j$-th observation in the $i$-th group where $j = 1, \dots, n_i$. ${\bf{X}}_{ij}$s are random noise generated from a standard normal distribution. Essentially in our case there are $i = 2$ groups and $n_i = 15$ for $i = 1, 2$. The difference between the group means is given by $\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.}$ and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let us define 
+Let us denote ${\blX}_{ij}$ as the $j$-th observation in the $i$-th group where $j = 1, \dots, n_i$. ${\blX}_{ij}$s are random noise generated from a standard normal distribution. Essentially in our case there are $i = 2$ groups and $n_i = 15$ for $i = 1, 2$. The difference between the group means is given by $\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.}$ and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let us define 
 $$\mbox{U} = |\bar{\mbox{X}} _{1.} - \bar{\mbox{X}}_{2.}|$$ 
 where $\mbox{U} \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/15}$. \\
 
@@ -1017,25 +1047,25 @@ The expectation and the variance of $\mbox{U}$ can be calculated:
 $$E(\mbox{U} ) = \sigma \sqrt{2/\pi}$$
 $$Var(\mbox{U}) = \sigma^2 (1 - 2/\pi)$$
 
-Let us consider $p$ dimensions of data with random noise with $i = 2$ groups with 15 observations in each group. Let us define $${\bf{U}}_m = |\bar{{\bf{X}}}_{m1.} - \bar{{\bf{X}}}_{m2.}|$$ where ${\bf{X}} _{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. The sum of the absolute difference between the means is obtained for all the $p$ dimensions. So, define $$\mbox{U}  = \sum_{m=1}^p {\bf{U}} _m = \sum_{m=1}^p |\bar{{\bf{X}}}_{m1.} - \bar{{\bf{X}}}_{m2.}| $$ \\
+Let us consider $p$ dimensions of data with random noise with $i = 2$ groups with 15 observations in each group. Let us define $${\blU}_m = |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}|$$ where ${\blX} _{mij}$ is the $j$-th observation in the $i$-group for the $m$-th dimension. The sum of the absolute difference between the means is obtained for all the $p$ dimensions. So, define $$\mbox{U}  = \sum_{m=1}^p {\blU} _m = \sum_{m=1}^p |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}| $$ \\
 
 Assuming independence among the dimensions,
 
 $$E(\mbox{U}) = p \sigma \sqrt{2/\pi}$$
 $$Var(\mbox{U}) = p \sigma^2 (1 - 2/\pi)$$
 
-We also consider one dimension of real separation in the data. To bring in the real separation, we adjust the means of ${\bf{X}}_{ij}$. We subtract any value $c$ from the mean of the first 15 observations (group 1) and add $c$ to the mean of the last 15 observations (group 2). So we define
-$${\bf{X}}_{ij}^* \sim \hbox{Normal}(- c, 1) \qquad \hbox{for} \qquad j = 1, \dots, 15, i = 1$$
-$${\bf{X}}_{ij}^* \sim \hbox{Normal}(c, 1) \qquad \hbox{for} \qquad j = 1, \dots, 15, i = 2$$ 
-Hence $$\bar{\mbox{X}}_{1.}^* - \bar{\mbox{X}}_{2.}^* \sim \hbox{Normal}(2c, 2/15)$$. Define $$\mbox{U}^*  = |\bar{\mbox{X}}_{1.}^* - \bar{\mbox{X}}_{2.}^*|$$ where ${\mbox{U}}^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  \\
+We also consider one dimension of real separation in the data. To bring in the real separation, we adjust the means of ${\blX}_{ij}$. We subtract any value $c$ from the mean of the first 15 observations (group 1) and add $c$ to the mean of the last 15 observations (group 2). So we define
+$${\blY}_{ij}^* \sim \hbox{Normal}(- c, 1) \qquad \hbox{for} \qquad j = 1, \dots, 15, i = 1$$
+$${\blY}_{ij}^* \sim \hbox{Normal}(c, 1) \qquad \hbox{for} \qquad j = 1, \dots, 15, i = 2$$ 
+Hence $$\bar{\mbox{Y}}_{1.}^* - \bar{\mbox{Y}}_{2.}^* \sim \hbox{Normal}(2c, 2/15)$$ Define $$\mbox{Y}^*  = |\bar{\mbox{Y}}_{1.}^* - \bar{\mbox{Y}}_{2.}^*|$$ where ${\mbox{Y}}^* \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  \\
 
-The expectation and the variance of $Y^*$ can be calculated :
+The expectation and the variance of $\mbox{Y}^*$ can be calculated :
 
-$$E(\mbox{U}^*) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(\mbox{U}^*) = 4c^2 + \sigma^2 - (E(\mbox{U}^*))^2$$
+$$E(\mbox{Y}^*) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(\mbox{Y}^*) = 4c^2 + \sigma^2 - (E(\mbox{Y}^*))^2$$
 
 
-The means of ${\bf{X}}_{mij}$s are adjusted in the $p$-th dimension. Define $\mbox{V}$ as the sum of the absolute differences of the mean with one dimension of real separation as $$\mbox{V} = \sum_{m=1}^{p-1} |\bar{{\bf{X}}}_{m1.} - \bar{{\bf{X}}}_{m2.}| + {\bf{U}}_p$$ where ${\bf{U}}_p$ follows a Folded Normal Distribution.
+The means of ${\blX}_{mij}$s are adjusted in the $p$-th dimension. Define $\mbox{V}$ as the sum of the absolute differences of the mean with one dimension of real separation as $$\mbox{V} = \sum_{m=1}^{p-1} |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}| + {\blY}^*_p$$ where ${\bf{Y}}_p^*$ follows a Folded Normal Distribution.
 
 Again assuming independence among the dimensions of data without separation and data with real separation,
 
