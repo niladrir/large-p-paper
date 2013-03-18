@@ -855,6 +855,18 @@ Purely noise & 2 & 18 & 0.0000 &  1.0000 \\
 \end{center}
 \end{table}
 
+The probability of separation by chance in pure noise data given a fixed sample size and dimension,  was quantified by \cite{ripley:1996} (Proposition 3.1). Figure \ref{dist_1d} illustrates this probability with 1D projections having sample size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups.
+
+\begin{figure}[htbp]
+\centering
+\mbox{\subfigure[P(sep$|n,p=2$) = 0.00]{\includegraphics[width=1.52in]{noise-2.pdf}}\quad
+\subfigure[P(sep$|n,p=12$) = 0.23]{\includegraphics[width=1.52in]{noise-12.pdf} }\quad
+\subfigure[P(sep$|n,p=20$) = 0.99]{\includegraphics[width=1.52in]{noise-20.pdf} }\quad
+\subfigure[P(sep$|n,p=28$) = 1.00]{\includegraphics[width=1.52in]{noise-28.pdf} }}
+\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=12$, $p=20$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data is no real separation.  } 
+\label{dist_1d}
+\end{figure}
+
 In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \cite{toth:2007} did not suffer from the HDLSS problem. We determined that there were robust separations between the groups based on those data (results not shown).
 
 %Making the number of dimensions ($p$) less than the sample size ($n$) may not solve the problem in case of LDA. Figure \ref{combin} shows that when the sample size ($n$) is 50, the probability of obtaining separated groups for purely noise data divided into 2 groups is 1 for dimension ($p$) greater than 38. When the number of dimensions ($p$) is large compared to the number of observations ($n$), the LDA method is not recommended as the separation may be just due to the high dimensions. This points out the importance of dividing the data into test and training sets.  
@@ -911,20 +923,7 @@ In the original paper \citep{toth:2010}, the dimensionality was reduced from muc
 %{\color{red} Description of the procedure to look at the distance between the groups as we increase the number of dimension for a data with no real separation.} \\
 \section{Conclusions}
 
-This paper examined how visual inference works for HDLSS data. From the results it is clear that people can detect real separation from pure noise, for 1D and 2D projections up to a reasonably high dimension.
-
-The hope is that visual inference can be used to improve the understanding of the emptiness of space in HDLSS data - that a 1D or 2D projection of HDLSS data, e.g. as provided by LDA, will likely look separated purely due to this emptiness. \cite{ripley:1996} (Proposition 3.1) quantifies the probability of seeing separation purely by chance, given a fixed sample size. Figure \ref{dist_1d} illustrates the phenomenon with 1D projections of samples of size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups. Visual inference makes this clearer.
-
-
-\begin{figure}[htbp]
-\centering
-\mbox{\subfigure[P(sep$|n,p=2$) = 0.00]{\includegraphics[width=1.52in]{noise-2.pdf}}\quad
-\subfigure[P(sep$|n,p=12$) = 0.23]{\includegraphics[width=1.52in]{noise-12.pdf} }\quad
-\subfigure[P(sep$|n,p=20$) = 0.99]{\includegraphics[width=1.52in]{noise-20.pdf} }\quad
-\subfigure[P(sep$|n,p=28$) = 1.00]{\includegraphics[width=1.52in]{noise-28.pdf} }}
-\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=12$, $p=20$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data is no real separation.  } 
-\label{dist_1d}
-\end{figure}
+This paper examined how visual inference works for HDLSS data. From the results it is clear that people can detect real separation from pure noise  up to a reasonably high dimension, for 1D and 2D projections. Visual inference can be used to improve the understanding of the emptiness of space in HDLSS data. That is, a 1D or 2D projection of HDLSS data,  as provided by LDA, for example, will likely look separated purely due to this emptiness. Visual inference makes this clearer by placing the data along with comparisons where it is known that they were produced with no real difference between classes.
 
 
 %\end{multicols}
@@ -946,7 +945,7 @@ The hope is that visual inference can be used to improve the understanding of th
 %       \label{dist_1d}
 %\end{figure*}
 
-The next steps for this work will be to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. In addition, further work quantifying the difficulty of a lineup and the influence of null plots on selection will be done. 
+There are several natural next steps for this research. One is to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. Another direction is to build metrics to quantify the difficulty of a lineup and the influence that null plots have on identifying the data plot. 
 
 %\begin{multicols}{2}
 %{\color{red} Description for two dimensional projections.} \\
@@ -993,9 +992,9 @@ The next steps for this work will be to examine the possibility of using visual 
 
 %The visual method may also be applied to other large $p$, small $n$ situations like bioinformatics and genetics.
 
-\section{Appendix}
+\section*{Appendix}
 
-\subsection{Solution}
+\subsection*{Solution}
 \begin{itemize}
 \item The solution to the lineup at Figure \ref{lineup} is Plot 16. 
 \item The solution to the lineup at Figure \ref{fig:test_category_1d} is Plot 11.
@@ -1006,7 +1005,7 @@ The next steps for this work will be to examine the possibility of using visual 
 
 \end{itemize}
 
-\subsection{Choice of dimensions} \label{sec:theory}
+\subsection*{Choice of dimensions} \label{sec:theory}
 
 The experiment is setup with factors separation, dimension and projection dimension. To decide on the levels of dimension to use, we considered the distribution of the absolute difference of the group means for data with no separation with two groups. The same levels are used for data with 3 groups and data with separation. The absolute difference of the group means is considered for data with 1 dimension since we are interested in the projections.
 
