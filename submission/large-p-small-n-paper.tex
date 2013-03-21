@@ -74,6 +74,7 @@ grestore
 \newcommand{\blY}{\mbox{\boldmath {\bf Y}}}
 \newcommand{\blA}{\mbox{\boldmath {\bf A}}}
 \newcommand{\blI}{\mbox{\boldmath {\bf I}}}
+\newcommand{\blZ}{\mbox{\boldmath {\bf Z}}}
 
 
 \topmargin -0.10in   % when making pdf
@@ -496,7 +497,7 @@ A statistic WBratio which is the ratio of the average distance within clusters t
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{1.00}{\includegraphics{plot_real_1d_20_11.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-20-real-1-17.pdf}}
        \caption{Lineup  ($m=20$) from treatment with $p = 20$, separation = Yes and $d = 1$. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
      \label{fig:test_category_1d}
 \end{figure}
@@ -505,7 +506,7 @@ A statistic WBratio which is the ratio of the average distance within clusters t
  
 \begin{figure}[hbtp]
 %   \centering
-       \scalebox{1.00}{\includegraphics{plot_2d_100_15.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-100-noise-2-20.pdf}}
        \caption{Lineup  ($m=20$) from treatment with $p = 100$, separation = No and $d = 2$.The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
        \label{fig:test_category}
 \end{figure}
@@ -710,7 +711,7 @@ The 1D projections are plotted in a lineup (Figure \ref{fig:test_category_1d}) m
 
 \subsection{Time taken to respond}
 
-We would expect that the amount of time taken to respond will increase the difficulty of identifying the observed data plot in a lineup. The distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken to respond (on log scale) by dimension and projection. The colors indicated separation. A loess smoother is added. Notice that, as the dimension increases, subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
+We would expect that the amount of time taken to respond will increase the difficulty of identifying the observed data plot in a lineup. The distribution of the time taken to respond by the subjects is considered for the different parameters. Figure \ref{time-taken} shows the distribution of the time taken in seconds to respond (on log scale) by dimension and projection. The colors indicated separation. A loess smoother is added. Notice that, as the dimension increases, subjects  takes more time to respond to the lineups when the data has some real separation. But when the data is purely noise, the increase of dimension does not have any effect on the time. This suggests that as the number of dimension of noise increases with fixed number of real separation, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. There is not much of a difference between the time taken for 1D and 2D projections.
 
 
 
@@ -719,7 +720,7 @@ We would expect that the amount of time taken to respond will increase the diffi
    \centering
        \scalebox{0.6}{\includegraphics{time-taken-log-dot.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Time taken to respond on log scale against dimension colored by separation and faceted by projection. A loess curve is fitted through the points for each separation and projection. Time taken to respond is higher when the data has no separation. Also as dimension increases, the difference between the time to respond for data with and without separation decreases. Subjects take more time for 2D projections.  }
+      \caption{Time taken in seconds to respond on log scale against dimension colored by separation and faceted by projection. A loess curve is fitted through the points for each separation and projection. Time taken to respond is higher when the data has no separation. Also as dimension increases, the difference between the time to respond for data with and without separation decreases. Subjects take more time for 2D projections.  }
        \label{time-taken}
 \end{figure*}
 
@@ -831,7 +832,7 @@ A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ w
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.90}{\includegraphics{toth_lineup_lda_3.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-wasp-8.pdf}}
        \caption{Lineup showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The observed data plot is placed randomly among the 19 null plots. Which plot shows the most separation between the 4 groups? The solution is provided in the Appendix.}
        \label{toth_lineup}
 \end{figure*} 
@@ -1027,9 +1028,9 @@ There are several natural next steps for this research. One is to examine the po
 \subsection*{Solution}
 \begin{itemize}
 \item The solution to the lineup at Figure \ref{lineup} is Plot 16. 
-\item The solution to the lineup at Figure \ref{fig:test_category_1d} is Plot 11.
-\item The solution to the lineup at Figure \ref{fig:test_category} is Plot 15.
-\item The solution to the lineup at Figure \ref{toth_lineup} is Plot 3.
+\item The solution to the lineup at Figure \ref{fig:test_category_1d} is Plot 17.
+\item The solution to the lineup at Figure \ref{fig:test_category} is Plot 20.
+\item The solution to the lineup at Figure \ref{toth_lineup} is Plot 8.
 %\item The solution to the lineup at Figure \ref{toth_pda} is Plot 13.
 
 
@@ -1056,14 +1057,14 @@ Var(\mbox{U}) = p \sigma^2 (1 - 2/\pi)$$
 
 Now consider data where there is some separation $(2c)$ between the population means:
 
-$${\blY}_{1j} \sim \hbox{Normal}(-c, 1) $$
-$${\blY}_{2j} \sim \hbox{Normal}(c, 1) $$ 
-giving $\bar{\mbox{Y}}_{1.} - \bar{\mbox{Y}}_{2.} \sim \hbox{Normal}(2c, 2/15)$. Then define $\mbox{Y}  = |\bar{\mbox{Y}}_{1.} - \bar{\mbox{Y}}_{2.}|$ where ${\mbox{Y}} \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  The expectation and the variance of $\mbox{Y}$ can be calculated to be:
+$${\blZ}_{1j} \sim \hbox{Normal}(-c, 1) $$
+$${\blZ}_{2j} \sim \hbox{Normal}(c, 1) $$ 
+giving $\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.} \sim \hbox{Normal}(2c, 2/15)$. Then define $\mbox{Z}  = |\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.}|$ where ${\mbox{Z}} \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  The expectation and the variance of $\mbox{Z}$ can be calculated to be:
 
-$$E(\mbox{Y}) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(\mbox{Y}) = 4c^2 + \sigma^2 - (E(\mbox{Y}))^2$$
+$$E(\mbox{Z}) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$Var(\mbox{Z}) = 4c^2 + \sigma^2 - (E(\mbox{Z}))^2$$
 
-Suppose that only one of the $p$ dimensions is simulated from this distribution, and all of the rest are simulated from populations having identical means. Define $\mbox{V}$ as the sum of the absolute differences of the mean with one dimension of real separation as $$\mbox{V} = \sum_{m=1}^{p-1} \blU_m + {\blY}$$. Then, by independence, it follows that:
+Suppose that only one of the $p$ dimensions is simulated from this distribution, and all of the rest are simulated from populations having identical means. Define $\mbox{V}$ as the sum of the absolute differences of the mean with one dimension of real separation as $$\mbox{V} = \sum_{m=1}^{p-1} \blU_m + {\blZ}$$ Then, by independence, it follows that:
 
 $$E(\mbox{V}) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
 $$Var(\mbox{V}) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
@@ -1079,7 +1080,7 @@ $$E (\mbox{V} - \mbox{U}) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\
 %\end{equation}
 
 
-Figure \ref{fig:dimen} illustrates this phenomenon. The distributions of data with separation ($V$) and without separation ($U$) are shown in red and blue respectively. As dimension ($p$) increases, the spread of both the distributions increases while the means are equally apart. As a result, the common region between the distributions increases, indicating the chance of obtaining a random separation for purely noise data increases with dimension($p$). A 5\% error is allowed and the area of the distribution of U greater than the 5th percentile of V is considered and we call this $\delta$. In Figure \ref{fig:dimen}, $\delta$ is indicated by the dark blue region. Mathematically, 
+Figure \ref{fig:dimen} illustrates this phenomenon. The distributions of data with separation (V) and without separation (U) are shown in red and blue respectively. As dimension ($p$) increases, the spread of both the distributions increases while the means are equally apart. As a result, the common region between the distributions increases, indicating the chance of obtaining a random separation for purely noise data increases with dimension($p$). A 5\% error is allowed and the area of the distribution of U greater than the 5th percentile of V is considered and we call this $\delta$. In Figure \ref{fig:dimen}, $\delta$ is indicated by the dark blue region. Mathematically, 
 
 % As a result, the probability of obtaining two clusters for data with pure noise indicating that for a large dimension, the sum of the absolute differences of the means for random noise would be close to the sum of the absolute differences for the means with only one dimension of real separation. 
 
