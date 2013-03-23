@@ -256,7 +256,7 @@ We choose the visual test statistic to be a dot plot of the observed data for tw
        \scalebox{1}{\includegraphics{lineup-dot.pdf}}
       \caption{A typical lineup  ($m = 20$) for testing $H_o: \mu_1 =  \mu_2$. 
       % \qquad vs \qquad H_a: \beta_1 \ne 0$
-      When the alternative hypothesis is true the observed data plot should have the largest vertical difference between the centers. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix.}
+      When the alternative hypothesis is true, the observed data plot should have the largest vertical difference between the centers. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix.}
       \label{lineup}
 %	\vspace{-.1in}
 \end{figure}
@@ -795,7 +795,7 @@ Figure \ref{wbratio} examines subjects choices in depth. The relative frequency 
 
 \subsection{How do the null plots affect choices?}
 
-We have learned that subjects tend to pick the plot in the lineup that exhibits the most separation.  Because visual inference only allows for a finite (small) number of comparisons against the sampling distribution, the influence of the null plots in the lineup on the observer's choice is important. If any null plot has a strong signal, subjects may choose this plot over the observed data plot. To gauge the influence of the null plots, we calculate the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup. Figure \ref{null} examines the influence of the ($m$ - 1) null plots on this pick. Figure \ref{null} shows the proportion correct against ratio and mean time taken against ratio. The vertical line is a reference line where the ratio is 1; the null plot with the most signal is the same as the observed data plot. The points to the right of the line should indicate easier lineups and those to the left indicate more difficult lineups in the sense that the null plots have more signal than the observed data plot, so the observed data plot should not be detected. We can see that as the ease increases, the success rate increases. Also as the ratio increases, time taken to choose decreases, suggesting easier lineups. More details on the measurement of the influence are available in \cite{roychowdhury:2012}).
+We have learned that subjects tend to pick the plot in the lineup that exhibits the most separation.  Because visual inference only allows for a finite (small) number of comparisons against the sampling distribution, the influence of the null plots in the lineup on the observer's choice is important. If any null plot has a strong signal, subjects may choose this plot over the observed data plot. To gauge the influence of the null plots, we calculate the ratio between the minimum WBratio of the null plots and the WBratio for the observed data plot for each lineup. Figure \ref{null} examines the influence of the ($m$ - 1) null plots on this pick. Figure \ref{null} shows the proportion correct against ratio and mean time taken in seconds against ratio. The vertical line is a reference line where the ratio is 1; the null plot with the most signal is the same as the observed data plot. The points to the right of the line should indicate easier lineups and those to the left indicate more difficult lineups in the sense that the null plots have more signal than the observed data plot, so the observed data plot should not be detected. We can see that as the ease increases, the success rate increases. Also as the ratio increases, time taken to choose decreases, suggesting easier lineups. More details on the measurement of the influence are available in \cite{roychowdhury:2012}).
 %Since the values of WBratio vary for each lineup depending on the presence or absence of real separation, the difference is scaled by dividing the difference by the WBratio of the observed data plot of the lineup. To put the differences on a logarithmic scale, the differences are adjusted by adding a constant term.   
 
 %\begin{figure*}[hbtp]
@@ -808,9 +808,9 @@ We have learned that subjects tend to pick the plot in the lineup that exhibits 
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[Proportion correct vs Ratio]{\includegraphics[width=3in]{suc-ratio-smoother.pdf}}\quad
-\subfigure[Mean time vs Ratio ]{\includegraphics[width=3in]{mtime-ratio-loess.pdf} }}
-\caption{(a) Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. (b) Mean time taken to respond against the ratio. As the ratio increases, the mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. The blue line shows a median smoother in (a) and a loess curve in (b).} 
+\mbox{\subfigure[Proportion correct vs Ratio]{\includegraphics[width=3in]{suc-ratio-wbratio.pdf}}\quad
+\subfigure[Mean time vs Ratio ]{\includegraphics[width=3in]{mtime-ratio.pdf} }}
+\caption{(a) Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. (b) Mean time taken to respond in seconds against the ratio.  The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. As the ratio increases, the success rate increases and the mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. } 
 \label{null}
 \end{figure}
 
