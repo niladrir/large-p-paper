@@ -99,10 +99,13 @@ Heike Hofmann \and
 Mahbubul Majumder \and
 Eun-Kyung Lee \and
 Amy L. Toth}
+%\large{This paper was presented in Joint Statistical Meetings 2011 and is submitted in JSM Proceedings 2011.} 
 
+%\vspace{1cm}
 \institute{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder \at
               Department of Statistics, Iowa State University, Ames, IA, USA \\
-              \email{niladrir@iastate.edu, dicook@iastate.edu, hofmann@iastate.edu, mahbub@iastate.edu}         
+              \email{niladrir@iastate.edu, dicook@iastate.edu, hofmann@iastate.edu, mahbub@iastate.edu}           %  \\
+%             \emph{Present address:} of F. Author  %  if needed
            \and
            Eun-Kyung Lee \at
            Department of Statistics, EWHA Womans University, Seoul, Korea\\
@@ -124,27 +127,75 @@ Statistical graphics plays an important role in exploratory data analysis, model
 \keywords{statistical graphics \and lineup \and visualization \and projection pursuit}
 \end{abstract}
 
+%{\color{red} The main message of this paper are :
+%\begin{itemize}
+%\item \texttt{tourr} package in R is new. When we used the guided tour function in the \texttt{tourr} package to do projection pursuit for getting low dimensional projections of a high dimensional noise data (data with no real separation), surprisingly we could often pick the real data from a lineup. So we want to check the optimization procedure of the \texttt{tourr} package.
+%\item  We notice that as we increase the number of dimensions($p$) for a fixed sample size($n$), the groups separate out even for a noise data. So we believe that when $p ~ n$, the separation among the groups obtained by doing a LDA may not be real. So we want to test whether the separation among the groups is real or fake.
+%\item Finally  since the groups start separating out as we increase $p$ for a fixed $n$ for noise data, we would like to obtain a probable range for the number of dimension at which the groups start separating. 
+%\bigskip
+%
+%\centerline{\bf *** From Di ***}
+%
+%\item Visual inference can be used to educate the broader community about HDLSS issues. The example from the Toth paper shows this, that what is seen as separation is consistent with noise when we do visual inference. Visual inference can help researchers understand the issues of HDLSS more easily. (Primary message.)
+%\item Visual inference can be used to examine algorithms for dimension reduction in HDLSS. Projection pursuit algorithm needs substantive optimization but checking that it is working correctly is difficult. It requires visual examination of the result - so compare real vs no separation using visual inference - can help to determine if the optimization algorithm is doing its job.
+%\end{itemize} }
 
 \section{Introduction} 
+%testing
+
+%topic
+%{\color{red} History of visualization. Why statistical graphics is important.}
+%{\blue TOPIC: What's important about this paper? HDLSS}
 
 Many problems needing solutions today require the analysis of data where more variables are measured than samples are taken. This is commonly referred to as high dimensional, low sample size (HDLSS) data (\cite{hall:2005} and \cite{marron:2007}). %\ref{XXX}  
 HDLSS data occur in many application areas like face recognition and gene expression data. Classical statistical methods often fail in this context, because there is insufficient data to be able to estimate properties of matrices, such as the variance-covariance matrix, required by many methods. 
 
+%{\blue TOPIC: Explanation of problem with classical methods}
+
 Reducing the dimension would seem to be the natural first step in HDLSS data. Principal component analysis (PCA) is the classical approach. PCA requires estimating the eigenvalues (maximum variance) and eigenvectors (direction of maximum variance) of the population variance-covariance based on the sample. With insufficient data this is a Sisyphean task. Just imagine, estimating a line on the foundation of a single point. There are infinitely many lines possible to return. Similarly for classification tasks, finding a low-dimensional representation of the separation between groups is a common first step. Linear discriminant analysis (LDA) is the classical method for this. LDA finds the low-dimensional space where the groups are most separated, by solving an eigenvalue decomposition problem comparing distances between group means with variance around each mean. When there are few sample points in high dimensions, differences between groups can be found in many different low-dimensional spaces. 
+
+%{\blue*** No need to use ``\verb#\\#'' after every paragraph}
+
+
+%{\blue TOPIC: Now discuss the contemporary literature on HDLSS adjustments to methods. This paragraph needs more work}
 
 \cite{marron:2007} describes the estimation issues associated with HDLSS.  
 One of the problems with HDLSS dataset is that not all the measured variables are ``important'' for understanding the underlying phenomenon of interest. Advancements in PCA to handle HDLSS data have been done by \cite{marron:2011} and \cite{yata:2010}. \cite{donoho:2009} and \cite{donoho:2008} studies optimal variable selection and introduces a principle of model selection based on the notion of higher criticism in situations where only a small fraction of the variables are useful and unknown and contributes weakly to the classification decision. Penalization (\cite{witten:2011}) is another common approach.
+%topic
+
+%{\blue TOPIC: This is clearly not getting the problem understood.}
 
 The issues of working with HDLSS data are still not clear to many data analysts. For example, in \cite{toth:2010} LDA is used to examine gene expression data of wasps containing 447 variables and 50 cases. Figure \ref{oligo} reproduces the result in this paper. There are 50 different paper wasps divided into 4 types: Foundress (F), Gyne (G), Queen (Q) and Worker (W), 14  wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the dimension ($p$) should be smaller than the number of observations ($n$), first reduced the dimension from 447 to 40 by randomly selecting a subset of significantly different oligonucleotides. LDA produced a $d = 2$ projection of best separation. This is the almost same approach used in \cite{dudoit:2002}, by the way, in one of the first studies of classification of gene expression data. What results is a picture of the four groups that suggests big differences in the types of wasps. There is no conventional inferential methods which enables us to conclude whether this apparently clear separation is statistically significant or not. Typically data is broken into training and test sets, or cross-validation is conducted to assess the significance of difference, using test set error. 
 
 We suspect that new methods for inference on graphics might be helpful for building understanding very generally. Visual statistical inference was first conceptually introduced by \cite{buja:2009} and later formalized and validated by \cite{majumder:2011}. Using visual inference, it can be shown that there is no real difference between the wasp groups - what you see is a mirage. 
 
 \begin{figure*}[hbtp]
+%\begin{figurehere}
    \centering
        \scalebox{.45}{\includegraphics{toth_lda.pdf}}
        \caption{LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos : F, Foundress; G, gyne; Q, queen and W, worker. It can be noticed that the groups F and G are separated. This plot is generated to match Figure 2 in \cite{toth:2010}. }
      \label{oligo}
+%\end{figurehere}
 \end{figure*}  
+
+%Any statistical analysis must include some statistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. \\
+%topic
+%{\color{red} Recent advancements in statistical graphics. How statistical graphics has been recently used as a tool for statistical inference.}\\
+%In recent times there have been major advances in statistical graphics. Modern computing systems like R and SAS produce high quality statistical graphics. 
+
+
+%{\color{red} Explanation of Large p, Small n}\\
+%A challenging case of data mining is the high dimensional, low sample size (HDLSS) data. In HDLSS  settings, the number of dimensions of the data is larger or often much larger than the number of observations. HDLSS data occur in many applied areas like microarray analysis, face recognition and gene expression data. As pointed out in \cite{marron:2007}, classical multivariate statistical methods often fail to give a meaningful analysis in HDLSS contexts. 
+
+
+%Let us consider the following example of LDA method used to classify the groups of paper wasps. There are 50 different paper wasps divided into 4 groups: Foundress (F), Gyne (G), Queen (Q) and Worker (W). There are 14 paper wasps of type Foundress and 12 each of the other 3 types. The authors, knowing that LDA requires that the number of observations ($n$) should be larger than ($p$), randomly selected a subset of 40 significantly different oligonucleotides from a total of 447 oligonucleotides. Figure \ref{oligo} shows the scatterplot of LD1 versus LD2.
+
+%\newpage
+
+%Figure \ref{oligo} clearly shows that groups Foundress(F) and Gyne(G) are two separated clusters while the groups Worker(W) and Queen(Q) are not separated and forms a separate cluster. It would be interesting to find whether the separation is real or fake.
+
+%topic
+%{\color{red} Outline of the paper.}
 
 This paper describes visual statistical inference as applied to dimension reduction for HDLSS. In particular we focus on dimension reduction using projection pursuit, and the effect that having large dimension has on the robustness of the separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference methods. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data. %and also provides the theoretical explanation behind the choice of dimensions for the experiment.
  Amazon's Mechanical Turk (\cite{turk}) was used to conduct the experiment. Section \ref{sec:results} analyze the collected data and provide results. The wasps data is revisited at the end of the paper. 

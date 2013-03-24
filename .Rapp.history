@@ -1,0 +1,1249 @@
+add_true <- function(samples, true, pos) {#
+  samples$.sample <- with(samples, ifelse(.n >= pos, .n + 1, .n))#
+  samples$.n <- NULL#
+  true$.sample <- pos#
+  all <- rbind.fill(samples, true)#
+  all[order(all$.sample), ]#
+}#
+#
+#' Find plot data.#
+#' If data is not specified, this function will attempt to find the data#
+#' corresponding to the last ggplot2 created or displayed. This will work#
+#' in most situations where you are creating the plot and immediately #
+#' displaying it, but may not work in other situations.  In those cases,#
+#' please specify the data explicitly.#
+#'#
+#' @keywords internal#
+#' @importFrom ggplot2 last_plot#
+find_plot_data <- function(data) {#
+  if (!is.null(data)) return(data)#
+#
+  if (exists("last_plot") && !is.null(last_plot())) {#
+    last_plot()$data#
+  } else {#
+    stop("Missing true dataset")#
+  }#
+}
+lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1) , samples = NULL) {#
+ true <- find_plot_data(true)#
+  if (is.null(samples)) {#
+    samples <- rdply(n - 1, method(true))#
+  }#
+  if (missing(pos)) {#
+    message("decrypt(\"", encrypt("True data in position ", pos), "\")")#
+  }#
+  add_true(samples, true, pos)#
+ }
+x <- rnorm(30)#
+y <- 0.99*x + rnorm(30)#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)
+library(plyr)#
+library(ggplot2)#
+samples <- ldply(1:19, function(k){#
+	data.frame(X1 = X$X1, X2 = X$X2[sample(dim(X)[1])], .n = k )#
+})
+install.packages("plyr")
+install.packages("ggplot2")
+library(plyr)#
+library(ggplot2)#
+samples <- ldply(1:19, function(k){#
+	data.frame(X1 = X$X1, X2 = X$X2[sample(dim(X)[1])], .n = k )#
+})
+n <- 20#
+pos <- sample(n, 1)#
+#
+lineup.dat <- lineup(null_permute("X2"), true = X)
+decrypt("pyT9 8BGB VF oI1VGVIF n")
+distmet <- function(dat, pos, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+  }
+distmet(lineup.dat, pos = 7, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup(null_permute("X2"), true = X), pos = 7, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup(null_permute("X2"), true = X, pos = 7), pos = 7, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+lineup.dat <- lineup(null_permute("X2"), true = X)#
+#
+qplot(X1, X2, data = lineup.dat ) + facet_wrap(~ .sample)#
+#
+distmet(lineup.dat, pos = 7, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, pos = 12, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+lineup.dat <- lineup(null_permute("X2"), true = X)
+distmet <- function(dat, pos = NULL, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(is.null(pos)){#
+		stop("Need the position of the true dataset")#
+	}#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+  }
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+?stop
+iter <- 12#
+if(iter > 10) stop("too many iterations")
+distmet <- function(dat, pos = NULL, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(is.null(pos)){#
+		message("Need the position of the true dataset")#
+	}#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+  }
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet <- function(dat, pos = NULL, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(is.null(pos)){#
+		stop("Need the position of the true dataset")#
+	}else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+pos = NULL
+is.null(pos)
+distmet <- function(dat, pos = NULL, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(is.null(pos)){#
+		stop("Need the position of the true dataset")#
+	}else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, null_permute("X2"), pos = 7, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet <- function(dat, pos = NULL, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(!is.null(pos)){#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+   else{#
+   stop("Need the position of the true dataset")#
+	}#
+  }
+distmet(lineup.dat, null_permute("X2"), pos = 7, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+pos = NULL
+!is.null(pos)
+distmet <- function(dat, pos = 0, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(pos != 0){#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+   else{#
+   stop("Need the position of the true dataset")#
+	}#
+  }
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 7, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 0, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+?missing
+distmet <- function(dat, pos, method, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(pos)){#
+		 stop("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  	#	all <- all_sample(true.dat, repl, no.samp, null_permute("tip"))#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		# 	cal.mean <- mean.samp(dat, no.samp, null_permute("X1"))#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, null_permute("X2"), meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+?missing
+myplot <- function(x,y) {#
+                if(missing(y)) {#
+                        y <- x#
+                        x <- 1:length(y)#
+                }#
+                plot(x,y)#
+        }
+myplot(rnorm(10))
+?stop
+tst1 <- function(...) stop("dummy error")#
+tst1(1:10, long, calling, expression)
+?message
+message("ABC", "DEF")
+?break
+distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(pos)){#
+		 cat("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, null_permute("X2"),  meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+?elseif
+distmet(lineup.dat, null_permute("X2"), pos = 2)
+distmet(lineup.dat, null_permute("X2"), pos = 2, repl = 10000)
+distmet(lineup.dat, pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("y"), pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(method)){#
+		cat("Need the null generating mechanism")#
+	}#
+	if(missing(pos)){#
+		 cat("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(method)){#
+		cat("Need the null generating mechanism")#
+		break()#
+	}#
+	if(missing(pos)){#
+		 cat("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+  }
+distmet(lineup.dat, pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(method)){#
+		cat("Need the null generating mechanism")#
+	}else{#
+	if(missing(pos)){#
+		 cat("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  		 if(plot){#
+  		 	cal.mean <- mean.samp(dat, no.samp, method)#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+   }#
+  }
+distmet(lineup.dat, pos = 2, meas.distr = TRUE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = TRUE, plot = FALSE, repl = 1000, no.samp = 20)
+distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 100, no.samp = 10 ){#
+	if(missing(method)){#
+		cat("Need the null generating mechanism")#
+	}else{#
+	if(missing(pos)){#
+		 cat("Need the position of the true dataset")#
+		 }else{#
+	true.dat <- data.frame(dat[,1][dat$.sample == pos], dat[,2][dat$.sample == pos])#
+	names(true.dat) <- names(dat[,1:2])#
+	WBdist <- NULL#
+  	 for(i in 1:length(unique(dat$.sample))){ #
+  	 	wb_dist = wbdist_fun(dens_z(true.dat), dens_z(data.frame(dat[,1][dat$.sample == i], dat[,2][dat$.sample == i])))#
+  	 	WBdist<-rbind(WBdist, data.frame(PlotNo = i, wb_dist))#
+  	 	}#
+  	 plots <- WBdist[order(WBdist$wb_dist), ]$PlotNo[2:6]#
+  	   	if(meas.distr){#
+  		all <- all_sample(true.dat, repl, no.samp, method)#
+  		    cal.mean <- mean.samp(dat, no.samp, method)#
+  		 	perc.val <- sum(all > cal.mean$means[cal.mean$PlotNo == pos])/repl#
+  		 	ratio <- perc.val*repl/sum(all > max(cal.mean$means[cal.mean$PlotNo != pos])) #
+  		 if(plot){#
+  		 	dev.new()#
+  		 	p <- qplot(all, geom="density", fill=I("grey80"), colour=I("grey80"), xlab="Permutation distribution", ylab="") + geom_segment(aes(x=cal.mean$means[cal.mean$PlotNo != pos], xend = cal.mean$means[cal.mean$PlotNo != pos], y=rep(- 0.02, 19), yend=rep(-0.05*max(density(all)$y), 19)), size=1, alpha = I(0.7)) + geom_segment(aes(x= cal.mean$means[cal.mean$PlotNo == pos], xend = cal.mean$means[cal.mean$PlotNo == pos], y=- 0.02, yend = -0.1*max(density(all)$y)), colour="darkorange", size=1)#
+  		 	return(list(all.wb = all, wbdist = WBdist, closest = plots, perc.val = perc.val, ratio = ratio,cal.mean = cal.mean, p))#
+  		 }#
+  		 else#
+  		 return(list(all.wb = all, wbdist = WBdist, closest = plots, cal.mean = cal.mean))#
+  	}#
+  	else#
+  return(list( wbdist = WBdist, closest = plots)) #
+   }#
+   }#
+  }
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = TRUE, plot = FALSE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = FALSE, plot = FALSE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = FALSE, plot = TRUE, repl = 1000, no.samp = 20)
+distmet(lineup.dat, null_permute("X2"), pos = 2, meas.distr = TRUE, plot = TRUE)
+distmet(lineup.dat)
+distmet(lineup.dat, null_permute("X2") )
+distmet(lineup.dat, null_permute("X2"), pos = 4 )
+distmet(lineup.dat, null_permute("X2"), pos = 4, plot = T )
+distmet(lineup.dat, null_permute("X2"), pos = 4, plot = T, meas.distr = T )
+.old <- c(LETTERS, letters, 0:9)#
+.new <- sample(.old)#
+#
+.old_string <- paste(.old, collapse = "")#
+.new_string <- paste(.new, collapse = "")#
+#
+encrypt <- function(...) {#
+  message <- paste(..., sep = "")#
+  chartr(.old_string, .new_string, message)#
+}#
+#
+#' Use decrypt to reveal the position of the real data. #
+#'#
+#' The real data position is encrypted by the lineup function, and#
+#' writes this out as a text string. Decrypt, decrypts this text#
+#' string to reveal which where the real data is.#
+#'#
+#' @param ... character vector to decrypt#
+#' @export#
+#' @examples#
+#' decrypt("0uXR2p rut L2O2")#
+decrypt <- function(...) {#
+  message <- paste(..., sep = "")#
+  chartr(.new_string, .old_string, message)#
+}#
+###=====================================================================#
+#
+dists <- c(beta = "beta", cauchy = "cauchy", "chi-squared" = "chisq", #
+  exponential = "exp", f = "f", gamma = "gamma", geometric = "geom",#
+  "log-normal" = "lnorm", "lognormal" = "lnorm", logistic = "logis", #
+  "negative binomial" = "nbinom", normal = "norm", poisson = "pois", #
+  t = "t", weibull = "weibull")#
+#
+# Specific distribution ------------------------------------------------------#
+#
+#' Generate null data with a specific distribution.#
+#'#
+#' Null hypothesis: variable has specified distribution#
+#' #
+#' @param var variable name#
+#' @param dist distribution name. One of: beta, cauchy, chi-squared,#
+#'   exponential, f, gamma, geometric, log-normal, lognormal, logistic,#
+#'   negative binomial, normal, poisson, t, weibull#
+#' @param params list of parameters of distribution. If \code{NULL}, will#
+#'   use \code{\link[MASS]{fitdistr}} to estimate them.#
+#' @return a function that given \code{data} generates a null data set.  #
+#'   For use with \code{\link{lineup}} or \code{\link{rorschach}}#
+#' @export#
+null_dist <- function(var, dist, params = NULL) {#
+  dist <- match.arg(dist, names(dists))#
+  generator <- match.fun(paste("r", dists[dist], sep = ""))#
+  function(df) {#
+    # If parameters not specified, use fitdistr from MASS to find them#
+    if (is.null(params)) {#
+      params <- as.list(coef(MASS::fitdistr(df[[var]], dist)))#
+    }#
+    params$n <- nrow(df)#
+    df[[var]] <- do.call(generator, params)#
+    df#
+  }#
+}#
+# Multivariate independence --------------------------------------------------#
+#' Generate null data by permuting a variable.#
+#'#
+#' Null hypothesis: variable is independent of others#
+#' #
+#' @param var name of variable to permute#
+#' @return a function that given \code{data} generates a null data set.  #
+#'   For use with \code{\link{lineup}} or \code{\link{rorschach}}#
+#' @export#
+null_permute <- function(var) {#
+  function(df) {#
+    df[[var]] <- sample(df[[var]])#
+    df#
+  }#
+}
+null_lm <- function(f, method = "rotate", ...) {#
+  if (is.character(method)) {#
+    method <- match.fun(paste("resid", method, sep = "_"))#
+  }#
+  function(df) {#
+    model <- eval(substitute(lm(formula, data = df), list(formula = f)))#
+    resp_var <- all.vars(f[[2]])#
+    resid <- method(model, df, ...)#
+    fitted <- predict(model, df)#
+    df[".resid"] <- resid#
+    df[".fitted"] <- fitted#
+    df[[resp_var]] <- fitted + resid#
+    df#
+  }#
+}#
+#
+# Extractor methods#
+rss <- function(model) sum(resid(model) ^ 2)#
+sigma <- function(model) summary(model)$sigma#
+n <- function(model) length(resid(model))#
+#
+#' Rotation residuals.#
+#'#
+#' For use with \code{\link{null_lm}}#
+#'#
+#' @param model to extract residuals from#
+#' @param data used to fit model#
+#' @export#
+resid_rotate <- function(model, data) {#
+  data[names(model$model)[1]] <- rnorm(nrow(data))#
+#
+  rmodel <- update(model, data = data)#
+  resid(rmodel) * sqrt(rss(model) / rss(rmodel))#
+}#
+#
+#' Parametric bootstrap residuals.#
+#'#
+#' For use with \code{\link{null_lm}}#
+#'#
+#' @param model to extract residuals from#
+#' @param data used to fit model#
+#' @export#
+resid_pboot <- function(model, data) {#
+  rnorm(n = n(model), sd = sqrt(sigma(model)))  #
+}#
+#
+#' Residuals simulated by a normal model, with specified sigma#
+#'#
+#' For use with \code{\link{null_lm}}#
+#'#
+#' @param model to extract residuals from#
+#' @param data used to fit model#
+#' @param sigma, a specific sigma to model#
+#' @export#
+resid_sigma <- function(model, data, sigma=1) {#
+  rnorm(n = n(model), sd = sigma)  #
+}#
+#
+#' Bootstrap residuals.#
+#'#
+#' For use with \code{\link{null_lm}}#
+#'#
+#' @param model to extract residuals from#
+#' @param data used to fit model#
+#' @export#
+resid_boot <- function(model, data) {#
+  sample(resid(model))#
+}#
+#
+###========================================#
+###Distance Measure#
+###========================================#
+# distance between densities#
+wbdist_fun = function(z1, z2) {#
+	sqrt(sum((z1 - z2)^2)/(sum(z1^2) * sum(z2^2)))#
+}#
+# get densities#
+dens_z = function(dat, nbins = 10) {#
+res = MASS::kde2d(dat[, 1], dat[, 2], n = nbins, lims = c(range(dat[, 1]), range(dat[, 2])))#
+res$z#
+}#
+#
+###=========================================#
+### Mean Wbdist of null data (size  = no.samp)#
+###=========================================#
+#
+mean_met <- function(dat, no.samp, method){#
+	z1 = dens_z(dat)#
+	dat1 <- data.frame(1:no.samp, true_wbdist = replicate(no.samp, {#
+		r = method(dat)#
+	#	r = cbind(dat[,1], null_permute("X1")(dat))#
+		z2 = dens_z(r)#
+	  wbdist_fun(z1, z2)#
+	}))#
+  mean(dat1[,2])#
+}
+all_sample = function(dat, repl, no.samp, method) {#
+	mean.WBdist_all <- NULL	#
+	for(i in 1:repl){#
+		samp.dat <- method(dat)#
+		z3 <- dens_z(samp.dat)#
+#z1 = dens_z(data)  # this does not change; only needs to be computed once#
+dat2 <- data.frame(k = 1:no.samp, null_wbdist = replicate(no.samp, {#
+	r = method(samp.dat)#
+	z4 = dens_z(r)#
+	wbdist_fun(z3, z4)#
+}))#
+	mean.WBdist_all <- c(mean.WBdist_all,  mean(dat2[,2]) )#
+}#
+return(mean.WBdist_all)#
+}#
+#
+#all_sample(X, 50, 10, null_permute("X1"))#
+#
+#all_sample(X, 50, 10, null_dist("X1", "cauchy"))#
+#
+###===================================#
+### Function to calculate the mean#
+###===================================#
+#
+mean.samp <- function(dat, no.samp, method){#
+	dat1 <- NULL#
+for (i in 1:length(unique(dat$.sample))){#
+	dat1 <- rbind(dat1, data.frame(PlotNo = i, means = mean_met(dat[dat$.sample == i,], no.samp, method)))#
+}#
+return(dat1)#
+}#
+#
+#mean.samp(lineup.dat, 10, null_permute("X1"))#
+###=========================================#
+###Protocols#
+###=========================================#
+#' The Rorschach protocol.#
+#'#
+#' This protocol is used to calibrate the eyes for variation due to sampling.#
+#' All plots are typically null data sets, data that is consistent with a null#
+#' hypothesis. The protocol is described in Buja, Cook, Hofmann, Lawrence,#
+#' Lee, Swayne, Wickham (2009) Statistical inference for exploratory data#
+#' analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.#
+#'#
+#' @export#
+#' @importFrom plyr rdply#
+#' @param method method for generating null data sets#
+#' @param true true data set. If \code{NULL}, \code{\link{find_plot_data}}#
+#'   will attempt to extract it from the current ggplot2 plot.#
+#' @param n total number of samples to generate (including true data)#
+#' @param p probability of including true data with null data.#
+rorschach <- function(method, true = NULL, n = 20, p = 0) {#
+  true <- find_plot_data(true)#
+  show_true <- rbinom(1, 1, p) == 1#
+  if (show_true) {#
+    n <- n - 1#
+  }#
+#
+  samples <- rdply(n, method(true))#
+  if (show_true) {#
+    pos <- sample(n + 1, 1)#
+    message(encrypt("True data in position ", pos))#
+    samples <- add_true(samples, true, pos)#
+  }#
+  samples#
+}
+add_true <- function(samples, true, pos) {#
+  samples$.sample <- with(samples, ifelse(.n >= pos, .n + 1, .n))#
+  samples$.n <- NULL#
+  true$.sample <- pos#
+  all <- rbind.fill(samples, true)#
+  all[order(all$.sample), ]#
+}#
+#
+#' Find plot data.#
+#' If data is not specified, this function will attempt to find the data#
+#' corresponding to the last ggplot2 created or displayed. This will work#
+#' in most situations where you are creating the plot and immediately #
+#' displaying it, but may not work in other situations.  In those cases,#
+#' please specify the data explicitly.#
+#'#
+#' @keywords internal#
+#' @importFrom ggplot2 last_plot#
+find_plot_data <- function(data) {#
+  if (!is.null(data)) return(data)#
+#
+  if (exists("last_plot") && !is.null(last_plot())) {#
+    last_plot()$data#
+  } else {#
+    stop("Missing true dataset")#
+  }#
+}#
+#
+##find_plot_data(A)#
+###================================================#
+###Calculating weighted bin distance of the lineup data#
+###================================================#
+lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1) , samples = NULL) {#
+ true <- find_plot_data(true)#
+  if (is.null(samples)) {#
+    samples <- rdply(n - 1, method(true))#
+  }#
+  if (missing(pos)) {#
+    message("decrypt(\"", encrypt("True data in position ", pos), "\")")#
+  }#
+  add_true(samples, true, pos)#
+ }
+x <- rnorm(30)#
+y <- 0.99*x + rnorm(30)#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+t <- corr*sqrt(length(x) - 2)/sqrt(1 - corr^2)#
+2*(1 - pt(abs(t), length(x) - 2))#
+#all.dat  <-  all_sample(X)#
+#
+library(plyr)#
+library(ggplot2)#
+samples <- ldply(1:19, function(k){#
+	data.frame(X1 = X$X1, X2 = X$X2[sample(dim(X)[1])], .n = k )#
+})
+lineup.dat <- lineup(null_permute("X2"), true = X)
+qplot(X1, X2, data = lineup.dat ) + facet_wrap(~ .sample)
+time <- c(0, 20, 40, 60, 80, 100)#
+surv <- c(1, 0.998, 0.912, 0.856, 0.712, 0.534)#
+#
+dat <- data.frame(time, surv)
+dat
+t <- sample(1:100, 10)
+t
+t.ord <- order(t)
+t.ord
+t.ord <- sort(t)
+t.ord
+t.sort <- sort(t)
+diff(dat$time)
+surviv <- NULL#
+for (i in 1:length(t.sort)){#
+	surviv[i] <- dat$surv[t.sort[i]<max(dat$time[dat$time<t.sort[i]])]#
+}
+surviv
+dat$time[dat$time<t.sort[1]]
+dat$time[dat$time<t.sort[2]]
+dat$time[dat$time<t.sort[3]]
+dat$time[dat$time<t.sort[4]]
+max(dat$time[dat$time<t.sort[i]])
+t.sort[4]<max(dat$time[dat$time<t.sort[4]])
+max(dat$time[dat$time<t.sort[4]])
+dat$surv[dat$time == max(dat$time[dat$time<t.sort[i]])]
+dat$surv[dat$time == max(dat$time[dat$time<t.sort[4]])]
+dat$surv[dat$time == max(dat$time[dat$time<t.sort[5]])]
+surviv <- NULL#
+for (i in 1:length(t.sort)){#
+	surviv[i] <- dat$surv[dat$time == max(dat$time[dat$time<t.sort[i]])]#
+}
+surviv
+?ldply
+library(plyr)
+?ldply
+is.list(t.sort)
+t.sort <- data.frame(sort(t))
+t.sort
+t.sort <- data.frame(t.so = sort(t))
+t.sort
+t <- sample(1:100, 10)#
+#
+t.sort <- data.frame(t.so = sort(t), ord = order(t))
+t.sort
+t.sort <- data.frame(t.so = sort(t), ord = 1:length(t))
+t.sort
+ddply(t.sort, .(ord), summarise, surviv = dat$surv[dat$time == max(dat$time[dat$time<t.so[ord]])])
+ddply(t.sort, .(t.so), summarise, surviv = dat$surv[dat$time == max(dat$time[dat$time<t.so])])
+dat
+mu <- 69#
+sigma <- 2.8#
+c(mu-2*sigma, mu + 2*sigma)#
+mu - sigma#
+mu + 3*sigma#
+#
+(71 - 69)/2.8#
+#
+(60 - 69)/2.8
+round((71 - 69)/2.8,2)#
+#
+round((60 - 69)/2.8,2)
+18.5*3
+120-55.5
+120+55.5
+120+54
+120-54
+time <- c("Last Year", "Last Week", "Current")#
+prices <- c(3.17, 3.51, 3.57)#
+#
+library(ggplot2) #
+#
+qplot(time, prices, geom = "line")
+qplot(time, prices, geom = c("point","line"))
+time <- c(1,2,3)#
+prices <- c(3.17, 3.51, 3.57)#
+#
+library(ggplot2) #
+#
+qplot(time, prices, geom = c("point","line"))
+qplot(time, prices, geom = c("point","line")) +scale_x_discrete(labels = c("Last Year", "Last Week", "Current"))
+x <- sample(rpois(5, 2))
+x
+x <- sample(rpois(5, 15))
+x
+x <- sample(rpois(5, 15))#
+catg <- c("Red", "Blue", "Yellow", "Green", "Black")#
+#
+qplot(catg, weights = x)
+qplot(catg, weight = x)
+time <- c(1,2,3)#
+prices <- c(3.17, 3.51, 3.57)#
+#
+library(ggplot2) #
+#
+qplot(time, prices, geom = c("point","line")) +scale_x_discrete(labels = c("Last Year", "Last Week", "Current"))
+x <- rnorm(30, 10, 1)#
+y <- rpois(30, 4)
+library(ggplot2)#
+qplot(x, y, size = I(3))
+qplot(x, y, size = I(3)) + geom_line(method = "lm")
+qplot(x, y, size = I(3)) + geom_smooth(method = "lm")
+qplot(x, y, size = I(3)) + geom_smooth(method = "lm", se = FALSE)
+mod <- lm(y ~ x)
+qplot(x, mod$resid)
+qqnorm(mod$resid)
+qqplot(mod$resid)
+x <- rnorm(30, 10, 1)#
+y <- rgamma(30, 4, 2)#
+#
+library(ggplot2)#
+qplot(x, y, size = I(3)) + geom_smooth(method = "lm", se = FALSE)#
+#
+mod <- lm(y ~ x)#
+#
+qplot(x, mod$resid)
+qqnorm(mod$resid)
+sample(1:100, 12)
+x <- rchisq(100,29)
+boxplot(x)
+qplot(x, geom = "boxplot", size = 1.2)
+library(ggplot2)#
+qplot(x, geom = "boxplot", size = 1.2)
+qplot(x, y,  geom = "boxplot", size = 1.2)
+x <- rchisq(100,29)#
+#
+y < -1#
+#
+library(ggplot2)#
+qplot(x, y,  geom = "boxplot", size = 1.2)
+x <- rchisq(100,29)#
+#
+y <- 1#
+#
+library(ggplot2)#
+qplot(x, y,  geom = "boxplot", size = 1.2)
+x <- rchisq(100,29)#
+#
+y <- rep(1, 100)#
+#
+library(ggplot2)#
+qplot(x, y,  geom = "boxplot", size = 1.2)
+qplot( y, x,  geom = "boxplot", size = 1.2)
+qplot( y, x,  geom = "boxplot")
+x <- rchisq(100,7)#
+#
+y <- rep(1, 100)#
+#
+library(ggplot2)#
+qplot( y, x,  geom = "boxplot")
+boxplot(x)
+?boxplot
+boxplot(x, horizontal = T)
+mean(427, 442)
+mean(c(427, 442))
+mean(c(396, 402))
+mean(c(457, 488))
+69 -2.8
+69 -2*2.8
+69 +2*2.8
+69 +3*2.8
+(71 -69)/2.8
+(60 -69)/2.8
+library(nullabor)
+install.packages("nullabor")
+library(nullabor)
+?lineup
+?apply
+??lda
+library(MASS)
+?lda
+x <- 1:31#
+sample(x, 3)
+library(plyr)#
+x <- 1:31#
+ldply(1:100, function(k){#
+	dat <- sample(x, 3)#
+	}
+)
+x <- 1:31#
+randdat <- ldply(1:100, function(k){#
+	dat <- sample(x, 3)#
+	}
+)
+melt(randdat)
+library(reshape)
+melt(randdat)
+rand.m <- melt(randdat)
+library(ggplot2)
+qplot(value, data = rand.m)
+rand.mean <- apply(randdat, 1, mean)
+rand.mean
+qplot(rand.mean)
+library(plyr)#
+x <- 1:31#
+randdat <- ldply(1:100, function(k){#
+	dat <- sample(x, 6)#
+	})#
+library(reshape)	#
+rand.m <- melt(randdat)#
+library(ggplot2)#
+qplot(value, data = rand.m)
+rand.mean <- apply(randdat, 1, mean)#
+#
+qplot(rand.mean)
+library(plyr)#
+x <- 1:31#
+randdat <- ldply(1:30, function(k){#
+	dat <- sample(x, 6)#
+	})#
+library(reshape)	#
+rand.m <- melt(randdat)#
+library(ggplot2)#
+qplot(value, data = rand.m)
+rand.mean <- apply(randdat, 1, mean)#
+#
+qplot(rand.mean)
+x <- sample(1:100, 10)
+x
+median(x)
+median(x); mean(x); sd(x); iqr(x)
+quantile(x, 0.75)
+median(x); mean(x); sd(x); quantile(x, 0.75) - quantile(x, 0.25)
+median(x); mean(x); sd(x); as.numeric(quantile(x, 0.75) - quantile(x, 0.25))
+x[2] <- x[2] - 2
+x[2]
+x[5] <- x[5] + 2
+x[5]
+median(x); mean(x); sd(x); as.numeric(quantile(x, 0.75) - quantile(x, 0.25))
+sort(x)
+x <- sample(1:100, 10)#
+#
+median(x); mean(x); sd(x); as.numeric(quantile(x, 0.75) - quantile(x, 0.25))
+sort(x)
+x
+x[2] <- x[2] - 2#
+#
+x[7] <- x[7] + 2#
+#
+median(x); mean(x); sd(x); as.numeric(quantile(x, 0.75) - quantile(x, 0.25))
+(0.95 - 0.35)/0.6
+100 -93
+3.5
+0.035
+-1.81 * 0.6 + 0.35
+1.81 * 0.6 + 0.35
+-0.67 * 0.6 + 0.35
+install.packages("roxygen2")
+library(roxygen2)
+?roxygenize
+setwd()
+getwd()
+roxygenize("/Users/Niladri/Documents/Research/Extending nullabor /nullabor")
+roxygenize("/Users/Niladri/Documents/Research/Extending nullabor /nullabor")
+getwd()
+install.packages("devtools")
+library(devtools)
+install_github("nullabor")
+?help
+help(package = "nullabor")
+setwd("/Users/Niladri/Documents/Research/Large p, small n/turk data analysis")#
+#
+####===================================================================#
+# Data Analysis#
+###====================================================================#
+#
+###Loading package#
+#
+library(ggplot2)#
+library(lubridate)#
+library(productplots)#
+#
+###Reading the data#
+#
+raw_turk7<-read.csv("raw_data_turk7.csv")#
+#
+meas <- read.csv("measures.csv")#
+#
+###Cleaning the data#
+#
+raw_turk7$diff <- as.POSIXct(raw_turk7$start_time) - min(as.POSIXct(raw_turk7$start_time))#
+#
+raw_turk7 <- subset(raw_turk7, diff >= (as.POSIXct("2012-06-17 09:50:41") - min(as.POSIXct(start_time))))#
+#
+dat <- ddply(raw_turk7, .(id,difficulty), summarise, tot.attempt = length(response), s = sum(response))#
+#
+got.test.id <-  dat$id[dat$difficulty == 0]#
+#
+dat1 <- subset(dat, id %in% got.test.id)#
+#
+id.diff0.s0 <- unique(dat1$id)[dat1$s[dat1$difficulty == 0] != 0]#
+#
+dat2 <- subset(dat1, id %in% id.diff0.s0)#
+#
+turk7_dup <- subset(raw_turk7, id %in% dat2$id)#
+#
+turk7_dup$sort_pic_id <- ddply(turk7_dup, .(id), summarise, sort_pic_id = pic_id[order(start_time)])$sort_pic_id#
+#
+turk7_dup$dif <- c(30, diff(turk7_dup$sort_pic_id))#
+#
+turk7 <- subset(turk7_dup, dif != 0 )#
+#
+###Changing the sample size of the real data to 50#
+#
+turk7$sample_size[turk7$difficulty == 5] <-50#
+#
+### Adding a variable called param_id#
+#
+turk7$param_id <- paste(turk7$sample_size,"_",turk7$param_value, sep="")#
+#
+### Breaking the parameter ID into respective columns#
+#
+m <- as.data.frame(matrix(unlist(strsplit(turk7$param_id, "\\_")), ncol = 4, byrow = T))[,2:4]#
+#
+names(m) <- c("dimension", "noise", "projection")#
+#
+turk7 <- data.frame(turk7, m )#
+#
+split.pic_name <- strsplit(as.character(turk7$pic_name),"\\_")#
+#
+rep <- ldply( 1:length(split.pic_name), function(k){#
+ 	if (split.pic_name[[k]][2] == "large") s = strsplit( split.pic_name[[k]][10],"\\.")[[1]][1]#
+ 	else s <- strsplit(split.pic_name[[k]][7],"\\.")[[1]][1]#
+ 	data.frame(k=k, S = s) 	#
+ })#
+#
+turk7$replication <- rep$S#
+#
+turk7$dimension <- factor(turk7$dimension, levels = c("10" , "20", "40", "60", "80", "100"))#
+#
+id_perf <- ddply(turk7,.(id),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )#
+#
+id_10 <- id_perf$id[id_perf$tot.attempt > 8]#
+#
+turk7 <- subset(turk7, id %in% id_10)#
+#
+### turk 7 is the cleaned data which should be used for data analysis. Before going any further each line above should run. turk 7 excludes the response provided by Mahbub, Niladri, Dr. Cook and Dr. Hofmann.#
+#
+###Duplicate Plots#
+#
+#id_dup_plot <- ddply(turk7, .(id), summarise, dup_id = length(unique(pic_id)) != length(pic_id))#
+#
+#turk7_dup_id <- subset(turk7, id %in% id_dup_plot$id[id_dup_plot$dup_id == TRUE])#
+#
+#dat_dup_pic <- data.frame(id=turk7_dup_id$id,response=turk7_dup_id$response,pic_id = turk7_dup_id$pic_id[order(turk7_dup_id$start_time)])#
+#
+#dat_dup_pic$dif <- c(30, diff(dat_dup_pic$pic_id))#
+#
+###====================================================================================================#
+# Data Analysis #
+###====================================================================================================#
+#
+setwd("/Users/Niladri/Documents/Research/Large p, small n/large-p-paper")
+pic_perf <- ddply(subset(turk7, dimension !=10 & sample_size != 50),.(pic_name, dimension, noise, projection, replication),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )#
+#
+pic_perf$dimension <- as.numeric(as.character(pic_perf$dimension))#
+#
+pic_perf$dim_rep <- paste(pic_perf$dimension,"_",pic_perf$replication, sep = "")#
+#
+pic_perf$dim_rep <- as.factor(pic_perf$dim_rep)#
+#
+levels(pic_perf$dim_rep) <- levels(pic_perf$dim_rep)[c(4,5,6,7,8,9,10,11,12,13,14,15,1,2,3)]#
+#
+levels(pic_perf$noise) <- c("Real Separation","Purely Noise")#
+levels(pic_perf$projection) <- c("1D Projection","2D Projection")#
+#
+qplot(dimension, suc.rate, data = pic_perf, size = I(3)) + facet_grid(noise ~ projection) +  ylab("Proportion of successful evaluation") + xlab("Dimension")#
+dat <- subset(turk7, dimension != 10 & sample_size != 50)#
+#
+dat$res <- 0#
+1 -> dat$res[dat$response == "TRUE"]#
+#
+dat$dimension <- as.numeric(as.character(dat$dimension))#
+fit.power <- glm(response ~ dimension+ noise + projection + noise:dimension, family=binomial,data=dat)#
+res <- summary(fit.power)#
+#str(res)#
+res$coef#
+#
+dimension <- rep(seq(20,100, by=1),each=4)#
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))#
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))#
+newdat <- data.frame(dimension,noise,projection)#
+power <- predict(fit.power, newdata = newdat, type="response", se.fit = TRUE)#
+pow.dat <- data.frame(dimensions = dimension#
+                    , empirical=power$fit#
+                    , noise = noise, projection = projection)#
+pow.dat.m <- melt(pow.dat, id=c("dimensions","noise","projection"))#
+head(pow.dat.m)#
+colnames(pow.dat.m) <- c("dimensions","noise","projection","Test","prob")#
+#
+levels(pow.dat.m$noise) <- c("Real Separation", "Purely Noise")#
+#
+levels(pow.dat.m$projection) <- c("1D Projection", "2D Projection")#
+#
+qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+library(reshape)
+pow.dat.m <- melt(pow.dat, id=c("dimensions","noise","projection"))#
+head(pow.dat.m)#
+colnames(pow.dat.m) <- c("dimensions","noise","projection","Test","prob")#
+#
+levels(pow.dat.m$noise) <- c("Real Separation", "Purely Noise")#
+#
+levels(pow.dat.m$projection) <- c("1D Projection", "2D Projection")#
+#
+qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion Correct")
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +#+  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + #
+#
+facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion Correct")
+head(pow.dat.m)
+pow.dat <- data.frame(dimension = dimension#
+                    , empirical=power$fit#
+                    , noise = noise, projection = projection)#
+pow.dat.m <- melt(pow.dat, id=c("dimension","noise","projection"))#
+head(pow.dat.m)#
+colnames(pow.dat.m) <- c("dimension","noise","projection","Test","prob")#
+#
+levels(pow.dat.m$noise) <- c("Real Separation", "Purely Noise")#
+#
+levels(pow.dat.m$projection) <- c("1D Projection", "2D Projection")#
+#
+qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(3), alpha = I(0.6))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + #
+facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Proportion Correct")
+?distmet
+??distmet
+library(nullabor)
+?distmet
