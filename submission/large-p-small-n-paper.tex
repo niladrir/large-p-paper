@@ -303,7 +303,7 @@ If $ {\blX}_{p-1}$ versus ${\blX}_p$ are plotted in a scatterplot, the points cl
 
 \subsection{Producing lineups}
 
-Two different visual test statistics, $V_1({\blY})$ and $V_2({\blY})$ (as defined in \cite{majumder:2011}) are used in this paper, for representing 1D and 2D data. $V_1({\blY})$ is a horizontal jittered dot plot, with color representing groups. $V_2({\blY})$ is a scatterplot of the two-dimensional projections, with color representing groups. The same symbol is used to represent the groups in both the test statistics so that the different symbols do not confound our analysis. Figure \ref{fig3} shows the two different visual test statistics.
+Two different visual test statistics, $V_1({\blY})$ and $V_2({\blY})$ (as defined in \cite{majumder:2011}) are used in this paper, for representing 1D and 2D data. $V_1({\blY})$ is a horizontal jittered dot plot, with color representing groups. $V_2({\blY})$ is a scatterplot with color representing groups. Symbols is kept constant for uniformity of appearance. Figure \ref{fig3} shows the two different visual test statistics.
 
 \begin{figure}[htbp]
 \centering
@@ -313,9 +313,9 @@ Two different visual test statistics, $V_1({\blY})$ and $V_2({\blY})$ (as define
 \label{fig3}
 \end{figure}
 
-To obtain the 19 null plots in a lineup of size $m = 20$, the group variable is permuted in order to break any dependence between the group variable and the other variables and the projections are obtained and plotted in the same way, as the test statistic. The test statistic, which is the observed data plot, is placed randomly among the 19 null plots. To maintain the same orientation of the two groups in the 1D projection lineup,  the mean of the projections for each group is calculated for each plot in the lineup and the group with the lower mean is considered as group 1 and the other as group 2. Figure \ref{fig:test_category_1d} shows an example lineup  from treatment with $p = 20$, separation = Yes and $d = 1$. Similarly, Figure \ref{fig:test_category} shows an example lineup for $p =100$, separation = No and $d = 2$.
+To obtain the null plots in a lineup, the group variable is permuted in order to break any dependence between the group variable and the other variables. Projections are obtained and plotted in the same way as the test statistic. The test statistic, which is the observed data plot, is placed randomly among the 19 null plots. To maintain the same orientation of the two groups in the 1D projection lineup,  the mean of the projections for each group is calculated for each plot in the lineup and the group with the lower mean is considered to be group 1 and the other group 2. Figure \ref{fig:test_category_1d} shows an example lineup having treatment levels $p = 20$, separation = Yes and $d = 1$. Similarly, Figure \ref{fig:test_category} shows an example lineup for $p =100$, separation = No and $d = 2$.
 
-A statistic WBratio which is the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}) is calculated for each plot in the lineup of both 1D and 2D projections. An additional statistic Wilk's $\lambda$ (\cite{JW02}) is calculated for 2D projections. Projection pursuit is an optimization routine and there are occasional problems of convergence with two-dimensional projections. To account for this problem, 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$ values are used for the lineup. 
+A statistic measuring the ratio of the average distance within clusters to the average distance between clusters (\cite{hennig:2010}), called WBratio, is calculated for each plot in the lineup of both 1D and 2D projections. An additional statistic Wilk's $\lambda$ (e.g. \cite{JW02}) is calculated for 2D projections. To account for the occasional lack of convergence of the projection pursuit optimization, 30 null plots are generated. The 19 null plots which have the smallest Wilk's $\lambda$ values are used for the lineup. 
 
 \begin{figure}[hbtp]
 %\begin{figurehere}
@@ -338,7 +338,7 @@ A statistic WBratio which is the ratio of the average distance within clusters t
 
 \subsection{Data collection}
 
-Subjects  for the experiment are recruited through Amazon Mechanical Turk  \citep{turk}. Each subject is shown a sequence of 10 lineups. Subjects also had the freedom of answering more than 10 lineups. They are asked to identify the plot which has the most separation between the colored groups. Their response is recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject are also noted. In total, 1137 lineups are evaluated by 103 subjects, from different locations across the globe.
+Subjects  for the experiment were recruited through Amazon Mechanical Turk  \citep{turk}. Each subject was shown a sequence of 10 lineups. Subjects also had the freedom of answering more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response is recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject are also noted. In total, 1137 lineups are evaluated by 103 subjects, from different locations across the globe.
 
 
 \section{Results} \label{sec:results}
