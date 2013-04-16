@@ -448,7 +448,7 @@ A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ w
        \label{toth_lineup}
 \end{figure*} 
 
-This is replicated three times, to provide three different lineups, where the null plots are changed but the observed data plot is the real wasps data. In addition, three more lineups are made that contained only null plots, with one plot chosen randomly to act as an observed data plot. These lineups were included in the Amazon Turk experiment.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data is 0! This is worse than that of purely noise data, with the exception of one of the replicates of the purely noise data lineup. In this lineup the observed data plot (which is actually random) has more separation than any other plot in the lineup, and subjects picked up on this. The $p$-value is calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence to reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+This is replicated three times, to provide three different lineups, where the null plots are changed but the observed data plot is the real wasps data. In addition, three more lineups are made that contained only null plots, with one plot chosen randomly to act as an observed data plot. These lineups were included in the Amazon Turk experiment.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data is 0! This is worse than that of purely noise data. You will notice that for one of the purely noise lineups, subjects were very often correctly picked the (random) observed data plot. This happened because the randomly generated observed data plot actually had more separation than any other plot in that lineup. This is the nature of randomness, but makes for interesting results here. The $p$-value is calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence upon which we reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
 
 \begin{table}[ht]
 \begin{center}
@@ -472,7 +472,7 @@ Purely noise & 2 & 18 & 0.0000 &  1.0000 \\
 \end{center}
 \end{table}
 
-The probability of separation by chance in pure noise data given a fixed sample size and dimension,  was quantified by \cite{ripley:1996} (Proposition 3.1). Figure \ref{dist_1d} illustrates this probability with 1D projections having sample size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups.
+The probability of separation by chance in purely noise data given a fixed sample size and dimension,  was quantified by \cite{ripley:1996} (Proposition 3.1). Figure \ref{dist_1d} illustrates this probability with 1D projections having sample size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups, in 2D.
 
 \begin{figure}[htbp]
 \centering
@@ -493,6 +493,15 @@ This paper examined how visual inference works for HDLSS data. From the results 
 
 There are several natural next steps for this research. One is to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. Another direction is to build metrics to quantify the difficulty of a lineup and the influence that null plots have on identifying the data plot. 
 
+\section*{Acknowledgement}
+%
+This work was funded by National Science Foundation grant DMS 1007697.
+
+%\bibliographystyle{plainnat}
+\bibliographystyle{spbasic}
+%%\bibliographystyle{ieeetr}
+\bibliography{references}
+
 \section*{Appendix}
 
 \subsection*{Solution}
@@ -506,9 +515,9 @@ There are several natural next steps for this research. One is to examine the po
 
 \subsection*{Choice of dimensions} \label{sec:theory}
 
-The experiment is setup with factors separation, dimension and projection dimension. To decide on the levels of dimension to use, we considered the distribution of the absolute difference of the sample group means, for data with no separation with two groups, with projection dimension $d=1$. The same levels are used for data with 3 groups, $d=2$, and for data with separation. 
+The experiment is set up with the 3 factors separation, dimension and projection dimension. To decide on the levels of dimension to use, we considered the distribution of the absolute difference of the sample group means, for data with two groups, no separation and projection dimension $d=1$. The same levels are used for data with 3 groups, $d=2$, and for data with separation. 
 
-Let ${\blX}_{ij}$ denote the $j$-th observation in the $i$-th group where $j = 1, \dots, n_i; i=1, ..., g$. The ${\blX}_{ij}$'s are random noise, generated by drawing samples from a standard normal distribution. For this experiment, $g = 2$  and $n_i = 15$. The difference between the group means is given by $\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.}$% and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. 
+Let ${\blX}_{ij}$ denote the $j$-th observation in the $i$-th group where $j = 1, \dots, n; i=1, ..., g$. The ${\blX}_{ij}$'s are random noise, generated by drawing samples from a standard normal distribution. For this experiment, $g = 2$  and $n = 15$. The difference between the group means is given by $\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.}$% and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. 
 and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let 
 $\mbox{U} = |\bar{\mbox{X}} _{1.} - \bar{\mbox{X}}_{2.}|$ 
 where $\mbox{U} \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/15}$.
@@ -516,35 +525,35 @@ The expectation and the variance of $\mbox{U}$ are
 $E(\mbox{U} ) = \sigma \sqrt{2/\pi}$ and 
 $Var(\mbox{U}) = \sigma^2 (1 - 2/\pi)$, respectively.
 
-For $p$ dimensions, consider $p$ independent samples from the same distribution,  denoted as $${\blU}_m = |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}|, ~~~ m=1, ..., p$$ where ${\blX} _{mij}$ is the $j$-th observation in the $i$-th group for the $m$-th dimension. The difference between the two group means projected into one dimension, is the sum of the absolute difference between the means is $$\mbox{U}  = \sum_{m=1}^p {\blU}_m = \sum_{m=1}^p |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}| $$ and by independence it follows that
+For $p$ dimensions, consider $p$ independent samples from the same distribution,  denoted as $${\blU}_m = |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}|, ~~~ m=1, ..., p$$ where ${\blX} _{mij}$ is the $j$-th observation in the $i$-th group for the $m$-th dimension. The difference between the two group means projected into one dimension, is the sum over $p$ dimensions of the absolute difference between the means: $$\mbox{U}  = \sum_{m=1}^p {\blU}_m = \sum_{m=1}^p |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}| $$ and by independence it follows that
 
-$$E(\mbox{U}) = p \sigma \sqrt{2/\pi}, ~~~ 
-Var(\mbox{U}) = p \sigma^2 (1 - 2/\pi)$$
+$$\hbox{E}(\mbox{U}) = p \sigma \sqrt{2/\pi}, ~~~ 
+\hbox{Var}(\mbox{U}) = p \sigma^2 (1 - 2/\pi)$$
 
 \noindent Thus we expect to find this amount of separation between the projected sample means, for data sampled from populations with the same means.
 
-Now consider data where there is some separation $(2c)$ between the population means:
+Now consider data where there is some separation (equal to $2c)$ between the population means:
 
 $${\blZ}_{1j} \sim \hbox{Normal}(-c, 1) $$
 $${\blZ}_{2j} \sim \hbox{Normal}(c, 1) $$ 
 giving $\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.} \sim \hbox{Normal}(2c, 2/15)$. Then define $\mbox{Z}  = |\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.}|$ where ${\mbox{Z}} \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  The expectation and the variance of $\mbox{Z}$ can be calculated to be:
 
-$$E(\mbox{Z}) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(\mbox{Z}) = 4c^2 + \sigma^2 - (E(\mbox{Z}))^2$$
+$$\hbox{E}(\mbox{Z}) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$\hbox{Var}(\mbox{Z}) = 4c^2 + \sigma^2 - (E(\mbox{Z}))^2$$
 
 Suppose that only one of the $p$ dimensions is simulated from this distribution, and all of the rest are simulated from populations having identical means. Define $\mbox{V}$ as the sum of the absolute differences of the mean with one dimension of real separation as $$\mbox{V} = \sum_{m=1}^{p-1} \blU_m + {\blZ}$$ Then, by independence, it follows that:
 
-$$E(\mbox{V}) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
-$$Var(\mbox{V}) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
+$$\hbox{E}(\mbox{V}) = (p - 1) \sigma \sqrt{2/\pi} + \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
+$$\hbox{Var}(\mbox{V}) = (p - 1)\sigma^2 (1 - 2/\pi) + 4c^2 + \sigma^2 - \left( \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]\right)^2$$
 
 In this experiment, $c = 3$ and $\sigma^2 = 2/15$. Therefore,
 $$\exp(- 2c^2/\sigma^2) \approx 0 \qquad \hbox{and} \qquad \Phi(-2c/\sigma) \approx 0$$
 Hence,
-$$E(\mbox{V}) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
-$$Var(\mbox{V}) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
+$$\hbox{E}(\mbox{V}) = (p - 1) \sigma \sqrt{2/\pi} + 6$$
+$$\hbox{Var}(\mbox{V}) = (p - 1)\sigma^2 (1 - 2/\pi) + \sigma^2$$
 As dimension $p$ increases for a fixed $n$, the spread of both U and V increases by a factor of $p$. The means of U and V also increase with a factor of $p$ but the expected value of the difference between U and V stays constant and is independent of dimension ($p$). 
 %\begin{equation}
-$$E (\mbox{V} - \mbox{U}) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
+$$\hbox{E} (\mbox{V} - \mbox{U}) = (p - 1) \sigma \sqrt{2/\pi} + 6 - p \sigma \sqrt{2/\pi} = 6 - \sigma \sqrt{2/\pi}$$
 %\end{equation}
 
 
@@ -571,15 +580,5 @@ $$\hbox{P}[\mbox{U} > \mbox{V}_{\alpha}] = \delta$$ where $\mbox{V}_{\alpha}$ is
 \end{center}
 \end{table}
 
-
-
-\section{Acknowledgement:}
-%
-This work was funded by National Science Foundation grant DMS 1007697.
-
-%\bibliographystyle{plainnat}
-\bibliographystyle{spbasic}
-%%\bibliographystyle{ieeetr}
-\bibliography{references}
 
 \end{document}
