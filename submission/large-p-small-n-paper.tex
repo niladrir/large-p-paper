@@ -51,7 +51,7 @@ grestore
 \usepackage{natbib}
 \usepackage{multicol}
 \usepackage{hyperref}
-\usepackage[justification=centering]{caption}
+%\usepackage[justification=centering]{caption}
 %\usepackage{subcaption}
 
 \usepackage{amsmath, amssymb, fullpage, array, algorithm2e,graphicx,mathtools, xparse}
@@ -236,7 +236,7 @@ I_{PDA}(\blA,\lambda) =
 where $\blA$ is an orthonormal projection onto a $k$-dimensional space
 and $\lambda \in [0,1)$ is a predetermined parameter. Penalized LDA \citep{witten:2011} is a similar approach.
 
-These indices are available for projection pursuit using the \texttt{tourr} package \citep{WC08} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.    
+These indices are available for projection pursuit using the \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.    
 
 
 \section{Experiment} \label{sec:experiment}
