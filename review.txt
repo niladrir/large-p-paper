@@ -1,0 +1,66 @@
+From: Jürgen Symanzik <juergen.symanzik@usu.edu>
+Subject: COST: Your manuscript entitled Visual Statistical Inference for High Dimension, Small Sample Size Data
+Date: September 29, 2013 1:31:58 PM CDT
+To: "Niladri Roy Chowdhury" <niladri.ia@gmail.com>
+
+CC: juergen.symanzik@usu.edu
+
+Dear Niladri:
+
+We have received the reports from our advisors on your manuscript, "Visual Statistical Inference for High Dimension, Small Sample Size Data", which you submitted to Computational Statistics.
+
+Based on the advice received, I feel that your manuscript could be reconsidered for publication should you be prepared to incorporate major revisions.  When preparing your revised manuscript, you are asked to carefully consider the reviewer comments which are attached, and submit a list of responses to the comments.  Your list of responses should be uploaded as a file in addition to your revised manuscript.
+
+TO VIEW REVIEWER ATTACHMENTS (from Reviewer #3), please login to the journal site as "Author" and access "Submission Needing Revision" from the Author Main Menu.  On the next page display, navigate on the "Action Links" and select "View Reviewer Attachments" from the selection box. This will redirect you to the page that will allow you to "Download" and view the reviewer report attachments. Then, proceed with revising your manuscript.
+
+In order to submit your revised manuscript electronically, please access the following web site:
+
+     http://cost.edmgr.com/
+
+Please click "Author Login" to submit your revision.
+
+We look forward to receiving your revised manuscript within the next 6 months.
+
+Thank you.
+
+Juergen Symanzik
+Co-editor
+Computational Statistics
+
+
+COMMENTS FOR THE AUTHOR:
+
+Reviewer #1:
+
+Visual Inference is a very interesting topic. The authors have presented their ideas about how to use visual inference for HDLSS data in a clear way, and the results they had are indeed interesting. My main comments about this paper are as follows:
+
+1. In the abstract, the authors refer to "large dimension small sample size" data, and then use the acronym HDLSS, which would stand for "High Dimensional Low Sample Size". You probably need to stick to one of them.
+
+2. Almost all of the graphs in this paper are not color blind friendly. I would suggest to use color combinations other than red and green (I  believe it is blue, but on print it looks green). You can refer to http://colorbrewer2.org/ for the choice of good graphics colors.  This issue might have affected the experiment results!
+
+3. In the caption of Figure 2, the author refers to "m=20". What is m? I did not see any reference for that in the text. And Is there any reason for choosing 20? Please clarify if so.
+
+4. Table 2 is not explained in a very clear way in the text or the caption.
+
+5. In the section 4.4 (data collection), the authors mentioned that their subjects were recruited through Amazon Mechanical Turk. Could you please elaborate in one or two sentences what is AMT?
+
+6. In Figure 7, I suppose that there should be three dots for each dimension. Some of the dimensions (e.g. p = 20 and Projection = 1D), has two dots. Does this mean that there are some dots on top of each other? Please elaborate.
+
+7. It would interesting to compare between different groups of subjects based on gender and age.
+
+8.  What software did you use for producing these graphics?
+
+
+Reviewer #2 - no review returned
+
+Reviewer #3 - see attachment (as described above)
+
+
+AE:
+
+I fully endorse the major revision point made by reviewer #3. While the content of the paper is clearly suitable and interesting for readers of COST, specifiying clearer where the actual contribution of the paper lies will make it much stronger. The detailed suggestions of reviewer #3 should make the revision rather straightforward and will lead to a highly improved version.
+
+
+There is additional documentation related to this decision letter. To access the file(s), please click the link below. You may also login to the system and click the 'View Attachments' link in the Action column.
+
+http://cost.edmgr.com/l.asp?i=18443&l=EZZYMJ61
