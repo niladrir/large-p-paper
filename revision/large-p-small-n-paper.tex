@@ -87,7 +87,7 @@ grestore
 
 \begin{document}
 
-\title{Visual Statistical Inference for High Dimension, Small Sample Size Data}\label{ch:largepsmalln}
+\title{Visual Statistical Inference for High Dimension, Low Sample Size Data}\label{ch:largepsmalln}
 \vspace{-0.8cm}
 \author{Niladri Roy Chowdhury \and 
 Dianne Cook \and
@@ -114,7 +114,7 @@ Amy L. Toth}
 \maketitle
 
 \begin{abstract}
-Statistical graphics play an important role in exploratory data analysis, model checking and diagnosis. In high dimensional data we often seek low-dimensional projections which reveal important aspects of the data. Projection pursuit for classification finds projections that reveal differences between groups. In many contemporary data sets the number of observations is relatively small compared to the number of variables, which is known as a large dimension small sample size (HDLSS) problem. This paper explores the performance of dimension reduction methods for finding good low-dimensional pictures of HDLSS, using new visual inference methods. These methods may be helpful to broaden the understanding of issues related to HDLSS data in the data analysis community. Methods are illustrated using data from a published paper, which erroneously found real separation, and using a simulation study done with Amazon's Mechanical Turk.
+Statistical graphics play an important role in exploratory data analysis, model checking and diagnosis. In high dimensional data we often seek low-dimensional projections which reveal important aspects of the data. Projection pursuit for classification finds projections that reveal differences between groups. In many contemporary data sets the number of observations is relatively small compared to the number of variables, which is known as a high dimension low sample size (HDLSS) problem. This paper explores the performance of dimension reduction methods for finding good low-dimensional pictures of HDLSS, using new visual inference methods. These methods may be helpful to broaden the understanding of issues related to HDLSS data in the data analysis community. Methods are illustrated using data from a published paper, which erroneously found real separation, and using a simulation study done with Amazon's Mechanical Turk.
 
 \keywords{statistical graphics \and lineup \and visualization \and projection pursuit}
 \end{abstract}
@@ -144,25 +144,9 @@ This paper describes visual statistical inference as applied to dimension reduct
 
 \section{Visual inference methods} \label{sec:inference}
 
-\cite{buja:2009} proposed two protocols, the Rorschach and the lineup protocols. While the Rorschach protocol helps to understand the extent of randomness, the lineup protocol is  used for testing significance of findings. This method is called visual statistical inference. \cite{majumder:2011} made a head-to-head comparison between visual statistical inference tests and classical tests which yielded comparable results. Unlike classical hypothesis testing, the test statistic in visual inference is not numeric, but a plot that is appropriately chosen to display a  distinctive pattern in case that the null hypothesis is not true. The lineup protocol embeds this observed data plot amongst the null plots. Null plots are created  consistently with the null hypothesis. Human subjects are asked to identify the plot with the most distinct feature(s). If the human subjects choose the plot of the observed data, this is regarded as evidence against the null hypothesis and with enough support, the null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from  the other null plots. 
- A comparison of visual testing with conventional testing is shown in Table \ref{tbl:compare}.
+\cite{buja:2009} proposed two protocols, the Rorschach and the lineup protocols. While the Rorschach protocol helps to understand the extent of randomness, the lineup protocol is  used for testing significance of findings. This method is called visual statistical inference. \cite{majumder:2011} made a head-to-head comparison between visual statistical inference tests and classical tests which yielded comparable results. Unlike classical hypothesis testing, the test statistic in visual inference is not numeric, but a plot that is appropriately chosen to display a  distinctive pattern in case that the null hypothesis is not true. The lineup protocol of size $m$ embeds this observed data plot amongst the ($m$ - 1) null plots. Null plots are created  consistently with the null hypothesis. Human subjects are asked to identify the plot with the most distinct feature(s). If the human subjects choose the plot of the observed data, this is regarded as evidence against the null hypothesis and with enough support, the null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from  the other null plots. 
 
-
-For example, suppose we have data that represents the concentration of a metal in $mg/kg$ for two sites A and B.
-We want to test whether there exists a significant difference between the concentration levels in the two sites A and B. Let $\mu_1$ denote the mean concentration level in Site A and $\mu_2$ denote the mean concentration level in Site B. Thus the null and alternative hypothesis would be
-\[
-H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
-\]
-We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed data for two groups as shown in Table \ref{tbl:compare}. The null plots are generated by assuming that $H_o$ is true. This is achieved by randomly permuting the values of group variable site. The observed data plot is placed randomly among 19 null plots to obtain a lineup shown in Figure \ref{lineup}. If $H_o$ is not true, a vertical displacement of the two groups should be a distinctive feature in the test statistic that is not present in the null plots. The lineup is shown to a human observer who is asked to identify the plot that is most different than the others in the lineup. If the observer can identify the plot of the real data, there will be reason to believe that the observed data plot has a pattern which is absent in the null plots leading to a rejection of the null hypothesis. If the viewer cannot identify the observed data plot, we fail to reject the null hypothesis.
-\begin{figure}[hbtp]
-   \centering
-       \scalebox{1}{\includegraphics{lineup-dot.pdf}}
-      \caption{A typical lineup  ($m = 20$) for testing $H_o: \mu_1 =  \mu_2$. 
-      When the alternative hypothesis is true, the observed data plot should have the largest vertical difference between the centers. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix.}
-      \label{lineup}
-\end{figure}
-
-\cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
+A comparison of visual testing with conventional testing is shown in Table \ref{tbl:compare}. Both start with the same hypothesis but the test statistic in a conventional setting is the parameter estimate divided by its standard error. In visual inference the test statistic is a plot of the observed data. In this case, a dot plot is used since the variable of interest is continuous with two groups. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution, the distribution of the test statistic if the null hypothesis is true. If it is extreme, then the null hypothesis is rejected. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is selected as the most different, then the null hypothesis is rejected. 
 
 \begin{table*}[hbtp]
 \centering 
@@ -175,17 +159,34 @@ We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed
 %  \vspace{0.5cm}	
  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} \\
 %\vspace{0.5cm}				  
- Test Statistic & $T(y)=\frac{\bar{y}_1 - \bar{y}_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$ & $V(y)=$ \begin{minipage}[h]{1cm} \begin{center} \scalebox{0.35}{\includegraphics{data-dot.pdf}} \end{center} \end{minipage} \\
+ Test Statistic & $T(y)=\frac{\bar{y}_1 - \bar{y}_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$ & $V(y)=$ \begin{minipage}[h]{1cm} \begin{center} \scalebox{0.35}{\includegraphics{data-dot-rev.pdf}} \end{center} \end{minipage} \\
 				 
  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} \\
 				 
- Sampling Distribution & $f_{T(y)}(t); $\begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.5}{\includegraphics{two-sided-rejection.pdf}} \end{center} \end{minipage} & $f_{V(y)}(t); $ \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.29}{\includegraphics{lineup-dot.pdf}} \end{center} \end{minipage} \\
+ Sampling Distribution & $f_{T(y)}(t); $\begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.5}{\includegraphics{two-sided-rejection.pdf}} \end{center} \end{minipage} & $f_{V(y)}(t); $ \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.29}{\includegraphics{lineup-dot-rev.pdf}} \end{center} \end{minipage} \\
  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} \\
  Reject $H_o$ if & observed $T$ is extreme & observed data plot is identifiable \\
 \hline 
 \end{tabular}
 \label{tbl:compare}
 \end{table*}
+
+
+For example, suppose we have data that represents the concentration of a metal in $mg/kg$ for two sites A and B.
+We want to test whether there exists a significant difference between the concentration levels in the two sites A and B. Let $\mu_1$ denote the mean concentration level in Site A and $\mu_2$ denote the mean concentration level in Site B. Thus the null and alternative hypothesis would be
+\[
+H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
+\]
+We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed data for two groups as shown in Table \ref{tbl:compare}. The null plots are generated by assuming that $H_o$ is true. This is achieved by randomly permuting the values of group variable site. The observed data plot is placed randomly among 19  null plots to obtain a lineup shown in Figure \ref{lineup}. Here $m = 20$ is the size of the lineup. If $H_o$ is not true, a vertical displacement of the two groups should be a distinctive feature in the test statistic that is not present in the null plots. The lineup is shown to a human observer who is asked to identify the plot that is most different than the others in the lineup. If the observer can identify the plot of the real data, there will be reason to believe that the observed data plot has a pattern which is absent in the null plots leading to a rejection of the null hypothesis. If the viewer cannot identify the observed data plot, we fail to reject the null hypothesis. Under the null hypothesis, each observer has a $1/m$ chance of picking the observed plot from a lineup of size $m$. Hence $1/m$ is the minimal value at which we can set the Type I error $\alpha$ which is consistent with $\alpha = 0.05$ if $m = 20$.  \cite{majumder:2011} provides more detailed discussion about this.
+\begin{figure}[hbtp]
+   \centering
+       \scalebox{1}{\includegraphics{lineup-dot-rev.pdf}}
+      \caption{A typical lineup  ($m = 20$) for testing $H_o: \mu_1 =  \mu_2$. 
+      When the alternative hypothesis is true, the observed data plot should have the largest vertical difference between the centers. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix.}
+      \label{lineup}
+\end{figure}
+
+\cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
 
  
 \section{Explanation of dimension reduction methods}  \label{sec:dimred}
@@ -308,8 +309,8 @@ Two different visual test statistics, $V_1({\blY})$ and $V_2({\blY})$ are used i
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[$V_1({\blY})$]{\includegraphics[width=2.5in]{test_statistic_1.pdf}}\quad
-\subfigure[$V_2({\blY})$]{\includegraphics[width=2.5in]{test_statistic_2.pdf} }}
+\mbox{\subfigure[$V_1({\blY})$]{\includegraphics[width=2.5in]{test_statistic_1-rev.pdf}}\quad
+\subfigure[$V_2({\blY})$]{\includegraphics[width=2.5in]{test_statistic_2-rev.pdf} }}
 \caption{The visual test statistics $V_1({\blY})$ and $V_2({\blY})$ used.  $V_1({\blY})$ is a horizontal jittered dot plot while $V_2({\blY})$ is a scatterplot of the first and second dimensional projections, with color representing groups in both cases. } 
 \label{fig3}
 \end{figure}
@@ -321,7 +322,7 @@ A statistic measuring the ratio of the average distance within clusters to the a
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{1.00}{\includegraphics{lineup-20-real-1-17.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-20-real-1-17-rev.pdf}}
        \caption{Lineup  ($m=20$) from treatment with $p = 20$, separation = Yes and $d = 1$. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot? The solution to the lineup is provided in the Appendix. }
      \label{fig:test_category_1d}
 \end{figure}
@@ -330,7 +331,7 @@ A statistic measuring the ratio of the average distance within clusters to the a
  
 \begin{figure}[hbtp]
 %   \centering
-       \scalebox{1.00}{\includegraphics{lineup-100-noise-2-20.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-100-noise-2-20-rev.pdf}}
        \caption{Lineup  ($m=20$) from treatment with $p = 100$, separation = No and $d = 2$.The subjects were asked to identify the plot with the most separation between the colored groups. Can you identify the observed data plot? The solution is provided in the Appendix. }
        \label{fig:test_category}
 \end{figure}
@@ -443,7 +444,7 @@ A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ w
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{1.00}{\includegraphics{lineup-wasp-8.pdf}}
+       \scalebox{1.00}{\includegraphics{lineup-wasp-8-rev.pdf}}
        \caption{Lineup showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The observed data plot is placed randomly among the 19 null plots. Which plot shows the most separation between the 4 groups? The solution is provided in the Appendix.}
        \label{toth_lineup}
 \end{figure*} 
@@ -476,11 +477,11 @@ The probability of separation by chance in purely noise data given a fixed sampl
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[P(sep$|n,2$) = 0.00]{\includegraphics[width=1.1in]{noise-2.pdf}}\quad
-\subfigure[P(sep$|n,8$) = 0.01]{\includegraphics[width=1.1in]{noise-8.pdf} }\quad
-\subfigure[P(sep$|n,15$) = 0.64]{\includegraphics[width=1.1in]{noise-15.pdf} }\quad
-\subfigure[P(sep$|n,22$) = 0.99]{\includegraphics[width=1.1in]{noise-22.pdf} }\quad
-\subfigure[P(sep$|n,28$) = 1.00]{\includegraphics[width=1.1in]{noise-28.pdf} }}
+\mbox{\subfigure[P(sep$|n,2$) = 0.00]{\includegraphics[width=1.1in]{noise-2-rev.pdf}}\quad
+\subfigure[P(sep$|n,8$) = 0.01]{\includegraphics[width=1.1in]{noise-8-rev.pdf} }\quad
+\subfigure[P(sep$|n,15$) = 0.64]{\includegraphics[width=1.1in]{noise-15-rev.pdf} }\quad
+\subfigure[P(sep$|n,22$) = 0.99]{\includegraphics[width=1.1in]{noise-22-rev.pdf} }\quad
+\subfigure[P(sep$|n,28$) = 1.00]{\includegraphics[width=1.1in]{noise-28-rev.pdf} }}
 \caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=8$, $p = 15$, $p=22$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data has no real separation.  } 
 \label{dist_1d}
 \end{figure}

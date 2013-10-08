@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage{amsmath,latexsym,amssymb}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{color}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7.1in}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{9in}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+
+
+
+\begin{document}
+%From: J¸rgen Symanzik <juergen.symanzik@usu.edu>
+%Subject: COST: Your manuscript entitled Visual Statistical Inference for High Dimension, Small Sample Size Data
+%Date: September 29, 2013 1:31:58 PM CDT
+%To: "Niladri Roy Chowdhury" <niladri.ia@gmail.com>
+%
+%CC: juergen.symanzik@usu.edu
+
+Dear Niladri:\\
+
+We have received the reports from our advisors on your manuscript, "Visual Statistical Inference for High Dimension, Small Sample Size Data", which you submitted to Computational Statistics.\\
+
+Based on the advice received, I feel that your manuscript could be reconsidered for publication should you be prepared to incorporate major revisions.  When preparing your revised manuscript, you are asked to carefully consider the reviewer comments which are attached, and submit a list of responses to the comments.  Your list of responses should be uploaded as a file in addition to your revised manuscript.\\
+
+TO VIEW REVIEWER ATTACHMENTS (from Reviewer \#3), please login to the journal site as "Author" and access "Submission Needing Revision" from the Author Main Menu.  On the next page display, navigate on the "Action Links" and select "View Reviewer Attachments" from the selection box. This will redirect you to the page that will allow you to "Download" and view the reviewer report attachments. Then, proceed with revising your manuscript.\\
+
+In order to submit your revised manuscript electronically, please access the following web site:\\
+
+    \url{ http://cost.edmgr.com/}\\
+
+Please click "Author Login" to submit your revision.\\
+
+We look forward to receiving your revised manuscript within the next 6 months.\\
+
+Thank you.\\
+
+Juergen Symanzik\\
+Co-editor\\
+Computational Statistics\\
+
+
+COMMENTS FOR THE AUTHOR:\\
+
+Reviewer \#1:\\
+
+Visual Inference is a very interesting topic. The authors have presented their ideas about how to use visual inference for HDLSS data in a clear way, and the results they had are indeed interesting. My main comments about this paper are as follows:\\
+
+1. In the abstract, the authors refer to "large dimension small sample size" data, and then use the acronym HDLSS, which would stand for "High Dimensional Low Sample Size". You probably need to stick to one of them.\\
+
+{\color{blue} This is changed in the abstract. ``large dimension small sample size" is changed to ``high dimension low sample size". }\\
+
+2. Almost all of the graphs in this paper are not color blind friendly. I would suggest to use color combinations other than red and green (I  believe it is blue, but on print it looks green). You can refer to http://colorbrewer2.org/ for the choice of good graphics colors.  This issue might have affected the experiment results!\\
+
+{\color{blue} Most of the plots are changed. Some plots still needs to be changed. }\\
+
+3. In the caption of Figure 2, the author refers to "m=20". What is m? I did not see any reference for that in the text. And Is there any reason for choosing 20? Please clarify if so. \\
+
+{\color{blue} The clarification is added to the paper.}\\
+
+4. Table 2 is not explained in a very clear way in the text or the caption. \\
+
+{\color{blue} Table 2 is explained in details in the text of the paper. }\\
+
+5. In the section 4.4 (data collection), the authors mentioned that their subjects were recruited through Amazon Mechanical Turk. Could you please elaborate in one or two sentences what is AMT?\\
+
+{\color{blue} }
+
+6. In Figure 7, I suppose that there should be three dots for each dimension. Some of the dimensions (e.g. p = 20 and Projection = 1D), has two dots. Does this mean that there are some dots on top of each other? Please elaborate.
+
+7. It would interesting to compare between different groups of subjects based on gender and age.
+
+8.  What software did you use for producing these graphics?
+
+
+Reviewer \#2 - no review returned
+
+Reviewer \#3 
+
+My overall impression of this paper, and particularly the research area of visual inference, is very positive.The authors are applying empirical methods to assess not so much the quality of visual infer- ence but rather the quality of a particular visual inference (jittered dotplots/scatterplots of PDA projections) for HDLSS data. It seems to me that the present title is therefore overstating the contribution of the results.\\
+A real difficulty with an empirical study on visual inference methods is that in the end, we come away with results that simply confirm our prior assessments. In the present case, that it becomes more difficult to correctly detect fixed differences (which do not grow with dimensionality p) and that this is worse when the dimensionality of the separation is greater (d = 2 rather than d = 1). I’m pretty certain that the authors had this view before undertaking the study.\\
+The real punch of the paper is stated in lines 20-21 of page 2 of the manuscript: “There is no conventional inferential methods (sic) which enables us to conclude . . . statistically significant or not.”I suggest that the paper early on state this as the principal contribution. The intent of the paper would then be twofold:\\
+1. Visual inference methods may be used where conventional methods are unavailable. The case in point is any test applied to the separation of groups that does not take into account that the dimensions used were themselves determined empirically. In this sense, a conventional test is conditional on the derived dimensions and so interpreting its significance level as unconditional is inappropriate.\\
+The visual test can incorporate the whole process. (Although a more proper comparison might be with a bootstrap distribution of the formal test’s significance level, one which in- corporated the whole of the process including the PDA.) The discussion of HDLSS is not as central as the present manuscript would suggest.\\
+2. The visual tests are consistent in behaviour with what we might expect vis-a`-vis the effects of increased dimension on the ability to detect separation as well as the time taken to do so.Of these, the first is by far the more important. \\
+Following a clear statement of this intent, the Mechanical Turk experiments could be intro-duced to demonstrate the first point (i.e. many of the detailed results need not be discussed at this point). Then the scientific problem of the wasp types could be introduced and discussed as a con- crete application. Again, to me this is the punch of the paper and deserves this kind of emphasis.\\
+I would then delay the other interesting results of the Mechanical Turk experiments to a new section, one where the characteristics of the visual test are being investigated. These include:
+\begin{itemize}
+\item The visual test reflects our prior view of the effect of increasing dimensionality (fixed n), projection pursuit, etc. The results relating proportion correct, and time taken to select would appear here.\item Effects of visualization choices.
+\begin{itemize}\item rotation effect\item connection with WBratio\item effect of particular null plots
+\end{itemize}\item speculation for future research on this particular type of visual testing
+\end{itemize}As I see it, this is mainly a re-organization of the material in the paper. But is one that wouldmake the paper more effective . . . I think.Some detailed commentsThese are mostly questions for possible elaboration.
+\begin{itemize}\item Page 6, last paragraph of Section 4.1, “Hence the probability . . . ”. I would write this as it gets harder to detect real differences. Also, would it not be more meaningful to look at the individual absolute differences, or the average. And what are these differences? That is which means? (on each variable? on the PDA direction?)\item Last sentence of Section 4.3. Isn’t this biasing the sample towards selecting plots where the observed effect is minimal?\item Last sentence, page 10, “. . . but the opposite . . . ” What does this mean? Users pick out real data (significantly) when there is no separation better and better as the dimension increases? (Seems to be indicated by bottom row of plots in Fig. 7. But this makes no sense)\item Section 5.3, page 11. I’m not sure this is the best test of the rotation effect. Why not always colour the points the same in a clockwise order?\item Figure 8. These points should be jittered, rather than rely on alpha blending.\item Page 12, Section 5.4 “This suggests that as the number of dimension (sic) . . . when the datahas some real separation.”\\Could it not be that giving people however much time they like is confounded with their ability to pick the true plot? That is, as they have more time, they second guess themselves and so choose the wrong plot? I think psychologists much prefer short fixed time responses for this reason. Too late now, but I think it would be interesting to have also considered and experiment where the time viewing each plot was fixed (short) so that no response would be indicative of indecision.
+\item Page 13, end of topmost paragraph. “Investigating these lineups further may reveal why this is.” \\This should be done now. For example Fig 9(a), row 3 from top, dim = 100. What does the real data config look like compared to those with small WBratios? Either the WBratio is a poor measure, or there is something interesting about these configurations. Worth examining and presenting.\item Figure 11, page 15, and surrounding discussion. \\Isn’t part of the problem here that separation of groups visually is not well defined. For ex- ample, it might be the case that the human visual system favours symmetry in the separation. In Figure 11, this might correspond to a preference of the first plot in the top row. It would be interesting to know if there were some favoured configurations and what they actually looked like.
+\end{itemize}Some corrective commentsThere are numerous typographical/grammatical errors in the paper. For example (not an exhaustive list):
+\begin{itemize}\item poor English/style:
+\begin{itemize}\item second sentence of the abstract should read “We often seek low-dimensional projec-tions of high-dimensional data that reveal . . . ”\item in the abstract, line 20, authors should use exactly the phrase “high dimensional low sample size” instead of “large dimension small sample size” since this is where the acronym HDLSS is introduced\item line 2, page 2. You might use “variances” rather than “distances” between means so as to have the between group description parallel the within group (which uses within group variance)\item line 22, page 3. A simpler first sentence might be: “For example, suppose we have data on the concentration . . . ”\item line 37, page 3. Last sentence should read “A comparison of this visual test with the conventional test is shown in Table 1.”
+\end{itemize}\item punctuation: First sentence of Section 5.5 should have an apostrophe on “subjects” to indi- cate the possessive.\item mismatched verb tenses
+\begin{itemize}\item page 3, last two sentences of topmost paragraph. “analyzes”, “provides”. Technically,data is plural in the last sentence so “dataset” might be a better choice.\item page 12, title of Section 5.5. “affects”\end{itemize}
+\item latex suggestion
+\begin{itemize}\item page 4 X-bars. Try using “widebar” instead of “bar” to make the overline more promi- nent.
+\end{itemize}
+
+\end{itemize}
+
+
+AE:
+
+I fully endorse the major revision point made by reviewer \#3. While the content of the paper is clearly suitable and interesting for readers of COST, specifiying clearer where the actual contribution of the paper lies will make it much stronger. The detailed suggestions of reviewer \#3 should make the revision rather straightforward and will lead to a highly improved version.
+
+
+There is additional documentation related to this decision letter. To access the file(s), please click the link below. You may also login to the system and click the 'View Attachments' link in the Action column.
+
+\url{http://cost.edmgr.com/l.asp?i=18443&l=EZZYMJ61}
+
+\end{document}
