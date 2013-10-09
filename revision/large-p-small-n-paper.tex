@@ -58,6 +58,7 @@ grestore
 
 \usepackage{color}
 \usepackage{subfigure}
+\usepackage{mathabx}
 %\usepackage[dvips]{graphics}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{dfn}{Definition}[section]
@@ -114,7 +115,7 @@ Amy L. Toth}
 \maketitle
 
 \begin{abstract}
-Statistical graphics play an important role in exploratory data analysis, model checking and diagnosis. In high dimensional data we often seek low-dimensional projections which reveal important aspects of the data. Projection pursuit for classification finds projections that reveal differences between groups. In many contemporary data sets the number of observations is relatively small compared to the number of variables, which is known as a high dimension low sample size (HDLSS) problem. This paper explores the performance of dimension reduction methods for finding good low-dimensional pictures of HDLSS, using new visual inference methods. These methods may be helpful to broaden the understanding of issues related to HDLSS data in the data analysis community. Methods are illustrated using data from a published paper, which erroneously found real separation, and using a simulation study done with Amazon's Mechanical Turk.
+Statistical graphics play an important role in exploratory data analysis, model checking and diagnosis. We often seek low-dimensional projections of high dimensional data that reveal important aspects of the data. Projection pursuit for classification finds projections that reveal differences between groups. In many contemporary data sets the number of observations is relatively small compared to the number of variables, which is known as a high dimension low sample size (HDLSS) problem. This paper explores the performance of dimension reduction methods for finding good low-dimensional pictures of HDLSS, using new visual inference methods. These methods may be helpful to broaden the understanding of issues related to HDLSS data in the data analysis community. Methods are illustrated using data from a published paper, which erroneously found real separation, and using a simulation study done with Amazon's Mechanical Turk.
 
 \keywords{statistical graphics \and lineup \and visualization \and projection pursuit}
 \end{abstract}
@@ -146,7 +147,7 @@ This paper describes visual statistical inference as applied to dimension reduct
 
 \cite{buja:2009} proposed two protocols, the Rorschach and the lineup protocols. While the Rorschach protocol helps to understand the extent of randomness, the lineup protocol is  used for testing significance of findings. This method is called visual statistical inference. \cite{majumder:2011} made a head-to-head comparison between visual statistical inference tests and classical tests which yielded comparable results. Unlike classical hypothesis testing, the test statistic in visual inference is not numeric, but a plot that is appropriately chosen to display a  distinctive pattern in case that the null hypothesis is not true. The lineup protocol of size $m$ embeds this observed data plot amongst the ($m$ - 1) null plots. Null plots are created  consistently with the null hypothesis. Human subjects are asked to identify the plot with the most distinct feature(s). If the human subjects choose the plot of the observed data, this is regarded as evidence against the null hypothesis and with enough support, the null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from  the other null plots. 
 
-A comparison of visual testing with conventional testing is shown in Table \ref{tbl:compare}. Both start with the same hypothesis but the test statistic in a conventional setting is the parameter estimate divided by its standard error. In visual inference the test statistic is a plot of the observed data. In this case, a dot plot is used since the variable of interest is continuous with two groups. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution, the distribution of the test statistic if the null hypothesis is true. If it is extreme, then the null hypothesis is rejected. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is selected as the most different, then the null hypothesis is rejected. 
+A comparison of this visual test with the conventional test is shown in Table \ref{tbl:compare}. Both start with the same hypothesis but the test statistic in a conventional setting is the parameter estimate divided by its standard error. In visual inference the test statistic is a plot of the observed data. In this case, a dot plot is used since the variable of interest is continuous with two groups. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution, the distribution of the test statistic if the null hypothesis is true. If it is extreme, then the null hypothesis is rejected. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is selected as the most different, then the null hypothesis is rejected. 
 
 \begin{table*}[hbtp]
 \centering 
@@ -172,7 +173,7 @@ A comparison of visual testing with conventional testing is shown in Table \ref{
 \end{table*}
 
 
-For example, suppose we have data that represents the concentration of a metal in $mg/kg$ for two sites A and B.
+For example, suppose we have data on the concentration of a metal in $mg/kg$ for two sites A and B.
 We want to test whether there exists a significant difference between the concentration levels in the two sites A and B. Let $\mu_1$ denote the mean concentration level in Site A and $\mu_2$ denote the mean concentration level in Site B. Thus the null and alternative hypothesis would be
 \[
 H_o: \mu_1 = \mu_2 \qquad \hbox{versus} \qquad H_a: \mu_1 \ne \mu_2
@@ -186,7 +187,7 @@ We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed
       \label{lineup}
 \end{figure}
 
-\cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
+\cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon's Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
 
  
 \section{Explanation of dimension reduction methods}  \label{sec:dimred}
@@ -209,23 +210,23 @@ I_{LDA} ({\blA}) = \left \{ \begin{array}{cc}
 where $\blA$ is an orthogonal projection onto a $k$-dimensional space and
 
 \begin{eqnarray}
- \blB&=&\sum_{i=1}^g n_i (\bar{\blX}_{i.} - \bar{\blX}_{..})(\bar{\blX}_{i.}
-  - \bar{\blX}_{..})^T
+ \blB&=&\sum_{i=1}^g n_i (\widebar{\blX}_{i.} - \widebar{\blX}_{..})(\widebar{\blX}_{i.}
+  - \widebar{\blX}_{..})^T
 :  \mbox{between-class sums of squares}, \nonumber\\
 \blW&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX_{ij} -
-\bar{\blX}_{i.})(\blX_{ij} - \bar{\blX}_{i.})^T :
+\widebar{\blX}_{i.})(\blX_{ij} - \widebar{\blX}_{i.})^T :
 \mbox{within-class sums of squares}.\nonumber
 \end{eqnarray}
 
 For HDLSS data, the penalized discriminant analysis (PDA) index \citep{lee:2009} is more robust. Let ${\blX}_{ij}^*$ be the standardized vector of ${\blX}_{ij}$. Then 
 
 \begin{eqnarray}
- \blB^s&=&\sum_{i=1}^g n_i (\bar{\blX}^*_{i.} - \bar{\blX}^*_{..})(\bar{\blX}^*_{i.}
-  - \bar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
+ \blB^s&=&\sum_{i=1}^g n_i (\widebar{\blX}^*_{i.} - \widebar{\blX}^*_{..})(\widebar{\blX}^*_{i.}
+  - \widebar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
 \blW^s&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX^*_{ij} -
-\bar{\blX}^*_{i.})(\blX^*_{ij} - \bar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
+\widebar{\blX}^*_{i.})(\blX^*_{ij} - \widebar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
 \end{eqnarray}
-where $\bar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\bar{\blX}^*_{..}$ is the
+where $\widebar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\widebar{\blX}^*_{..}$ is the
 total mean of the standardized data, which is 0. The PDA index is defined as
 
 \begin{eqnarray}
@@ -264,13 +265,13 @@ The goal is to determine how well real separation is distinguishable from random
 \end{center}
 \end{table} 
 
-Figure \ref{fig:dimen} shows the distribution of absolute difference of means for data with and without separation for different dimensions. The distributions of data with and without separation are shown in red and blue respectively. The area of the distribution of pure noise which is above the 5th percentile of the distribution of data with separation is shown in dark blue and it can be seen that the dark blue region increases with dimension ($p$). This indicates that as dimension increases, the distributions of data with or without separation gets closer. Hence the probability of obtaining separation among groups for purely noise data increases with higher dimensions. Fixing the area of the dark blue region and calculating the dimensions to obtain the required region provides the choice of levels of dimension used in the experiment. More details are provided in Section \ref{sec:theory}. 
+Figure \ref{fig:dimen} shows the distribution of absolute difference of means for data with and without separation for different dimensions. The distributions of data with and without separation are shown in brown and green respectively. The area of the distribution of pure noise which is above the 5th percentile of the distribution of data with separation is shown in dark blue and it can be seen that the dark blue region increases with dimension ($p$). This indicates that as dimension increases, the distributions of data with or without separation gets closer. Hence the probability of obtaining separation among groups for purely noise data increases with higher dimensions. Fixing the area of the dark blue region and calculating the dimensions to obtain the required region provides the choice of levels of dimension used in the experiment. More details are provided in Section \ref{sec:theory}. 
 
 \begin{figure}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.70}{\includegraphics{sum-noise-real-2.pdf}}
-       \caption{Plot showing the distribution of the sum of absolute difference of means for data with and without separation for different dimensions. The distributions of data with real separation (V) and purely noise data (U) are shown in red and blue respectively with the dark blue line showing the 5th percentile of V. The dark blue area shows the area of U which is greater than the 5th percentile of V. The dark blue region ($\delta$) increases as dimension ($p$) increases. }
+       \scalebox{0.70}{\includegraphics{sum-noise-real-2-rev.pdf}}
+       \caption{Plot showing the distribution of the sum of absolute difference of means for data with and without separation for different dimensions. The distributions of data with real separation (V) and purely noise data (U) are shown in brown and green respectively with the dark blue line showing the 5th percentile of V. The dark blue area shows the area of U which is greater than the 5th percentile of V. The dark blue region ($\delta$) increases as dimension ($p$) increases. }
      \label{fig:dimen}
 %\end{figurehere}
 \end{figure}
@@ -340,7 +341,7 @@ A statistic measuring the ratio of the average distance within clusters to the a
 
 \subsection{Data collection}
 
-Subjects  for the experiment were recruited through Amazon Mechanical Turk  \citep{turk}. Each subject was shown a sequence of 10 lineups. Subjects also had the freedom to process more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects, from different locations across the globe.
+Subjects  for the experiment were recruited through Amazon's Mechanical Turk  \citep{turk}. Amazon's Mechanical Turk is a medium that enables researchers to use human intervention to do tasks which the computers are unable to perform currently. In exchange of their efforts, the subjects were paid, not substantially, but on the scale of the minimum wage of the USA.  Each subject was shown a sequence of 10 lineups. Subjects also had the freedom to process more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects, from different locations across the globe.
 
 
 \section{Results} \label{sec:results}
@@ -351,7 +352,7 @@ Amazon Mechanical Turk subjects are paid for their responses. Since the process 
 
 \subsection{Effect of experimental factors} \label{effects}
 
-We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. Figure \ref{suc-rate-glm} examines this. The proportion correct is plotted against the different levels of dimension faceted by the levels of separation and projection. The 3 different dots for each level shows the 3 lineup replicates for each level combination of the factors. The line represents the fitted fixed effects from a logistic regression model. The success rate is higher for low dimension, and decreases as dimension increases, for real separation for both 1D and 2D projections. For noise data, the success rate is flat across dimension. There also appears to be increasing variance as dimension increases.
+We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. Figure \ref{suc-rate-glm} examines this. The proportion correct is plotted against the different levels of dimension faceted by the levels of separation and projection. The 3 different dots for each level shows the 3 lineup replicates for each level combination of the factors. In a few cases, the dots overlap as the proportion correct is same for the replicates. For example, when projection = 1D, dimension = 100 and separation = No, the proportion correct is 0 for all the replicates and hence a single dot is shown. The line represents the fitted fixed effects from a logistic regression model. The success rate is higher for low dimension, and decreases as dimension increases, for real separation for both 1D and 2D projections. For noise data, the success rate is flat across dimension. There also appears to be increasing variance as dimension increases.
 
 \begin{figure}[ht]
 %\begin{figurehere}
@@ -383,6 +384,8 @@ Intercept  & 2.381 & 0.278  & 0.000 \\
 \label{params}
 \end{center}
 \end{table}
+
+The effect of demographic variables on the proportion correct was also studied. The effects of education, age and gender were insignificant. 
 
 %\subsection{Does rotation in the 2D projections affect the responses?}
 
