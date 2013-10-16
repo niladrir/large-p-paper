@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.2.29)  2 OCT 2013 11:13
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.2.29)  16 OCT 2013 13:23
 entering extended mode
 \write18 enabled.
  %&-line parsing enabled.
@@ -405,23 +405,23 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 (./large-p-small-n-paper.aux)
 \openout1 = `large-p-small-n-paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 88.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 89.
 
 (/usr/local/texlive/2007/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -440,7 +440,7 @@ Unknown journal: specify \journalname{<name of your journal>} in preambel
 \MPnumerator=\count153
 \everyMPtoPDFconversion=\toks28
 )
-Package hyperref Info: Link coloring OFF on input line 88.
+Package hyperref Info: Link coloring OFF on input line 89.
  (/usr/local/texlive/2007/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
 
@@ -449,8 +449,8 @@ Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
 )
 \c@section@level=\count154
 )
-LaTeX Info: Redefining \ref on input line 88.
-LaTeX Info: Redefining \pageref on input line 88.
+LaTeX Info: Redefining \ref on input line 89.
+LaTeX Info: Redefining \pageref on input line 89.
 
 (./large-p-small-n-paper.out) (./large-p-small-n-paper.out)
 \@outlinefile=\write3
@@ -459,39 +459,111 @@ LaTeX Info: Redefining \pageref on input line 88.
 
 SVJour3 warning: Missing \journalname
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 115.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 116.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <13> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 115.
-LaTeX Font Info:    Try loading font information for U+msa on input line 115.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 116.
+LaTeX Font Info:    Try loading font information for U+msa on input line 116.
 (/usr/local/texlive/2007/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 115.
+LaTeX Font Info:    Try loading font information for U+msb on input line 116.
 
 (/usr/local/texlive/2007/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
-) [1{/usr/local/texlive/2007/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<toth_lda.pdf, id=78, 433.62pt x 433.62pt>
+)
+
+Package natbib Warning: Citation `hall:2005' on page 1 undefined on input line 
+125.
+
+
+Package natbib Warning: Citation `marron:2007' on page 1 undefined on input lin
+e 125.
+
+[1{/usr/local/texlive/2007/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+Package natbib Warning: Citation `marron:2007' on page 2 undefined on input lin
+e 130.
+
+
+Package natbib Warning: Citation `marron:2011' on page 2 undefined on input lin
+e 131.
+
+
+Package natbib Warning: Citation `yata:2010' on page 2 undefined on input line 
+131.
+
+
+Package natbib Warning: Citation `donoho:2009' on page 2 undefined on input lin
+e 131.
+
+
+Package natbib Warning: Citation `donoho:2008' on page 2 undefined on input lin
+e 131.
+
+
+Package natbib Warning: Citation `witten:2011' on page 2 undefined on input lin
+e 131.
+
+
+Package natbib Warning: Citation `lee:2009' on page 2 undefined on input line 1
+31.
+
+
+Package natbib Warning: Citation `toth:2010' on page 2 undefined on input line 
+133.
+
+
+Package natbib Warning: Citation `dudoit:2002' on page 2 undefined on input lin
+e 133.
+
+
+Package natbib Warning: Citation `buja:2009' on page 2 undefined on input line 
+135.
+
+
+Package natbib Warning: Citation `majumder:2011' on page 2 undefined on input l
+ine 135.
+
+<toth_lda.pdf, id=41, 433.62pt x 433.62pt>
 File: toth_lda.pdf Graphic file (type pdf)
  <use toth_lda.pdf>
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 139.
- [2 <./toth_lda.pdf>] <lineup-dot.pdf, id=118, 445.665pt x 373.395pt>
-File: lineup-dot.pdf Graphic file (type pdf)
- <use lineup-dot.pdf>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 140.
+
+
+Package natbib Warning: Citation `toth:2010' on page 2 undefined on input line 
+140.
+
+
+Package natbib Warning: Citation `toth:2010' on page 2 undefined on input line 
+140.
+
+
+Package natbib Warning: Citation `turk' on page 2 undefined on input line 144.
+
+[2 <./toth_lda.pdf>]
+
+Package natbib Warning: Citation `buja:2009' on page 3 undefined on input line 
+148.
+
+
+Package natbib Warning: Citation `majumder:2011' on page 3 undefined on input l
+ine 148.
+
+
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./down_arrow.pdf): PDF inclusion: fo
 und PDF version <1.6>, but at most version <1.4> allowed
-<down_arrow.pdf, id=123, 170.86836pt x 72.27pt>
+<down_arrow.pdf, id=58, 170.86836pt x 72.27pt>
 File: down_arrow.pdf Graphic file (type pdf)
  <use down_arrow.pdf>
 File: down_arrow.pdf Graphic file (type pdf)
 
-<use down_arrow.pdf> <data-dot.pdf, id=124, 269.94553pt x 184.37381pt>
-File: data-dot.pdf Graphic file (type pdf)
+<use down_arrow.pdf> <data-dot-rev.pdf, id=59, 289.08pt x 216.81pt>
+File: data-dot-rev.pdf Graphic file (type pdf)
 
-<use data-dot.pdf>
-Overfull \hbox (66.0296pt too wide) in paragraph at lines 178--178
+<use data-dot-rev.pdf>
+Overfull \hbox (72.72676pt too wide) in paragraph at lines 164--164
  [] 
  []
 
@@ -499,116 +571,226 @@ File: down_arrow.pdf Graphic file (type pdf)
 <use down_arrow.pdf>
 File: down_arrow.pdf Graphic file (type pdf)
  <use down_arrow.pdf>
-<two-sided-rejection.pdf, id=125, 177.16919pt x 133.15889pt>
+<two-sided-rejection.pdf, id=60, 177.16919pt x 133.15889pt>
 File: two-sided-rejection.pdf Graphic file (type pdf)
 
 <use two-sided-rejection.pdf>
-Overfull \hbox (45.90524pt too wide) in paragraph at lines 182--182
+Overfull \hbox (45.90524pt too wide) in paragraph at lines 168--168
  [] 
  []
 
-File: lineup-dot.pdf Graphic file (type pdf)
-<use lineup-dot.pdf>
-Overfull \hbox (86.56041pt too wide) in paragraph at lines 182--182
+<lineup-dot-rev.pdf, id=61, 445.665pt x 373.395pt>
+File: lineup-dot-rev.pdf Graphic file (type pdf)
+ <use lineup-dot-rev.pdf>
+Overfull \hbox (86.56041pt too wide) in paragraph at lines 168--168
  [] 
  []
 
 File: down_arrow.pdf Graphic file (type pdf)
 <use down_arrow.pdf>
 File: down_arrow.pdf Graphic file (type pdf)
- <use down_arrow.pdf> [3]
-Underfull \vbox (badness 2418) has occurred while \output is active []
+ <use down_arrow.pdf>
 
- [4 <./lineup-dot.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 239.
+Package natbib Warning: Citation `majumder:2011' on page 3 undefined on input l
+ine 182.
+
+File: lineup-dot-rev.pdf Graphic file (type pdf)
+<use lineup-dot-rev.pdf>
+
+Package natbib Warning: Citation `majumder:2011' on page 3 undefined on input l
+ine 191.
+
+
+Package natbib Warning: Citation `turk' on page 3 undefined on input line 191.
+
+
+Package natbib Warning: Citation `friedman:1974' on page 3 undefined on input l
+ine 196.
+
+
+Package natbib Warning: Citation `huber:1985' on page 3 undefined on input line
+ 196.
+
+[3]
+
+Package natbib Warning: Citation `lee:2009' on page 4 undefined on input line 1
+98.
+
+
+Package natbib Warning: Citation `lee:2009' on page 4 undefined on input line 2
+22.
+
+[4 <./down_arrow.pdf> <./data-dot-rev.pdf> <./two-sided-rejection.pdf> <./lineu
+p-dot-rev.pdf>]pdfTeX warning (ext4): destination with the same identifier (nam
+e{equation.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.224 \begin{eqnarray}
+                      pdfTeX warning (ext4): destination with the same identifi
+er (name{equation.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \begin{eqnarray}
+                      
+
+Package natbib Warning: Citation `witten:2011' on page 5 undefined on input lin
+e 240.
+
+[5]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 242.
 
  (/usr/local/texlive/2007/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 
-Package natbib Warning: Citation `tourr:2011' on page 5 undefined on input line
- 239.
+Package natbib Warning: Citation `tourr:2011' on page 6 undefined on input line
+ 242.
 
-[5pdfTeX warning (ext4): destination with the same identifier (name{equation.2}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \endgroup \set@typeset@protect 
-l.240 
-      pdfTeX warning (ext4): destination with the same identifier (name{equatio
-n.2}) has been already used, duplicate ignored
-<to be read again> 
-                   \endgroup \set@typeset@protect 
-l.240 
-       <./down_arrow.pdf> <./data-dot.pdf> <./two-sided-rejection.pdf>]
-<sum-noise-real-2.pdf, id=368, 505.89pt x 505.89pt>
-File: sum-noise-real-2.pdf Graphic file (type pdf)
- <use sum-noise-real-2.pdf>
-[6] [7 <./sum-noise-real-2.pdf>]
-<test_statistic_1.pdf, id=398, 301.125pt x 228.855pt>
-File: test_statistic_1.pdf Graphic file (type pdf)
 
-<use test_statistic_1.pdf>
-<test_statistic_2.pdf, id=399, 301.125pt x 228.855pt>
-File: test_statistic_2.pdf Graphic file (type pdf)
+Package natbib Warning: Citation `r' on page 6 undefined on input line 242.
 
-<use test_statistic_2.pdf>
-<lineup-20-real-1-17.pdf, id=406, 445.665pt x 373.395pt>
-File: lineup-20-real-1-17.pdf Graphic file (type pdf)
 
-<use lineup-20-real-1-17.pdf>
-<lineup-100-noise-2-20.pdf, id=407, 445.665pt x 373.395pt>
-File: lineup-100-noise-2-20.pdf Graphic file (type pdf)
+Package natbib Warning: Citation `toth:2010' on page 6 undefined on input line 
+252.
 
-<use lineup-100-noise-2-20.pdf> [8 <./test_statistic_1.pdf> <./test_statistic_2
-.pdf>] [9 <./lineup-20-real-1-17.pdf>]
-<suc-rate-rep-int-glm.pdf, id=452, 505.89pt x 505.89pt>
-File: suc-rate-rep-int-glm.pdf Graphic file (type pdf)
+<lineup-wasp-8-rev.pdf, id=231, 445.665pt x 373.395pt>
+File: lineup-wasp-8-rev.pdf Graphic file (type pdf)
 
-<use suc-rate-rep-int-glm.pdf>
+<use lineup-wasp-8-rev.pdf>
+
+Package natbib Warning: Citation `majumder:2011' on page 6 undefined on input l
+ine 262.
+
+
+Package natbib Warning: Citation `ripley:1996' on page 6 undefined on input lin
+e 286.
+
+<noise-2-rev.pdf, id=234, 228.855pt x 228.855pt>
+File: noise-2-rev.pdf Graphic file (type pdf)
+ <use noise-2-rev.pdf>
+<noise-8-rev.pdf, id=235, 228.855pt x 228.855pt>
+File: noise-8-rev.pdf Graphic file (type pdf)
+ <use noise-8-rev.pdf>
+<noise-15-rev.pdf, id=236, 228.855pt x 228.855pt>
+File: noise-15-rev.pdf Graphic file (type pdf)
+ <use noise-15-rev.pdf>
+<noise-22-rev.pdf, id=237, 228.855pt x 228.855pt>
+File: noise-22-rev.pdf Graphic file (type pdf)
+ <use noise-22-rev.pdf>
+<noise-28-rev.pdf, id=238, 228.855pt x 228.855pt>
+File: noise-28-rev.pdf Graphic file (type pdf)
+ <use noise-28-rev.pdf>
+
+Package natbib Warning: Citation `toth:2010' on page 6 undefined on input line 
+299.
+
+
+Package natbib Warning: Citation `lee:2009' on page 6 undefined on input line 2
+99.
+
+
+Package natbib Warning: Citation `toth:2010' on page 6 undefined on input line 
+299.
+
+
+Package natbib Warning: Citation `toth:2007' on page 6 undefined on input line 
+299.
+
+[6] [7 <./lineup-wasp-8-rev.pdf> <./noise-2-rev.pdf> <./noise-8-rev.pdf> <./noi
+se-15-rev.pdf> <./noise-22-rev.pdf> <./noise-28-rev.pdf>]
+
+LaTeX Warning: Reference `sec:theory' on page 8 undefined on input line 326.
+
+<sum-noise-real-2-rev.pdf, id=296, 505.89pt x 505.89pt>
+File: sum-noise-real-2-rev.pdf Graphic file (type pdf)
+
+<use sum-noise-real-2-rev.pdf> [8] [9 <./sum-noise-real-2-rev.pdf>]
+<test_statistic_1-rev.pdf, id=321, 301.125pt x 228.855pt>
+File: test_statistic_1-rev.pdf Graphic file (type pdf)
+
+<use test_statistic_1-rev.pdf>
+<test_statistic_2-rev.pdf, id=322, 301.125pt x 228.855pt>
+File: test_statistic_2-rev.pdf Graphic file (type pdf)
+
+<use test_statistic_2-rev.pdf>
+
+Package natbib Warning: Citation `hennig:2010' on page 10 undefined on input li
+ne 379.
+
+
+Package natbib Warning: Citation `JW02' on page 10 undefined on input line 379.
+
+
+<lineup-20-real-1-17-rev.pdf, id=325, 445.665pt x 373.395pt>
+File: lineup-20-real-1-17-rev.pdf Graphic file (type pdf)
+
+<use lineup-20-real-1-17-rev.pdf>
+<lineup-100-noise-2-20-rev.pdf, id=326, 445.665pt x 373.395pt>
+File: lineup-100-noise-2-20-rev.pdf Graphic file (type pdf)
+
+<use lineup-100-noise-2-20-rev.pdf>
+
+Package natbib Warning: Citation `turk' on page 10 undefined on input line 402.
+
+
+[10 <./test_statistic_1-rev.pdf> <./test_statistic_2-rev.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10 <./lineup-100-noise-2-20.pdf>]
-<time-taken-log-dot.pdf, id=467, 469.755pt x 505.89pt>
-File: time-taken-log-dot.pdf Graphic file (type pdf)
+ [11 <./lineup-20-real-1-17-rev.pdf>]
 
-<use time-taken-log-dot.pdf>
-Underfull \vbox (badness 5652) has occurred while \output is active []
+LaTeX Warning: Reference `suc-rate-glm' on page 12 undefined on input line 413.
 
- [11 <./suc-rate-rep-int-glm.pdf>] <wbratio-1.pdf, id=484, 361.35pt x 433.62pt>
+
+[12 <./lineup-100-noise-2-20-rev.pdf>]
+<suc-rate-rep-int-glm-rev.pdf, id=376, 505.89pt x 505.89pt>
+File: suc-rate-rep-int-glm-rev.pdf Graphic file (type pdf)
+
+<use suc-rate-rep-int-glm-rev.pdf>
+
+LaTeX Warning: Reference `params' on page 13 undefined on input line 424.
+
+
+LaTeX Warning: Reference `time-taken' on page 13 undefined on input line 456.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13 <./suc-rate-rep-int-glm-rev.pdf>]
+<time-taken-log-dot-rev.pdf, id=392, 469.755pt x 505.89pt>
+File: time-taken-log-dot-rev.pdf Graphic file (type pdf)
+
+<use time-taken-log-dot-rev.pdf>
+
+LaTeX Warning: Reference `wbratio' on page 14 undefined on input line 473.
+
+<wbratio-1.pdf, id=393, 361.35pt x 433.62pt>
 File: wbratio-1.pdf Graphic file (type pdf)
-
-<use wbratio-1.pdf> <wbratio-2.pdf, id=485, 361.35pt x 433.62pt>
+ <use wbratio-1.pdf>
+<wbratio-2.pdf, id=394, 361.35pt x 433.62pt>
 File: wbratio-2.pdf Graphic file (type pdf)
+ <use wbratio-2.pdf>
 
-<use wbratio-2.pdf> [12 <./time-taken-log-dot.pdf>]
-<suc-ratio-wbratio.pdf, id=504, 332.24126pt x 289.08pt>
+LaTeX Warning: Reference `null' on page 14 undefined on input line 485.
+
+
+Package natbib Warning: Citation `roychowdhury:2012' on page 14 undefined on in
+put line 485.
+
+<suc-ratio-wbratio.pdf, id=395, 332.24126pt x 289.08pt>
 File: suc-ratio-wbratio.pdf Graphic file (type pdf)
 
-<use suc-ratio-wbratio.pdf> <mtime-ratio.pdf, id=505, 332.24126pt x 289.08pt>
+<use suc-ratio-wbratio.pdf> <mtime-ratio.pdf, id=396, 332.24126pt x 289.08pt>
 File: mtime-ratio.pdf Graphic file (type pdf)
 
-<use mtime-ratio.pdf> [13 <./wbratio-1.pdf> <./wbratio-2.pdf>]
-<lineup-wasp-8.pdf, id=532, 445.665pt x 373.395pt>
-File: lineup-wasp-8.pdf Graphic file (type pdf)
- <use lineup-wasp-8.pdf>
-<noise-2.pdf, id=539, 228.855pt x 228.855pt>
-File: noise-2.pdf Graphic file (type pdf)
- <use noise-2.pdf>
-<noise-8.pdf, id=540, 228.855pt x 228.855pt>
-File: noise-8.pdf Graphic file (type pdf)
- <use noise-8.pdf>
-<noise-15.pdf, id=541, 228.855pt x 228.855pt>
-File: noise-15.pdf Graphic file (type pdf)
- <use noise-15.pdf>
-<noise-22.pdf, id=542, 228.855pt x 228.855pt>
-File: noise-22.pdf Graphic file (type pdf)
- <use noise-22.pdf>
-<noise-28.pdf, id=543, 228.855pt x 228.855pt>
-File: noise-28.pdf Graphic file (type pdf)
- <use noise-28.pdf> [14 <./suc-ratio-wbratio.pdf> <./mtime-ratio.pdf>] [15 <./l
-ineup-wasp-8.pdf> <./noise-2.pdf> <./noise-8.pdf> <./noise-15.pdf> <./noise-22.
-pdf> <./noise-28.pdf>]
-(./large-p-small-n-paper.bbl [16]
+<use mtime-ratio.pdf> [14]
+
+Package natbib Warning: Citation `hadley:2009' on page 15 undefined on input li
+ne 503.
+
+(./large-p-small-n-paper.bbl [15 <./time-taken-log-dot-rev.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16 <./wbratio-1.pdf> <./wbratio-2.pdf>]
 Underfull \hbox (badness 4621) in paragraph at lines 64--68
 []\OT1/ptm/m/n/10 Lee EK, Cook D (2009) A Pro-jec-tion Pur-suit In-dex for Larg
 e $\OML/cmm/m/it/10 p$ \OT1/ptm/m/n/10 Small $\OML/cmm/m/it/10 n$ \OT1/ptm/m/n/
@@ -627,50 +809,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 108--110
  : Im-ple-ments Tour Meth-ods in Pure R Code.
  []
 
-) [17] [18]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17 <./suc-ratio-wbratio.pdf> <./mtime-ratio.pdf>]) [18]
+
+LaTeX Warning: Reference `tab:dimen' on page 19 undefined on input line 567.
+
 
 Package natbib Warning: There were undefined citations.
 
-[19] (./large-p-small-n-paper.aux)
+[19] (./large-p-small-n-paper.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 6750 strings out of 94073
- 93568 string characters out of 1162984
- 184865 words of memory out of 1500000
- 9812 multiletter control sequences out of 10000+50000
+ 6747 strings out of 94073
+ 93831 string characters out of 1162984
+ 183680 words of memory out of 1500000
+ 9810 multiletter control sequences out of 10000+50000
  20896 words of font info for 58 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 27i,15n,38p,1519b,430s stack positions out of 5000i,500n,6000p,200000b,5000s
-pdfTeX warning (dest): name{section.8} has been referenced but does not exist
-, replaced by a fixed one
-
-{/usr/local/texlive/2007/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2007/texmf-dist/fonts/type1/bluesky/cm/cmbsy10.pfb></usr/local/texlive/200
-7/texmf-dist/fonts/type1/bluesky/cm/cmbx10.pfb></usr/local/texlive/2007/texmf-d
-ist/fonts/type1/bluesky/cm/cmbx7.pfb></usr/local/texlive/2007/texmf-dist/fonts/
-type1/bluesky/cm/cmex10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/blu
-esky/cm/cmmi10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/c
-mmi5.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi6.pfb><
-/usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi7.pfb></usr/local
-/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi8.pfb></usr/local/texlive/2
-007/texmf-dist/fonts/type1/bluesky/cm/cmr10.pfb></usr/local/texlive/2007/texmf-
-dist/fonts/type1/bluesky/cm/cmr5.pfb></usr/local/texlive/2007/texmf-dist/fonts/
-type1/bluesky/cm/cmr6.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/blues
-ky/cm/cmr7.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmr8.
-pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy10.pfb></usr
-/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy6.pfb></usr/local/tex
-live/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy7.pfb></usr/local/texlive/2007/
-texmf-dist/fonts/type1/bluesky/cm/cmsy8.pfb></usr/local/texlive/2007/texmf-dist
-/fonts/type1/public/cmex/fmex7.pfb></usr/local/texlive/2007/texmf-dist/fonts/ty
-pe1/urw/courier/ucrr8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/
-times/utmb8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/times/utmr
-8a.pfb>
-Output written on large-p-small-n-paper.pdf (19 pages, 616112 bytes).
+ 27i,15n,38p,1517b,440s stack positions out of 5000i,500n,6000p,200000b,5000s
+{/usr/local/texlive/2007/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmbsy10.pfb></usr/local/texlive/2
+007/texmf-dist/fonts/type1/bluesky/cm/cmbx10.pfb></usr/local/texlive/2007/texmf
+-dist/fonts/type1/bluesky/cm/cmbx7.pfb></usr/local/texlive/2007/texmf-dist/font
+s/type1/bluesky/cm/cmex10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/b
+luesky/cm/cmmi10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm
+/cmmi5.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi6.pfb
+></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi7.pfb></usr/loc
+al/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi8.pfb></usr/local/texlive
+/2007/texmf-dist/fonts/type1/bluesky/cm/cmr10.pfb></usr/local/texlive/2007/texm
+f-dist/fonts/type1/bluesky/cm/cmr5.pfb></usr/local/texlive/2007/texmf-dist/font
+s/type1/bluesky/cm/cmr6.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/blu
+esky/cm/cmr7.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmr
+8.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy10.pfb></u
+sr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy6.pfb></usr/local/t
+exlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmsy7.pfb></usr/local/texlive/200
+7/texmf-dist/fonts/type1/bluesky/cm/cmsy8.pfb></usr/local/texlive/2007/texmf-di
+st/fonts/type1/public/cmex/fmex7.pfb></usr/local/texlive/2007/texmf-dist/fonts/
+type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/ur
+w/times/utmb8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/times/ut
+mr8a.pfb>
+Output written on large-p-small-n-paper.pdf (19 pages, 547009 bytes).
 PDF statistics:
- 746 PDF objects out of 1000 (max. 8388607)
- 94 named destinations out of 1000 (max. 131072)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 596 PDF objects out of 1000 (max. 8388607)
+ 93 named destinations out of 1000 (max. 131072)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
