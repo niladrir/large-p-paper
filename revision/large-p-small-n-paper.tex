@@ -88,7 +88,7 @@ grestore
 
 \begin{document}
 
-\title{Visual Statistical Inference for High Dimension, Low Sample Size Data}\label{ch:largepsmalln}
+\title{Using Visual Statistical Inference to better understand High Dimension, Low Sample Size Data}\label{ch:largepsmalln}
 \vspace{-0.8cm}
 \author{Niladri Roy Chowdhury \and 
 Dianne Cook \and
@@ -141,7 +141,7 @@ We suspect that new methods for inference on graphics might be helpful for build
      \label{oligo}
 \end{figure*}  
 
-This paper describes visual statistical inference as applied to dimension reduction for HDLSS. In particular we focus on dimension reduction using projection pursuit, and the effect that having large dimension has on the robustness of the separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference methods. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data. Amazon's Mechanical Turk \citep{turk} was used to conduct the experiment. Section \ref{sec:results} discusses the collected data and results. The wasps data is revisited at the end of the paper. 
+This paper describes visual statistical inference as applied to dimension reduction for HDLSS. In particular we focus on dimension reduction using projection pursuit, and the effect that having high dimension has on the robustness of the separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference methods. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data. Amazon's Mechanical Turk \citep{turk} was used to conduct the experiment. Section \ref{sec:results} discusses the collected data and results. The wasps data is revisited at the end of the paper. 
 
 \section{Visual inference methods} \label{sec:inference}
 
@@ -151,7 +151,8 @@ A comparison of this visual test with the conventional test is shown in Table \r
 
 \begin{table*}[hbtp]
 \centering 
-\caption{Comparison of visual inference with traditional hypothesis testing.}
+\caption{Comparison of visual inference with traditional hypothesis testing. Starting with the same hypothesis, the test statistic in a conventional setting is a real number while in visual inference it is a plot of the observed data. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution. $H_o$ is rejected if it is extreme. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is idenitifiable, then the null hypothesis is rejected. 
+}
 \begin{tabular}{llll} 
 \hline
   & Mathematical Inference &  Visual Inference \\ 
@@ -238,10 +239,67 @@ I_{PDA}(\blA,\lambda) =
 where $\blA$ is an orthonormal projection onto a $k$-dimensional space
 and $\lambda \in [0,1)$ is a predetermined parameter. Penalized LDA \citep{witten:2011} is a similar approach.
 
-These indices are available for projection pursuit using the \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.    
+These indices are available for projection pursuit using the \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.  
+
+\section{Applications}
+
+We return now to the motivating example. Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
+
+\begin{quote}
+$H_o$: There is NO difference in the expression levels between the types of wasp.\\
+$H_a$: At least one of the types of wasps has different expression levels.
+\end{quote}
+A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ where the null plots are made by permuting the wasp type label, and re-doing the LDA. If there is real difference between the expression levels for the types of wasps then the observed data plot should be detected in the lineup. Figure \ref{toth_lineup} shows a lineup. 
+
+\begin{figure*}[hbtp]
+%\begin{figurehere}
+   \centering
+       \scalebox{1.00}{\includegraphics{lineup-wasp-8-rev.pdf}}
+       \caption{Lineup showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The observed data plot is placed randomly among the 19 null plots. Which plot shows the most separation between the 4 groups? The solution is provided in the Appendix.}
+       \label{toth_lineup}
+\end{figure*} 
+
+This is replicated three times, to provide three different lineups, where the null plots are changed but the observed data plot is the real wasps data. In addition, three more lineups are made that contained only null plots, with one plot chosen randomly to act as an observed data plot. These lineups were included in the Amazon Turk experiment.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data is 0! This is worse than that of purely noise data. You will notice that for one of the purely noise lineups, subjects were very often correctly picked the (random) observed data plot. This happened because the randomly generated observed data plot actually had more separation than any other plot in that lineup. This is the nature of randomness, but makes for interesting results here. The $p$-value is calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence upon which we reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+
+\begin{table}[ht]
+\begin{center}
+\caption{Results of the Turk study on the wasps data. Proportion correct for each lineup is shown, with the number of subjects, and $p$-value associated. The success rate is highest for one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that is randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps is 1.0, and for the pure noise, is 0.67 suggesting that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
+\vspace{0.15cm}
+\begin{tabular}{r|r|r|rr}
+\hline
+  \hline
+ Data & Replicate & Num Subjects & Prop Correct & $p$-value\\ 
+  \hline
+  & 1 & 25 & 0.0000 &  1.0000\\
+Wasps & 2 & 13 & 0.0000 &  1.0000\\ 
+ & 3 & 27 & 0.0000 &  1.0000\\
+ \hline
+ & 1 & 19 & 0.2632 &  0.0002\\
+Purely noise & 2 & 18 & 0.0000 &  1.0000 \\ 
+ & 3 & 14 & 0.0000 &  1.0000\\
+   \hline
+\end{tabular}
+\label{wasp}
+\end{center}
+\end{table}
+
+The probability of separation by chance in purely noise data given a fixed sample size and dimension,  was quantified by \cite{ripley:1996} (Proposition 3.1). Figure \ref{dist_1d} illustrates this probability with 1D projections having sample size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups, in 2D.
+
+\begin{figure}[htbp]
+\centering
+\mbox{\subfigure[P(sep$|n,2$) = 0.00]{\includegraphics[width=1.1in]{noise-2-rev.pdf}}\quad
+\subfigure[P(sep$|n,8$) = 0.01]{\includegraphics[width=1.1in]{noise-8-rev.pdf} }\quad
+\subfigure[P(sep$|n,15$) = 0.64]{\includegraphics[width=1.1in]{noise-15-rev.pdf} }\quad
+\subfigure[P(sep$|n,22$) = 0.99]{\includegraphics[width=1.1in]{noise-22-rev.pdf} }\quad
+\subfigure[P(sep$|n,28$) = 1.00]{\includegraphics[width=1.1in]{noise-28-rev.pdf} }}
+\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=8$, $p = 15$, $p=22$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data has no real separation.  } 
+\label{dist_1d}
+\end{figure}
+
+In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \cite{toth:2007} did not suffer from the HDLSS problem. We determined that there were robust separations between the groups based on those data (results not shown).
 
 
-\section{Experiment} \label{sec:experiment}
+\section{Simulation experiment} \label{sec:experiment}
 
 \subsection{Experimental design}
 
@@ -357,7 +415,7 @@ We would expect that subjects are correct more often when there is real separati
 \begin{figure}[ht]
 %\begin{figurehere}
    \centering
-       \scalebox{0.6}{\includegraphics{suc-rate-rep-int-glm.pdf}}
+       \scalebox{0.6}{\includegraphics{suc-rate-rep-int-glm-rev.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
       \caption{Proportion of correct response against dimension faceted by projection and separation. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the success rate decreases as dimension increases for data with real separation. When the data is purely noise data, the success rate is flat across dimensions. The success rate does not change with projection.  }
        \label{suc-rate-glm}
@@ -402,7 +460,7 @@ We would expect that the amount of time taken to respond will increase with the 
 \begin{figure*}[hbtp]
 %\begin{figurehere}
    \centering
-       \scalebox{0.6}{\includegraphics{time-taken-log-dot.pdf}}
+       \scalebox{0.6}{\includegraphics{time-taken-log-dot-rev.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
       \caption{Time taken in seconds to respond on log scale against dimension colored by separation and faceted by projection. A loess curve is fitted through the points for each separation and projection. Time taken to respond is higher when the data has no separation. Also as dimension increases, the time to answer increase when there is real separation. }
        \label{time-taken}
@@ -433,63 +491,6 @@ We have learned that subjects tend to pick the plot in the lineup that exhibits 
 \caption{(a) Proportion of correct response against the ratio of the minimum WBratio of the null plots and the WBratio of the observed data plot for each lineup. (b) Mean time taken to respond in seconds against the ratio.  The vertical line represents ratio equal to 1 when WBratio of the observed data plot is equal to the minimum WBratio of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower WBratio value than the observed data plot. As the ratio increases, the success rate increases and the mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. } 
 \label{null}
 \end{figure}
-
-\section{Wasps data, revisited. }
-
-We return now to the motivating example. Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
-
-\begin{quote}
-$H_o$: There is NO difference in the expression levels between the types of wasp.\\
-$H_a$: At least one of the types of wasps has different expression levels.
-\end{quote}
-A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ where the null plots are made by permuting the wasp type label, and re-doing the LDA. If there is real difference between the expression levels for the types of wasps then the observed data plot should be detected in the lineup. Figure \ref{toth_lineup} shows a lineup. 
-
-\begin{figure*}[hbtp]
-%\begin{figurehere}
-   \centering
-       \scalebox{1.00}{\includegraphics{lineup-wasp-8-rev.pdf}}
-       \caption{Lineup showing LD1 versus LD2 from an LDA on a randomly selected subset of 40 significantly different oligos. F, Foundress; G, gyne; Q, queen and W, worker. The observed data plot is placed randomly among the 19 null plots. Which plot shows the most separation between the 4 groups? The solution is provided in the Appendix.}
-       \label{toth_lineup}
-\end{figure*} 
-
-This is replicated three times, to provide three different lineups, where the null plots are changed but the observed data plot is the real wasps data. In addition, three more lineups are made that contained only null plots, with one plot chosen randomly to act as an observed data plot. These lineups were included in the Amazon Turk experiment.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. Success rate in detecting the plot of the wasp data is 0! This is worse than that of purely noise data. You will notice that for one of the purely noise lineups, subjects were very often correctly picked the (random) observed data plot. This happened because the randomly generated observed data plot actually had more separation than any other plot in that lineup. This is the nature of randomness, but makes for interesting results here. The $p$-value is calculated according to the procedure given by \cite{majumder:2011}. The large $p$-values indicate that there is no statistically significant evidence upon which we reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
-
-\begin{table}[ht]
-\begin{center}
-\caption{Results of the Turk study on the wasps data. Proportion correct for each lineup is shown, with the number of subjects, and $p$-value associated. The success rate is highest for one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that is randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps is 1.0, and for the pure noise, is 0.67 suggesting that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
-\vspace{0.15cm}
-\begin{tabular}{r|r|r|rr}
-\hline
-  \hline
- Data & Replicate & Num Subjects & Prop Correct & $p$-value\\ 
-  \hline
-  & 1 & 25 & 0.0000 &  1.0000\\
-Wasps & 2 & 13 & 0.0000 &  1.0000\\ 
- & 3 & 27 & 0.0000 &  1.0000\\
- \hline
- & 1 & 19 & 0.2632 &  0.0002\\
-Purely noise & 2 & 18 & 0.0000 &  1.0000 \\ 
- & 3 & 14 & 0.0000 &  1.0000\\
-   \hline
-\end{tabular}
-\label{wasp}
-\end{center}
-\end{table}
-
-The probability of separation by chance in purely noise data given a fixed sample size and dimension,  was quantified by \cite{ripley:1996} (Proposition 3.1). Figure \ref{dist_1d} illustrates this probability with 1D projections having sample size $n = 30$, for different $p$. When $p = 2$, $\hbox{P(separation}|n = 30, p = 2) = 0$ and it reaches 1 when $p = 25$. For data of the size of the wasps, $n = 50$, the probability of obtaining separation with 2 groups is 1 when $p = 38$, so it would be much less than this if we could calculate the probability for 4 groups, in 2D.
-
-\begin{figure}[htbp]
-\centering
-\mbox{\subfigure[P(sep$|n,2$) = 0.00]{\includegraphics[width=1.1in]{noise-2-rev.pdf}}\quad
-\subfigure[P(sep$|n,8$) = 0.01]{\includegraphics[width=1.1in]{noise-8-rev.pdf} }\quad
-\subfigure[P(sep$|n,15$) = 0.64]{\includegraphics[width=1.1in]{noise-15-rev.pdf} }\quad
-\subfigure[P(sep$|n,22$) = 0.99]{\includegraphics[width=1.1in]{noise-22-rev.pdf} }\quad
-\subfigure[P(sep$|n,28$) = 1.00]{\includegraphics[width=1.1in]{noise-28-rev.pdf} }}
-\caption{Plots showing one dimensional projections for 4 different values of dimension $p=2$, $p=8$, $p = 15$, $p=22$ and $p=28$ for a fixed sample size of $n = 30$. The 1D projections separate out as dimension increases although the data has no real separation.  } 
-\label{dist_1d}
-\end{figure}
-
-In the original paper \citep{toth:2010}, the dimensionality was reduced from much higher, by choosing the genes that showed the greatest separation. So the problem of high dimensionality is actually even worse for these data. In general, reducing the data dimensions so that the sample size is bigger than dimension is not, on its own, sufficient. It is important, even, with so few cases to do cross-validation, or break the sample into training and test sets before conducting analysis. LDA is known also to be a problem for HDLSS data, because it requires estimating more parameters than the available data allows. A better prospect for dimension reduction is the penalized discriminant analysis (PDA) index \citep{lee:2009}, which helps adjust for the over-estimation. Other results and the overall conclusions in \cite{toth:2010} are not affected by the inadequacy revealed by this visual inference analysis. A similar LDA performed on wasp gene expression data with a much higher sample size in \cite{toth:2007} did not suffer from the HDLSS problem. We determined that there were robust separations between the groups based on those data (results not shown).
 
 \section{Conclusions}
 
