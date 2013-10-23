@@ -191,7 +191,7 @@ We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed
 \cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon's Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
 
  
-\section{Explanation of dimension reduction methods}  \label{sec:dimred}
+\section{Dimension reduction}  \label{sec:dimred}
 
 In this work projection pursuit \citep[e.g.][]{friedman:1974}  is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection of high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
 
@@ -241,7 +241,11 @@ and $\lambda \in [0,1)$ is a predetermined parameter. Penalized LDA \citep{witte
 
 These indices are available for projection pursuit using the \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.  
 
-\section{Applications}
+\section{Amazon Turk Experiments}
+
+Amazon's Mechanical Turk \citep{turk} is a medium that enables researchers to use human intervention to do tasks which the computers are unable to perform currently. In exchange of their efforts, the subjects were paid, not substantially, but on the scale of the minimum wage of the USA. As the performance of the subjects cannot be monitored manually, some subjects may try to maximize their earnings for minimum effort which may affect the results. For example, a subject may randomly pick a plot without active examination of the plot in a lineup. To identify these subjects, some method is used to examine their honest effort. 
+
+\section{Application}
 
 We return to the motivating example. Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
 
