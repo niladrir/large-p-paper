@@ -58,7 +58,7 @@ grestore
 
 \usepackage{color}
 \usepackage{subfigure}
-\usepackage{mathabx}
+%\usepackage{mathabx}
 %\usepackage[dvips]{graphics}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{dfn}{Definition}[section]
@@ -211,23 +211,23 @@ I_{LDA} ({\blA}) = \left \{ \begin{array}{cc}
 where $\blA$ is an orthogonal projection onto a $k$-dimensional space and
 
 \begin{eqnarray}
- \blB&=&\sum_{i=1}^g n_i (\widebar{\blX}_{i.} - \widebar{\blX}_{..})(\widebar{\blX}_{i.}
-  - \widebar{\blX}_{..})^T
+ \blB&=&\sum_{i=1}^g n_i (\overline{\blX}_{i.} - \overline{\blX}_{..})(\overline{\blX}_{i.}
+  - \overline{\blX}_{..})^T
 :  \mbox{between-class sums of squares}, \nonumber\\
 \blW&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX_{ij} -
-\widebar{\blX}_{i.})(\blX_{ij} - \widebar{\blX}_{i.})^T :
+\overline{\blX}_{i.})(\blX_{ij} - \overline{\blX}_{i.})^T :
 \mbox{within-class sums of squares}.\nonumber
 \end{eqnarray}
 
 For HDLSS data, the penalized discriminant analysis (PDA) index \citep{lee:2009} is more robust. Let ${\blX}_{ij}^*$ be the standardized vector of ${\blX}_{ij}$. Then 
 
 \begin{eqnarray}
- \blB^s&=&\sum_{i=1}^g n_i (\widebar{\blX}^*_{i.} - \widebar{\blX}^*_{..})(\widebar{\blX}^*_{i.}
-  - \widebar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
+ \blB^s&=&\sum_{i=1}^g n_i (\overline{\blX}^*_{i.} - \overline{\blX}^*_{..})(\overline{\blX}^*_{i.}
+  - \overline{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
 \blW^s&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX^*_{ij} -
-\widebar{\blX}^*_{i.})(\blX^*_{ij} - \widebar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
+\overline{\blX}^*_{i.})(\blX^*_{ij} - \overline{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
 \end{eqnarray}
-where $\widebar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\widebar{\blX}^*_{..}$ is the
+where $\overline{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\overline{\blX}^*_{..}$ is the
 total mean of the standardized data, which is 0. The PDA index is defined as
 
 \begin{eqnarray}
