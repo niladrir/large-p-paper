@@ -58,7 +58,7 @@ grestore
 
 \usepackage{color}
 \usepackage{subfigure}
-\usepackage{mathabx}
+%\usepackage{mathabx}
 %\usepackage[dvips]{graphics}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{dfn}{Definition}[section]
@@ -163,7 +163,7 @@ A comparison of this visual test with the conventional test is shown in Table \r
 %  \vspace{0.5cm}	
  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} \\
 %\vspace{0.5cm}				  
- Test Statistic & $T(y)=\frac{\bar{y}_1 - \bar{y}_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$ & $V(y)=$ \begin{minipage}[h]{1cm} \begin{center} \scalebox{0.35}{\includegraphics{data-dot-rev.pdf}} \end{center} \end{minipage} \\
+ Test Statistic & $T(y)=\frac{\overline{y}_1 - \overline{y}_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$ & $V(y)=$ \begin{minipage}[h]{1cm} \begin{center} \scalebox{0.35}{\includegraphics{data-dot-rev.pdf}} \end{center} \end{minipage} \\
 				 
  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{down_arrow.pdf}} \end{center} \end{minipage} \\
 				 
@@ -197,8 +197,8 @@ We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed
 
 In this work projection pursuit \citep[e.g.][]{friedman:1974}  is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection of high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
 
-In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index \citep{lee:2009} in projection pursuit. Let $\bf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\bar{\blX}_{i.} = \frac{1}{n_i} \sum_{j=1}^{n_i} \blX_{ij}$
-be the $i$th class mean and $\bar{\blX}_{..} =
+In classification problems, linear discriminant analysis (LDA) can be used to find a low-dimensional space where the groups are most separated. This corresponds to using the LDA index \citep{lee:2009} in projection pursuit. Let $\bf{X_{ij}}$ be the $p$-dimensional vector of the $j$th observation in the $i$th class, $i = 1, \dots, g, j = 1, \dots, n_i$, $g$ is the number of classes, $n_i$ is the number of observations in class $i$, and $n = \sum_{i = 1}^g n_i$. Let $\overline{\blX}_{i.} = \frac{1}{n_i} \sum_{j=1}^{n_i} \blX_{ij}$
+be the $i$th class mean and $\overline{\blX}_{..} =
 \frac{1}{n}\sum_{i=1}^g \sum_{j=1}^{n_i} \blX_{ij}$ be the total
 mean. The LDA PP index is
 \begin{equation}
@@ -213,23 +213,23 @@ I_{LDA} ({\blA}) = \left \{ \begin{array}{cc}
 where $\blA$ is an orthogonal projection onto a $k$-dimensional space and
 
 \begin{eqnarray}
- \blB&=&\sum_{i=1}^g n_i (\widebar{\blX}_{i.} - \widebar{\blX}_{..})(\widebar{\blX}_{i.}
-  - \widebar{\blX}_{..})^T
+ \blB&=&\sum_{i=1}^g n_i (\overline{\blX}_{i.} - \overline{\blX}_{..})(\overline{\blX}_{i.}
+  - \overline{\blX}_{..})^T
 :  \mbox{between-class sums of squares}, \nonumber\\
 \blW&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX_{ij} -
-\widebar{\blX}_{i.})(\blX_{ij} - \widebar{\blX}_{i.})^T :
+\overline{\blX}_{i.})(\blX_{ij} - \overline{\blX}_{i.})^T :
 \mbox{within-class sums of squares}.\nonumber
 \end{eqnarray}
 
 For HDLSS data, the penalized discriminant analysis (PDA) index \citep{lee:2009} is more robust. Let ${\blX}_{ij}^*$ be the standardized vector of ${\blX}_{ij}$. Then 
 
 \begin{eqnarray}
- \blB^s&=&\sum_{i=1}^g n_i (\widebar{\blX}^*_{i.} - \widebar{\blX}^*_{..})(\widebar{\blX}^*_{i.}
-  - \widebar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
+ \blB^s&=&\sum_{i=1}^g n_i (\overline{\blX}^*_{i.} - \overline{\blX}^*_{..})(\overline{\blX}^*_{i.}
+  - \overline{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
 \blW^s&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX^*_{ij} -
-\widebar{\blX}^*_{i.})(\blX^*_{ij} - \widebar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
+\overline{\blX}^*_{i.})(\blX^*_{ij} - \overline{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
 \end{eqnarray}
-where $\widebar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\widebar{\blX}^*_{..}$ is the
+where $\overline{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\overline{\blX}^*_{..}$ is the
 total mean of the standardized data, which is 0. The PDA index is defined as
 
 \begin{eqnarray}
@@ -530,15 +530,15 @@ This work was funded by National Science Foundation grant DMS 1007697. All figur
 
 The experiment is set up with the 3 factors separation, dimension and projection dimension. To decide on the levels of dimension to use, we considered the distribution of the absolute difference of the sample group means, for data with two groups, no separation and projection dimension $d=1$. The same levels are used for data with 3 groups, $d=2$, and for data with separation. 
 
-Let ${\blX}_{ij}$ denote the $j$-th observation in the $i$-th group where $j = 1, \dots, n; i=1, ..., g$. The ${\blX}_{ij}$'s are random noise, generated by drawing samples from a standard normal distribution. For this experiment, $g = 2$  and $n = 15$. The difference between the group means is given by $\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.}$% and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. 
-and $$\bar{\mbox{X}}_{1.} - \bar{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let 
-$\mbox{U} = |\bar{\mbox{X}} _{1.} - \bar{\mbox{X}}_{2.}|$ 
+Let ${\blX}_{ij}$ denote the $j$-th observation in the $i$-th group where $j = 1, \dots, n; i=1, ..., g$. The ${\blX}_{ij}$'s are random noise, generated by drawing samples from a standard normal distribution. For this experiment, $g = 2$  and $n = 15$. The difference between the group means is given by $\overline{\mbox{X}}_{1.} - \overline{\mbox{X}}_{2.}$% and $$\overline{\mbox{X}}_{1.} - \overline{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 1/n_1 + 1/n_2)$$ i.e. 
+and $$\overline{\mbox{X}}_{1.} - \overline{\mbox{X}}_{2.} \sim \hbox{Normal}(0, 2/15)$$ Let 
+$\mbox{U} = |\overline{\mbox{X}} _{1.} - \overline{\mbox{X}}_{2.}|$ 
 where $\mbox{U} \sim \hbox{Half Normal}$ with scale parameter $ \sigma = \sqrt{2/15}$.
 The expectation and the variance of $\mbox{U}$ are 
 $E(\mbox{U} ) = \sigma \sqrt{2/\pi}$ and 
 $Var(\mbox{U}) = \sigma^2 (1 - 2/\pi)$, respectively.
 
-For $p$ dimensions, consider $p$ independent samples from the same distribution,  denoted as $${\blU}_m = |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}|, ~~~ m=1, ..., p$$ where ${\blX} _{mij}$ is the $j$-th observation in the $i$-th group for the $m$-th dimension. The difference between the two group means projected into one dimension, is the sum over $p$ dimensions of the absolute difference between the means: $$\mbox{U}  = \sum_{m=1}^p {\blU}_m = \sum_{m=1}^p |\bar{{\blX}}_{m1.} - \bar{{\blX}}_{m2.}| $$ and by independence it follows that
+For $p$ dimensions, consider $p$ independent samples from the same distribution,  denoted as $${\blU}_m = |\overline{{\blX}}_{m1.} - \overline{{\blX}}_{m2.}|, ~~~ m=1, ..., p$$ where ${\blX} _{mij}$ is the $j$-th observation in the $i$-th group for the $m$-th dimension. The difference between the two group means projected into one dimension, is the sum over $p$ dimensions of the absolute difference between the means: $$\mbox{U}  = \sum_{m=1}^p {\blU}_m = \sum_{m=1}^p |\overline{{\blX}}_{m1.} - \overline{{\blX}}_{m2.}| $$ and by independence it follows that
 
 $$\hbox{E}(\mbox{U}) = p \sigma \sqrt{2/\pi}, ~~~ 
 \hbox{Var}(\mbox{U}) = p \sigma^2 (1 - 2/\pi)$$
@@ -549,7 +549,7 @@ Now consider data where there is some separation (equal to $2c)$ between the pop
 
 $${\blZ}_{1j} \sim \hbox{Normal}(-c, 1) $$
 $${\blZ}_{2j} \sim \hbox{Normal}(c, 1) $$ 
-giving $\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.} \sim \hbox{Normal}(2c, 2/15)$. Then define $\mbox{Z}  = |\bar{\mbox{Z}}_{1.} - \bar{\mbox{Z}}_{2.}|$ where ${\mbox{Z}} \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  The expectation and the variance of $\mbox{Z}$ can be calculated to be:
+giving $\overline{\mbox{Z}}_{1.} - \overline{\mbox{Z}}_{2.} \sim \hbox{Normal}(2c, 2/15)$. Then define $\mbox{Z}  = |\overline{\mbox{Z}}_{1.} - \overline{\mbox{Z}}_{2.}|$ where ${\mbox{Z}} \sim \hbox{Folded Normal Distribution}$ with scale parameter $ \sigma = \sqrt{2/15}$.  The expectation and the variance of $\mbox{Z}$ can be calculated to be:
 
 $$\hbox{E}(\mbox{Z}) = \sigma \sqrt{2/\pi} \exp(- 2c^2/\sigma^2) + 2c[1 - \Phi(-2c/\sigma)]$$
 $$\hbox{Var}(\mbox{Z}) = 4c^2 + \sigma^2 - (E(\mbox{Z}))^2$$
