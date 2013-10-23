@@ -58,7 +58,7 @@ grestore
 
 \usepackage{color}
 \usepackage{subfigure}
-%\usepackage{mathabx}
+\usepackage{mathabx}
 %\usepackage[dvips]{graphics}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{dfn}{Definition}[section]
@@ -143,7 +143,7 @@ We suspect that new methods for inference on graphics might be helpful for build
 
 This paper describes visual statistical inference as applied to dimension reduction for HDLSS. In particular we focus on dimension reduction using projection pursuit, and the effect that having high dimension has on the robustness of the separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference methods. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data. Amazon's Mechanical Turk \citep{turk} was used to conduct the experiment. Section \ref{sec:results} discusses the collected data and results. The wasps data is revisited at the end of the paper. 
 
-\section{Overview of visual inference} \label{sec:inference}
+\section{Visual inference methods} \label{sec:inference}
 
 \cite{buja:2009} proposed two protocols, the Rorschach and the lineup protocols. While the Rorschach protocol helps to understand the extent of randomness, the lineup protocol is  used for testing significance of findings. This method is called visual statistical inference. \cite{majumder:2011} made a head-to-head comparison between visual statistical inference tests and classical tests which yielded comparable results. Unlike classical hypothesis testing, the test statistic in visual inference is not numeric, but a plot that is appropriately chosen to display a  distinctive pattern in case that the null hypothesis is not true. The lineup protocol of size $m$ embeds this observed data plot amongst the ($m$ - 1) null plots. Null plots are created  consistently with the null hypothesis. Human subjects are asked to identify the plot with the most distinct feature(s). If the human subjects choose the plot of the observed data, this is regarded as evidence against the null hypothesis and with enough support, the null hypothesis is rejected. When the alternative hypothesis is true, it is expected that the plot of the observed data, the test statistic, will have visible feature(s) inconsistent with the null hypothesis and human subjects will be able to identify the plot of the observed data as different from  the other null plots. 
 
@@ -191,7 +191,7 @@ We choose as the visual test statistic, $V(y)$, to be a dot plot of the observed
 \cite{majumder:2011} describes the methods of obtaining the power of the visual test. For their simulation experiments they recruited human observers from Amazon's Mechanical Turk \citep{turk} and estimated power from human evaluations of lineups. They also obtained the power theoretically with an assumption supported by the experimental data. The result suggests that the power of visual statistical inference is comparable to conventional tests in a setting of testing the parameters of linear regression models. The subject specific power of the visual test is also estimated from the multiple responses data from each human observer. 
 
  
-\section{Dimension reduction}  \label{sec:dimred}
+\section{Explanation of dimension reduction methods}  \label{sec:dimred}
 
 In this work projection pursuit \citep[e.g.][]{friedman:1974}  is used for dimension reduction. Projection pursuit (PP) finds the most interesting low dimensional projection of high dimensional data by maximizing some criterion of interest, e.g. variance or clustering or group separation. As pointed out in \cite{huber:1985} the most exciting feature of projection pursuit is that it can bypass the curse of dimensionality. 
 
@@ -211,23 +211,23 @@ I_{LDA} ({\blA}) = \left \{ \begin{array}{cc}
 where $\blA$ is an orthogonal projection onto a $k$-dimensional space and
 
 \begin{eqnarray}
- \blB&=&\sum_{i=1}^g n_i (\overline{\blX}_{i.} - \overline{\blX}_{..})(\overline{\blX}_{i.}
-  - \overline{\blX}_{..})^T
+ \blB&=&\sum_{i=1}^g n_i (\widebar{\blX}_{i.} - \widebar{\blX}_{..})(\widebar{\blX}_{i.}
+  - \widebar{\blX}_{..})^T
 :  \mbox{between-class sums of squares}, \nonumber\\
 \blW&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX_{ij} -
-\overline{\blX}_{i.})(\blX_{ij} - \overline{\blX}_{i.})^T :
+\widebar{\blX}_{i.})(\blX_{ij} - \widebar{\blX}_{i.})^T :
 \mbox{within-class sums of squares}.\nonumber
 \end{eqnarray}
 
 For HDLSS data, the penalized discriminant analysis (PDA) index \citep{lee:2009} is more robust. Let ${\blX}_{ij}^*$ be the standardized vector of ${\blX}_{ij}$. Then 
 
 \begin{eqnarray}
- \blB^s&=&\sum_{i=1}^g n_i (\overline{\blX}^*_{i.} - \overline{\blX}^*_{..})(\overline{\blX}^*_{i.}
-  - \overline{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
+ \blB^s&=&\sum_{i=1}^g n_i (\widebar{\blX}^*_{i.} - \widebar{\blX}^*_{..})(\widebar{\blX}^*_{i.}
+  - \widebar{\blX}^*_{..})^T: \hbox{between-class sums of squares of the standardized data}\nonumber\\
 \blW^s&=&\sum_{i=1}^g \sum_{j=1}^{n_i} (\blX^*_{ij} -
-\overline{\blX}^*_{i.})(\blX^*_{ij} - \overline{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
+\widebar{\blX}^*_{i.})(\blX^*_{ij} - \widebar{\blX}^*_{i.})^T: \hbox{within-class sums of squares of the standardized data }\nonumber
 \end{eqnarray}
-where $\overline{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\overline{\blX}^*_{..}$ is the
+where $\widebar{\blX}^*_{i.}$ is the $i$th class mean of the standardized data and $\widebar{\blX}^*_{..}$ is the
 total mean of the standardized data, which is 0. The PDA index is defined as
 
 \begin{eqnarray}
@@ -241,14 +241,9 @@ and $\lambda \in [0,1)$ is a predetermined parameter. Penalized LDA \citep{witte
 
 These indices are available for projection pursuit using the \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The \texttt{tourr} package produces tours of multivariate data. The package also includes functions for creating different types of tours like grand, guided and little tours, which project multivariate data with $p$ dimensions to 1, 2, 3 or $d$ dimensions where $d \le p$. The guided tour function is used here. The guided tour will converge to a maximally interesting projection, here that is one where groups show the biggest separation. For this paper we used $d = 1$ or 2.  
 
-\section{Amazon Turk Experiments}
+\section{Applications}
 
-Amazon's Mechanical Turk \citep{turk} is a medium that enables researchers to use human intervention to do tasks which the computers are unable to perform currently. In exchange of their efforts, the subjects were paid, not substantially, but on the scale of the minimum wage of the USA. As the performance of the subjects cannot be monitored manually, some subjects may try to maximize their earnings for minimum effort which may affect the results. For example, a subject may randomly pick a plot without active examination of the plot in a lineup. To identify these subjects, some method is used to examine their honest effort. 
-
-
-\section{Application}
-
-Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
+We return to the motivating example. Figure \ref{oligo} suggested that the expression patterns of the wasp groups are different.  The question of interest is ``Is this separation real?''. This can be investigated by testing the hypothesis: 
 
 \begin{quote}
 $H_o$: There is NO difference in the expression levels between the types of wasp.\\
