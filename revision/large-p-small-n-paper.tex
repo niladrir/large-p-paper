@@ -141,6 +141,8 @@ We suspect that new methods for inference on graphics might be helpful for build
      \label{oligo}
 \end{figure*}  
 
+We were skeptical about the convergence of the optimization procedure of projection pursuit in \texttt{tourr} package \citep{tourr:2011} in \texttt{R} \citep{r}. The projection pursuit finds low dimensional projections of high dimensional data. The separation between groups, even for random noise data seemed identifiable. Visual inference provides a way to test this. This technique can be used to test the convergence algorithm in any other method where the optimization procedure is involved like multidimensional scaling, PCA, independent component  analysis (ICA) and local linear embeddings.
+
 This paper describes visual statistical inference as applied to dimension reduction for HDLSS. In particular we focus on dimension reduction using projection pursuit, and the effect that having high dimension has on the robustness of the separation between groups.  Small simulation experiments are used to examine the problem in a controlled setting. The next section explains visual inference methods. Section \ref{sec:dimred} discusses the dimension reduction methods. Section \ref{sec:experiment} discusses the experiment designed to examine people's perception of separation in the presence of real separation and ``purely noise" for simulated HDLSS data. Amazon's Mechanical Turk \citep{turk} was used to conduct the experiment. Section \ref{sec:results} discusses the collected data and results. The wasps data is revisited at the end of the paper. 
 
 \section{Visual inference methods} \label{sec:inference}
@@ -151,7 +153,7 @@ A comparison of this visual test with the conventional test is shown in Table \r
 
 \begin{table*}[hbtp]
 \centering 
-\caption{Comparison of visual inference with traditional hypothesis testing. Starting with the same hypothesis, the test statistic in a conventional setting is a real number while in visual inference it is a plot of the observed data. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution. $H_o$ is rejected if it is extreme. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is idenitifiable, then the null hypothesis is rejected. 
+\caption{Comparison of visual inference with traditional hypothesis testing. Starting with the same hypothesis, the test statistic in a conventional setting is a real number while in visual inference it is a plot of the observed data. In conventional test the value of the test statistic is compared with all possible values of the sampling distribution. $H_o$ is rejected if it is extreme. In visual inference, the plot of the data is compared with a finite number of samples drawn from the null distribution. If the actual data plot is identifiable, then the null hypothesis is rejected. 
 }
 \begin{tabular}{llll} 
 \hline
@@ -403,7 +405,9 @@ A statistic measuring the ratio of the average distance within clusters to the a
 
 \subsection{Data collection}
 
-Subjects  for the experiment were recruited through Amazon's Mechanical Turk  \citep{turk}. Amazon's Mechanical Turk is a medium that enables researchers to use human intervention to do tasks which the computers are unable to perform currently. In exchange of their efforts, the subjects were paid, not substantially, but on the scale of the minimum wage of the USA.  Each subject was shown a sequence of 10 lineups. Subjects also had the freedom to process more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects, from different locations across the globe.
+Subjects  for the experiment were recruited through Amazon's Mechanical Turk  \citep{turk}. 
+%Amazon's Mechanical Turk is a medium that enables researchers to use human intervention to do tasks which the computers are unable to perform currently. In exchange of their efforts, the subjects were paid, not substantially, but on the scale of the minimum wage of the USA.  
+Each subject was shown a sequence of 10 lineups. Subjects also had the freedom to process more than 10 lineups. They were asked to identify the plot which has the most separation between the colored groups. Their response was recorded along with a reason for their choice of the plot and the level of confidence they have in their decision.  Gender, age, educational qualification and location of each subject were also noted. In total, 1137 lineups were evaluated by 103 subjects, from different locations across the globe.
 
 
 \section{Results} \label{sec:results}
@@ -457,7 +461,7 @@ The effect of demographic variables on the proportion correct was also studied. 
 
 \subsection{Time taken to respond}
 
-We would expect that the amount of time taken to respond will increase with the difficulty of identifying the observed data plot in a lineup. Figure \ref{time-taken} shows the distribution of the time taken in seconds to respond (on a log scale) by dimension and projection. Color indicated separation or not. A loess smoother is added. Notice that,  when the data has some real separation(red), as the dimension increases, subjects take more time to respond to the lineups. But when the data is purely noise (blue), the increase of dimension does not have any effect on the time. This suggests that as the number of dimensions increases, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. 
+We would expect that the amount of time taken to respond will increase with the difficulty of identifying the observed data plot in a lineup. Figure \ref{time-taken} shows the mean time taken in seconds to respond (on a log scale) by dimension and projection. Color indicated separation or not. The line shows the trend over dimension. Time taken is resampled within each dimension, projection and noise and the mean time taken to respond is calculated. This process is repeated 500 times which are represented by the alpha blended lines. Notice that,  when the data has some real separation(green), as the dimension increases, subjects take more time to respond to the lineups. But when the data is purely noise (brown), the increase of dimension does not have any effect on the time. This suggests that as the number of dimensions increases, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. The band of lines suggests that as dimension increases, the difference between time taken for data with separation and without separation decreases. 
 
 
 
@@ -466,7 +470,7 @@ We would expect that the amount of time taken to respond will increase with the 
    \centering
        \scalebox{0.6}{\includegraphics{time-taken-log-bands.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Time taken in seconds to respond on log scale against dimension colored by separation and faceted by projection. A loess curve is fitted through the points for each separation and projection. Time taken to respond is higher when the data has no separation. Also as dimension increases, the time to answer increase when there is real separation. }
+      \caption{Mean time taken in seconds to respond on log scale against dimension colored by separation and faceted by projection. A line shows the trend over dimension for each separation within projection. The time taken is resampled for each dimension, noise and projection and the mean time taken on the log scale is calculated. This process is repeated 500 times to obtain the alpha blended lines giving the error bands. Time taken to respond is higher when the data has no separation. Also as dimension increases, the time to answer when there is separation is equal to the time taken when there is no separation. }
        \label{time-taken}
 \end{figure*}
 
