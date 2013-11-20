@@ -78,7 +78,7 @@ All the plots in the lineups have separation among the groups. The least separat
 
 6. In Figure 7, I suppose that there should be three dots for each dimension. Some of the dimensions (e.g. p = 0 and Projection = 1D), has two dots. Does this mean that there are some dots on top of each other? Please elaborate. \\
 
-{\color{blue} A line is added when the figure is described in the paper addressing this. }\\
+{\color{blue} Figure 7 has been changed to include alpha blending for the points now. The transparency gives an idea about the frequency of dots on a single point. A line has also been added to the text.}\\
 
 7. It would interesting to compare between different groups of subjects based on gender and age.\\
 
@@ -94,7 +94,9 @@ Reviewer \#2 - no review returned
 Reviewer \#3 
 
 My overall impression of this paper, and particularly the research area of visual inference, is very positive.
-The authors are applying empirical methods to assess not so much the quality of visual infer- ence but rather the quality of a particular visual inference (jittered dotplots/scatterplots of PDA projections) for HDLSS data. It seems to me that the present title is therefore overstating the contribution of the results.\\
+The authors are applying empirical methods to assess not so much the quality of visual inference but rather the quality of a particular visual inference (jittered dotplots/scatterplots of PDA projections) for HDLSS data. It seems to me that the present title is therefore overstating the contribution of the results.\\
+
+{\color{blue} The title of the paper has been changed to better suit the content of the paper.}\\
 
 A real difficulty with an empirical study on visual inference methods is that in the end, we come away with results that simply confirm our prior assessments. In the present case, that it becomes more difficult to correctly detect fixed differences (which do not grow with dimensionality p) and that this is worse when the dimensionality of the separation is greater (d = 2 rather than d = 1). I’m pretty certain that the authors had this view before undertaking the study.\\
 
@@ -103,13 +105,12 @@ I suggest that the paper early on state this as the principal contribution. The 
 
 1. Visual inference methods may be used where conventional methods are unavailable. The case in point is any test applied to the separation of groups that does not take into account that the dimensions used were themselves determined empirically. In this sense, a conventional test is conditional on the derived dimensions and so interpreting its significance level as unconditional is inappropriate.\\
 
-The visual test can incorporate the whole process. (Although a more proper comparison might be with a bootstrap distribution of the formal test’s significance level, one which in- corporated the whole of the process including the PDA.) The discussion of HDLSS is not as central as the present manuscript would suggest.\\
+The visual test can incorporate the whole process. (Although a more proper comparison might be with a bootstrap distribution of the formal test’s significance level, one which incorporated the whole of the process including the PDA.) The discussion of HDLSS is not as central as the present manuscript would suggest.\\
 
 2. The visual tests are consistent in behaviour with what we might expect vis-a`-vis the effects of increased dimension on the ability to detect separation as well as the time taken to do so.
 Of these, the first is by far the more important. \\
 
-Following a clear statement of this intent, the Mechanical Turk experiments could be intro-
-duced to demonstrate the first point (i.e. many of the detailed results need not be discussed at this point). Then the scientific problem of the wasp types could be introduced and discussed as a con- crete application. Again, to me this is the punch of the paper and deserves this kind of emphasis.\\
+Following a clear statement of this intent, the Mechanical Turk experiments could be introduced to demonstrate the first point (i.e. many of the detailed results need not be discussed at this point). Then the scientific problem of the wasp types could be introduced and discussed as a con- crete application. Again, to me this is the punch of the paper and deserves this kind of emphasis.\\
 
 I would then delay the other interesting results of the Mechanical Turk experiments to a new section, one where the characteristics of the visual test are being investigated. These include:
 \begin{itemize}
@@ -130,7 +131,10 @@ Some detailed comments\\
 These are mostly questions for possible elaboration.
 \begin{itemize}
 \item Page 6, last paragraph of Section 4.1, “Hence the probability . . . ”. I would write this as it gets harder to detect real differences. Also, would it not be more meaningful to look at the individual absolute differences, or the average. And what are these differences? That is which means? (on each variable? on the PDA direction?)
-\item Last sentence of Section 4.3. Isn’t this biasing the sample towards selecting plots where the observed effect is minimal?
+\item Last sentence of Section 4.3. Isn’t this biasing the sample towards selecting plots where the observed effect is minimal?\\
+
+{\color{blue} The procedure does not bias the samples. In fact the procedure makes it a fair comparison as it makes sure that the optimization procedure works even in the null plots. Otherwise the null plots will show no distinct clusters. }\\
+
 \item Last sentence, page 10, “. . . but the opposite . . . ” What does this mean? Users pick out real data (significantly) when there is no separation better and better as the dimension increases? (Seems to be indicated by bottom row of plots in Fig. 7. But this makes no sense)
 \item Section 5.3, page 11. I’m not sure this is the best test of the rotation effect. Why not always colour the points the same in a clockwise order?
 \item Figure 8. These points should be jittered, rather than rely on alpha blending.
@@ -141,7 +145,7 @@ Could it not be that giving people however much time they like is confounded wit
 \item Page 13, end of topmost paragraph. “Investigating these lineups further may reveal why this is.” \\
 This should be done now. For example Fig 9(a), row 3 from top, dim = 100. What does the real data config look like compared to those with small WBratios? Either the WBratio is a poor measure, or there is something interesting about these configurations. Worth examining and presenting.
 \item Figure 11, page 15, and surrounding discussion. \\
-Isn’t part of the problem here that separation of groups visually is not well defined. For ex- ample, it might be the case that the human visual system favours symmetry in the separation. In Figure 11, this might correspond to a preference of the first plot in the top row. It would be interesting to know if there were some favoured configurations and what they actually looked like.
+Isn’t part of the problem here that separation of groups visually is not well defined. For example, it might be the case that the human visual system favours symmetry in the separation. In Figure 11, this might correspond to a preference of the first plot in the top row. It would be interesting to know if there were some favoured configurations and what they actually looked like.
 \end{itemize}
 Some corrective comments
 There are numerous typographical/grammatical errors in the paper. For example (not an exhaustive list):
