@@ -130,22 +130,41 @@ Some detailed comments\\
 
 These are mostly questions for possible elaboration.
 \begin{itemize}
-\item Page 6, last paragraph of Section 4.1, “Hence the probability . . . ”. I would write this as it gets harder to detect real differences. Also, would it not be more meaningful to look at the individual absolute differences, or the average. And what are these differences? That is which means? (on each variable? on the PDA direction?)
+\item Page 6, last paragraph of Section 4.1, “Hence the probability . . . ”. I would write this as it gets harder to detect real differences. Also, would it not be more meaningful to look at the individual absolute differences, or the average. And what are these differences? That is which means? (on each variable? on the PDA direction?)\\
+
+{\color{blue} Necessary changes are made. A paragraph is added to the paper explaining this clearly. }\\
+
 \item Last sentence of Section 4.3. Isn’t this biasing the sample towards selecting plots where the observed effect is minimal?\\
 
-{\color{blue} The procedure does not bias the samples. In fact the procedure makes it a fair comparison as it makes sure that the optimization procedure works even in the null plots. Otherwise the null plots will show no distinct clusters. }\\
+{\color{blue} The procedure does not bias the samples. In fact the procedure makes it fair as it makes sure that the optimization procedure works even in the null plots. Otherwise the null plots will show no distinct clusters. }\\
 
-\item Last sentence, page 10, “. . . but the opposite . . . ” What does this mean? Users pick out real data (significantly) when there is no separation better and better as the dimension increases? (Seems to be indicated by bottom row of plots in Fig. 7. But this makes no sense)
-\item Section 5.3, page 11. I’m not sure this is the best test of the rotation effect. Why not always colour the points the same in a clockwise order?
-\item Figure 8. These points should be jittered, rather than rely on alpha blending.
+\item Last sentence, page 10, “. . . but the opposite . . . ” What does this mean? Users pick out real data (significantly) when there is no separation better and better as the dimension increases? (Seems to be indicated by bottom row of plots in Fig. 7. But this makes no sense)\\
+
+{\color{blue} This is real data which is obtained from the Amazon Turk Experiment. The slope of the line is not significant. If we could do a lineup by permuting the dimension for projection:1D and 2D separately for separation = No, it could be seen that the real data will not be picked. The proportion correct is close to 0 for all dimensions when there is no separation. This can be seen in Fig 11 as well.}\\
+
+\item Section 5.3, page 11. I’m not sure this is the best test of the rotation effect. Why not always colour the points the same in a clockwise order?\\
+
+{\color{blue} The groups for one dimensional projections are colored systematically. But the groups for 2D projections are randomly colored. The effect of projection is not significant. Hence it can be assumed that the rotation effect is not significant. But this is surely not the best test as the rotation effect is confounded with the color effect. Coloring the points in a clockwise order will be hard to do. But this can be thought as a future work where for some lineups, the groups will be colored in a clockwise order and for some lineups, the groups will be randomly colored and then the rotation effect in the plots could be tested.  }\\
+
+\item Figure 8. These points should be jittered, rather than rely on alpha blending. \\
+
+{\color{blue} Figure 8 has been changed. The mean time taken for each dimension is plotted on the log scale against the dimension with colors representing presence of separation. Bootstrap confidence bands are also drawn. }\\
+
 \item Page 12, Section 5.4 “This suggests that as the number of dimension (sic) . . . when the data
 has some real separation.”\\
-Could it not be that giving people however much time they like is confounded with their ability to pick the true plot? That is, as they have more time, they second guess themselves and so choose the wrong plot? I think psychologists much prefer short fixed time responses for this reason. Too late now, but I think it would be interesting to have also considered and experiment where the time viewing each plot was fixed (short) so that no response would be indicative of indecision.
+Could it not be that giving people however much time they like is confounded with their ability to pick the true plot? That is, as they have more time, they second guess themselves and so choose the wrong plot? I think psychologists much prefer short fixed time responses for this reason. Too late now, but I think it would be interesting to have also considered and experiment where the time viewing each plot was fixed (short) so that no response would be indicative of indecision.\\
+
+{\color{blue} Providing fixed time to evaluate is an interesting suggestion which will be considered in a future experiment.}\\
 
 \item Page 13, end of topmost paragraph. “Investigating these lineups further may reveal why this is.” \\
-This should be done now. For example Fig 9(a), row 3 from top, dim = 100. What does the real data config look like compared to those with small WBratios? Either the WBratio is a poor measure, or there is something interesting about these configurations. Worth examining and presenting.
+This should be done now. For example Fig 9(a), row 3 from top, dim = 100. What does the real data config look like compared to those with small WBratios? Either the WBratio is a poor measure, or there is something interesting about these configurations. Worth examining and presenting.\\
+
+{\color{blue} WBratio is surely not the best measure to describe separation. A more meaningful measure is used. Separation between the groups is calculated and the average separation is considered. For two groups, the average separation is equal to the separation.}\\
+
 \item Figure 11, page 15, and surrounding discussion. \\
-Isn’t part of the problem here that separation of groups visually is not well defined. For example, it might be the case that the human visual system favours symmetry in the separation. In Figure 11, this might correspond to a preference of the first plot in the top row. It would be interesting to know if there were some favoured configurations and what they actually looked like.
+Isn’t part of the problem here that separation of groups visually is not well defined. For example, it might be the case that the human visual system favours symmetry in the separation. In Figure 11, this might correspond to a preference of the first plot in the top row. It would be interesting to know if there were some favoured configurations and what they actually looked like. \\
+
+{\color{blue}The subjects were asked to identify the plots with the most separation among the groups. This relates to the maximum average separation. A plot (not included in the paper) like Figure 11 clearly indicates that the subjects pick the plots with the most separation among the colored groups.} \\
 \end{itemize}
 Some corrective comments
 There are numerous typographical/grammatical errors in the paper. For example (not an exhaustive list):

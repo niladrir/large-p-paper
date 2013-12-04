@@ -329,7 +329,9 @@ The goal is to determine how well real separation is distinguishable from random
 \end{center}
 \end{table} 
 
-Figure \ref{fig:dimen} shows the distribution of absolute difference of means for data with and without separation for different dimensions. The distributions of data with and without separation are shown in brown and green respectively. The area of the distribution of pure noise which is above the 5th percentile of the distribution of data with separation is shown in dark blue and it can be seen that the dark blue region increases with dimension ($p$). This indicates that as dimension increases, the distributions of data with or without separation gets closer. Hence the probability of obtaining separation among groups for purely noise data increases with higher dimensions. Fixing the area of the dark blue region and calculating the dimensions to obtain the required region provides the choice of levels of dimension used in the experiment. More details are provided in Section \ref{sec:theory}. 
+Two $p$-dimensional datasets are generated with 30 observations in each dimension. The datasets are then divided into two groups with 15 observations in each group. For one dataset, data is obtained from random noise and hence there is no real separation between the two groups. But for the other dataset, one dimension among these $p$ is adjusted so that the dataset have some real separation between the groups in that dimension. The absolute difference of the means for each group in each of these $p$ dimensions is considered for both datasets. The absolute difference is considered as we are concerned with projections. These absolute differences between the groups are then summed over all the dimensions to obtain the absolute difference of means for the data. This process is repeated 1000 times. These 1000 sum of absolute differences are then plotted for the different values of $p$.
+ 
+Figure \ref{fig:dimen} shows the distribution of sum of absolute difference of means for data with and without separation for different dimensions. The distributions of data with and without separation are shown in brown and green respectively. The area of the distribution of pure noise which is above the 5th percentile of the distribution of data with separation is shown in dark blue and it can be seen that the dark blue region increases with dimension ($p$). This indicates that as dimension increases, the distributions of data with or without separation gets closer. Hence it gets harder to detect real differences with higher dimensions. Fixing the area of the dark blue region and calculating the dimensions to obtain the required region provides the choice of levels of dimension used in the experiment. More details are provided in Section \ref{sec:theory}. 
 
 \begin{figure}[hbtp]
 %\begin{figurehere}
@@ -495,9 +497,19 @@ We have learned that subjects tend to pick the plot in the lineup that exhibits 
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[Proportion correct vs Difference]{\includegraphics[width=3in]{suc-diff-avg-sep.pdf}}\quad
-\subfigure[Mean time vs Difference]{\includegraphics[width=3in]{mtime-diff-avg-sep.pdf} }}
-\caption{(a) Proportion of correct response against the difference of the maximum average separation of the null plots and the average separation of the observed data plot for each lineup. (b) Mean time taken to respond in seconds against the difference.  The vertical line represents difference equal to 1 when the average separation of the observed data plot is equal to the maximum average separation of the null plots. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower average separation value than the observed data plot. As the difference increases, the success rate increases and the mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. } 
+\subfigure[For Projection:1D]{
+\includegraphics[width=3in]{suc-diff-avg-sep-1.pdf}
+}
+\subfigure[For Projection:2D]{
+\includegraphics[width=3in]{suc-diff-avg-sep-2.pdf}
+}
+\subfigure[For Projection:1D]{
+\includegraphics[width=3in]{mtime-diff-avg-sep-1.pdf}
+}
+\subfigure[For Projection:2D]{
+\includegraphics[width=3in]{mtime-diff-avg-sep-2.pdf} 
+}
+\caption{Proportion of correct response and mean time taken to respond in seconds are plotted against the difference for 1D and 2D projections separately. The difference is between maximum separation of all the null plots and separation of the observed data plot for each lineup for 1D projections but for 2D projections the difference is based on the average separation between the groups. The vertical line represents difference equal to 1 when the average separation of the observed data plot is equal to the maximum average separation of the null plots for 2D projection. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower average separation value than the observed data plot. (a) and (b) As difference increases, success rate increases. (c) and (d) As difference increases,  mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. }
 \label{null}
 \end{figure}
 
