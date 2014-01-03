@@ -1,4 +1,4 @@
-\begin{thebibliography}{23}
+\begin{thebibliography}{24}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{{#1}}
 \providecommand{\urlprefix}{URL }
@@ -10,6 +10,12 @@
 
 \bibitem[{Amazon(2010)}]{turk}
 Amazon (2010) Mechanical {T}urk. \urlprefix\url{http://aws.amazon.com/mturk/}
+
+\bibitem[{Buja and Wolgang(2005)}]{buja:2005}
+Buja A, Wolgang R (2005) {C}alibration for {S}imultaneity: ({R}e){S}ampling
+  {M}ethods for {S}imultaneous {I}nference with {A}pplications to {F}unctional
+  {E}stimation and {F}unctional {D}ata. Tech. rep.,
+  \urlprefix\url{http://stat.wharton.upenn.edu/~buja/PAPERS/paper-sim.pdf}
 
 \bibitem[{Buja et~al(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
   Wickham}]{buja:2009}
