@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{24}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{{#1}}
 \providecommand{\urlprefix}{URL }
@@ -10,6 +10,12 @@
 
 \bibitem[{Amazon(2010)}]{turk}
 Amazon (2010) Mechanical {T}urk. \urlprefix\url{http://aws.amazon.com/mturk/}
+
+\bibitem[{Buja and Wolgang(2005)}]{buja:2005}
+Buja A, Wolgang R (2005) {C}alibration for {S}imultaneity: ({R}e){S}ampling
+  {M}ethods for {S}imultaneous {I}nference with {A}pplications to {F}unctional
+  {E}stimation and {F}unctional {D}ata. Tech. rep.,
+  \urlprefix\url{http://stat.wharton.upenn.edu/~buja/PAPERS/paper-sim.pdf}
 
 \bibitem[{Buja et~al(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
   Wickham}]{buja:2009}
@@ -66,10 +72,10 @@ Lee EK, Cook D (2009) A {P}rojection {P}ursuit {I}ndex for {L}arge $p$ {S}mall
   p~{\url{http://www.springerlink.com/content/g47n0n342761838m/?p=d2ff5a7b69eb%
 45ef8abf7ef3aba69557&pi=3}}
 
-\bibitem[{Majumder et~al(2012)Majumder, Hofmann, and Cook}]{majumder:2011}
-Majumder M, Hofmann H, Cook D (2012) {V}alidation of {V}isual {S}tatistical
+\bibitem[{Majumder et~al(2013)Majumder, Hofmann, and Cook}]{majumder:2013}
+Majumder M, Hofmann H, Cook D (2013) {V}alidation of {V}isual {S}tatistical
   {I}nference, {A}pplied to {L}inear {M}odels. Journal of American Statistical
-  Association Under revision
+  Association 108:503:942 -- 956
 
 \bibitem[{Marron et~al(2007)Marron, Todd, and Ahn}]{marron:2007}
 Marron JS, Todd MJ, Ahn J (2007) {D}istance {W}eighted {D}iscrimination.
@@ -104,9 +110,14 @@ Toth A, Varala K, Henshaw M, Rodriguez-Zas S, Hudson M, Robinson G (2010)
   {A}ssociated with {B}ehaviour across {S}ocial {I}nsect {L}ineages.
   Proceedings of the Royal Society of Biological Sciences - B 277:2139 -- 2148
 
-\bibitem[{Wickham and Cook(2010)}]{WC08}
-Wickham H, Cook D (2010) {\tt tourr}: {I}mplements {T}our {M}ethods in {P}ure
-  {R} {C}ode. {\tt http://www.R-project.org}
+\bibitem[{Wickham(2009)}]{hadley:2009}
+Wickham H (2009) ggplot2: {E}legant {G}raphics for {D}ata {A}nalysis. {useR},
+  Springer
+
+\bibitem[{Wickham et~al(2011)Wickham, Cook, Hofmann, and Buja}]{tourr:2011}
+Wickham H, Cook D, Hofmann H, Buja A (2011) tourr: {A}n {R} {P}ackage for
+  {E}xploring {M}ultivariate {D}ata with {P}rojections. Journal of Statistical
+  Software 40
 
 \bibitem[{Witten and Tibshirani(2011)}]{witten:2011}
 Witten D, Tibshirani R (2011) {P}enalized {C}lassification using {F}isher's
