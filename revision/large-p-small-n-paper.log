@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.2.29)  3 JAN 2014 13:57
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.2.29)  3 JAN 2014 15:07
 entering extended mode
 \write18 enabled.
  %&-line parsing enabled.
@@ -537,10 +537,10 @@ l.257 \begin{quote}
 <to be read again> 
                    \endgroup \set@typeset@protect 
 l.257 \begin{quote}
-                   ] <lineup-wasp-8-rev.pdf, id=327, 445.665pt x 373.395pt>
-File: lineup-wasp-8-rev.pdf Graphic file (type pdf)
+                   ] <lineup-wasp-8.pdf, id=327, 445.665pt x 373.395pt>
+File: lineup-wasp-8.pdf Graphic file (type pdf)
 
-<use lineup-wasp-8-rev.pdf> [7 <./lineup-wasp-8-rev.pdf>]
+<use lineup-wasp-8.pdf> [7 <./lineup-wasp-8.pdf>]
 <noise-2-rev.pdf, id=348, 228.855pt x 228.855pt>
 File: noise-2-rev.pdf Graphic file (type pdf)
  <use noise-2-rev.pdf>
@@ -636,7 +636,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [20 <./sum-noise-real-2-rev.pdf>] [21] (./large-p-small-n-paper.aux) ) 
 Here is how much of TeX's memory you used:
  6768 strings out of 94073
- 94281 string characters out of 1162984
+ 94261 string characters out of 1162984
  185180 words of memory out of 1500000
  9823 multiletter control sequences out of 10000+50000
  20896 words of font info for 58 fonts, out of 1200000 for 2000
@@ -663,7 +663,7 @@ st/fonts/type1/bluesky/cm/cmsy8.pfb></usr/local/texlive/2007/texmf-dist/fonts/t
 ype1/public/cmex/fmex7.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/
 courier/ucrr8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/times/ut
 mb8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on large-p-small-n-paper.pdf (21 pages, 559530 bytes).
+Output written on large-p-small-n-paper.pdf (21 pages, 559520 bytes).
 PDF statistics:
  730 PDF objects out of 1000 (max. 8388607)
  99 named destinations out of 1000 (max. 131072)
