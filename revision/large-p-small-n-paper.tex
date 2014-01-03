@@ -88,7 +88,7 @@ grestore
 
 \begin{document}
 
-\title{Using Visual Statistical Inference to Better Understand High Dimension, Low Sample Size Data}\label{ch:largepsmalln}
+\title{Using Visual Statistical Inference to Better Understand Random Class Separations in High Dimension, Low Sample Size Data}\label{ch:largepsmalln}
 \vspace{-0.8cm}
 \author{Niladri Roy Chowdhury \and 
 Dianne Cook \and
@@ -268,16 +268,16 @@ A lineup is made of the wasp data obtained from \cite{toth:2010} to test $H_o$ w
        \label{toth_lineup}
 \end{figure*} 
 
-In addition, three more lineups are made containing only null plots, with one plot randomly chosen to act as an observed data plot. These lineups were shown to the subjects recruited from Amazon Turk.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. The success rate in detecting the plot of the wasp data is 0! This is worse than that of purely noise data. You will notice that for one of the purely noise lineups, subjects very often correctly picked the (random) observed data plot. This happened because the randomly generated observed data plot actually had more separation than any other plot in that lineup. This is the nature of randomness, but makes for interesting results here. The $p$-value is calculated according to the procedure given by \cite{majumder:2013}. The large $p$-values indicate that there is no statistically significant evidence upon which we reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
+In addition, three more lineups are made containing only null plots, with one plot randomly chosen to act as an observed data plot. These lineups were shown to the subjects recruited from Amazon Turk.  A total of 116 subjects evaluated the 6 lineups. Table \ref{wasp} shows the results. The detection rate for the plot of the wasp data is 0! This is worse than that of purely noise data. You will notice that for one of the purely noise lineups, subjects very often detected the (random) observed data plot. This happened because the randomly generated observed data plot actually had more separation than any other plot in that lineup. This is the nature of randomness, but makes for interesting results here. The $p$-value is calculated according to the procedure given by \cite{majumder:2013}. The large $p$-values indicate that there is no statistically significant evidence upon which we reject the null hypothesis. Thus we have to conclude that the separation in the wasp data is not real. It is purely the effect of high dimensionality. 
 
 \begin{table}[ht]
 \begin{center}
-\caption{Results of the Turk study on the wasps data. Proportion correct for each lineup is shown, with the number of subjects, and $p$-value associated. The success rate is highest for one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that is randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps is 1.0, and for the pure noise, is 0.67 suggesting that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
+\caption{Results of the Turk study on the wasps data. Detection rate for each lineup is shown, with the number of subjects, and $p$-value associated. The detection rate is highest for one of the purely noise lineups, which occurred because the plot with the most difference between groups happened to be the one that is randomly generated as the ``real'' data. Averaging the $p$-values for each set of lineups, for the wasps is 1.0, and for the pure noise, is 0.67 suggesting that the apparent separation in the wasp data is consistent with pure noise induced by the high dimensions.}
 \vspace{0.15cm}
 \begin{tabular}{r|r|r|rr}
 \hline
   \hline
- Data & Replicate & Num Subjects & Prop Correct & $p$-value\\ 
+ Data & Replicate & Num Subjects & Detection rate & $p$-value\\ 
   \hline
   & 1 & 25 & 0.0000 &  1.0000\\
 Wasps & 2 & 13 & 0.0000 &  1.0000\\ 
@@ -408,20 +408,20 @@ Each subject was given a very easy lineup (a lineup with $p = 10$ dimensions wit
 
 \section{Results} \label{sec:results}
 
-\subsection{Effect of experimental factors} \label{effects}
+\subsection{Effect of experimental factors on detection rate} \label{effects}
 
-We would expect that subjects are correct more often when there is real separation and that as dimension increases, correctness decreases. This is indeed the case, as illustrated by Figure \ref{suc-rate-glm}. The proportion correct is plotted against the different levels of dimension faceted by the levels of separation and projection. The 3 different dots for each level shows the 3 lineup replicates for each level combination of the factors. In a few cases, the dots overlap as the proportion correct is same for the replicates. For example, when projection = 1D, dimension = 100 and separation = No, the proportion correct is 0 for all the replicates and hence a single dot is shown. The line shows the fitted fixed effects from a logistic regression model fitted to the data. The success rate is higher for low dimension, and decreases as dimension increases, for real separation for both 1D and 2D projections. For noise data, the success rate is flat across dimension. There also appears to be increasing variance as dimension increases. Interestingly, the success rate is higher even at $p = 100$ for data where separation exists than for pure noise.
+We would expect that subjects detect the observed data plot more often when there is real separation but that the detection rate diminishes as dimension increases. This is indeed the case, as illustrated by Figure \ref{suc-rate-glm}. The detection rate is plotted against data dimension ($p$), faceted by the levels of separation and projection. The three dots for each $p$ represent the three replicates for each treatment. In a few cases, the dots overlap as the detection rate is same for the replicates. For example, when projection = 1D, dimension = 100 and separation = No, the detection rate is 0 for all the replicates and hence a single dot is shown. Alpha-blending is used on the plots so these ties are darker dots. The line shows the fixed effects from a logistic regression model fitted to the data. The detection rate is higher for small $p$, and on average decreases as $p$ increases, with both 1D and 2D projections for real separation. For purely noise data, the detection rate is effectively fl across $p$, always less than 0.1 on average. Interestingly, the detection rate is higher for data where separation exists than for pure noise, even at $p = 100$, at 0.25 vs 0.05. For real separation, there also appears to be increasing variance as $p$ increases, which is intriguing, too: it might be indicative of the increase in unexplained variance associated with the reduction to low dimensions from the increasingly higher $p$, and the sparsity of space.
 
 \begin{figure}[ht]
 %\begin{figurehere}
    \centering
        \scalebox{0.6}{\includegraphics{suc-rate-rep-int-glm-rev.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
-      \caption{Proportion of correct response against dimension faceted by projection and separation. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the success rate decreases as dimension increases for data with real separation. When the data is purely noise data, the success rate is flat across dimensions. The success rate does not change with projection.  Even with $p = 100$ subjects more accurately picked the separation more often than would be by chance. }
+      \caption{Detection rate by dimension, faceted by projection and separation. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the detection rate decreases as $p$ increases for data with real separation. When the data is purely noise data, the detection rate is flat across dimensions. Detection rate does not change with projection.  Even with $p = 100$ subjects more often detected separation than would be expected by chance. }
        \label{suc-rate-glm}
 \end{figure}
 
-Table \ref{params} shows the estimates of the parameters from the fixed effects logistic regression model, the standard errors and the corresponding $p$-values. We observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. The interaction term is also significant. But the $p$-value corresponding to the projection is high, which suggests that the difference between 1D and 2D projections is not significant at the 5\% level of significance. One of our concerns with the 2D projections is that the rotation of the group was not adjusted, and that this might diminish the subjects ability to identify the observed data plot. The lack of significant difference between 1D and 2D results suggest that the lack of adjustment was not important. The slope of the covariate dimension is different when there is separation or not. When the observed data plot has real separation, the ability to detect it decreases with dimension.
+Table \ref{params} shows the estimates of the parameters from the fixed effects logistic regression model, the standard errors and the corresponding $p$-values. We observe that the $p$-values corresponding to dimension and presence of real separation is very highly significant. However, the $p$-value corresponding to the projection is large, which suggests that the difference between 1D and 2D projections is not significant. One of our concerns with the 2D projections is that the rotation of the group was not adjusted, and that this might diminish the subjects ability to identify the observed data plot. The lack of significant difference between 1D and 2D results suggest that rotation was not important. The interaction term is also significant, which says that the detection rate changes in the presence or absence of separation -- detectability of the observed data plot it decreases with dimension when there really is separation.
 
 \begin{table}[ht]
 \begin{center}
@@ -443,7 +443,7 @@ Intercept  & 2.381 & 0.278  & 0.000 \\
 \end{center}
 \end{table}
 
-The effect of demographic variables on the proportion correct was also studied. The effects of education, age and gender were insignificant. 
+The effect of demographic variables (age, gender and education) on the detection rate was also studied, and found to be insignificant. 
 
 %\subsection{Does rotation in the 2D projections affect the responses?}
 
@@ -451,9 +451,9 @@ The effect of demographic variables on the proportion correct was also studied. 
 
 %\newpage
 
-\subsection{Time taken to respond}
+\subsection{Time taken to respond under different treatments}
 
-We would expect that the amount of time taken to respond will increase with the difficulty of identifying the observed data plot in a lineup. Figure \ref{time-taken} shows the time taken in seconds to respond (on a log scale) by dimension and projection. Color indicated separation or not. The line shows the trend over dimension. Bootstrap resampling bands (\cite{buja:2005}) are also drawn for each colored lines. Notice that,  when the data has some real separation (green), as the dimension increases, subjects take more time to respond to the lineups. But when the data is purely noise (brown), the increase of dimension does not have any effect on the time. This suggests that as the number of dimensions increases, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. The bootstrap resampling band suggests that as dimension increases, the difference between time taken for data with separation and without separation decreases. 
+We would expect that the amount of time taken to respond will increase with the difficulty of identifying the observed data plot in a lineup. Figure \ref{time-taken} shows the time taken in seconds to respond (on a log scale) by $p$, facetted by projection. Color indicates presence or absence of separation. The line shows the trend over dimension. Bootstrap resampling bands (\cite{buja:2005}) are overlaid, which effectively provide confidence bands for the curves. Notice that,  when the data has some real separation (green), as the dimension increases on average,  subjects take more time to respond to the lineups. But when the data is purely noise (brown), the increase of dimension does not have any effect on the time taken. This suggests that as the number of dimensions increases, it becomes harder to spot the observed data plot among the null plots. On the other hand, the difficulty of spotting the observed data plot for a data with purely noise does not vary with dimension. It can also be seen that the time taken when the data is purely noise is overall higher than the time taken when the data has some real separation. The bootstrap resampling bands suggest that there is only significantly reduced time taken when $p=20$ or $40$. 
 
 
 
@@ -470,44 +470,46 @@ We would expect that the amount of time taken to respond will increase with the 
 
 \normalsize
 
-Figure \ref{sep} examines the subjects choices in detail. The relative frequency of picks of each plot in the lineup is plotted against a measure of average separation between groups. Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency that the plot was chosen. Red represents the observed data plot. Two separate figures are made for the two projections. The top three rows correspond to data containing real separation between the groups, and for the bottom three rows all of the data is purely noise. Columns indicate dimension ($p$). Replicates are in different rows. The taller the pin the more often that particular plot is chosen from the lineup. We asked subjects to pick the plot where the groups are most separated, and this is effectively what they picked. The plot in each lineup with the largest average separation tends to have the highest frequency. This is more obvious when there is real separation, and also when dimension is small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  
+Figure \ref{sep} examines the subjects choices in detail. The relative frequency of picks of each plot in the lineup is plotted against a measure of average separation between groups. Each cell of this figure shows data from one of the lineups used in the study, 60 in total. Each ``pin'' represents a plot in a lineup, so each cell here has 20 pins, indicating the frequency that the plot was chosen. Red represents the observed data plot. Two separate figures are made for the 1D and 2D projections. The top three rows correspond to data containing real separation between the groups, and for the bottom three rows all of the data is purely noise. Columns indicate dimension ($p$). Replicates are in different rows. The taller the pin the more often that particular plot is chosen from the lineup. We asked subjects to pick the plot where the groups are most separated, and this is effectively what they picked. The plot in each lineup with the largest average separation tends to have the highest frequency. This is more obvious when there is real separation, and also when dimension is small, but it is also seen in the lineups containing pure noise data. This is reassuring -- that subjects did well at detecting the biggest difference.  
 %For some of the lineups though, the choices are a little surprising, for example separation = No, dimension = 60, rep = 2, projection = 2D. Investigating these lineups further may reveal why this is. (See supplementary material).
 
 \begin{figure}[htbp]
 \centering
-\mbox{\subfigure[For Projection:1D]{\includegraphics[width=3in]{avg-sep-1.pdf}}\quad
-\subfigure[For Projection:2D]{\includegraphics[width=3in]{avg-sep-2.pdf} }}
+\mbox{\subfigure[Projection:1D]{\includegraphics[width=3in]{avg-sep-1.pdf}}\quad
+\subfigure[Projection:2D]{\includegraphics[width=3in]{avg-sep-2.pdf} }}
 \caption{Comparing the choices that subjects make for each lineup. Relative frequency of plots chosen against a measure of the average separation between groups, the larger the value the more separated are the groups. Each cell here shows the data for one of the lineups used in the experiment, 60 in total, and each ``pin'' represents a plot in the lineup, 20 for each lineup. Red indicates the observed data plot. Subjects are asked to pick the plot in the lineup where the groups are the most separated, so we would expect that more subjects would pick the plots with the largest average separation. In general, this happens, the tallest pins are in the right of each cell. The top three rows show the results for the data with separation, so the observed data plot (red) is typically the pin on the very left of the cell, less so for the higher dimensions which are the cells at right. Figure (a) shows 1D projections and Figure (b) shows for 2D projections. There is not much difference between the two figures. } 
 \label{sep}
 \end{figure}
 
 \subsection{How do the null plots affect choices?}
 
-We have learned that subjects tend to pick the plot in the lineup that exhibits the most separation.  Because visual inference only allows for a finite (small) number of comparisons against the sampling distribution, the influence of the null plots in the lineup on the observer's choice is important. If any null plot has a strong signal, subjects may choose this plot over the observed data plot. To gauge the influence of the null plots, we first calculate the average separation between the clusters in each plot of the lineup. For each lineup we then calculate the difference between the maximum average separation of the null plots and the average separation for the observed data plot for each lineup. Figure \ref{null} examines the influence of the null plots on this pick. The proportion correct and mean time taken in seconds are plotted against difference. The vertical line is a reference line where the difference is 0; the value at which the observed data plot has the same signal as the most extreme null plot. The points to the right of the line should indicate easier lineups and those to the left indicate more difficult lineups in the sense that the null plots have more signal than the observed data plot. We can see that as the difference increases, the success rate increases and also time taken to choose decreases, suggesting easier lineups. More details on the measurement of the influence of the null plots are available in \cite{roychowdhury:2012}).
+We have learned that subjects tend to pick the plot in the lineup that exhibits the most separation.  Because visual inference only allows for a finite (small) number of comparisons against the sampling distribution, the influence of the null plots in the lineup on the observer's choice is important. If any null plot has a strong signal, subjects may choose this plot over the observed data plot. To gauge the influence of the null plots, we first calculate the average separation between the clusters in each plot of the lineup. For each lineup we then calculate the difference between the maximum average separation of the null plots and the average separation for the observed data plot for each lineup. Figure \ref{null} examines the influence of the null plots on this pick. The detection rate and mean time taken in seconds are plotted against difference. The vertical line is a reference line where the difference is 0 -- the value at which the observed data plot has the same signal as the most extreme null plot. The points to the right of the line should indicate easier lineups and those to the left indicate more difficult lineups in the sense that the null plots have more signal than the observed data plot. We can see that as the difference increases, the detection rate increases and also time taken to choose decreases, suggesting easier lineups. More details on the measurement of the influence of the null plots are available in \cite{roychowdhury:2012}.
 
 \begin{figure}[htbp]
 \centering
-\subfigure[For Projection:1D]{
+\subfigure[Projection:1D]{
 \includegraphics[width=3in]{suc-diff-avg-sep-1.pdf}
 }
-\subfigure[For Projection:2D]{
+\subfigure[Projection:2D]{
 \includegraphics[width=3in]{suc-diff-avg-sep-2.pdf}
 }
-\subfigure[For Projection:1D]{
+\subfigure[Projection:1D]{
 \includegraphics[width=3in]{mtime-diff-avg-sep-1.pdf}
 }
-\subfigure[For Projection:2D]{
+\subfigure[Projection:2D]{
 \includegraphics[width=3in]{mtime-diff-avg-sep-2.pdf} 
 }
-\caption{Proportion of correct response and mean time taken to respond in seconds are plotted against the difference for 1D and 2D projections separately. The difference is between maximum separation of all the null plots and separation of the observed data plot for each lineup for 1D projections but for 2D projections the difference is based on the average separation between the groups. The vertical line represents difference equal to 1 when the average separation of the observed data plot is equal to the maximum average separation of the null plots for 2D projection. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower average separation value than the observed data plot. (a) and (b) As difference increases, success rate increases. (c) and (d) As difference increases,  mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. }
+\caption{Detection rate and mean time taken to respond in seconds are plotted against the difference for 1D and 2D projections separately. The difference is between maximum separation of all the null plots and separation of the observed data plot for each lineup for 1D projections but for 2D projections the difference is based on the average separation between the groups. The vertical line represents difference equal to 1 when the average separation of the observed data plot is equal to the maximum average separation of the null plots for 2D projection. The points left to the line indicates a difficult lineup in the sense that at least one of the null plots had a lower average separation value than the observed data plot. (a) and (b) As difference increases, detection rate increases. (c) and (d) As difference increases,  mean time taken decreases indicating that the subjects have an easier time in identifying the observed data plot. }
 \label{null}
 \end{figure}
 
 \section{Conclusions}
 
-This paper examined the application of visual inference to HDLSS data. From the results, it is clear that people can detect real separation from pure noise  up to a reasonably high dimension, for 1D and 2D projections. This suggests that visual inference may be effective for improving the understanding of the emptiness of space in HDLSS data. That is, a 1D or 2D projection of HDLSS data,  as provided by LDA, for example, will likely look separated purely due to this emptiness. Visual inference makes this clearer and provides a calibration for reading the separation. Visual inference methods shows that the projection pursuit optimization procedure works well in \texttt{tourr} package. This technique can be used to test the convergence algorithm in any other method where the optimization procedure is involved like multidimensional scaling, PCA, independent component analysis (ICA) and local linear embeddings.
+The results of applying visual inference procedures to classification problems on HDLSS data suggest that visual inference may be effective for improving the understanding of the emptiness of space in this type of data. With visual inference we saw that people can visually detect real separation as different from noise up to a reasonably high dimension, for 1D and 2D projections. Visual inference provides a calibration for reading the separation. 
 
-There are several natural next steps for this research. One is to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. Another direction is to build metrics to quantify the difficulty of a lineup and the influence that null plots have on identifying the data plot. In a future study, the effect of short fixed time responses will be studied.
+We also learned from visual inference, although didn't discuss this in the paper, that the projection pursuit optimization procedure in \texttt{tourr} package is performing correctly. It is possible that visual inference might be used to calibrate results of similar algorithms, where the optimization is used to yield visual products, like multidimensional scaling, PCA, independent component analysis (ICA) *** reference and local linear embeddings *** reference.
+
+There are several natural next steps for this research. One is to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. Another direction is to build metrics to quantify the difficulty of a lineup and the influence that null plots have on identifying the data plot. It may be useful to incorporate the approaches into the statistics curriculum, particularly elementary statistics and applications areas such as gene expression analysis, to improve understanding of randomness. 
 
 
 
