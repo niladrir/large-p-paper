@@ -403,7 +403,7 @@ Each subject was shown a block of ten lineups. They were asked to identify the p
 
 %\subsection{Data cleaning}
 
-Each subject was given a very easy lineup (a lineup with $p = 10$ dimensions with some real separation) in the block of ten. Data from subjects who failed to give a correct response to this lineup are removed from the study. If their response to this lineup was correct, data for this lineup was removed but responses for the remaining nine were kept for analysis. *** This produced XXX lineups evaluated by XXX subjects for analysis.
+Each subject was given a very easy lineup (a lineup with $p = 10$ dimensions with some real separation) in the block of ten. Data from subjects who failed to give a correct response to this lineup are removed from the study. If their response to this lineup was correct, data for this lineup was removed but responses for the remaining nine were kept for analysis. This produced 66 lineups evaluated by 101 subjects for analysis.
 
 
 \section{Results} \label{sec:results}
@@ -415,7 +415,7 @@ We would expect that subjects detect the observed data plot more often when ther
 \begin{figure}[ht]
 %\begin{figurehere}
    \centering
-       \scalebox{0.6}{\includegraphics{suc-rate-rep-int-glm-rev.pdf}}
+       \scalebox{0.6}{\includegraphics{detection-rate-rep-int-glm-rev.pdf}}
 %        \scalebox{0.80}{\includegraphics{result-noise.pdf}}
       \caption{Detection rate by dimension, faceted by projection and separation. The three points represents the three replicates for each treatment level. A fixed effects logistic regression model is overlaid on the points. It can be seen that the detection rate decreases as $p$ increases for data with real separation. When the data is purely noise data, the detection rate is flat across dimensions. Detection rate does not change with projection.  Even with $p = 100$ subjects more often detected separation than would be expected by chance. }
        \label{suc-rate-glm}
@@ -488,10 +488,10 @@ We have learned that subjects tend to pick the plot in the lineup that exhibits 
 \begin{figure}[htbp]
 \centering
 \subfigure[Projection:1D]{
-\includegraphics[width=3in]{suc-diff-avg-sep-1.pdf}
+\includegraphics[width=3in]{detection-diff-avg-sep-1.pdf}
 }
 \subfigure[Projection:2D]{
-\includegraphics[width=3in]{suc-diff-avg-sep-2.pdf}
+\includegraphics[width=3in]{detection-diff-avg-sep-2.pdf}
 }
 \subfigure[Projection:1D]{
 \includegraphics[width=3in]{mtime-diff-avg-sep-1.pdf}
@@ -507,7 +507,7 @@ We have learned that subjects tend to pick the plot in the lineup that exhibits 
 
 The results of applying visual inference procedures to classification problems on HDLSS data suggest that visual inference may be effective for improving the understanding of the emptiness of space in this type of data. With visual inference we saw that people can visually detect real separation as different from noise up to a reasonably high dimension, for 1D and 2D projections. Visual inference provides a calibration for reading the separation. 
 
-We also learned from visual inference, although didn't discuss this in the paper, that the projection pursuit optimization procedure in \texttt{tourr} package is performing correctly. It is possible that visual inference might be used to calibrate results of similar algorithms, where the optimization is used to yield visual products, like multidimensional scaling, PCA, independent component analysis (ICA) *** reference and local linear embeddings *** reference.
+We also learned from visual inference, although didn't discuss this in the paper, that the projection pursuit optimization procedure in \texttt{tourr} package is performing correctly. It is possible that visual inference might be used to calibrate results of similar algorithms, where the optimization is used to yield visual products, like multidimensional scaling, PCA, independent component analysis (ICA) (\cite{comon:1994}) and local linear embeddings (\cite{roweis:2000}).
 
 There are several natural next steps for this research. One is to examine the possibility of using visual inference to obtain confidence bands for the value of $p$, where separation is certain, for fixed sample size and dimension, particularly if a component of real separation is included. Another direction is to build metrics to quantify the difficulty of a lineup and the influence that null plots have on identifying the data plot. It may be useful to incorporate the approaches into the statistics curriculum, particularly elementary statistics and applications areas such as gene expression analysis, to improve understanding of randomness. 
 
