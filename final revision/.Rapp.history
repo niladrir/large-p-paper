@@ -1,0 +1,1204 @@
+tables$table2
+ls(tables$table2)
+ls(tables$table2$V1)
+ls(tables$table2[[1]])
+tables$table2[[1]]
+tables$table2[[1]][5:10]
+as.data.frame(tables$table2[[1]])
+as.data.frame(tables$table2[[1]])[17, ]
+url <- "http://www.iplocation.net/"#
+tables <- readHTMLTable(url)
+ls(tables)
+tables
+url <- "http://whatismyipaddress.com/ip/129.186.252.185"
+readHTMLTable(url)
+url <- "http://whatismyipaddress.com/ip/"#
+readHTMLTable(url)
+tables <- readHTMLTable(url)
+ls(tables)
+tables[[2]]
+url <- "http://whatismyipaddress.com/ip/129.186.252.185"#
+tables <- readHTMLTable(url)
+url <- "whatismyipaddress.com/ip/129.186.252.185"#
+tables <- readHTMLTable(url)
+url <- "http://whatismyipaddress.com/ip/129.186.252.185"
+tables <- readHTMLTable(url)
+url <- "http://whatismyipaddress.com/ip-lookup"#
+tables <- readHTMLTable(url)
+tables
+url <- "http://whatismyipaddress.com/ip-180.215.2.232"#
+tables <- readHTMLTable(url)
+url <- "http://whatismyipaddress.com/ip/180.215.2.232"
+tables <- readHTMLTable(url)
+url <- "http://whatismyipaddress.com/ip-lookup"#
+tables <- readHTMLTable(url)
+tables
+url <- "http://www.whereisip.net/index.php"#
+tables <- readHTMLTable(url)
+head(tables)
+ls(tables)
+tables
+url <- "http://www.ip-adress.com/whois/129.186.252.185"#
+tables <- readHTMLTable(url)
+tables
+url <- "http://www.ipgetinfo.com/?mode=ip&lang=en&ip=129.186.252.185"#
+tables <- readHTMLTable(url)
+tables
+ls(tables)
+tables$IPsummary
+url <- "http://www.ipgetinfo.com/index.php?lang=en"#
+tables <- readHTMLTable(url)
+tables
+IPtoXY <- function(x) {#
+   URL_IP <- paste("http://www.datasciencetoolkit.org//ip2coordinates/",#
+                   x, sep = "")#
+#
+   api_return <- readLines(URL_IP, warn = F)#
+   lon1 <- api_return[grep("longitude", api_return)]#
+   lon <- gsub("[^[:digit:].]", "", lon1)#
+   lat1 <- api_return[grep("latitude", api_return)]#
+   lat <- gsub("[^[:digit:].]", "", lat1)#
+   return(paste(lat, lon, sep = ";"))#
+}
+IPtoXY(ip)
+IPtoXY(ip[1])
+iplocation <- function(ip=""){#
+  response    <- readLines(paste("http://www.datasciencetoolkit.org//ip2coordinates/",ip,sep=""))#
+  success     <- !any(grepl("null",response))#
+#
+  ip <- grep("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",response,value=T)#
+    match <- regexpr("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",ip)#
+    ip <- substr(ip,match,as.integer(attributes(match)[1])+match-1)#
+  if(success==T){#
+    extract <- function(label,response){#
+            text <- grep(label,response,value=T)#
+            match <- regexpr(paste('"',label,'"',": ",sep=""),text)#
+            text <- substr(text,match+as.integer(attributes(match)[1]),nchar(text))#
+            if(grepl("[[:digit:]]",text)){#
+                    text <- substr(text,1,nchar(text)-2)#
+            }else{#
+                    text <- substr(text,2,nchar(text)-2)#
+                }#
+            if( regexpr('"',text)!= -1){#
+                text<-substr(text,2,nchar(text))#
+            }#
+            print(text)#
+            text#
+        }#
+  }#
+  RESULT <- list()#
+  RESULT$success     <- success#
+  RESULT$ip          <- ip#
+  if(success==T){#
+    RESULT$latitude    <- as.numeric(extract("latitude",response))#
+    RESULT$longitude   <- as.numeric(extract("longitude",response))#
+    RESULT$country     <- extract("country_name",response)#
+    RESULT$locality    <- extract("locality",response)#
+    RESULT$postalcode  <- extract("postal_code",response)#
+    RESULT$region      <- extract("region",response)#
+    RESULT$countrycode <- extract("country_code3",response)#
+  }#
+  RESULT#
+}
+iplocation(ip[1])
+ip[1]
+response    <- readLines(paste("http://www.datasciencetoolkit.org//ip2coordinates/",ip[1],sep=""))
+success     <- !any(grepl("null",response))
+success
+response
+iplocation
+iplocation()
+iplocation(1)
+iplocation(2)
+iplocation(ip[2])
+iplocation(ip[3])
+iplocation(ip[1])
+dat <- read.csv(file.choose())
+head(dat)
+ip <- dat$ip_address
+head(ip)
+IP.Dat <- NULL#
+for (i in ip){#
+	Res <- iplocation(i)#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+i <- ip[1]
+Res <- iplocation(i)
+Res
+IP.Dat <- NULL#
+for (i in ip){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+length(ip)
+i <- ip[2]
+Res <- iplocation(i)
+i <- ip[157]
+Res <- iplocation(i)
+iplocation(i)
+IP.Dat <- NULL#
+for (i in ip){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat <- NULL#
+for (i in unique(ip)){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+ip
+unique(id)
+unique(ip)
+unique(ip)[-16]
+IP.Dat <- NULL#
+for (i in unique(ip)[-16]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,32)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,33)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- susbet(IP.Dat, !is.na(Country))
+IP.Dat <- subset(IP.Dat, !is.na(Country))
+IP.Dat
+library(maps)
+install.apckages(maps)
+install.packages(maps)
+install.packages("maps")
+library(maps)
+help(package = "maps")
+map('world', fill = TRUE, col = 1:10)
+map("world", "China")
+map.cities(country = "China", capitals = 2)
+map("state", "New Jersey")
+map("state", interior = FALSE)
+map('usa')
+map('county', 'new jersey')
+map('state', region = c('new york', 'new jersey', 'penn'))
+ct <- readShapeSpatial("housect_37800_0000_2010_s100_census_1_shp/wgs84/housect_37800_0000_2010_s100_census_1_shp_wgs84.shp")#
+#
+ct_mod <- fortify(ct,region="SLDLST10")#
+# chart <- ggplot(data=ct_mod,aes(long,lat,group=group)) # the group is the issue, should not be used here as the hosp.list will also be looked for group, which does not exist#
+chart <- ggplot(data=ct_mod,aes(long,lat))#
+chart <- chart + scale_x_continuous(limits=c(-73.8,-71.7),breaks=seq(-74,-71,0.1))#
+chart <- chart + scale_y_continuous(limits=c(40.9,42.1),breaks=seq(40,43,0.1))#
+# chart <- chart + geom_polygon(fill="grey80")#
+chart <- chart + geom_polygon(fill="grey80",aes(group=group)) # add group here#
+# chart <- chart + geom_path(color="white")#
+chart <- chart + geom_path(color="white",aes(group=group)) # add group here#
+chart1 <- chart + geom_point(data=hosp.list,aes(x=coord_x,y=coord_y))
+data(world.cities)
+world.cities
+head(world.cities)
+map(world.cities)
+?map
+data(ozone)#
+map("state", xlim = range(ozone$x), ylim = range(ozone$y))#
+text(ozone$x, ozone$y, ozone$median)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))
+Create example data#
+geo_data <- data.frame(long=c(20,20,100,100,20,20,100,100),#
+                       lat=c(0,0,0,0,0,0,0,0),#
+                       value=c(10,30,40,50,20,20,100,100),#
+                       Facet=rep(c("Facet_1", "Facet_2"), 4),#
+                       colour=rep(c("colour_1", "colour_2"), each=4))#
+#
+#Creat an example plot#
+map_with_jitter <- base_world+geom_point(data=geo_data,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=colour,#
+                                                size=value),#
+                                         position="jitter",#
+                                         alpha=I(0.5))#
+#
+#Add faceting#
+map_with_jitter <- map_with_jitter + facet_wrap(~Facet)#
+#
+map_with_jitter <- map_with_jitter + theme(legend.position="none")#
+#
+print(map_with_jitter)
+base_world
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#Create example data#
+#geo_data <- data.frame(long=c(20,20,100,100,20,20,100,100),#
+#                       lat=c(0,0,0,0,0,0,0,0),#
+#                       value=c(10,30,40,50,20,20,100,100),#
+#                       Facet=rep(c("Facet_1", "Facet_2"), 4),#
+#                       colour=rep(c("colour_1", "colour_2"), each=4))#
+#
+#Creat an example plot#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour="red"),#
+                                         position="jitter",#
+                                         alpha=I(0.5))#
+#
+#Add faceting#
+#map_with_jitter <- map_with_jitter + facet_wrap(~Facet)#
+#
+map_with_jitter <- map_with_jitter + theme(legend.position="none")#
+#
+print(map_with_jitter)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#Create example data#
+#geo_data <- data.frame(long=c(20,20,100,100,20,20,100,100),#
+#                       lat=c(0,0,0,0,0,0,0,0),#
+#                       value=c(10,30,40,50,20,20,100,100),#
+#                       Facet=rep(c("Facet_1", "Facet_2"), 4),#
+#                       colour=rep(c("colour_1", "colour_2"), each=4))#
+#
+#Creat an example plot#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour="red"),#
+                                         position="jitter",#
+                                         alpha=I(0.8))#
+#
+#Add faceting#
+#map_with_jitter <- map_with_jitter + facet_wrap(~Facet)#
+#
+map_with_jitter <- map_with_jitter + theme(legend.position="none")#
+#
+print(map_with_jitter)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour="blue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8))#
+print(map_with_jitter)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=I("blue")),#
+                                         position="jitter",#
+                                         alpha=I(0.8))#
+print(map_with_jitter)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=I("blue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8))#
+print(map_with_jitter)
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=I("blue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8))#
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=I("blue")),#
+                                         position="jitter",#
+                                         alpha=I(0.8))
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour=I("blue")),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour= "red"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat,#
+                                                colour= "green"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("red")#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("red"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("blue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group), col = I("white"))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group), fill = I("white"))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group), fill = I("white"), col = I("black"))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter",#
+                                         alpha=I(0.8)) + theme(legend.position = "none")#
+map_with_jitter
+map_with_jitter + theme_bw()
+map_with_jitter + theme_bw() + xlab("") + ylab("")
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter") + theme(legend.position = "none")#
+map_with_jitter + theme_bw() + xlab("") + ylab("")
+iplocation(iplocation <- function(ip=""){#
+  response    <- readLines(paste("http://www.datasciencetoolkit.org//ip2coordinates/",ip,sep=""))#
+  success     <- !any(grepl("null",response))#
+#
+  ip <- grep("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",response,value=T)#
+    match <- regexpr("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",ip)#
+    ip <- substr(ip,match,as.integer(attributes(match)[1])+match-1)#
+  if(success==T){#
+    extract <- function(label,response){#
+            text <- grep(label,response,value=T)#
+            match <- regexpr(paste('"',label,'"',": ",sep=""),text)#
+            text <- substr(text,match+as.integer(attributes(match)[1]),nchar(text))#
+            if(grepl("[[:digit:]]",text)){#
+                    text <- substr(text,1,nchar(text)-2)#
+            }else{#
+                    text <- substr(text,2,nchar(text)-2)#
+                }#
+            if( regexpr('"',text)!= -1){#
+                text<-substr(text,2,nchar(text))#
+            }#
+            print(text)#
+            text#
+        }#
+  }#
+  RESULT <- list()#
+  RESULT$success     <- success#
+  RESULT$ip          <- ip#
+  if(success==T){#
+    RESULT$latitude    <- as.numeric(extract("latitude",response))#
+    RESULT$longitude   <- as.numeric(extract("longitude",response))#
+    RESULT$country     <- extract("country_name",response)#
+    RESULT$locality    <- extract("locality",response)#
+    RESULT$postalcode  <- extract("postal_code",response)#
+    RESULT$region      <- extract("region",response)#
+    RESULT$countrycode <- extract("country_code3",response)#
+  }#
+  RESULT#
+}#
+#
+iplocation()#
+#
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,33)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}#
+#
+IP.Dat <- subset(IP.Dat, !is.na(Country))#
+#
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter") + theme(legend.position = "none")#
+map_with_jitter + theme_bw() + xlab("") + ylab("")
+ip <- read.csv(file.choose)$ip_address
+ip <- read.csv(file.choose())$ip_address
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,33)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-19]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-18]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,87)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,86)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,88)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}#
+#
+IP.Dat <- subset(IP.Dat, !is.na(Country))
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,88)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,86)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,85:87)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,84)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,84, 86)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,84, 86, 87, 88)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(18,20,83, 84, 86, 87, 88)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+ip <- read.csv(file.choose())$ip_address#
+#
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,33)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}
+IP.Dat <- subset(IP.Dat, !is.na(Country))#
+#
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter") + theme(legend.position = "none")#
+map_with_jitter + theme_bw() + xlab("") + ylab("")
+qplot(Country, data = IP.Dat)
+IP.Dat$Countries <- ifelse(IP.Dat$Country == "India" |IP.Dat$Country == "United States", IP.Dat$Country, Others )
+IP.Dat$Countries <- ifelse(IP.Dat$Country == "India" |IP.Dat$Country == "United States", IP.Dat$Country, "Others" )
+head(IP.Dat)
+qplot(Countries, data = IP.Dat)
+qplot(Countries, data = IP.Dat, reorder(Countries))
+?reorder
+qplot(Countries, data = IP.Dat, reorder(Countries, count, max))
+qplot(Countries, data = IP.Dat, reorder(Countries, max))
+Countries
+qplot(Countries, data = IP.Dat, reorder(Countries, freq, max))
+reorder(Countries, freq, max)
+with(IP.Dat, reorder(Countries, freq, max))
+qplot(reorder(Countries, Countries, length), data = IP.Dat)
+qplot(reorder(Countries, Countries, -length), data = IP.Dat)
+qplot(reorder(Countries, Countries,function(x) -length(x)), data = IP.Dat)
+qplot(reorder(Countries, Countries,function(x) -length(x)), data = IP.Dat) + coord_flip()
+qplot(reorder(Countries, Countries,function(x)length(x)), data = IP.Dat) + coord_flip()
+qplot(reorder(Countries, Countries,length), data = IP.Dat) + coord_flip()
+qplot(reorder(Countries, Countries,length), data = IP.Dat) + coord_flip() + xlab("Countries")
+qplot(reorder(Countries, Countries,length), data = IP.Dat, fill = I("skyblue")) + coord_flip() + xlab("Countries")
+qplot(reorder(Countries, Countries,length), data = IP.Dat) + coord_flip() + xlab("Countries")
+install.packages("rggobi")
+?install.packages
+install.packages("rggobi", type = "source")
+install.packages("mlbench")
+(mlbench)library
+library(mlbench)
+head(BostonHousing)
+data(BostonHousing)
+head(data(BostonHousing))
+head(BostonHousing)
+plot(BostonHousing$nox, BostonHousing$medv)
+library(ggplot2)
+qplot(nox, medv, data = BostonHousing)
+qplot(nox, medv, data = BostonHousing) + geom_smooth(se = FALSE)
+NOX <- NULL
+NOX <- NULL#
+#
+for(i in 1:30){#
+	nox1 <- sample(BostonHousing$nox, length(BostonHousing$nox), replace = TRUE)#
+	NOX[,i] <- nox1#
+}
+length(BostonHousing$nox)
+NOX <- NULL#
+#
+for(i in 1:30){#
+	nox1 <- sample(BostonHousing$nox, length(BostonHousing$nox), replace = TRUE)#
+	NOX <- cbind(NOX, nox1)#
+}
+head(NOX)
+NOX <- NULL#
+#
+for(i in 1:30){#
+	nox1 <- sample(BostonHousing$nox, length(BostonHousing$nox), replace = TRUE)#
+	Nox <- data.frame(nox = nox1, medv = BostonHousing$medv, sample = i)#
+	NOX <- rbind(NOX, Nox)#
+}
+head(NOX)
+ggplot() + geom_smooth(BostonHousing, aes(x = nox, y = medv))
+ggplot() + geom_point(BostonHousing, aes(x = nox, y = medv))
+ggplot2() + geom_point(BostonHousing, aes(x = nox, y = medv))
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv))
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.6))
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.6), se = FALSE)
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.6), se = FALSE)
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.1), se = FALSE)
+ggplot() + geom_point(data = BostonHousing, aes(x = nox, y = medv)) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample, col = I("red"), alpha = I(0.1)), se = FALSE)
+ggplot() + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.1), se = FALSE)
+NOX <- NULL#
+#
+for(i in 1:30){#
+	ind <- sample(1:length(BostonHousing$nox), length(BostonHousing$nox), replace = TRUE)#
+	Nox <- data.frame(nox = BostonHousing$nox[ind], medv = BostonHousing$medv[ind], sample = i)#
+	NOX <- rbind(NOX, Nox)#
+}#
+#
+ggplot() + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F) + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.1), se = FALSE)
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.1), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F)
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("red"), alpha = I(0.1), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F, size = I(1.2))
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("black"), alpha = I(0.1), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F, size = I(1.2), col = I("skyblue"))
+NOX <- NULL#
+#
+for(i in 1:300){#
+	ind <- sample(1:length(BostonHousing$nox), length(BostonHousing$nox), replace = TRUE)#
+	Nox <- data.frame(nox = BostonHousing$nox[ind], medv = BostonHousing$medv[ind], sample = i)#
+	NOX <- rbind(NOX, Nox)#
+}#
+#
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("black"), alpha = I(0.1), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F, size = I(1.2), col = I("skyblue"))
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample, alpha = I(0.1)), col = I("black"), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F, size = I(1.2), col = I("skyblue"))
+ggplot() + geom_smooth(data = NOX, aes(x = nox, y = medv, group = sample), col = I("black"), alpha = I(0.1), se = FALSE) + geom_smooth(data = BostonHousing, aes(x = nox, y = medv), se = F, size = I(1.2), col = I("skyblue"))
+iplocation(iplocation <- function(ip=""){#
+  response    <- readLines(paste("http://www.datasciencetoolkit.org//ip2coordinates/",ip,sep=""))#
+  success     <- !any(grepl("null",response))#
+#
+  ip <- grep("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",response,value=T)#
+    match <- regexpr("[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*\\.[[:digit:]]*",ip)#
+    ip <- substr(ip,match,as.integer(attributes(match)[1])+match-1)#
+  if(success==T){#
+    extract <- function(label,response){#
+            text <- grep(label,response,value=T)#
+            match <- regexpr(paste('"',label,'"',": ",sep=""),text)#
+            text <- substr(text,match+as.integer(attributes(match)[1]),nchar(text))#
+            if(grepl("[[:digit:]]",text)){#
+                    text <- substr(text,1,nchar(text)-2)#
+            }else{#
+                    text <- substr(text,2,nchar(text)-2)#
+                }#
+            if( regexpr('"',text)!= -1){#
+                text<-substr(text,2,nchar(text))#
+            }#
+            print(text)#
+            text#
+        }#
+  }#
+  RESULT <- list()#
+  RESULT$success     <- success#
+  RESULT$ip          <- ip#
+  if(success==T){#
+    RESULT$latitude    <- as.numeric(extract("latitude",response))#
+    RESULT$longitude   <- as.numeric(extract("longitude",response))#
+    RESULT$country     <- extract("country_name",response)#
+    RESULT$locality    <- extract("locality",response)#
+    RESULT$postalcode  <- extract("postal_code",response)#
+    RESULT$region      <- extract("region",response)#
+    RESULT$countrycode <- extract("country_code3",response)#
+  }#
+  RESULT#
+}#
+#
+ip <- read.csv(file.choose())$ip_address ##raw_turk_7.csv#
+#
+IP.Dat <- NULL#
+for (i in unique(ip)[-c(16,33)]){#
+	Res <- iplocation(i)#
+	if(Res$success == F){#
+		Res$latitude = NA#
+		Res$longitude = NA#
+		Res$country = NA#
+	}#
+	IP.dat <- data.frame(i = i, lat = Res$latitude, long = Res$longitude, IP = Res$ip, Country = Res$country )#
+	IP.Dat <- rbind(IP.Dat, IP.dat)#
+}#
+#
+IP.Dat <- subset(IP.Dat, !is.na(Country))#
+#
+require(ggplot2)#
+require(maps)#
+#
+#Get world map info#
+world_map <- map_data("world")#
+#
+#Creat a base plot#
+p <- ggplot() + coord_fixed()#
+#
+#Add map to base plot#
+base_world <- p + geom_polygon(data=world_map,#
+                               aes(x=long,#
+                                   y=lat,#
+                                   group=group))#
+#
+map_with_jitter <- base_world+geom_point(data=IP.Dat,#
+                                            aes(x=long,#
+                                                y=lat),#
+                                                col = I("skyblue"),#
+                                         position="jitter") + theme(legend.position = "none")#
+map_with_jitter + theme_bw() + xlab("") + ylab("")
+(14*0.01 + 11*0.02)/(15 + 12 - 2)
+sqrt(0.0144)
+(5.015 - 4.998)/(0.12*sqrt(1/15 + 1/12))
+(5.015 - 4.998)/(0.12*sqrt(1/15 + 2/12))
+72.124794 - 1.289*2.868345
+72.124794 + 1.289*2.868345
+(4118.349 - 3923.85)/(151-149)/(3923.85/149)
+setwd("/Users/Niladri/Documents/Research/Large p, small n/turk data analysis")#
+#
+####===================================================================#
+# Data Analysis#
+###====================================================================#
+#
+###Loading package#
+#
+library(ggplot2)#
+library(lubridate)#
+library(productplots)#
+library(reshape)#
+#
+###Reading the data#
+#
+raw_turk7<-read.csv("raw_data_turk7.csv")#
+raw_turk7 <- read.csv(file.choose())#
+#
+meas <- read.csv("measures.csv")#
+#
+###Cleaning the data#
+#
+raw_turk7$diff <- as.POSIXct(raw_turk7$start_time) - min(as.POSIXct(raw_turk7$start_time))#
+#
+raw_turk7 <- subset(raw_turk7, diff >= (as.POSIXct("2012-06-17 09:50:41") - min(as.POSIXct(start_time))))#
+#
+dat <- ddply(raw_turk7, .(id,difficulty), summarise, tot.attempt = length(response), s = sum(response))#
+#
+got.test.id <-  dat$id[dat$difficulty == 0]#
+#
+dat1 <- subset(dat, id %in% got.test.id)#
+#
+id.diff0.s0 <- unique(dat1$id)[dat1$s[dat1$difficulty == 0] != 0]#
+#
+dat2 <- subset(dat1, id %in% id.diff0.s0)#
+#
+turk7_dup <- subset(raw_turk7, id %in% dat2$id)#
+#
+turk7_dup$sort_pic_id <- ddply(turk7_dup, .(id), summarise, sort_pic_id = pic_id[order(start_time)])$sort_pic_id#
+#
+turk7_dup$dif <- c(30, diff(turk7_dup$sort_pic_id))#
+#
+turk7 <- subset(turk7_dup, dif != 0 )#
+#
+###Changing the sample size of the real data to 50#
+#
+turk7$sample_size[turk7$difficulty == 5] <-50#
+#
+### Adding a variable called param_id#
+#
+turk7$param_id <- paste(turk7$sample_size,"_",turk7$param_value, sep="")#
+#
+### Breaking the parameter ID into respective columns#
+#
+m <- as.data.frame(matrix(unlist(strsplit(turk7$param_id, "\\_")), ncol = 4, byrow = T))[,2:4]#
+#
+names(m) <- c("dimension", "noise", "projection")#
+#
+turk7 <- data.frame(turk7, m )#
+#
+split.pic_name <- strsplit(as.character(turk7$pic_name),"\\_")#
+#
+rep <- ldply( 1:length(split.pic_name), function(k){#
+ 	if (split.pic_name[[k]][2] == "large") s = strsplit( split.pic_name[[k]][10],"\\.")[[1]][1]#
+ 	else s <- strsplit(split.pic_name[[k]][7],"\\.")[[1]][1]#
+ 	data.frame(k=k, S = s) 	#
+ })#
+#
+turk7$replication <- rep$S#
+#
+turk7$dimension <- factor(turk7$dimension, levels = c("10" , "20", "40", "60", "80", "100"))#
+#
+id_perf <- ddply(turk7,.(id),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )#
+#
+id_10 <- id_perf$id[id_perf$tot.attempt > 8]#
+#
+turk7 <- subset(turk7, id %in% id_10)
+head(turk7)
+ddply(turk7, .(pic_name), summarize, d = sum(response))
+ddply(turk7, .(pic_name), summarize, d = length(response))
+ddply(subset(turk7, dimension != 10), .(pic_name), summarize, d = length(response))
+ddply(subset(turk7, dimension != 10), .(id), summarize, d = length(response))
+pic_perf <- ddply(subset(turk7, dimension !=10 & sample_size != 50),.(pic_name, dimension, noise, projection, replication),summarise,suc=sum(response), tot.attempt = length(response), suc.rate = sum(response)/length(response) )#
+#
+pic_perf$dimension <- as.numeric(as.character(pic_perf$dimension))#
+#
+pic_perf$dim_rep <- paste(pic_perf$dimension,"_",pic_perf$replication, sep = "")#
+#
+pic_perf$dim_rep <- as.factor(pic_perf$dim_rep)#
+#
+levels(pic_perf$dim_rep) <- levels(pic_perf$dim_rep)[c(4,5,6,7,8,9,10,11,12,13,14,15,1,2,3)]#
+#
+levels(pic_perf$noise) <- c("Separation:Yes","Separation:No")#
+levels(pic_perf$projection) <- c("Projection:1D","Projection:2D")#
+#
+qplot(dimension, suc.rate, data = pic_perf, size = I(4), alpha = I(0.3)) + facet_grid(noise ~ projection) +  ylab("Proportion of successful evaluation") + xlab("Dimension") + scale_x_continuous(limits = c(15, 105), breaks = c(20, 40, 60, 80, 100)) + scale_y_continuous(limits = c(-0.05, 1.05), breaks = c(0, .25, .5, .75, 1))#
+dat <- subset(turk7, dimension != 10 & sample_size != 50)#
+#
+dat$res <- 0#
+1 -> dat$res[dat$response == "TRUE"]#
+#
+dat$dimension <- as.numeric(as.character(dat$dimension))#
+fit.power <- glm(response ~ dimension+ noise + projection + noise:dimension, family=binomial,data=dat)#
+res <- summary(fit.power)#
+#str(res)#
+res$coef#
+#
+dimension <- rep(seq(20,100, by=1),each=4)#
+noise <- factor(rep(rep(c(0,1),each=2),length(dimension)))#
+projection <- factor(rep(rep(c(1,2),2),length(dimension)))#
+newdat <- data.frame(dimension,noise,projection)#
+power <- predict(fit.power, newdata = newdat, type="response", se.fit = TRUE)#
+pow.dat <- data.frame(dimension = dimension#
+                    , empirical=power$fit#
+                    , noise = noise, projection = projection)#
+pow.dat.m <- melt(pow.dat, id=c("dimension","noise","projection"))#
+head(pow.dat.m)#
+colnames(pow.dat.m) <- c("dimension","noise","projection","Test","prob")#
+#
+levels(pow.dat.m$noise) <- c("Separation:Yes", "Separation:No")#
+#
+levels(pow.dat.m$projection) <- c("Projection:1D", "Projection:2D")#
+#
+qplot(dimension, prob, geom="line", data=pow.dat.m) + facet_grid(noise ~ projection) + xlab("Dimension") + ylab("Probability")
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(4), alpha = I(0.3))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + #
+facet_grid(noise ~ projection) + xlab("Dimension (p)") + ylab("Proportion Correct") + scale_x_continuous(limits = c(15, 105), breaks = c(20, 40, 60, 80, 100)) + scale_y_continuous(limits = c(-0.05, 1.05), breaks = c(0, .25, .5, .75, 1))
+ggplot() + geom_point(data = pic_perf, aes(x = dimension, y = suc.rate),  size = I(4), alpha = I(0.3))  +  geom_line(data=pow.dat.m, aes(x = dimension, y = prob), size = I(1.2), alpha = I(0.7)) + #
+facet_grid(noise ~ projection) + xlab("Dimension (p)") + ylab("Detection Rate") + scale_x_continuous(limits = c(15, 105), breaks = c(20, 40, 60, 80, 100)) + scale_y_continuous(limits = c(-0.05, 1.05), breaks = c(0, .25, .5, .75, 1))
+ggsave("detection-rate-rep-int-glm-rev.pdf", height = 7, width = 7)
+metrics <- read.table("avg-sep-metrics.txt", header = TRUE)#
+#
+dat <- merge(metrics, turk7, by= "pic_name")#
+#
+dat1 <- subset(dat, dimension != 10 & sample_size != 50 )#
+dat2 <- ddply(dat1, .(pic_name, dimension, noise, projection), summarise, as.loc = mean(avg.separation[.sample == plot_location]), as.max = max(avg.separation[.sample != plot_location]))#
+#
+dat2$ratio <- dat2$as.loc/dat2$as.max#
+#
+dat2$as.diff <- dat2$as.loc - dat2$as.max#
+res_ratio <- merge(dat1, dat2, by = "pic_name")#
+#
+turk7.pic.res <- ddply(subset(turk7, dimension != 10 & sample_size != 50 ), .(pic_name,dimension,noise, projection), summarise, tot.attempt = length(response), s = sum(response)/length(response))#
+#
+##No Smoother#
+#
+turk7.pic.res$ratio <- dat2$ratio#
+#
+turk7.pic.res$as.diff <- dat2$as.diff#
+#
+ggplot() + geom_point(aes(log(ratio), s), data = subset(turk7.pic.res, projection == 1) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Ratio on the log scale") + scale_y_continuous("Proportion Correct", limits = c(0,1))#
+#
+ggplot() + geom_point(aes(as.diff, s), data = subset(turk7.pic.res, projection == 1) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Difference") + scale_y_continuous("Proportion Correct") + xlim(c(-1.5, 1.5))
+ggplot() + geom_point(aes(as.diff, s), data = subset(turk7.pic.res, projection == 1) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Difference") + scale_y_continuous("Detection Rate") + xlim(c(-1.5, 1.5))
+ggplot() + geom_point(aes(as.diff, s), data = subset(turk7.pic.res, projection == 2) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Difference") + scale_y_continuous("Detection Rate") + xlim(c(-1.5, 1.5))
+ggplot() + geom_point(aes(as.diff, s), data = subset(turk7.pic.res, projection == 1) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Difference") + scale_y_continuous("Detection Rate") + xlim(c(-1.5, 1.5))#
+#
+ggsave("detection-diff-avg-sep-1.pdf", height = 4, width = 4.6) #
+#
+ggplot() + geom_point(aes(as.diff, s), data = subset(turk7.pic.res, projection == 2) , size = I(3)) + geom_vline(xintercept = 0) + xlab("Difference") + scale_y_continuous("Detection Rate") + xlim(c(-1.5, 1.5))#
+#
+ggsave("detection-diff-avg-sep-2.pdf", height = 4, width = 4.6)
