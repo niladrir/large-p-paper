@@ -1,6 +1,6 @@
 # large-p-paper
 
-This is the repo for the materials to build the paper
+This is the repo for the materials to build the paper, and reproduce the rresults reported in:
 
 Roy Chowdhury, N., Cook, D., Hofmann, H., Majumder, M., Lee, E.~K., Toth, A. (2015) 
 Understanding High Dimension, Small Sample Size Problems Using Visual Statistical Inference, 
